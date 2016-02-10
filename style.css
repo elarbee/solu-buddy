@@ -1,0 +1,38 @@
+div{
+	
+}
+#landing{
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	background:lightblue;
+}
+#single, #multiple, #calibration{
+	padding-top:225px;
+	float:left;	
+	width:32vw;
+	height:100%;
+}
+html, body, #choices {
+	height:100%;
+}
+h2{
+	font-family:sans-serif;
+	text-align:center;
+}
+#single:hover, #multiple:hover, #set:hover{
+	background:lightgrey;	
+}
+img{
+	display: block;
+	margin: auto;
+	margin-top: 150px;
+	width:150px;
+}
+
+/* Initially hide the liquid div.*/
+#liquidDiv{
+    display:none;
+}
