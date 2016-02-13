@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="SolutionPage.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <select id="pageSelect">
+        <option value="pureSolid">Pure Solid</option>
+        <option value="gravLiquid">Gravimetric Liquid</option>
+        <option value="volLiquid">Volumetric Liquid</option>
+    </select>
+<h2> Okay, you are adding a
+solute that is in the form of
+a pure solid. </h2>
+<h3> Fill in the fields below with the appropriate information </h3>
+<div id="divContainer">
+	<div class="inline-div">
+		<input type="text" placeholder="Solvent Chemical Identity"> <br>
+		<input type="text" placeholder="Solute Identity"><br>
+		<input type="text" placeholder="Solute Molecular Weight"><br>
+		<input id="totalVolume" type="text" placeholder="Solution Total Volume"><br>
+		<input type="text" placeholder="Solution Concentration"><br>
+	</div>
+
+	<div class="inline-div">
+		<img src="beaker.png" style="width:150px">
+        <br>
+		<button>Next</button>
+	</div>
+
+	<div class="inline-div">
+		<img src="scale.jpg" style="width:150px">
+        <br>
+        <button>SoluBuddy Home</button>
+	</div>
+
+	<div class="inline-div">
+		<img src="solid.jpg" style="width:150px">
+        <br>
+		<input id="massToAdd" type="text" placeholder="Mass of Solute to Add">
+        <br>
+		<button>How do I calculate this?</button>
+	</div>
+</div>
+
+</body>
+</html>
