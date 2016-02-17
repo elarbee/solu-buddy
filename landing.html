@@ -25,14 +25,14 @@
 			  <option value="conc">It is a concentrated stock solution (like conc. HCL or NaOH).</option>
 			  <option value="saved">It is in a solution that I created (and saved) previously. I will make the new solution by dilution.</option>
 			</select>
-            <input type="button" id="singleButton" value="Go">
+            <input type="button" id="singleButton" value="Go" onClick="window.location.href='single-solution/solution.html'">
             <div id="liquidDiv">
                 <p>What information do you know about this liquid substance, and hence how will you transfer a portion of it into the solution?</p>
                 <select id="liquidSelect">
                   <option value="solid">I know the solute molecular mass, and I will do a gravimetric transfer.</option>
                   <option value="liquid">I know the solute molecular mass and density, and I will do a volumetric transfer.</option>
                 </select>
-                <input type="button" id="liquidButton" value="Go">
+                <input type="button" id="liquidButton" value="Go" onClick="window.location.href='single-solution/solution.html'">
             </div>
 		</div>
         
@@ -40,7 +40,7 @@
 		<div id="multiple">
 			<h2> I am preparing multiple solutions by serial dilution. </h2>
             <!-- Get rid of inline style here. -->
-            <input type="button" id="multipleButton" value="Go" style="margin-left: 250px;">
+            <input type="button" id="multipleButton" value="Go" style="margin-left: 250px;" onClick="window.location.href='serial-dilution/serial.html'">
 		</div>
         
         <!-- Option 3 -->
@@ -52,7 +52,7 @@
 			  <option value="liquid">Internal Standard Method</option>
 			  <option value="conc">Standard Addition Method</option>
 			</select>
-            <input type="button" id="calibrationButton" value="Go">
+            <input type="button" id="calibrationButton" value="Go" onClick="window.location.href='calibration-standards/calibration.html'">
 		</div>
 	</div>
 </body>

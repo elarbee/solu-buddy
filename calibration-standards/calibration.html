@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="calibrationPage.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<select id="pageSelect">
+    <option value="external">External Standards</option>
+    <option value="internal">Internal Standards</option>
+    <option value="addition">Standard Addition</option>
+</select>
+
+<!-- Solution Input page -->
+<div id="headerDiv">
+    <h2>Making Calibration Standards by External Standards Method</h2>
+</div>
+<div id="divContainer">
+    <!-- Table used for External Standards Method and Standard Addition Method --> 
+	<table id="externalTable">
+        <tr>
+            <td> <input type="text" placeholder="Solvent Chemical Identity"> </td>
+            <td> <input type="text" placeholder="Analyte Chemical Identity (i.e., Formula)"> </td>
+            <td> <input type="text" placeholder="Analyte Molecular Weight"> </td>
+
+        </tr>
+        <tr>
+            <td> <input type="text" placeholder="Name of Unknown"> </td>
+            <td> <input type="text" placeholder="Number of Calibration Standards"> </td>
+            <td> <input type="text" placeholder="Total volume of calibration standard flasks"> </td>
+
+        </tr>
+
+    </table>
+    
+    <!-- Table used for Internal Standards Method -->
+    <table id="internalTable">
+        <tr>
+            <td><input type="text" placeholder="Name of Unknown"></td>
+            <td><input type="text" placeholder="Analyte Molecular Weight"></td>
+            <td><input type="text" placeholder="Stock Solution of analyte"> </td>
+            <td><input type="text" placeholder="Stock Solution of Internal Standard"></td>
+            <td><input type="text" placeholder="Number of Calibration Standards"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="Solvent Chemical Identity"></td>
+            <td><input type="text" placeholder="Internal Standard Chemical Identity"></td>
+            <td><input type="text" placeholder="Make It Now!"></td>
+            <td><input type="text" placeholder="Make It Now!"></td>
+            <td><input type="text" placeholder="Volume of Calibration Standard Flasks"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="Analyte Chemical Identity"></td>
+            <td><input type="text" placeholder="Internal Standard Molecular Weight"></td>
+            <td><input type="text" placeholder="Use Saved Solution!"></td>
+            <td><input type="text" placeholder="Use Saved Solution !"></td>
+            <td></td>
+        </tr>
+    </table>
+    <td> <button id="nextButton">Next</button> </td>
+</div>
+
+<!-- This is the answer page -->
+<div id="answerDiv">
+        <div id="arrowContainer">
+            <img src="down-arrow.jpg">
+        </div>
+        <img src="answer.jpg">
+</div>
+
+</body>
+</html>
+
+
+<!--
+
+		<input type="text" placeholder="Solvent Chemical Identity"> <br>
+		<input type="text" placeholder="Solute Identity"><br>
+		<input type="text" placeholder="Solute Molecular Weight"><br>
+		<input id="totalVolume" type="text" placeholder="Solution Total Volume"><br>
+		<input type="text" placeholder="Solution Concentration"><br>
+
+-->

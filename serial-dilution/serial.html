@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="SolutionPage.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    
+<!-- Solution Input page -->
+<div id="headerDiv">
+    <h2>Serial Dilution</h2>
+    <h3>Fill in the fields below to set up the dilution series</h3>
+</div>
+<div id="divContainer">
+	<table>
+        <tr>
+            <td></td>
+            <td><input type="text" placeholder="The Initial (stock) solution"></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td> <input type="text" placeholder="Solvent Chemical Identity"> </td>
+            <td> <input type="text" placeholder="Make it Now!"> </td>
+            <td> <input type="text" placeholder="Number of dilutions to prepare"> </td>
+            <td> <button id="nextButton">Next</button> </td>
+        </tr>
+        <tr>
+            <td> <input type="text" placeholder="Solute Chemical Identity (i.e., Formula)"> </td>
+            <td> <input type="text" placeholder="Use Saved Solution!"> </td>
+            <td> <input type="text" placeholder="Volume of flasks in which dilutions are prepared"> </td>
+            <td> <button id="nextButton" onClick="window.location.href='/solubuddy/landing.html'">SoluBuddy Home</button> </td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="Solute Molecular Weight"></td>
+            <td></td>
+            <td><input type="text" placeholder="Volume of solution transferred to next flask"></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<!-- This is the answer page -->
+<div id="answerDiv">
+        <div id="arrowContainer">
+            <img src="down-arrow.jpg">
+        </div>
+        <img src="answer.jpg">
+</div>
+
+</body>
+</html>
+
+
+<!--
+
+		<input type="text" placeholder="Solvent Chemical Identity"> <br>
+		<input type="text" placeholder="Solute Identity"><br>
+		<input type="text" placeholder="Solute Molecular Weight"><br>
+		<input id="totalVolume" type="text" placeholder="Solution Total Volume"><br>
+		<input type="text" placeholder="Solution Concentration"><br>
+
+-->

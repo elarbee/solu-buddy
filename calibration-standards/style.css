@@ -1,8 +1,3 @@
-.inline-div{
-	display:inline-block;
-    margin: 20px;
-}
-
 input{
     color:white;
     margin-top: 10px;
@@ -34,21 +29,13 @@ button{
     text-align: center;
     font-family: sans-serif;
 }
-h3{
-    background: -webkit-linear-gradient(white, #b9d5ed);
-    text-align: center;
-    font-family: sans-serif;
-    
-    width: 35em;
-    height: 30px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 /* This is a hack. Need to fix to fix this to really center */
 #divContainer{
-    position: absolute;
-    left: 25%;
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:     center;
 }
 
 #answerDiv{
@@ -58,6 +45,7 @@ h3{
     width:100%;
     height:100%;
     bottom: 0;
+    text-align: center;
 }
 
 .caption{
@@ -74,5 +62,9 @@ h3{
     height: 35px;
     width: 100px;
     margin-top: 10px;   
+}
+
+#internalTable{
+    display:none;
 }
 

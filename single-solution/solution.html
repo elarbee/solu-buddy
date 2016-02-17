@@ -11,10 +11,14 @@
         <option value="gravLiquid">Gravimetric Liquid</option>
         <option value="volLiquid">Volumetric Liquid</option>
     </select>
-<h2> Okay, you are adding a
-solute that is in the form of
-a pure solid. </h2>
-<h3> Fill in the fields below with the appropriate information </h3>
+    
+<!-- Solution Input page -->
+<div id="headerDiv">
+    <h2> Okay, you are adding a
+    solute that is in the form of
+    a pure solid. </h2>
+    <h3> Fill in the fields below with the appropriate information </h3>
+</div>
 <div id="divContainer">
 	<div class="inline-div">
 		<input type="text" placeholder="Solvent Chemical Identity"> <br>
@@ -27,13 +31,13 @@ a pure solid. </h2>
 	<div class="inline-div">
 		<img src="beaker.png" style="width:150px">
         <br>
-		<button>Next</button>
+		<button id="nextButton">Next</button>
 	</div>
 
 	<div class="inline-div">
 		<img src="scale.jpg" style="width:150px">
         <br>
-        <button>SoluBuddy Home</button>
+        <button onClick="window.location.href='/solubuddy/landing.html'">SoluBuddy Home</button>
 	</div>
 
 	<div class="inline-div">
@@ -43,6 +47,29 @@ a pure solid. </h2>
         <br>
 		<button>How do I calculate this?</button>
 	</div>
+</div>
+
+<!-- This is the answer page -->
+<div id="answerDiv">
+        <div id="arrowContainer">
+            <img src="down-arrow.jpg">
+        </div>
+        <div>
+            <div class="inline-div">
+                <h1> 1.00 M NaCl in Water</h1>
+                <h2>Prepared by adding 58.44 g NaCl to 1000 mL
+volumetric flask filled to mark with water.</h2>
+            </div>
+            <div class="inline-div">
+                <img src="beaker.png" style="width:150px">
+                <p class="caption">1.00 M <br>
+                    NaCl<br> in Water</p>
+                <p class="caption">1000 ml</p>
+            </div>
+        </div>
+        <div>
+            <button>Save this Solution for later.</button> <button>Print Out Details</button> <button>Back to Solubuddy Home</button>
+        </div>
 </div>
 
 </body>
