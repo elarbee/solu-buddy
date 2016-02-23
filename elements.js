@@ -1,4 +1,9 @@
 /**
+ * @author William Robert Howerton III
+ * Feb. 23, 2016
+ */
+
+/**
  * Just for testing, pay no attention to me!
  */
 function no_args_find_element(){
@@ -884,7 +889,7 @@ elements_array = {
     'Sg': Seaborgium,
     'Bh': Bohrium,
     'Hs': Hassium,
-    'Mt': Meitnerium,
+    'Mt': Meitnerium
 };
 
 /**
