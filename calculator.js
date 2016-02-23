@@ -60,7 +60,6 @@ function SingleSolution(concentration, solution_volume, molecular_weight) {
  *
  * var number_of_transfers = solution.number_of_transfers(.0002, 250, 50); // equal to 1
  *
- * @return {number} the concentration of the new solution in mol (moles).
  */
 function SerialDilution(original_concentration){
 	var self = {};
