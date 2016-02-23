@@ -58,6 +58,9 @@ function SingleSolution(concentration, solution_volume, molecular_weight) {
  * // The amount of volume that should be transferred one time to get a solution with .0002 mol using 250 mL beakers.
  * var volume_to_transfer = solution.volume_transfer(.0002, 250, 1); // equal to 50
  *
+ * // The size of the flask that should be used to get a .0002 mol concentration after transferring 50 mL one time.
+ * var flask_volume = solution.flask_volume(.0002, 50, 1); // equal to 250
+ *
  * var number_of_transfers = solution.number_of_transfers(.0002, 250, 50); // equal to 1
  *
  */
@@ -102,6 +105,18 @@ function SerialDilution(original_concentration){
 	 */
 	self.number_of_transfers = function calculate_number_transfers(new_concentration, volume_flask, volume_transferred){
 		return Math.log((new_concentration / original_concentration)) / Math.log((volume_transferred / volume_flask));
+	};
+
+	/**
+	 * Calculates the volume of the flasks that should be used in the serial dilution process.
+	 *
+	 * @param new_concentration - the desired concentration of the new solution.
+	 * @param volume_transferred - the amount of volume being transferred between the flasks.
+	 * @param number_of_transfers - the number of transfers that will take place.
+	 * @returns {number} - the volume of the flasks that should be used.
+	 */
+	self.flask_volume = function calculate_flask_volume(new_concentration, volume_transferred, number_of_transfers){
+		return volume_transferred / Math.pow((new_concentration / original_concentration), 1/number_of_transfers);
 	};
 
 	return self;
