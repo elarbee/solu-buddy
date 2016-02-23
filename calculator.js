@@ -88,7 +88,7 @@ function SerialDilution(original_concentration){
 	 * @param volume_flask - the volume of the flasks that the original solution shall be transferred into.
 	 * @param number_of_transfers - the number of times this transfer will happen, most likely the number of flasks
 	 *  available.
-	 * @returns {number} the amount of the solution to tranfer.
+	 * @returns {number} the amount of the solution to transfer.
 	 */
 	self.volume_transfer = function calculate_volume_transfer(new_concentration, volume_flask, number_of_transfers){
 		return Math.pow((new_concentration / original_concentration), 1/number_of_transfers) * volume_flask;
