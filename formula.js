@@ -8,12 +8,17 @@
  */
 function no_args_make_compound(){
     var input = prompt("Enter compound");
-    //var silver = find_element(input);
-   // document.write("Silver total weight: " + silver.atomic_weight + "<br />");
 
-    var component = Compound_Component(input, 5);
-    document.write("Compound total weight: " + component.component_atomic_weight() + "<br />");
 
+    var components = string_to_components(input);
+
+    for(var i = 0; i < components.length; i++){
+        document.write("Compounds contents " + i + ": " + components[i].element.name + "<br />");
+    }
+
+    var compound = Compound(components);
+
+    document.write("Compound weight: " + compound.total_atomic_weight());
 }
 
 /**
@@ -21,136 +26,81 @@ function no_args_make_compound(){
  * @param input String to parse
  * @constructor
  */
-function Compound(input){
+function Compound(components){
     var self = {};
-    self.components = string_to_compound(input);
 
+    self.components = components;
+
+    //print names of elements for debug purposes.
     for(var o = 0; o < components.length; o++){
-        document.write(components.element.name);
+        document.write("Component " + o + ": " + components[o].element.name + "<br />");
     }
+
     self.total_atomic_weight = function calculate_total_atomic_weight(){
         var sum;
         for(var i = 0; i < self.components.length; i++){
-            sum += self.components[i].component_atomic_weight();
+            sum += self.components[i].total_atomic_weight;
         }
     }
-
-
 }
 
+
 /**
- * Separates individual elements and their respective quantities from the compound string.
- * @param parameters String to parse (i.e. NaCl, H2O)
- * @returns returns a Compound "object".
+ * Splits a single formula input string into an array of "component" strings consisting of just the element
+ * followed by quantity.
+ *
+ *  Example uses:
+ *
+ *      //Get individual elements and their respective quantities from NaCl
+ *      var compounds = string_to_components('NaCl');
+ *
+ *
+ * @param input Formula string collected from user. (i.e. H2O or NaCl)
+ * @returns {Array|{index: number, input: Compound_Component()}} Array of compound components
  */
-function string_to_compound(parameters){
-    var input = parameters.input;
+function string_to_components(input){
+    //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
+    var segments = input.match(/[A-Z]{1}[a-z]?\d*/g);
+    var components = [];
 
-    var components;
+    for(var i = 0; i < segments.length; i++){
+        //obtain element using regex
+        var element = segments[i].match(/[A-Z]{1}[a-z]?/g)[0];
 
-    for(var i = 0; i < input.length; i++ ){
+        //default is 1
+        var quantity = 1;
 
-        //found start of compound
-        if(is_uppercase(input.charAt(i))){
-            //check next position to see if it's a number
-            if(is_numeric(input.charAt(i+1))){
-                //if true, entire symbol has been found including number
-                components.push(Compound_Component(input.charAt(i), input.charAt(i+1)));
-                document.write("Element found: " + input.charAt(i) + " quantity = " + input.charAt(i+1));
-            }else{
-                //not numeric, check if uppercase
-                if(is_uppercase(input.charAt(i+1))){
-                    //found next symbol with no quantity for last. create element from last piece with default
-                    // quantity 1 and continue
-                    components.push(Compound_Component(input.charAt(i), 1));
-                    i += 1; //set i to current position
-                    document.write("Element found: " + input.charAt(i) + " quantity = " + 1);
-                    continue;
-                }
-                else{
-                    //is lowercase, check next (i+2) for quantity
-                    if(is_numeric(input.charAt(i+2))){
-                        //next char was quantity, finish Upper-lower symbol with quantity
-                        components.push(Compound_Component(input.charAt(i) + input.charAt(i+1), input.charAt(i+2)));
-
-                        document.write("Element found: " + input.charAt(i)+input.charAt(i+1) + " quantity = " + input.charAt(i+2));
-
-                        i += 2; //update i
-                        continue;
-                    }else{
-                        if(is_uppercase(input.charAt(i+2))){
-                            //next element found, no quantity found. Use default quantity 1
-                            components.push(Compound_Component(input.charAt(i)+input.charAt(i+1), 1));
-
-                            document.write("Element found: " + input.charAt(i)+input.charAt(i+1) + " quantity = " + 1);
-
-                            i += 1; //set i to current position
-                            continue;
-                        }else{
-                            //found an upper-lower-lower combination, raise error
-                            alert("Error with symbol: " + input.charAt(i) + input.charAt(i+1) + input.charAt(i+2));
-                            continue;
-                        }
-                    }
-
-                }
-            }
+        //tests the string to see if it has a quantity associated with the element using
+        //  the regex.test(string) function. If there is a number, use as quantity. Else, defeault is 1.
+        if(/\d+$/.test(segments[i])){
+            quantity = segments[i].match(/\d+$/)[0];
         }
+
+        components.push(Compound_Component(element, quantity));
     }
 
     return components;
 }
 
-/**
- * Tests whether a char is numeric or not.
- * @param char Character to test
- * @returns {boolean} true if numeric, false otherwise
- */
-function is_numeric(char){
-    if (!isNaN(char * 1)){
-        return true;
-    }else{
-        return false;
-    }
-}
 
 /**
- * Tests whether a char is uppercase or not.
- * @param char Character to test.
- * @returns {boolean} True if uppercase, false if lowercase.
- */
-function is_uppercase(char){
-    if (!isNaN(char * 1)){
-        alert('character is numric');
-    }else{
-        if (char == char.toUpperCase()) {
-            return true;
-        }
-        if (char == char.toLowerCase()){
-            return false;
-        }
-    }
-}
-
-/**
- * Creates a compound component from a single element symbol and number of occurrences of the element in the compound.
+ * Creates a compound component from a single element symbol and quantity of the element in the compound.
  *
  *      ex. Water = H2O = {Compound_Component(H, 2), Compound_Component(O, 1)};
+ *
  * @param symbol Symbol of individual element.
- * @param occurrences How many of a particular element in the compound.
+ * @param qty How many of a particular element in the compound.
  * @constructor New compound component.
  */
-function Compound_Component(symbol, occurrences){
-    //if(!is_uppercase(symbol.charAt(0))){
-    //    alert("Symbol found without uppercase beginning letter.");
-    //}
+function Compound_Component(symbol, qty){
+
     var self = {};
     self.element = find_element(symbol);
-    self.occurences = occurrences;
-    self.component_atomic_weight = function calculate_atomic_weight() {
+    self.quantity = qty;
+    self.total_atomic_weight = (self.element.atomic_weight * self.quantity);
 
-        document.write(self.element.atomic_weight * self.occurences+"<br />");
-        return (self.element.atomic_weight * self.occurences);
-    }
+    document.writeln("Element: " + self.element.name + " Quantity: " + self.quantity + "<br />");
+    document.write("Total atomic weight: " + self.total_atomic_weight + "<br />");
+
 }
 
