@@ -9,11 +9,9 @@
 function no_args_make_compound(){
     var input = prompt("Enter compound");
 
-
     var components = string_to_components(input);
-
     for(var i = 0; i < components.length; i++){
-        document.write("Components " + i + ": " + components[i].element.name + "<br />");
+        document.write("Components[" + i + "]: " + components[i].element.name + "<br />");
     }
 
     var compound = Compound(components);
@@ -49,20 +47,12 @@ function Compound(components){
 
     self.components = components;
     self.compound_atomic_weight = 0;
-    //print names of elements for debug purposes.
 
-    for(var o = 0; o < components.length; o++){
-        document.write("Component " + o + ": " + components[o].element.name + "<br />");
-        self.compound_atomic_weight += components[o].component_atomic_weight;
+    for(var o = 0; o < self.components.length; o++){
+        self.compound_atomic_weight += self.components[o].get_component_atomic_weight();
     }
 
-    self.component_atomic_weight = function calculate_total_atomic_weight(){
-        var sum;
-        for(var i = 0; i < self.components.length; i++){
-            sum += self.components[i].component_atomic_weight;
-        }
-        return sum;
-    }
+    return self;
 }
 
 
@@ -98,7 +88,15 @@ function string_to_components(input){
             quantity = segments[i].match(/\d+$/)[0];
         }
 
-        components.push(Compound_Component(element, quantity));
+
+        var component = new Compound_Component(element, quantity);
+        components.push(component);
+    }
+
+    document.writeln("Components length: " + components.length + "<br />");
+
+    for(var i = 0; i < components.length; i++){
+        document.writeln("Component["+i+"]: " + components[i].get_component_atomic_weight() + "<br />");
     }
 
     return components;
@@ -119,10 +117,14 @@ function Compound_Component(symbol, qty){
     var self = {};
     self.element = find_element(symbol);
     self.quantity = qty;
-    self.component_atomic_weight = (self.element.atomic_weight * self.quantity);
+    self.get_component_atomic_weight = function(){
+        return (self.element.atomic_weight * self.quantity);
+    };
 
-    document.writeln("Element: " + self.element.name + " Quantity: " + self.quantity + "<br />");
-    document.write("Total atomic weight: " + self.component_atomic_weight + "<br />");
+    return self;
+}
 
+function test(){
+    document.write("check<br />");
 }
 
