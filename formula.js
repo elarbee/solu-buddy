@@ -13,34 +13,55 @@ function no_args_make_compound(){
     var components = string_to_components(input);
 
     for(var i = 0; i < components.length; i++){
-        document.write("Compounds contents " + i + ": " + components[i].element.name + "<br />");
+        document.write("Components " + i + ": " + components[i].element.name + "<br />");
     }
 
     var compound = Compound(components);
 
-    document.write("Compound weight: " + compound.total_atomic_weight());
+    document.write("Compound weight: " + compound.compound_atomic_weight);
 }
 
 /**
- * Stores a full chemical compound constructed from a single input string.
- * @param input String to parse
+ * Stores a full chemical compound constructed from an array of compound components. Array of compound components
+ * constructed using the string_to_components(string) function.
+ *
+ * Example use:
+ *
+ *          //create components
+ *          var components = string_to_components(input);
+ *          //create compound
+ *          var compound = Compound(components);
+ *
+ *
+ *          //using compound
+ *          var weight = compound.compound_atomic_weight;
+ *
+ *          //listing components
+ *          for(var i = 0; i < compound.components.length; i++){
+ *              document.write("Component["+i+"]: " + compound.components[i].name;
+ *          }
+ *
+ * @param components Array of components used to make the compound.
  * @constructor
  */
 function Compound(components){
     var self = {};
 
     self.components = components;
-
+    self.compound_atomic_weight = 0;
     //print names of elements for debug purposes.
+
     for(var o = 0; o < components.length; o++){
         document.write("Component " + o + ": " + components[o].element.name + "<br />");
+        self.compound_atomic_weight += components[o].component_atomic_weight;
     }
 
-    self.total_atomic_weight = function calculate_total_atomic_weight(){
+    self.component_atomic_weight = function calculate_total_atomic_weight(){
         var sum;
         for(var i = 0; i < self.components.length; i++){
-            sum += self.components[i].total_atomic_weight;
+            sum += self.components[i].component_atomic_weight;
         }
+        return sum;
     }
 }
 
@@ -52,8 +73,9 @@ function Compound(components){
  *  Example uses:
  *
  *      //Get individual elements and their respective quantities from NaCl
- *      var compounds = string_to_components('NaCl');
+ *      var components = string_to_components('NaCl');
  *
+ *      var table_salt_compound = Compound(components);
  *
  * @param input Formula string collected from user. (i.e. H2O or NaCl)
  * @returns {Array|{index: number, input: Compound_Component()}} Array of compound components
@@ -97,10 +119,10 @@ function Compound_Component(symbol, qty){
     var self = {};
     self.element = find_element(symbol);
     self.quantity = qty;
-    self.total_atomic_weight = (self.element.atomic_weight * self.quantity);
+    self.component_atomic_weight = (self.element.atomic_weight * self.quantity);
 
     document.writeln("Element: " + self.element.name + " Quantity: " + self.quantity + "<br />");
-    document.write("Total atomic weight: " + self.total_atomic_weight + "<br />");
+    document.write("Total atomic weight: " + self.component_atomic_weight + "<br />");
 
 }
 
