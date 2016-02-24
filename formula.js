@@ -60,7 +60,7 @@ function Compound(components, qty){
             "<br />Total Atomic Weight: " + self.compound_atomic_weight+"<br />" +
             "Compound Quantity: " + self.quantity + "<br />";
         for(var i = 0; i < self.components.length; i++){
-            desc = desc + "           Element["+i+"]: "+components[i].element.name + "|| Qty: " +
+            desc = desc + "Element["+i+"]: "+components[i].element.name + "|| Qty: " +
                 components[i].quantity + "<br />";
         }
         return desc;
@@ -69,7 +69,7 @@ function Compound(components, qty){
     self.get_formula = function(){
         var formula = (self.quantity == 1)? "" : self.quantity;
         for(var i = 0; i < self.components.length; i++){
-            formula += components[i].element.symbol
+            formula += components[i].element.symbol;
             formula += (components[i].quantity == 1)? "" : components[i].quantity;
         }
         return formula;
@@ -95,9 +95,11 @@ function Compound(components, qty){
  * @returns {Compound} Compound object
  */
 function string_to_compound(input){
+    if(!/\d*[A-Z]{1}[a-z]?\d*/.test(input)){
+        alert("Input: " + input + " is not valid! Please try again.");
+    }
     //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
-
-    //TODO: Add error checking to reject duplicate elements and also to alert user when the formula is invalid.
+    //TODO: Add error checking to reject duplicate elements
     var segments = input.match(/[A-Z]{1}[a-z]?\d*/g);
     var components = [];
     var compound_qty = 1;
