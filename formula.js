@@ -12,11 +12,12 @@ function no_args_make_compound(){
     var compound = string_to_compound(input);
 
     for(var i = 0; i < compound.components.length; i++){
-        document.write("Components[" + i + "]: " + compound.components[i].element.name + "<br />");
+        print(compound.components[i].element.name);
+        print(compound.components[i].get_description());
+
     }
 
-    document.write("Compound weight: " + compound.compound_atomic_weight + "<br />");
-    document.write("Compound quantity: " + compound.quantity + "<br />");
+    print(compound.get_description());
 }
 
 /**
@@ -54,6 +55,26 @@ function Compound(components, qty){
     }
     self.compound_atomic_weight *= self.quantity;
 
+    self.get_description = function(){
+        var desc = "<br />Compound Description<br />Formula: " + self.get_formula() +
+            "<br />Total Atomic Weight: " + self.compound_atomic_weight+"<br />" +
+            "Compound Quantity: " + self.quantity + "<br />";
+        for(var i = 0; i < self.components.length; i++){
+            desc = desc + "           Element["+i+"]: "+components[i].element.name + "|| Qty: " +
+                components[i].quantity + "<br />";
+        }
+        return desc;
+    };
+
+    self.get_formula = function(){
+        var formula = (self.quantity == 1)? "" : self.quantity;
+        for(var i = 0; i < self.components.length; i++){
+            formula += components[i].element.symbol
+            formula += (components[i].quantity == 1)? "" : components[i].quantity;
+        }
+        return formula;
+    }
+
     return self;
 }
 
@@ -75,6 +96,8 @@ function Compound(components, qty){
  */
 function string_to_compound(input){
     //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
+
+    //TODO: Add error checking to reject duplicate elements and also to alert user when the formula is invalid.
     var segments = input.match(/[A-Z]{1}[a-z]?\d*/g);
     var components = [];
     var compound_qty = 1;
@@ -84,18 +107,26 @@ function string_to_compound(input){
         compound_qty = input.match(/^\d+/)[0];
     }
 
+    /*
+        Populate components array with components created from the parsed string.
+     */
     for(var i = 0; i < segments.length; i++){
-        //obtain element using regex
-        var element = segments[i].match(/[A-Z]{1}[a-z]?/g)[0];
 
-        //default is 1
-        var quantity = 1;
+        //index 0 = element + quantity
+        //index 1 = element
+        //index 2 = quantity
+        var pieces = segments[i].match(/([A-Z]{1}[a-z]?)(\d*)/);
 
-        //tests the string to see if it has a quantity associated with the element using
-        //  the regex.test(string) function. If there is a number, use as quantity. Else, defeault is 1.
-        if(/\d+$/.test(segments[i])){
-            quantity = segments[i].match(/\d+$/)[0];
+        var element = pieces[1]; //get element symbol
+        var quantity = 1; //default qty is 1
+
+        //checks second position to see if the element had a quantity associated with it. If it did,
+        //  quantity is updated to that value. Otherwise, quantity is 1 by default.
+        if(pieces[2].length > 0){
+            quantity = pieces[2];
         }
+
+        print("element: " + element + " qty: " + quantity);
         var component = new Compound_Component(element, quantity);
         components.push(component);
     }
@@ -119,10 +150,20 @@ function Compound_Component(symbol, qty){
     var self = {};
     self.element = find_element(symbol);
     self.quantity = qty;
+
     self.get_component_atomic_weight = function(){
         return (self.element.atomic_weight * self.quantity);
+    };
+
+    self.get_description = function(){
+        var desc = "<br />Component Description<br />Element: " + self.element.name +"<br />Quantity: " + self.quantity +
+            "<br />Atomic Weight: " + self.get_component_atomic_weight() + "<br />";
+        return desc;
     };
 
     return self;
 }
 
+function print(str){
+    document.write(str + "<br />");
+}
