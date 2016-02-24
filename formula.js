@@ -126,7 +126,6 @@ function string_to_compound(input){
             quantity = pieces[2];
         }
 
-        print("element: " + element + " qty: " + quantity);
         var component = new Compound_Component(element, quantity);
         components.push(component);
     }
