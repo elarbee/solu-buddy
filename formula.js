@@ -9,14 +9,14 @@
 function no_args_make_compound(){
     var input = prompt("Enter compound");
 
-    var components = string_to_components(input);
-    for(var i = 0; i < components.length; i++){
-        document.write("Components[" + i + "]: " + components[i].element.name + "<br />");
+    var compound = string_to_compound(input);
+
+    for(var i = 0; i < compound.components.length; i++){
+        document.write("Components[" + i + "]: " + compound.components[i].element.name + "<br />");
     }
 
-    var compound = Compound(components);
-
-    document.write("Compound weight: " + compound.compound_atomic_weight);
+    document.write("Compound weight: " + compound.compound_atomic_weight + "<br />");
+    document.write("Compound quantity: " + compound.quantity + "<br />");
 }
 
 /**
@@ -42,38 +42,47 @@ function no_args_make_compound(){
  * @param components Array of components used to make the compound.
  * @constructor
  */
-function Compound(components){
+function Compound(components, qty){
     var self = {};
 
     self.components = components;
     self.compound_atomic_weight = 0;
+    self.quantity = qty;
 
     for(var o = 0; o < self.components.length; o++){
         self.compound_atomic_weight += self.components[o].get_component_atomic_weight();
     }
+    self.compound_atomic_weight *= self.quantity;
 
     return self;
 }
 
 
 /**
- * Splits a single formula input string into an array of "component" strings consisting of just the element
- * followed by quantity.
+ * Constructs a compound from a single input string by separating the elements and their respective quantities and building
+ * a "Compound" object using that information.
  *
  *  Example uses:
  *
- *      //Get individual elements and their respective quantities from NaCl
- *      var components = string_to_components('NaCl');
+ *      //Create water compound using formula 'H2O'
+ *      var water = string_to_compound('H2O');
  *
- *      var table_salt_compound = Compound(components);
+ *      //Create compound for table salt using formula 'NaCl'
+ *      var table_salt = string_to_compound('NaCl');
  *
  * @param input Formula string collected from user. (i.e. H2O or NaCl)
- * @returns {Array|{index: number, input: Compound_Component()}} Array of compound components
+ * @returns {Compound} Compound object
  */
-function string_to_components(input){
+function string_to_compound(input){
     //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
     var segments = input.match(/[A-Z]{1}[a-z]?\d*/g);
     var components = [];
+    var compound_qty = 1;
+
+    if(/^\d+/g.test(input)){
+        //check if input had a qty at the beginning
+        compound_qty = input.match(/^\d+/)[0];
+    }
 
     for(var i = 0; i < segments.length; i++){
         //obtain element using regex
@@ -87,19 +96,12 @@ function string_to_components(input){
         if(/\d+$/.test(segments[i])){
             quantity = segments[i].match(/\d+$/)[0];
         }
-
-
         var component = new Compound_Component(element, quantity);
         components.push(component);
     }
 
-    document.writeln("Components length: " + components.length + "<br />");
-
-    for(var i = 0; i < components.length; i++){
-        document.writeln("Component["+i+"]: " + components[i].get_component_atomic_weight() + "<br />");
-    }
-
-    return components;
+    var comp = new Compound(components, compound_qty);
+    return comp;
 }
 
 
@@ -122,9 +124,5 @@ function Compound_Component(symbol, qty){
     };
 
     return self;
-}
-
-function test(){
-    document.write("check<br />");
 }
 
