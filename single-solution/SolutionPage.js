@@ -27,3 +27,21 @@ $(function(){
     });
     
 });
+
+function fill_fields(){
+    alert("Solvent Input: " + $("#solvent_formula").val());
+    var solvent_compound = string_to_compound($("#solvent_formula").val());
+    var solute_compound = string_to_compound($("#solute_formula").val());
+    var solute_molecular_weight = solute_compound.molecular_weight();
+    $("#solute_molec_weight").val(solute_molecular_weight);
+    var total_volume = $("#totalVolume").val();
+    var target_solution_concentration = $("#solution_concentration").val();
+
+    var mass_of_solute_to_add =
+        SingleSolution(target_solution_concentration, total_volume,
+            solute_molecular_weight).solid();
+
+    var target_solution_concentration = $("#solution_concentration").val();
+    $("#massToAdd").val(mass_of_solute_to_add + "g");
+
+};
