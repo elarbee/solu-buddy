@@ -50,15 +50,41 @@ function Compound(components, qty){
     self.compound_atomic_weight = 0;
     self.quantity = qty;
 
-    for(var o = 0; o < self.components.length; o++){
-        self.compound_atomic_weight += self.components[o].get_component_atomic_weight();
-    }
-    self.compound_atomic_weight *= self.quantity;
+    /**
+     * Calculates the molecular weight of the compound as the summation of each element's atomic weight multiplied by
+     * the element's quantity.
+     *  i.e. molecular_weight = SUM(element[0...n].atomic_weight * #(element[0...n]))
+     * @returns {number} Molecular weight of the compound.
+     */
+    self.molecular_weight = function(){
+        var sum = 0;
+        for(var o = 0; o < self.components.length; o++){
+            sum += self.components[o].get_component_atomic_weight();
+        }
+        return sum;
+    };
 
+    /**
+     * Returns the molecular weight of the compound multiplied by the quantity of the compound,
+     * giving the total molecular weight.
+     * @returns {number} Total molecular weight (molecular weight * quantity)
+     */
+    self.total_molecular_weight = function(){
+        return self.molecular_weight() * self.quantity;
+    };
+
+    /**
+     * Creates a string description of the compound and returns it. Includes: formula, molecular weight,
+     * quantity of the compound, total molecular weight, and information on each component (element name and quantity).
+     *
+     * Can be used to verify accuracy when debugging.
+     * @returns {string} Description string.
+     */
     self.get_description = function(){
-        var desc = "<br />Compound Description<br />Formula: " + self.get_formula() +
-            "<br />Total Atomic Weight: " + self.compound_atomic_weight+"<br />" +
-            "Compound Quantity: " + self.quantity + "<br />";
+        var desc = "<br />Compound Description<br />Formula: " + self.formula() +
+            "<br />Molecular Weight: " + self.molecular_weight()+"<br />" +
+            "Compound Quantity: " + self.quantity + "<br />Total Molecular Weight: " +
+            self.total_molecular_weight() + "<br />";
         for(var i = 0; i < self.components.length; i++){
             desc = desc + "Element["+i+"]: "+components[i].element.name + "|| Qty: " +
                 components[i].quantity + "<br />";
@@ -66,14 +92,27 @@ function Compound(components, qty){
         return desc;
     };
 
-    self.get_formula = function(){
+    /**
+     * Creates the formula for the compound using component elements and their respective quantities.
+     *
+     * Example Usage
+     *
+     *  var water = new Compound('H2O');
+     *
+     *  var formula = water.formula();
+     *
+     *  -> formula == 'H2O'
+     *
+     * @returns {string} Formula for the compound.
+     */
+    self.formula = function(){
         var formula = (self.quantity == 1)? "" : self.quantity;
         for(var i = 0; i < self.components.length; i++){
             formula += components[i].element.symbol;
             formula += (components[i].quantity == 1)? "" : components[i].quantity;
         }
         return formula;
-    }
+    };
 
     return self;
 }
@@ -95,6 +134,8 @@ function Compound(components, qty){
  * @returns {Compound} Compound object
  */
 function string_to_compound(input){
+
+    //displays alert if input is invalid.
     if(!/\d*[A-Z]{1}[a-z]?\d*/.test(input)){
         alert("Input: " + input + " is not valid! Please try again.");
     }
@@ -102,7 +143,9 @@ function string_to_compound(input){
     //TODO: Add error checking to reject duplicate elements
     var segments = input.match(/[A-Z]{1}[a-z]?\d*/g);
     var components = [];
-    var compound_qty = 1;
+
+    var compound_qty = 1; //default value = 1
+
 
     if(/^\d+/g.test(input)){
         //check if input had a qty at the beginning
@@ -120,13 +163,7 @@ function string_to_compound(input){
         var pieces = segments[i].match(/([A-Z]{1}[a-z]?)(\d*)/);
 
         var element = pieces[1]; //get element symbol
-        var quantity = 1; //default qty is 1
-
-        //checks second position to see if the element had a quantity associated with it. If it did,
-        //  quantity is updated to that value. Otherwise, quantity is 1 by default.
-        if(pieces[2].length > 0){
-            quantity = pieces[2];
-        }
+        var quantity = pieces[2] || 1; //default qty is 1
 
         var component = new Compound_Component(element, quantity);
         components.push(component);
@@ -152,16 +189,24 @@ function Compound_Component(symbol, qty){
     self.element = find_element(symbol);
     self.quantity = qty;
 
+    /**
+     * Calculates total component atomic weight as the product of the element's atomic weight and the quantity.
+     *
+     * @returns {number} Total atomic weight of the component (element.atomic_weight * quantity)
+     */
     self.get_component_atomic_weight = function(){
         return (self.element.atomic_weight * self.quantity);
     };
 
+    /**
+     * Creates a description of the component using information including: element name, quantity, and total atomic weight.
+     * @returns {string} The component description as a string.
+     */
     self.get_description = function(){
         var desc = "<br />Component Description<br />Element: " + self.element.name +"<br />Quantity: " + self.quantity +
             "<br />Atomic Weight: " + self.get_component_atomic_weight() + "<br />";
         return desc;
     };
-
     return self;
 }
 
