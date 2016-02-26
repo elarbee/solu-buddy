@@ -3,7 +3,7 @@
 <head>
     <script src="jquery-1.11.3.min.js"></script>
     <script src="SolutionPage.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="serialStyle.css">
 </head>
 <body>
     
@@ -30,7 +30,7 @@
             <td> <input type="text" placeholder="Solute Chemical Identity (i.e., Formula)"> </td>
             <td> <input type="text" placeholder="Use Saved Solution!"> </td>
             <td> <input type="text" placeholder="Volume of flasks in which dilutions are prepared"> </td>
-            <td> <button id="nextButton" onClick="window.location.href='/solubuddy/landing.html'">SoluBuddy Home</button> </td>
+            <td> <button id="homeButton" onClick="window.location.href='/solubuddy/landing.html'">SoluBuddy Home</button> </td>
         </tr>
         <tr>
             <td><input type="text" placeholder="Solute Molecular Weight"></td>
@@ -46,19 +46,53 @@
         <div id="arrowContainer">
             <img src="down-arrow.jpg">
         </div>
-        <img src="answer.jpg">
+        <h2>Serial Dilution</h2>
+        <!-- Contains the content of the answer page -->
+        <div id="answerContent" >
+            <!-- Stock Solution -->
+            <div id="stockSolutionDiv" class="inline-div">
+                <img src="beaker.png">
+                <!-- Arrow Div -->
+                <div class="blueArrow">
+                    <p>10 ML</p>
+                    <img src="blueArrow.png">
+                </div>
+                <p id="stockSolutionDescription">Details of the stock solution displayed here</p>
+            </div>
+            <!-- Dilution flasks -->
+            <div id="dilutionFlasksDiv" class="inline-div">
+                <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
+                <div id="dilutionFlask1" class="dilutionFlask">
+                    <div class="flaskImgAndNumberDiv">
+                        <img src="beakerSmall.png">
+                           
+                        <p id="flaskNumber">1</p>
+                    </div>
+                     <!-- Arrow Div -->
+                    <div class="blueArrow">
+                        <p>10 ML</p>
+                        <img src="blueArrow.png">
+                    </div>
+                    
+                    <!-- Need to format '1' as subscript here-->
+                    <p id="molarity">M1</p>
+                    <p id="molarityValue">1.00 x 10^-1</p>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div id="answerButtonsDiv" class="inline-div">
+                <button id="saveButton">Save Dilution Series</button>
+                <br>
+                <button id="printButton" onClick="window.print();">Print Dilution Series</button>
+                <br>
+                <button id="answerHomeButton">SoluBuddy Home</button>
+                <!-- Style Hack Fix this -->
+                <br>
+                <br>
+            </div>
+        </div>
 </div>
 
 </body>
 </html>
-
-
-<!--
-
-		<input type="text" placeholder="Solvent Chemical Identity"> <br>
-		<input type="text" placeholder="Solute Identity"><br>
-		<input type="text" placeholder="Solute Molecular Weight"><br>
-		<input id="totalVolume" type="text" placeholder="Solution Total Volume"><br>
-		<input type="text" placeholder="Solution Concentration"><br>
-
--->

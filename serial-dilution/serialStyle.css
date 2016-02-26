@@ -1,6 +1,7 @@
 .inline-div{
-	display:inline-block;
-    margin: 20px;
+	position: relative;
+    display:inline-block;
+    margin: 20px;    
 }
 
 input{
@@ -9,6 +10,11 @@ input{
     background: #5b9bd5;
     height: 40px;
     border-radius: 10px;
+}
+
+td{
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /*Place holder text color. Probably only works in Chrome */
@@ -25,7 +31,8 @@ button{
     color:white;
     margin-top: 10px;
     background: #92d050;
-    height:30px;
+    height: 3.5em;
+    width: 100px;
     border-radius: 10px;
 }
 
@@ -52,6 +59,8 @@ h3{
     margin-right: auto;
 }
 
+/* Answer Div Styles */
+
 #answerDiv{
     display: none;
     position: absolute;
@@ -62,10 +71,9 @@ h3{
     text-align: center;
 }
 
-.caption{
+.dilutionFlask{
     position: relative;
-    bottom: 125px;
-    text-align: center;
+    width:225px;
 }
 
 #arrowContainer{
@@ -78,3 +86,33 @@ h3{
     margin-top: 10px;   
 }
 
+.blueArrow{
+    position: absolute;
+    right: 0px;
+    top:40%;
+}
+
+#molarity, #molarityValue{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.flaskImgAndNumberDiv{
+    height: 217px;   
+}
+
+.flaskImgAndNumberDiv p{
+    margin-top: 0; 
+    position: relative;
+    bottom:2em;
+    font-size: 1.5em;
+}
+
+#answerButtonsDiv{
+    padding-bottom: 40px;
+}
+#answerButtonsDiv button{
+    
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
