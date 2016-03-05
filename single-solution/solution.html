@@ -3,6 +3,9 @@
 <head>
     <script src="jquery-1.11.3.min.js"></script>
     <script src="SolutionPage.js"></script>
+    <script src="/solu-buddy/scripts/formula.js"></script>
+    <script src="/solu-buddy/scripts/elements.js"></script>
+    <script src="/solu-buddy/scripts/calculator.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -21,17 +24,17 @@
 </div>
 <div id="divContainer">
 	<div class="inline-div">
-		<input type="text" placeholder="Solvent Chemical Identity"> <br>
-		<input type="text" placeholder="Solute Identity"><br>
-		<input type="text" placeholder="Solute Molecular Weight"><br>
-		<input id="totalVolume" type="text" placeholder="Solution Total Volume"><br>
-		<input type="text" placeholder="Solution Concentration"><br>
+		<input id = "solvent_formula" type="text" placeholder="Solvent Chemical Identity"> <br>
+		<input id = "solute_formula" type="text" placeholder="Solute Identity"><br>
+		<input id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
+		<input id= "totalVolume" type="text" placeholder="Solution Total Volume (Liters)"><br>
+		<input id = "solution_concentration" type="text" placeholder="Solution Concentration"><br>
 	</div>
 
 	<div class="inline-div">
 		<img src="beaker.png" style="width:150px">
         <br>
-		<button id="nextButton">Next</button>
+		<button id="nextButton" onclick="fill_fields()">Next</button>
 	</div>
 
 	<div class="inline-div">
@@ -45,7 +48,7 @@
         <br>
 		<input id="massToAdd" type="text" placeholder="Mass of Solute to Add">
         <br>
-		<button>How do I calculate this?</button>
+		<button onclick="">How do I calculate this?</button>
 	</div>
 </div>
 
@@ -55,16 +58,17 @@
             <img src="down-arrow.jpg">
         </div>
         <div>
-            <div class="inline-div">
-                <h1> 1.00 M NaCl in Water</h1>
-                <h2>Prepared by adding 58.44 g NaCl to 1000 mL
-volumetric flask filled to mark with water.</h2>
+            <div id="answer_div" class="inline-div">
+
+                <h1> <span id="molarity_span1"></span>M <span id="solute_span1"></span> in <span id="solvent_span1"></span> </h1>
+                <h2>Prepared by adding <span id="mass_span"></span>g <span id="solute_span2"></span> to <span id="volume_span1"></span>mL
+volumetric flask filled to mark with <span id="solvent_span2"></span> .</h2>
             </div>
             <div class="inline-div">
                 <img src="beaker.png" style="width:150px">
-                <p class="caption">1.00 M <br>
-                    NaCl<br> in Water</p>
-                <p class="caption">1000 ml</p>
+                <p class="caption"><span id="molarity_span2"></span>M <br>
+                    <span id="solute_span3"></span> <br> in <span id="solvent_span3"></span> </p>
+                <p class="caption"><span id="volume_span2"></span> mL</p>
             </div>
         </div>
         <div>

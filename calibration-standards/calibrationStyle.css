@@ -38,6 +38,7 @@ button{
     text-align:     center;
 }
 
+/* Answer page style */
 #answerDiv{
     display: none;
     position: absolute;
@@ -45,12 +46,6 @@ button{
     width:100%;
     height:100%;
     bottom: 0;
-    text-align: center;
-}
-
-.caption{
-    position: relative;
-    bottom: 125px;
     text-align: center;
 }
 
@@ -66,5 +61,40 @@ button{
 
 #internalTable{
     display:none;
+}
+
+.inline-div{
+	position: relative;
+    display:inline-block;
+    margin: 20px;    
+}
+
+
+#molarity, #molarityValue{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.flaskImgAndNumberDiv{
+    height: 217px;   
+}
+
+.flaskImgAndNumberDiv p{
+    margin-top: 0; 
+    position: relative;
+    bottom:2em;
+    font-size: 1.5em;
+}
+
+.blueArrow{
+    position: absolute;
+    right: 0px;
+    top:40%;
+}
+
+
+.dilutionFlask{
+    position: relative;
+    width:225px;
 }
 

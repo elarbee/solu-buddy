@@ -3,15 +3,6 @@
  * Feb. 23, 2016
  */
 
-/**
- * Just for testing, pay no attention to me!
- */
-function no_args_find_element(){
-    var input = prompt("What element do you want?");
-    document.write("Atomic Weight of Silver: " + elements_array[input].atomic_weight + "<br />");
-    var message = "Atomic weight of " + input + " is " + elements_array[input].atomic_weight + "<br />";
-    document.write(message);
-}
 
 var Hydrogen = {
     number:1,
