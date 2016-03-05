@@ -9,7 +9,8 @@ div{
 	bottom:0px;
 	background:lightblue;
 }
-#single, #multiple, #calibration{
+.optionDiv{
+    text-align: center;
 	padding-top:225px;
 	float:left;	
 	width:32vw;
@@ -35,4 +36,12 @@ img{
 /* Initially hide the liquid div.*/
 #liquidDiv{
     display:none;
+}
+
+button{
+    color:white;
+    margin-top: 10px;
+    background: #92d050;
+    height:30px;
+    border-radius: 10px;
 }

@@ -28,6 +28,7 @@ $(function(){
     
 });
 
+
 function fill_fields(){
     var solvent_compound = string_to_compound($("#solvent_formula").val());
     var solute_compound = string_to_compound($("#solute_formula").val());
