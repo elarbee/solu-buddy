@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="jquery-1.11.3.min.js"></script>
+    <script src="/scripts/jquery-1.11.3.min.js"></script>
     <script src="SolutionPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="serialStyle.css">
 </head>
@@ -30,7 +30,7 @@
             <td> <input type="text" placeholder="Solute Chemical Identity (i.e., Formula)"> </td>
             <td> <input type="text" placeholder="Use Saved Solution!"> </td>
             <td> <input type="text" placeholder="Volume of flasks in which dilutions are prepared"> </td>
-            <td> <button id="homeButton" onClick="window.location.href='/solubuddy/landing.html'">SoluBuddy Home</button> </td>
+            <td> <button id="homeButton" onClick="window.location.href='/landing.html'">SoluBuddy Home</button> </td>
         </tr>
         <tr>
             <td><input type="text" placeholder="Solute Molecular Weight"></td>
@@ -86,7 +86,7 @@
                 <br>
                 <button id="printButton" onClick="window.print();">Print Dilution Series</button>
                 <br>
-                <button id="answerHomeButton">SoluBuddy Home</button>
+                <button id="answerHomeButton" onClick="window.location.href='/landing.html'">SoluBuddy Home</button>
                 <!-- Style Hack Fix this -->
                 <br>
                 <br>
