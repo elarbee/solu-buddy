@@ -135,10 +135,6 @@ function Compound(components, qty){
  */
 function string_to_compound(input){
 
-    //displays alert if input is invalid.
-    if(!/\d*[A-Z]{1}[a-z]?\d*/.test(input)){
-        alert("Input: " + input + " is not valid! Please try again.");
-    }
     //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
     //TODO: Add error checking to reject duplicate elements
     var segments = input.match(/[A-Z]{1}[a-z]?\d*/g);
@@ -209,6 +205,23 @@ function Compound_Component(symbol, qty){
     };
     return self;
 }
+
+/**
+ * Tests whether the compound formula has a valid format or not.
+ *
+ * is_valid_formula("nacl") == false
+ * is_valid_formula("NaCl") == true
+ *
+ * TODO: method needs to reject "Nacl" ( #lowercase > #uppercase)
+ *
+ * @str Formula string to test.
+ * @return Returns true if valid, false if invalid.
+ *
+ * */
+function is_valid_formula(str) {
+    return /\d*[A-Z]{1}[a-z]?\d*/.test(str).valueOf();
+}
+
 
 function print(str){
     document.write(str + "<br />");

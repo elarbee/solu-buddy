@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/scripts/jquery-1.11.3.min.js"></script>
-    <script src="SolutionPage.js"></script>
-    <script src="/scripts/formula.js"></script>
-    <script src="/scripts/elements.js"></script>
-    <script src="/scripts/calculator.js"></script>
+    <script src="jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="/solu-buddy/scripts/formula.js"></script>
+    <script src="/solu-buddy/scripts/elements.js"></script>
+    <script src="/solu-buddy/scripts/calculator.js"></script>
+    <script src="SolutionPage.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -24,23 +24,23 @@
 </div>
 <div id="divContainer">
 	<div class="inline-div">
-		<input id = "solvent_formula" type="text" placeholder="Solvent Chemical Identity"> <br>
-		<input id = "solute_formula" type="text" placeholder="Solute Identity"><br>
-		<input id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
-		<input id= "totalVolume" type="text" placeholder="Solution Total Volume (Liters)"><br>
-		<input id = "solution_concentration" type="text" placeholder="Solution Concentration"><br>
+		<input id="solvent_formula" type="text" placeholder="Solvent Chemical Identity"> <br>
+		<input id="solute_formula" type="text" placeholder="Solute Identity"><br>
+		<input id="solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
+		<input id="totalVolume" type="text" placeholder="Solution Total Volume (Liters)"><br>
+		<input id="solution_concentration" type="text" placeholder="Solution Concentration"><br>
 	</div>
 
 	<div class="inline-div">
 		<img src="beaker.png" style="width:150px">
         <br>
-		<button id="nextButton" onclick="fill_fields()">Next</button>
+		<button id="nextButton">Next</button>
 	</div>
 
 	<div class="inline-div">
 		<img src="scale.jpg" style="width:150px">
         <br>
-        <button onClick="window.location.href='/landing.html'">SoluBuddy Home</button>
+        <button onClick="window.location.href='/solubuddy/landing.html'">SoluBuddy Home</button>
 	</div>
 
 	<div class="inline-div">
@@ -72,7 +72,7 @@ volumetric flask filled to mark with <span id="solvent_span2"></span> .</h2>
             </div>
         </div>
         <div>
-            <button>Save this Solution for later.</button> <button>Print Out Details</button> <button onClick="window.location.href='/landing.html'">Back to Solubuddy Home</button>
+            <button>Save this Solution for later.</button> <button>Print Out Details</button> <button>Back to Solubuddy Home</button>
         </div>
 </div>
 
