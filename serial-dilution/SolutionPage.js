@@ -34,10 +34,7 @@ $(function(){
             $(".blueArrow p").text($("#volumeTransferred").val()+" ML");
             
             //Remove arrow from last flask
-            $("#dilutionFlasksDiv").children().last().find(".blueArrow").remove();
-            
-            
-            
+            $("#dilutionFlasksDiv").children().last().find(".blueArrow").remove(); 
         });
         
 

@@ -9,54 +9,70 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    
-	<div id="landing">
-		<img src="beaker.png">
-		<h2> Welcome to Solu-Buddy, your personal solution preparation assistant! </h2>
-	</div>
+
 	<div id="choices">
         
         <!-- Option 1 -->
-		<div id="single" class="optionDiv">
-			<h2> I am preparing just one new solution... </h2>
-            <p>There is some solute that you are adding to the mixture. In what form is the solute before you add it?</p>
-            <select id="singleSelect">
-			  <option value="solid">It is a pure solid, i.e. in a bottle, and I will add it by mass.</option>
-			  <option value="liquid">It is a pure (i.e., neat) liquid.</option>
-			  <option value="conc">It is a concentrated stock solution (like conc. HCL or NaOH).</option>
-			  <option value="saved">It is in a solution that I created (and saved) previously.</option>
-			</select>
-            <br>
-            <button type="button" onClick="window.location.href='single-solution/solution.html'">Go</button>
-            <div id="liquidDiv">
-                <p>What information do you know about this liquid substance, and hence how will you transfer a portion of it into the solution?</p>
-                <select id="liquidSelect">
-                  <option value="solid">I know the solute molecular mass, and I will do a gravimetric transfer.</option>
-                  <option value="liquid">I know the solute molecular mass and density, and I will do a volumetric transfer.</option>
-                </select>
-                <br>
-                <button type="button" onClick="window.location.href='single-solution/solution.html'">Go</button>
+        <!-- Float left -->
+		<div id="single">
+            <!-- Display:table for vertical alignment -->
+            <div  class="optionDiv">
+                <div class="panel">
+                    <h2> I am preparing just one new solution... </h2>
+                    <p>There is some solute that you are adding to the mixture. In what form is the solute before you add it?</p>
+                    <select id="singleSelect">
+                      <option value="solid">It is a pure solid, i.e. in a bottle, and I will add it by mass.</option>
+                      <option value="liquid">It is a pure (i.e., neat) liquid.</option>
+                      <option value="conc">It is a concentrated stock solution (like conc. HCL or NaOH).</option>
+                      <option value="saved">It is in a solution that I created (and saved) previously.</option>
+                    </select>
+                    <br>
+                    <button type="button" onClick="window.location.href='single-solution/solution.html'">Go</button>
+                    <div id="liquidDiv">
+                        <p>What information do you know about this liquid substance, and hence how will you transfer a portion of it into the solution?</p>
+                        <select id="liquidSelect">
+                          <option value="solid">I know the solute molecular mass, and I will do a gravimetric transfer.</option>
+                          <option value="liquid">I know the solute molecular mass and density, and I will do a volumetric transfer.</option>
+                        </select>
+                        <br>
+                        <button type="button" onClick="window.location.href='single-solution/solution.html'">Go</button>
+                    </div>
+                </div>
             </div>
 		</div>
         
         <!-- Option 2 -->
-		<div id="multiple" class="optionDiv">
-			<h2> I am preparing multiple solutions by serial dilution. </h2>
-            <button type="button" onClick="window.location.href='serial-dilution/serial.html'">Go</button>
-		</div>
+        <!-- Display: inline-block (Centers div) -->
+        <div id="multiple">
+             <!-- Display:table for vertical alignment -->
+            <div  class="optionDiv">
+                <div class="panel">
+                    <h2> I am preparing multiple solutions by serial dilution. </h2>
+                    <button type="button" onClick="window.location.href='serial-dilution/serial.html'">Go</button>
+                </div>
+            </div>
+        </div>
+
         
         <!-- Option 3 -->
-		<div id="calibration" class="optionDiv">
-			<h2> I am preparing a set of calibration standards </h2>
-            <p>What method are you using to make the standards?</p>
-            <select>
-			  <option value="solid">External Standard Method</option>
-			  <option value="liquid">Internal Standard Method</option>
-			  <option value="conc">Standard Addition Method</option>
-			</select>
-            <br>
-            <button type="button" onClick="window.location.href='calibration-standards/calibration.html'">Go</button>
+        <!-- Float right -->
+		<div id="calibration">
+             <!-- Display:table for vertical alignment -->
+            <div class="optionDiv">
+                <div class="panel">
+                    <h2> I am preparing a set of calibration standards </h2>
+                    <p>What method are you using to make the standards?</p>
+                    <select>
+                      <option value="solid">External Standard Method</option>
+                      <option value="liquid">Internal Standard Method</option>
+                      <option value="conc">Standard Addition Method</option>
+                    </select>
+                    <br>
+                    <button type="button" onClick="window.location.href='calibration-standards/calibration.html'">Go</button>
+                </div>
+            </div>
 		</div>
+        
 	</div>
 </body>
 </html>

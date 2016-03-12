@@ -10,27 +10,43 @@ div{
 	background:lightblue;
 }
 .optionDiv{
+    display: table;
     text-align: center;
-	padding-top:225px;
-	float:left;	
-	width:32vw;
-	height:100%;
+    height: 85%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10%;
 }
 html, body, #choices {
 	height:100%;
+    margin: 0px;
 }
+
+#choices{
+    background-image: url("lab.jpg");
+    background-size: 100%;
+}
+
+#single, #multiple,#calibration{
+    width: 33.33%;
+    height: 100%;
+}
+#single{
+    float:left;
+}
+#multiple{
+    display: inline-block;
+}
+
+#calibration{
+    float:right;
+}
+
 h2{
+    margin-bottom: 0px;
 	font-family:sans-serif;
 	text-align:center;
-}
-#single:hover, #multiple:hover, #set:hover{
-	background:lightgrey;	
-}
-img{
-	display: block;
-	margin: auto;
-	margin-top: 150px;
-	width:150px;
 }
 
 /* Initially hide the liquid div.*/
@@ -39,9 +55,45 @@ img{
 }
 
 button{
-    color:white;
+    color: white;
     margin-top: 10px;
-    background: #92d050;
+    background: transparent;
     height:30px;
+    border: 1px solid white;
     border-radius: 10px;
+}
+
+button:hover{
+   background: RGBa(245,245,245,0.4); 
+}
+
+select{
+    color: white;
+    background: transparent;
+    height:30px;
+    border: 1px solid #EEEEEE;
+    border-radius: 7px;
+}
+
+option{
+    background-color: #222222;
+}
+
+select:hover{
+   background: RGBa(245,245,245,0.4); 
+}
+
+.panel{
+    color: white;
+    font-family: sans-serif;
+    display: table-cell;
+    vertical-align: middle;
+    
+    background-color:rgba(0,0,0,0.6);
+    
+    border:1px solid white;
+    border-radius: 10px;
+    
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
