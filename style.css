@@ -12,7 +12,7 @@ div{
 .optionDiv{
     display: table;
     text-align: center;
-    height: 85%;
+    height: 70%;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -23,9 +23,13 @@ html, body, #choices {
     margin: 0px;
 }
 
-#choices{
-    background-image: url("lab.jpg");
-    background-size: 100%;
+/* Background Image */
+html{
+  background: url(images/lab.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 #single, #multiple,#calibration{
@@ -52,6 +56,12 @@ h2{
 /* Initially hide the liquid div.*/
 #liquidDiv{
     display:none;
+}
+
+#logo{
+    width: 510px;
+    margin-left: 15px;
+    margin-top: 20px;
 }
 
 button{
@@ -96,4 +106,19 @@ select:hover{
     
     margin-top: 10%;
     margin-bottom: 10%;
+}
+
+@media (max-width: 1050px) {
+    #header{
+        text-align:center;
+    }
+    
+    #single, #multiple, #calibration{
+        float:none;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        height:50%;
+    }
+
 }

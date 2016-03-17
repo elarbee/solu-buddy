@@ -1,20 +1,11 @@
 $(function(){
     
-    //Back arrow for answer page
-    $("#arrowContainer img").click(function(){
-       $("#answerDiv").slideUp("fast");
-    });
-    
-    
     //This if statement will check for valid input, right now it only evaluates as true.
     var validInput = true;
     if(true){
         
         //Next Button Click Handler
         $("#nextButton").click(function(){
-            
-            //Show answer div
-            $("#answerDiv").slideDown("slow");
             
             //Used in loop to hold dilution flask div
             var dilutionFlask;

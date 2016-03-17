@@ -1,19 +1,24 @@
 .inline-div{
 	display:inline-block;
     margin: 20px;
+    text-align: center;
 }
 
 input{
     color:white;
     margin-top: 10px;
-    background: #5b9bd5;
+    background: rgba(30,30,60,0.9);
+    border: 1px solid white;
     height: 40px;
     border-radius: 10px;
+    width:180px;
+    text-align: center;
 }
 
 /*Place holder text color. Probably only works in Chrome */
 ::-webkit-input-placeholder{
     color: white;
+    text-align: center;
 }
 
 html,body{
@@ -21,21 +26,36 @@ html,body{
     margin:0px;
 }
 
+/* Background Image */
+html{
+  background: url(../images/lab.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 button{
-    color:white;
+    color: white;
     margin-top: 10px;
-    background: #92d050;
+    background: rgba(100,130,100,0.9);
     height:30px;
+    border: 1px solid white;
     border-radius: 10px;
 }
 
+button:hover{
+   background: RGBa(245,245,245,0.4); 
+}
+
 #headerDiv h2{
+    color: white;
     margin-top: 100px;
     text-align: center;
     font-family: sans-serif;
 }
 h3{
-    background: -webkit-linear-gradient(white, #b9d5ed);
+    color:white;
     text-align: center;
     font-family: sans-serif;
     
