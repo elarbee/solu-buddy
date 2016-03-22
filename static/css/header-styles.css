@@ -1,64 +1,89 @@
+li li a {
+    font-size: 18px;
+    font-weight: 750;
+}
+
+li:hover li a:hover {
+    color: white;
+    background: #282828;
+}
+
+
+ul li li a{
+    color: #000000;
+    background: #ffffff;
+}
+
+#myNavbar {
+    margin-top: 10px;
+    font-size: 18px;
+    color: white;
+    height: 50px;
+    margin-left: 215px;
+}
+
+#myNavbar ul li a {
+    padding-left: 35px;
+    margin-top: 15px;
+}
+
+#btn-log{
+    height: 35px;
+    width: 97px;
+    margin-top: 25px;
+    margin-left: 10px;
+    margin-right: 5px;
+    position: fixed;
+    right: 265px;
+}
+
+
+
+
+
+
 .inline-div{
-	display:inline-block;
+    display:inline-block;
     margin: 20px;
-    text-align: center;
 }
 
 input{
     color:white;
     margin-top: 10px;
-    background: rgba(30,30,60,0.9);
-    border: 1px solid white;
+    background: #5b9bd5;
     height: 40px;
     border-radius: 10px;
-    width:180px;
-    text-align: center;
 }
 
 /*Place holder text color. Probably only works in Chrome */
 ::-webkit-input-placeholder{
     color: white;
-    text-align: center;
 }
 
 html,body{
+    background-color: #cccccc;
     width:100%;
     margin:0px;
 }
 
-/* Background Image */
-html{
-  background: url(../static/images/lab.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
 button{
-    color: white;
+    color:white;
     margin-top: 10px;
-    background: rgba(100,130,100,0.9);
+    background: #92d050;
     height:30px;
-    border: 1px solid white;
     border-radius: 10px;
 }
 
-button:hover{
-   background: RGBa(245,245,245,0.4); 
-}
-
 #headerDiv h2{
-    color: white;
     margin-top: 100px;
     text-align: center;
     font-family: sans-serif;
 }
 h3{
-    color:white;
+    background: -webkit-linear-gradient(white, #b9d5ed);
     text-align: center;
     font-family: sans-serif;
-    
+
     width: 35em;
     height: 30px;
     margin-left: auto;
@@ -93,6 +118,6 @@ h3{
 #arrowContainer img{
     height: 35px;
     width: 100px;
-    margin-top: 10px;   
+    margin-top: 10px;
 }
 

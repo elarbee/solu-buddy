@@ -1,0 +1,74 @@
+li:hover li a:hover {
+    font-size: 19px;
+    color: white;
+    background: #282828;
+}
+
+ul li li a{
+    color: #000000;
+    background: #ffffff;
+}
+
+.table{
+    background-color: white;
+    white-space: nowrap;
+    width: 75%;
+    text-align: left;
+}
+
+.jumbotron{
+    background-image: url("flexbackground.png");
+    margin-top: -55px;
+    background-size: cover;
+    height: 1000px;
+    font-family: 'Merriweather', serif;
+    color: #E6E6E6;
+    text-shadow: 2px 2px #000000;
+}
+
+h1{
+    margin-top: 10%;
+}
+
+h2{
+    color: white;
+    display: inline;
+    font-size: 22px;
+    margin-left: 40px;
+}
+
+#myNavbar li{
+    margin-top: 10px;
+    font-size: 18px;
+    color: white;
+    height: 50px;
+}
+
+#logo{
+    height: 90px;
+    width: 170px;
+    margin-top: -28px;
+}
+
+#btn-center{
+    text-align: center;
+
+}
+
+#btn-primary{
+    height: 35px;
+    width: 97px;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+#textbox{
+    margin-top: 5px;
+}
+#popups{
+    background-color: #1278b6;
+}
+
+#homereq{
+    color: white;
+}
