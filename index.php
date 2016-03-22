@@ -15,9 +15,6 @@
     <script src="static/js/calculator.js"></script>
 </head>
 <body>
-    <?php
-        include 'top-header.php';
-    ?>
     <div id="header">
         <img id="logo" src="static/images/logo.png">
     </div>
