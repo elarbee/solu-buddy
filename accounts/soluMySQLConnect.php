@@ -2,7 +2,7 @@
 	// If the hostname environment variable is defined then we are running on production
 	// so we should use the production environment variables
 	if(isset($_SERVER['RDS_HOSTNAME'])){
-		$user = $_SERVER['RDS_HOSTNAME'];
+		$user = $_SERVER['RDS_USERNAME'];
 		$pass = $_SERVER['RDS_PASSWORD'];
 		$host = $_SERVER['RDS_HOSTNAME'];
 		$db = $_SERVER['RDS_DB_NAME'];
