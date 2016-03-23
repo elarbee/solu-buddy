@@ -14,7 +14,7 @@ $encrypt_password=md5($password);
 $return_page = $_GET['next'] ?: '/index.php';
 
 $query = "SELECT Username, Password FROM accounts WHERE username = '$username' AND password = '$encrypt_password'";
-$result = @mysqli_query($dbc, $query);
+$result = mysqli_query($dbc, $query);
 if (!$result) {
 	echo 'Could not run query: ' . mysql_error();
 	exit;
