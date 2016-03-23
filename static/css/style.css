@@ -1,6 +1,7 @@
-div{
-	
+body{
+	background-color: transparent;
 }
+
 #landing{
 	position:absolute;
 	top:0px;
@@ -25,7 +26,7 @@ html, body, #choices {
 
 /* Background Image */
 html{
-  background: url(images/lab.jpg) no-repeat center center fixed; 
+  background: url(../images/lab.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

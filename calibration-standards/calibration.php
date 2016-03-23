@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../scripts/jquery-1.11.3.min.js"></script>
+
+    <?php
+        include '../script-includes.html';
+    ?>
     <script src="calibrationPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="calibrationStyle.css">
 </head>
 <body>
     
     <?php
+        include '../top-header.php';
+
         //Declaring global final variables.    
         $EXTERNAL = "EXTERNAL";
         $INTERNAL = "INTERNAL";
@@ -30,7 +35,6 @@
         elseif ($_GET["value"] == $GLOBALS['ADDITION']) {
             include 'content/addition.php';
         }
-
     
     ?>
 

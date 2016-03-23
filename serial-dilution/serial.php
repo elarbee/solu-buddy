@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../scripts/jquery-1.11.3.min.js"></script>
+    <?php
+        include '../script-includes.html';
+    ?>
     <script src="SolutionPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="serialStyle.css">
 </head>
 <body>
-    
+    <?php
+        include '../top-header.php';
+    ?>
 <!-- Solution Input page -->
 <div id="headerDiv">
     <h2>Serial Dilution</h2>

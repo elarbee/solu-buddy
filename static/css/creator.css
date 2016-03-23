@@ -1,0 +1,83 @@
+#bodyHome {
+	background-image: url('../static/images/home3.jpg');
+	background-color: #212121;
+	background-repeat: no-repeat;
+	height: 100%;
+	background-size: cover;
+	background-position: -50px 78px;	
+	
+}
+
+td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
+
+.selected {
+    background-color: brown;
+    color: #FFF;
+}
+
+
+li li a {
+	font-size: 18px;
+	font-weight: 750;
+}
+
+li:hover li a:hover {
+	color: white;
+	background: #282828;
+}
+
+
+ul li li a{
+	color: #000000;
+	background: #ffffff;
+}
+
+.table{
+	background-color: white;
+	white-space: nowrap;
+	width: 75%;
+	text-align: left;
+}
+
+#myNavbar {
+	margin-top: 10px;
+	font-size: 18px;
+	color: white;
+	height: 50px;
+	margin-left: 215px;
+}
+
+#myNavbar ul li a {
+	padding-left: 35px;
+	margin-top: 15px;
+}
+
+#btn-log{
+	height: 35px;
+	width: 97px;
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 5px;
+	position: fixed;
+	right: 265px;
+}
+
+#btn-signUp{
+	height: 35px;
+	width: 97px;
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 5px;
+	position: fixed;
+	right: 375px;
+}
+
+#textbox {
+	
+}
+
+#popups{
+	
+	background-color: #1278b6;
+}
+

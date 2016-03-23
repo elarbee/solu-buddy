@@ -1,16 +1,22 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- jQuery -->
-	<script src="scripts/jquery-1.11.3.min.js"></script>
-	<script src="landing.js"></script>
-	<script src="scripts/calculator.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
+
+    <link rel="stylesheet" type="text/css" href="static/css/creator.css">
+    <link rel="stylesheet" type="text/css" href="static/css/nav-styles.css">
+    <link rel="stylesheet" type="text/css" href="static/css/header-styles.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+    <!-- jQuery -->
+    <script src="static/js/jquery-1.11.3.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="landing.js"></script>
+    <script src="static/js/calculator.js"></script>
 </head>
 <body>
     <div id="header">
-        <img id="logo" src="images/logo.png">
+        <img id="logo" src="static/images/logo.png">
     </div>
 	<div id="choices">
         

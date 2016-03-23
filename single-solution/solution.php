@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../scripts/jquery-1.11.3.min.js"></script>
+    <?php
+        include '../script-includes.html';
+    ?>
     <script src="SolutionPage.js"></script>
-    <script src="../scripts/formula.js"></script>
-    <script src="../scripts/elements.js"></script>
-    <script src="../scripts/calculator.js"></script>
+    <script src="../static/js/formula.js"></script>
+    <script src="../static/js/elements.js"></script>
+    <script src="../static/js/calculator.js"></script>
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>
-
+    <?php
+        include '../top-header.php';
+    ?>
+    
 <?php
   //Declaring global final variables.    
     $SOLID = "SOLID";
