@@ -1,5 +1,4 @@
 <?php
-	mysqli_report(MYSQLI_REPORT_ALL);
 	// If the hostname environment variable is defined then we are running on production
 	// so we should use the production environment variables
 	if(isset($_SERVER['RDS_HOSTNAME'])){
