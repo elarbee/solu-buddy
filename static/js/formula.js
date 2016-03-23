@@ -219,7 +219,50 @@ function Compound_Component(symbol, qty){
  *
  * */
 function is_valid_formula(str) {
-    return /\d*[A-Z]{1}[a-z]?\d*/.test(str).valueOf();
+
+    var isValid = /\d*[A-Z]{1}[a-z]?\d*/.test(str).valueOf();
+    var usedElements = [];
+
+    if(isValid){
+
+        var segments = str.match(/[A-Z]{1}[a-z]?\d*/g);
+        var acceptedSegmentLengths = 0;
+        /*
+         Populate components array with components created from the parsed string.
+         */
+        for (var i = 0; i < segments.length; i++) {
+
+            /* Get Element Symbol From Segment*/
+            var segment = segments[i];
+            var pieces = segment.match(/([A-Z]{1}[a-z]?)(\d*)/);
+            var element = pieces[1]; //get element symbol
+
+            /* Check if element has already been used */
+            var temp;
+            var count = 0;
+
+            while(count < usedElements.length){ //iterate through each used element
+
+                temp = usedElements[count]; //store current used element
+
+                if(temp == element){ //check against element of our current segment
+                    return false;    //returns false if it's the same
+                }
+                count++;
+            }
+            count = 0;
+
+            usedElements.push(element); //add element from this segment to array of currently used elements
+
+            acceptedSegmentLengths += segment.length; //increment length of accepted segments
+        }
+
+        //If the total length of segments obtained from the string are not equal to the original
+        //string, then there is an invalid piece.
+        isValid = (acceptedSegmentLengths == str.length);
+    }
+
+    return isValid.valueOf();
 }
 
 
