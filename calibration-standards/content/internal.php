@@ -16,8 +16,8 @@
         <tr>
             <td><input type="text" placeholder="Solvent Chemical Identity"></td>
             <td><input type="text" placeholder="Internal Standard Chemical Identity"></td>
-            <td><button>Make It Now!</button></td>
-            <td><button>Make It Now!</button></td>
+            <td><button class="makeItNowButton">Make It Now!</button></td>
+            <td><button class="makeItNowButton">Make It Now!</button></td>
             <td><input type="text" placeholder="Volume of Calibration Standard Flasks"></td>
         </tr>
         <tr>
@@ -29,4 +29,15 @@
         </tr>
     </table>
     <td> <button id="nextButton">Next</button> </td>
+    
+    
+    <?php
+    //Include the 'Make it Now' modal.
+        include '../shared-content/makeItNowModal.php'; 
+    ?> 
+    
+    <?php
+    //Include the Saved solutions modal.
+        include '../shared-content/savedSolutionsModal.php'; 
+    ?> 
 </div>

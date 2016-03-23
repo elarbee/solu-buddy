@@ -10,9 +10,6 @@
 </head>
 <body>
 
-    <!-- Just for debugging, delete this later -->
- <?php echo $_GET["value"]; ?>
-    
 <?php
   //Declaring global final variables.    
     $SOLID = "SOLID";
@@ -24,29 +21,36 @@
 <div id="headerDiv">
     <!-- Dynamically add correct Header depending on $_GET['value] -->
     <?php 
-        //Solid Solution
-        if ($_GET["value"] == $GLOBALS['SOLID']) {
-            echo "<h2> Okay, you are adding a solute that is in the form of a pure solid. </h2>";
-            echo "<h3> Fill in the fields below with the appropriate information </h3>";
-        }
-    
-        //Gravimetric Liquid
-        elseif ($_GET["value"] == $GLOBALS['GRAVIMETRIC']) {
-            echo "<h2> Okay, you are gravimetrically adding a solute that is in the form of a pure liquid. </h2>";
-            echo "<h3> Fill in the fields below with the appropriate information </h3>";
-        }
-    
-        //Volumetric Liquid
-        elseif ($_GET["value"] == $GLOBALS['VOLUMETRIC']) {
-            echo "<h2> Okay, you are volumetrically adding a solute that is in the form of a pure liquid. </h2>";
-            echo "<h3> Fill in the fields below with the appropriate information </h3>";
-        }
-        //If none of the above show an error page.
-        else{
-             echo "<h2> Error: Malformed URL, please return to SoluBuddy Home Page and try again. </h2>";
-        }
+        //Check that something was passed in through get
+        if (count($_GET) > 0) {
+            //Solid Solution
+            if ($_GET["value"] == $GLOBALS['SOLID']) {
+                echo "<h2> Okay, you are adding a solute that is in the form of a pure solid. </h2>";
+                echo "<h3> Fill in the fields below with the appropriate information </h3>";
+            }
 
+            //Gravimetric Liquid
+            elseif ($_GET["value"] == $GLOBALS['GRAVIMETRIC']) {
+                echo "<h2> Okay, you are gravimetrically adding a solute that is in the form of a pure liquid. </h2>";
+                echo "<h3> Fill in the fields below with the appropriate information </h3>";
+            }
+
+            //Volumetric Liquid
+            elseif ($_GET["value"] == $GLOBALS['VOLUMETRIC']) {
+                echo "<h2> Okay, you are volumetrically adding a solute that is in the form of a pure liquid. </h2>";
+                echo "<h3> Fill in the fields below with the appropriate information </h3>";
+            }
+            //If none of the above show an error page.
+            else{
+                 echo "<h2> Error: Malformed URL, please return to SoluBuddy Home Page and try again. </h2>";
+            }
+        }
+    //If nothing was passed in display error
+      else{
+             echo "<h2> Error: Malformed URL, please return to SoluBuddy Home Page and try again. </h2>";
+      }
         
+ 
     ?>
 
 </div>
@@ -55,28 +59,30 @@
 
     // Dynamically load one of three pages based on the valuiie of '$_GET['value']'
     
-    //If it's the solid solution page.
-    if ($_GET["value"] == $GLOBALS['SOLID']) {
-        include 'content/solid.php'; 
-    }
-    
-    
-    elseif ($_GET["value"] == $GLOBALS['GRAVIMETRIC']) {
-        include 'content/gravimetric.php';
-    }
-    elseif ($_GET["value"] == $GLOBALS['VOLUMETRIC']) {
-        include 'content/volumetric.php';
-    }
+    //Check that something was passed in through get
+     if (count($_GET) > 0) {
+        //If it's the solid solution page.
+        if ($_GET["value"] == $GLOBALS['SOLID']) {
+            include 'content/solid.php'; 
+        }
+
+
+        elseif ($_GET["value"] == $GLOBALS['GRAVIMETRIC']) {
+            include 'content/gravimetric.php';
+        }
+        elseif ($_GET["value"] == $GLOBALS['VOLUMETRIC']) {
+            include 'content/volumetric.php';
+        }
+     }
 
     
     ?>
 </div>
 
+<hr>
 <!-- This is the answer page -->
 <div id="answerDiv">
-        <div id="arrowContainer">
-            <img src="down-arrow.jpg">
-        </div>
+        <h2> Answer Div</h2>
         <div>
             <div id="answer_div" class="inline-div">
 
@@ -84,7 +90,7 @@
                 <h2>Prepared by adding <span id="mass_span"></span>g <span id="solute_span2"></span> to <span id="volume_span1"></span>mL
 volumetric flask filled to mark with <span id="solvent_span2"></span> .</h2>
             </div>
-            <div class="inline-div">
+            <div id="answerBeaker" class="inline-div">
                 <img src="beaker.png" style="width:150px">
                 <p class="caption"><span id="molarity_span2"></span>M <br>
                     <span id="solute_span3"></span> <br> in <span id="solvent_span3"></span> </p>

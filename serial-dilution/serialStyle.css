@@ -25,6 +25,7 @@ td{
 html,body{
     width:100%;
     margin:0px;
+    height: 100%;
 }
 
 button{
@@ -50,7 +51,6 @@ h3{
     background: -webkit-linear-gradient(white, #b9d5ed);
     text-align: center;
     font-family: sans-serif;
-    
     width: 35em;
     height: 30px;
     margin-left: auto;
