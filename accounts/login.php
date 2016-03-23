@@ -21,11 +21,11 @@ if (!$result) {
 }$row = mysql_fetch_array($result);
 
 
-if (mysql_num_rows($result) == 1) {
+if (mysqli_num_rows($result) == 1) {
     header("Refresh: 0; $return_page");
 	exit();
 } 
-else if (mysql_num_rows($result) < 1) {
+else if (mysqli_num_rows($result) < 1) {
      echo("Bad username and password. <br> Redirecting back to page...");
 	 header("Refresh: 2; $return_page");
 }
