@@ -18,8 +18,6 @@
         $INTERNAL = "INTERNAL";
         $ADDITION = "ADDITION";
     ?>
-    
-    <?php echo $_GET['value']; ?>
    
     <?php 
 

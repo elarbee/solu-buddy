@@ -14,7 +14,7 @@
 	<div class="inline-div">
 		<img src="scale2.png" style="width:150px">
         <br>
-        <button onClick="window.location.href='../landing.html'">SoluBuddy Home</button>
+        <button onClick="window.location.href='../'">SoluBuddy Home</button>
 	</div>
 
 	<div class="inline-div">

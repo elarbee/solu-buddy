@@ -25,16 +25,16 @@
             <td></td>
         </tr>
         <tr>
-            <td> <button onClick="window.location.href='/single-solution/solution.html'">Make it Now!</button>  </td>
+            <td> <button class="makeItNowButton">Make it Now!</button>  </td>
             <td> <input id="solventChemID" type="text" placeholder="Solvent Chemical Identity"></td>
             <td> <input id="numDilutions" type="text" placeholder="Number of dilutions to prepare"> </td>
-            <td> <button id="nextButton">Next</button> </td>
+            <td> <a href="#answerDiv"><button id="nextButton">Next</button></a></td>
         </tr>
         <tr>
-            <td> <button>Use Saved Solution!</button> </td>
+            <td> <button id="savedSolutionButton">Use Saved Solution!</button> </td>
             <td> <input id="soluteChemID" type="text" placeholder="Solute Chemical Identity (i.e., Formula)"> </td>
             <td> <input id="flasksVolume" type="text" placeholder="Volume of flasks in which dilutions are prepared"> </td>
-            <td> <button id="homeButton" onClick="window.location.href='/landing.html'">SoluBuddy Home</button> </td>
+            <td> <button id="homeButton" onClick="window.location.href='../'">SoluBuddy Home</button> </td>
         </tr>
         <tr>
             <td></td>
@@ -89,13 +89,23 @@
                 <br>
                 <button id="printButton" onClick="window.print();">Print Dilution Series</button>
                 <br>
-                <button id="answerHomeButton" onClick="window.location.href='/landing.html'">SoluBuddy Home</button>
+                <button id="answerHomeButton" onClick="window.location.href='../'">SoluBuddy Home</button>
                 <!-- Style Hack Fix this -->
                 <br>
                 <br>
             </div>
         </div>
 </div>
+
+    <?php
+    //Include the 'Make it Now' modal.
+        include '../shared-content/makeItNowModal.php'; 
+    ?> 
+    
+    <?php
+    //Include the Saved solutions modal.
+        include '../shared-content/savedSolutionsModal.php'; 
+    ?> 
 
 </body>
 </html>
