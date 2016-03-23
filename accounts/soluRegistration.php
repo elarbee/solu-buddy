@@ -15,7 +15,7 @@ $sql = "INSERT INTO accounts (First_Name, Last_Name, Username, Password)
 VALUES ('$firstName', '$lastName', '$userName', '$encrypted_password')";
 
 if (!@mysqli_query($dbc, $sql)) {
-	die('Error: ' . mysql_error());
+	die('Error: ' .  mysqli_connect_errno() . mysqli_connect_error() . PHP_EOL);
 }
 
 echo 'Account has been created!<br>Redirecting back to home...';
