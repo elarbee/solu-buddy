@@ -14,5 +14,6 @@ if( $_REQUEST["uname"] ) {
    }
 }
 
+mysqli_close($dbc);
 
 ?>

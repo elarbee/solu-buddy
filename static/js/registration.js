@@ -3,7 +3,7 @@ function checkUsername(){
 	var $message = $("#availableMessage");
 	var goodColor = "#66cc66";
 	var badColor = "#ff6666";
-	$.post( "CheckUnameAvailability.php", { uname: $uname.val()})
+	$.post( "/accounts/CheckUnameAvailability.php", { uname: $uname.val()})
 		.done(function( data ) {
 			if(data == 0){
 				$uname.css("backgroundColor", badColor);
