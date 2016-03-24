@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="static/css/header-styles.css">
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    
 
     <!-- jQuery -->
     <script src="static/js/jquery-1.11.3.min.js"></script>
