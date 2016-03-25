@@ -60,6 +60,7 @@ h2{
 }
 
 #logo{
+    height: auto;
     width: 510px;
     margin-left: 15px;
     margin-top: 20px;
@@ -107,6 +108,9 @@ select:hover{
     
     margin-top: 10%;
     margin-bottom: 10%;
+    
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 @media (max-width: 1050px) {

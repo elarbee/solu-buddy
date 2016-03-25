@@ -64,6 +64,7 @@
             <div  class="optionDiv">
                 <div class="panel">
                     <h2> I am preparing multiple solutions by serial dilution. </h2>
+                    <br>
                     <button type="button" onClick="window.location.href='serial-dilution/serial.php'">Go</button>
                 </div>
             </div>

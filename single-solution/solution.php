@@ -21,7 +21,7 @@
     $GRAVIMETRIC = "GRAV";
     $VOLUMETRIC = "VOLU";
 ?>
-    
+
 <!-- Solution Input page -->
 <div id="headerDiv">
     <!-- Dynamically add correct Header depending on $_GET['value] -->
@@ -103,9 +103,9 @@ volumetric flask filled to mark with <span id="solvent_span2"></span> .</h2>
             </div>
         </div>
         <div>
-            <button>Use this solution for a serial dilution.</button><button>Save this Solution for later.</button> <button>Print Out Details</button> <button onClick="window.location.href='/index.html'">Back to Solubuddy Home</button>
+            <button>Use this solution for a serial dilution.</button><button>Save this Solution for later.</button> <button>Print Out Details</button> <button onClick="window.location.href='/'">Back to Solubuddy Home</button>
         </div>
 </div>
-
+    
 </body>
 </html>

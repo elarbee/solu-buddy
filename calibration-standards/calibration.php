@@ -18,7 +18,7 @@
         $INTERNAL = "INTERNAL";
         $ADDITION = "ADDITION";
     ?>
-   
+<div id="content"> 
     <?php 
 
         // Dynamically load one of three pages based on the valuiie of '$_GET['value']'
@@ -76,14 +76,15 @@
             <div id="answerButtonsDiv" class="inline-div">
                 <button id="saveButton">Save Set of Standards</button>
                 <br>
-                <button id="printButton" onClick="window.print();">Print Set of Standards Series</button>
+                <button id="printButton" onClick="">Print Set of Standards Series</button>
                 <br>
-                <button id="answerHomeButton" onClick="window.location.href='/landing.html'">SoluBuddy Home</button>
+                <button id="answerHomeButton" onClick="window.location.href='/'">SoluBuddy Home</button>
                 <!-- Style Hack Fix this -->
                 <br>
                 <br>
             </div>
         </div>
+</div>
 </div>
 
 </body>

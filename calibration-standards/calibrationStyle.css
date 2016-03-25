@@ -8,28 +8,32 @@ html{
 }
 
 /*Place holder text color. Probably only works in Chrome */
-::-webkit-input-placeholder{
+#content ::-webkit-input-placeholder{
     color: white;
 }
 
+td{
+    border: none;
+    cursor: auto;
+}
 html,body{
     width:100%;
     margin:0px;
     text-align: center;
 }
 
-input, button{
+#content input,#content button{
     color:white;
     margin-top: 10px;
     height:50px;
     width: 215px;
     border-radius: 10px;
 }
-input{
+#content input{
     background: #5b9bd5;
 }
 
-button{
+#content button{
     background: #92d050;
 
 }
@@ -40,7 +44,7 @@ button{
     font-family: sans-serif;
 }
 
-hr{
+#content hr{
     color: black;
     width: 80%;
 }
