@@ -9,7 +9,19 @@
 	<div class="inline-div">
 		<img src="beaker.png" style="width:150px">
         <br>
-		<button id="nextButton" onclick="fill_fields()">Next</button>
+        
+        
+        <?php 
+            //This code handles whether or not the solution is passed on to another page.
+            //If it is null the solution will be solved here.
+            if(isset($_GET['passTo'])){
+                include 'content/serialForm.php'; 
+            } 
+            else{
+               echo "<button id=\"nextButton\" onclick=\"fill_fields()\">Next</button>";
+            }
+        
+        ?>
 	</div>
 
 	<div class="inline-div">
