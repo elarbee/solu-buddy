@@ -158,6 +158,8 @@ describe("compound creation", function(){
 
         });
 
+        //TODO: make more tests here. need to test more complex compounds
+
 
     });
     describe("Compound components", function(){
