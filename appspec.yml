@@ -23,8 +23,6 @@ os: linux
 # If you are not copying any files to the Amazon EC2 instance, then remove the
 #   "files" section altogether. A blank or incomplete "files" section
 #   may cause associated deployments to fail.
-#files:
-#  - source: 
-#    destination:
-#  - source:
-#    destination:
+files:
+  - source: / 
+    destination: /var/app/current
