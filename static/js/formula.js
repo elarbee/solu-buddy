@@ -222,8 +222,9 @@ function is_valid_formula(str) {
 
     var isValid = /\d*[A-Z]{1}[a-z]?\d*/.test(str).valueOf();
     var usedElements = [];
-
+    var form_qty;
     if(isValid){
+
 
         var segments = str.match(/[A-Z]{1}[a-z]?\d*/g);
         var acceptedSegmentLengths = 0;
@@ -259,10 +260,22 @@ function is_valid_formula(str) {
 
         //If the total length of segments obtained from the string are not equal to the original
         //string, then there is an invalid piece.
-        isValid = (acceptedSegmentLengths == str.length);
+        isValid = (acceptedSegmentLengths == (str.length-form_qty.length));
     }
 
     return isValid.valueOf();
+}
+
+function front_number(str){
+    var form_qty = 1;
+
+    if(/^\d+/g.test(str)){
+        //check if input had a qty at the beginning
+        form_qty = str.match(/^\d+/)[0].valueOf();
+        //window.alert(form_qty + " length = " + form_qty.length);
+    }
+
+    return form_qty;
 }
 
 
