@@ -221,10 +221,17 @@ function is_valid_formula(str) {
 
     var isValid = /\d*[A-Z]{1}[a-z]?\d*/.test(str).valueOf();
     var usedElements = [];
-    var form_qty = front_number(str);
+    var formulaString = str;
+    var qty = 0;
+
+    /* Gets rid of the leading number for validation*/
+    if(/^\d+/.test(str)){
+        qty = str.match(/^\d+/)[0];
+        formulaString = str.substring(qty.length);
+    }
 
     if(isValid){
-        var segments = string_to_compound_segments(str);
+        var segments = string_to_compound_segments(formulaString);
         var acceptedSegmentLengths = 0;
         /*
          Populate components array with components created from the parsed string.
@@ -256,13 +263,10 @@ function is_valid_formula(str) {
             acceptedSegmentLengths += segment.length; //increment length of accepted segments
         }
 
+
         //If the total length of segments obtained from the string are not equal to the original
         //string, then there is an invalid piece.
-        if(/^\d+/g.test(str)){
-            isValid = (acceptedSegmentLengths == (str.length-form_qty.length));
-        }else{
-            isValid = acceptedSegmentLengths == str.length;
-        }
+        isValid = sum_string_lengths(segments) == formulaString.length;
     }
 
     return isValid.valueOf();
@@ -308,6 +312,19 @@ function front_number(str){
         form_qty = parseInt(str.match(/^\d+/)[0]);
     }
     return form_qty;
+}
+
+/**
+ * Sums the length of all strings in an array
+ * @param array Array of strings
+ * @returns {number} returns total length of all strings in array.
+ */
+function sum_string_lengths(array){
+    var total_length = 0;
+    for(var i = 0; i < array.length; i++){
+        total_length += array[i].length;
+    }
+    return total_length;
 }
 
 function print(str){

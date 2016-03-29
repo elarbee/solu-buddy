@@ -18,13 +18,13 @@ describe("Formula parsing and validation", function() {
     
           });
     
-          // it("Should be able to validate a formula with numbers in front (multiple compounds)", function () {
-          //    expect(is_valid_formula("4H2O")).toEqual(true);
-          //    expect(is_valid_formula("5Na2Cl13")).toEqual(true);
-          //    expect(is_valid_formula("13H2Cl15")).toEqual(true);
-          //    expect(is_valid_formula("200NaCl2H")).toEqual(true);
-          //
-          // });
+          it("Should be able to validate a formula with numbers in front (multiple compounds)", function () {
+             expect(is_valid_formula('4H2O')).toEqual(true);
+             expect(is_valid_formula("5Na2Cl13")).toEqual(true);
+             expect(is_valid_formula("13H2Cl15")).toEqual(true);
+             expect(is_valid_formula("200NaCl2H")).toEqual(true);
+
+          });
     
           it("should be able to reject duplicate elements", function () {
              expect(is_valid_formula("NaHH")).toEqual(false);
@@ -115,6 +115,14 @@ describe("Formula parsing and validation", function() {
 
         });
 
+
+    });
+
+    describe("sum_string_lengths(array) function testing", function() {
+
+        it("should correctly sum the lengths of all strings in an array", function () {
+            expect(sum_string_lengths(["o", "hi", "say", "cano", "youou"])).toEqual(15);
+        });
 
     });
 
