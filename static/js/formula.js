@@ -136,12 +136,10 @@ function Compound(components, qty){
 function string_to_compound(input){
 
     //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
-    //TODO: Add error checking to reject duplicate elements
     var segments = input.match(/[A-Z]{1}[a-z]?\d*/g);
     var components = [];
 
-    var compound_qty = 1; //default value = 1
-
+    var compound_qty = front_number(input);
 
     if(/^\d+/g.test(input)){
         //check if input had a qty at the beginning
@@ -156,18 +154,20 @@ function string_to_compound(input){
         //index 0 = element + quantity
         //index 1 = element
         //index 2 = quantity
-        var pieces = segments[i].match(/([A-Z]{1}[a-z]?)(\d*)/);
+        var pieces = segment_to_pieces(segments[i])
 
         var element = pieces[1]; //get element symbol
-        var quantity = pieces[2] || 1; //default qty is 1
+        var quantity = parseInt(pieces[2]) || 1; //default qty is 1
 
         var component = new Compound_Component(element, quantity);
         components.push(component);
     }
 
-    var comp = new Compound(components, compound_qty);
+    var comp = new Compound(components, parseInt(compound_qty));
     return comp;
 }
+
+
 
 
 /**
@@ -211,8 +211,7 @@ function Compound_Component(symbol, qty){
  *
  * is_valid_formula("nacl") == false
  * is_valid_formula("NaCl") == true
- *
- * TODO: method needs to reject "Nacl" ( #lowercase > #uppercase)
+ * is_valid_formula("H2OH") == false
  *
  * @str Formula string to test.
  * @return Returns true if valid, false if invalid.
@@ -222,11 +221,10 @@ function is_valid_formula(str) {
 
     var isValid = /\d*[A-Z]{1}[a-z]?\d*/.test(str).valueOf();
     var usedElements = [];
-    var form_qty;
+    var form_qty = front_number(str);
+
     if(isValid){
-
-
-        var segments = str.match(/[A-Z]{1}[a-z]?\d*/g);
+        var segments = string_to_compound_segments(str);
         var acceptedSegmentLengths = 0;
         /*
          Populate components array with components created from the parsed string.
@@ -235,7 +233,7 @@ function is_valid_formula(str) {
 
             /* Get Element Symbol From Segment*/
             var segment = segments[i];
-            var pieces = segment.match(/([A-Z]{1}[a-z]?)(\d*)/);
+            var pieces = segment_to_pieces(segment);
             var element = pieces[1]; //get element symbol
 
             /* Check if element has already been used */
@@ -260,24 +258,57 @@ function is_valid_formula(str) {
 
         //If the total length of segments obtained from the string are not equal to the original
         //string, then there is an invalid piece.
-        isValid = (acceptedSegmentLengths == (str.length-form_qty.length));
+        if(/^\d+/g.test(str)){
+            isValid = (acceptedSegmentLengths == (str.length-form_qty.length));
+        }else{
+            isValid = acceptedSegmentLengths == str.length;
+        }
     }
 
     return isValid.valueOf();
 }
 
-function front_number(str){
-    var form_qty = 1;
-
-    if(/^\d+/g.test(str)){
-        //check if input had a qty at the beginning
-        form_qty = str.match(/^\d+/)[0].valueOf();
-        //window.alert(form_qty + " length = " + form_qty.length);
-    }
-
-    return form_qty;
+/**
+ * Breaks a segment string down into an array containing the element and quantity
+ * index 0 = element + quantity
+ * index 1 = element
+ * index 2 = quantity
+ *
+ * @param segment string to break down
+ * @returns {Array|{index: number, input: string}} array whos contents are:
+ *      [0] = element+quantity
+ *      [1] = element
+ *      [2] = quantity
+ *
+ */
+function segment_to_pieces(segment){
+    return segment.match(/([A-Z]{1}[a-z]?)(\d*)/);
 }
 
+/**
+ * Breaks a formula string down into an array of elements and their respective quantities
+ * @param str formula string to break down.
+ * @returns {Array|{index: number, input: string}} an array of elements concatenated with their quantities
+ */
+function string_to_compound_segments(str){
+    return str.match(/[A-Z]{1}[a-z]?\d*/g);
+}
+
+
+/**
+ * Obtains the occurrences of a given formula.
+ * @param str Formula string
+ * @returns {number} number of times formula occurs.
+ */
+function front_number(str){
+
+    var form_qty = 1;
+    if(/^\d+/g.test(str)){
+        //check if input had a qty at the beginning
+        form_qty = parseInt(str.match(/^\d+/)[0]);
+    }
+    return form_qty;
+}
 
 function print(str){
     document.write(str + "<br />");
