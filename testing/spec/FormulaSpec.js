@@ -170,6 +170,7 @@ describe("compound creation", function(){
 
 
     });
+
     describe("Compound components", function(){
 
         it("Should be able to create components with large quantities " +
