@@ -68,7 +68,6 @@ function fill_fields(page){
         $("#solute_molec_weight").val(solute_molecular_weight);
         /* Get total volume value from input field*/
         var total_volume = $("#total_volume").val()/1000;
-        window.alert(total_volume);
 
         /* Get target solution concentration from the input field.*/
         var target_solution_concentration = $("#solution_concentration").val();
@@ -90,24 +89,19 @@ function fill_fields(page){
 
             /* Calculates the mass of solute to add to the solvent using the 'solid()' function within SingleSolution object.*/
             mass_of_solute_to_add = single_solution.solid();
-            window.alert(mass_of_solute_to_add);
             $("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
 
         }else if(page == "GRAV"){
-            window.alert(page);
 
             mass_of_solute_to_add = single_solution.solid();
-            window.alert(mass_of_solute_to_add);
             $("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
 
 
         }else if(page == "VOLU"){
 
             var density = parseFloat($("#density").val());
-            window.alert(density);
 
             mass_of_solute_to_add = single_solution.liquid.volume(density);
-            window.alert(mass_of_solute_to_add);
 
             $("#massToAdd").val(mass_of_solute_to_add + " mL"); //answer presented in mL
 
