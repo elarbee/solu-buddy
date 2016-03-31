@@ -55,8 +55,8 @@ function Solution(solute, solvent, volume, solution_concentration){
         var desc = "<br />Steps to produce " + self.description() + "<br /><br />" +
                 "1) Pick a container that can safely contain "+ self.volume +"L<br />" +
                 "2) Calculate amount of solute necessary("+ self.single.sol.solution_calculator.solid()+"g) using: <br /> " +
-                "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "<br />" +
-                "\u00A0\u00A0\u00A0\u00A0b. chosen volume: "+ self.volume + "<br />" +
+                "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "M<br />" +
+                "\u00A0\u00A0\u00A0\u00A0b. chosen volume: "+ self.volume + "L<br />" +
                 "\u00A0\u00A0\u00A0\u00A0c. solute's molecular weight: "+self.solute.molecular_weight() +"g<br />" +
                 "4) Carefully measure out " + self.single.sol.solution_calculator.solid() + "g of " + solute + "<br /> " +
                 "5) Using standard methods, transfer the solute to your flask.<br /> " +
@@ -64,6 +64,8 @@ function Solution(solute, solvent, volume, solution_concentration){
 
         return desc;
     };
+
+    //TODO: add steps functions for the other solution variants
 
     /**
      * Gets a short, one-line description of the solution.

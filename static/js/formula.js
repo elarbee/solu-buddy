@@ -4,23 +4,6 @@
 
 
 /**
- * Just for testing, pay no attention to me!
- */
-function no_args_make_compound(){
-    var input = prompt("Enter compound");
-
-    var compound = string_to_compound(input);
-
-    for(var i = 0; i < compound.components.length; i++){
-        print(compound.components[i].element.name);
-        print(compound.components[i].get_description());
-
-    }
-
-    print(compound.get_description());
-}
-
-/**
  * Stores a full chemical compound constructed from an array of compound components. Array of compound components
  * constructed using the string_to_components(string) function.
  *
