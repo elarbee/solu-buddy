@@ -5,7 +5,7 @@
 		<input id = "solute_formula" type="text" placeholder="Solute Identity"><br>
 		<input id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
 		<input id = "density" type="text" placeholder="Density of Pure Solute"><br>
-		<input id = "solution_concentration" type="text" placeholder="Solute Concentration"><br>
+		<input id = "solution_concentration" type="text" placeholder="Solution Concentration"><br>
     <input id= "total_volume" type="text" placeholder="Solution Total Volume (milli Liters)"><br>
 	</div>
 

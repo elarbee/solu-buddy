@@ -86,10 +86,17 @@ function fill_fields(page){
 
         if(page == "SOLID"){
 
-
             /* Calculates the mass of solute to add to the solvent using the 'solid()' function within SingleSolution object.*/
             mass_of_solute_to_add = single_solution.solid();
             $("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
+
+            var new_solution = new Solution(
+                $("#solute_formula").val(),
+                $("#solvent_formula").val(),
+                total_volume,
+                target_solution_concentration);
+
+            $("#steps_div").html(new_solution.single.sol.steps_html());
 
         }else if(page == "GRAV"){
 
@@ -108,25 +115,29 @@ function fill_fields(page){
 
         }
 
+
         /**
          * Fills in the answer page using values collected and calculated above.
+         *
+         * DEPRECATED; WILL BE REMOVED SOON!
          */
 
-        $("#molarity_span1").html(molarity);
-        $("#molarity_span2").html(molarity);
+        // $("#molarity_span1").html(molarity);
+        // $("#molarity_span2").html(molarity);
+        //
+        // $("#solvent_span1").html(solvent_compound.formula());
+        // $("#solvent_span2").html(solvent_compound.formula());
+        // $("#solvent_span3").html(solvent_compound.formula());
+        //
+        // $("#solute_span1").html(solute_compound.formula());
+        // $("#solute_span2").html(solute_compound.formula());
+        // $("#solute_span3").html(solute_compound.formula());
+        //
+        // $("#volume_span1").html(total_volume);
+        // $("#volume_span2").html(total_volume);
+        //
+        // $("#mass_span").html(mass_of_solute_to_add);
 
-        $("#solvent_span1").html(solvent_compound.formula());
-        $("#solvent_span2").html(solvent_compound.formula());
-        $("#solvent_span3").html(solvent_compound.formula());
-
-        $("#solute_span1").html(solute_compound.formula());
-        $("#solute_span2").html(solute_compound.formula());
-        $("#solute_span3").html(solute_compound.formula());
-
-        $("#volume_span1").html(total_volume);
-        $("#volume_span2").html(total_volume);
-
-        $("#mass_span").html(mass_of_solute_to_add);
     }catch (ex){
         window.alert(ex.message);
     }
