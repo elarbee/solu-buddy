@@ -4,6 +4,7 @@
     <?php
         include '../script-includes.html';
     ?>
+
     <script src="SolutionPage.js"></script>
     <script src="../static/js/formula.js"></script>
     <script src="../static/js/elements.js"></script>
@@ -62,16 +63,14 @@
 <div id="divContainer">
     <?php 
 
-    // Dynamically load one of three pages based on the valuiie of '$_GET['value']'
+    // Dynamically load one of three pages based on the value of '$_GET['value']'
     
     //Check that something was passed in through get
      if (count($_GET) > 0) {
         //If it's the solid solution page.
         if ($_GET["value"] == $GLOBALS['SOLID']) {
-            include 'content/solid.php'; 
+            include 'content/solid.php';
         }
-
-
         elseif ($_GET["value"] == $GLOBALS['GRAVIMETRIC']) {
             include 'content/gravimetric.php';
         }
