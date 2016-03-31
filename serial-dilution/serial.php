@@ -6,6 +6,7 @@
     ?>
     <script src="SolutionPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="serialStyle.css">
+	<link rel="stylesheet" type="text/css" href="../single-solution/singleStyle.css">
 </head>
 <body>
     <?php
