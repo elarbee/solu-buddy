@@ -16,9 +16,11 @@
     <script src="static/js/calculator.js"></script>
 </head>
 <body>
-    <div id="header">
-        <img id="logo" src="static/images/logo.png">
-    </div>
+
+    <?php
+    include '/top-header.php';
+    ?>
+    
 	<div id="choices">
         
         <!-- Option 1 -->

@@ -21,7 +21,7 @@
 <div id="content"> 
     <?php 
 
-        // Dynamically load one of three pages based on the valuiie of '$_GET['value']'
+        // Dynamically load one of three pages based on the value of '$_GET['value']'
 
         //If it's the solid solution page.
         if ($_GET["value"] == $GLOBALS['EXTERNAL']) {
@@ -54,7 +54,7 @@
             <!-- Dilution flasks -->
             <div id="dilutionFlasksDiv" class="inline-div">
                 <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
-                <div id="dilutionFlask1" class="dilutionFlask">
+                <div id="dilutionFlask" class="dilutionFlask inline-div">
                     <div class="flaskImgAndNumberDiv">
                         <td><input type="text" placeholder="V, sas, std1"></td>
                         <img src="beakerSmall.png">

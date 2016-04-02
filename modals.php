@@ -1,6 +1,6 @@
 <!-- Modal 1-->
 <div id="modal-1" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" id ="popups">
@@ -12,8 +12,8 @@
 					<input type = "text" name="username" id="textbox" placeholder="Username"><br>
 					<input type = "password" name="password"  id="textbox" placeholder="Password"><br>
       <div class="modal-footer">
-      	<input type="submit" class="btn btn-success" name="submit" value="Log In">
-        <input type="button" class="btn btn-primary" name="signup" data-dismiss="modal" value="Cancel">
+      	<input type="submit" class="btn btn-primary" name="submit" value="Log In">
+        <input type="button" class="btn" name="signup" data-dismiss="modal" aria-hidden="true" value="Cancel">
       </div>
       </form>
       </div>
@@ -23,7 +23,7 @@
 
 <!-- Modal 2-->
 <div id="modal-2" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" id ="popups">
@@ -40,8 +40,8 @@
 					<span id="confirmMessage" class="confirmMessage"></span><br>
 
       <div class="modal-footer">
-      	<input type="submit" class="btn btn-success" name="submit" id="signupSubmit" value="Sign Up">
-        <input type="button" class="btn btn-primary" data-dismiss="modal" value="Cancel">
+      	<input type="submit" class="btn btn-primary" name="submit" id="signupSubmit" value="Sign Up">
+        <input type="button" data-dismiss="modal" aria-hidden="true" class="btn" value="Cancel">
       </div>
       </form>
       </div>
