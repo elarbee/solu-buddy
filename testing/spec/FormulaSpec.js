@@ -173,6 +173,34 @@ describe("compound creation", function(){
 
         });
 
+        it("should be able to create ionic compounds", function () {
+
+
+            var form1 = "(NH4)2SO4";
+            var comp1 = string_to_compound(form1);
+
+            expect(remove_parentheses(form1)).toEqual("2SO4");
+
+
+
+            expect(comp1.components[0].element.symbol).toEqual("S");
+            expect(comp1.components[0].quantity).toEqual(1);
+
+            expect(comp1.components[1].element.symbol).toEqual("O");
+            expect(comp1.components[1].quantity).toEqual(4);
+
+
+            expect(comp1.sub_compounds[0].components[0].element.symbol).toEqual("N");
+            expect(comp1.sub_compounds[0].components[1].element.symbol).toEqual("H");
+            expect(comp1.sub_compounds[0].components[1].quantity).toEqual(4);
+            expect(comp1.sub_compounds[0].quantity).toEqual(2);
+
+
+
+        });
+
+
+
         //TODO: make more tests here. need to test more complex compounds
 
 
@@ -251,6 +279,7 @@ describe("compound creation", function(){
         });
 
     });
+
 
 
 });

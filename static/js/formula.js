@@ -136,15 +136,24 @@ function Compound(components, qty){
  */
 function string_to_compound(input){
 
-    var formula = remove_parentheses(input);
-    var ionic_formula = input.replace(formula, "");
+    var compound_qty = front_number(input);
+    var formula = input;
+    if( /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.test(input)){
+        var sub_compounds = string_to_ionic_compounds(input);
+
+        for(var i = 0; i < sub_compounds.length; i++){
+            formula = formula.replace(sub_compounds[i], "");
+        }
+    }
+
+
 
     //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
     var segments = formula.match(split_compound_reg);
 
     var components = [];
 
-    var compound_qty = front_number(input);
+
 
     /*
         Populate components array with components created from the parsed string.
@@ -165,13 +174,13 @@ function string_to_compound(input){
 
     var comp = new Compound(components, parseInt(compound_qty));
 
-    if( /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.test(ionic_formula)){
-        var sub_compounds = string_to_ionic_compounds(ionic_formula);
+    if(sub_compounds != null){
         comp.add_sub_compounds(sub_compounds);
     }
-    
+
     return comp;
 }
+
 
 function remove_parentheses(str){
     if(/([^[\)]+)(?:$|[\(])/g.test(str)){
