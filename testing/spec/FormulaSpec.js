@@ -9,6 +9,13 @@ describe("Formula parsing and validation", function() {
              expect(is_valid_formula("FeO")).toEqual(true);
     
           });
+
+        it("Should reject formulas with nonexistent elements", function () {
+             expect(is_valid_formula("NaCz")).toEqual(false);
+             expect(is_valid_formula("HNm")).toEqual(false);
+             expect(is_valid_formula("HCp")).toEqual(false);
+
+          });
     
           it("Should be able to validate a formula with numbers", function () {
              expect(is_valid_formula("H2O")).toEqual(true);
@@ -181,5 +188,61 @@ describe("compound creation", function(){
         });
 
     });
+
+    describe("is_valid_formula_test(str) function testing", function() {
+    
+        it("should accept ionic formulas", function () {
+           // expect(is_valid_formula_test("2(NaCl)2H2O")).toEqual(true);
+        });
+    });
+    
+    describe("string_to_compounds(str) testing", function() {
+    
+        it("should accept ionic formulas", function () {
+            var ionic_compound = "(NaCl)(H2O)4";
+            var compounds = string_to_ionic_compounds(ionic_compound);
+            expect(compounds.length).toEqual(2);
+            expect(compounds[0]).toEqual("(NaCl)");
+            var waterqty = compounds[1];
+            expect(compounds[1]).toEqual("(H2O)4");
+
+            var water_components = split_sub_compound(waterqty);
+            expect(water_components.length).toEqual(4);
+            expect(water_components[1]).toEqual("H2O");
+            expect(water_components[3]).toEqual("4");
+        });
+    });
+    describe("add_sub_compounds testing", function() {
+
+        var compound = string_to_compound("NaCl");
+        var ionic_compound = "(HFe10)13(H2O)4";
+        var compounds = string_to_ionic_compounds(ionic_compound);
+        var pieces0 = split_sub_compound(compounds[0]);
+        var pieces1 = split_sub_compound(compounds[1]);
+
+        it("should work", function(){
+            expect(compounds[0]).toEqual(("(HFe10)13"));
+            expect(compounds[1]).toEqual(("(H2O)4"));
+            expect(pieces0[0]).toEqual("(HFe10)13");
+            expect(pieces0[1]).toEqual("HFe10");
+            expect(pieces0[3]).toEqual("13");
+
+
+        });
+
+        it("(H2O)4 splits properly", function(){
+            expect(pieces1[0]).toEqual("(H2O)4");
+            expect(pieces1[1]).toEqual("H2O");
+            expect(pieces1[3]).toEqual("4");
+        });
+
+        // compound.add_sub_compounds(compounds);
+        //
+        // it("should accept ionic formulas", function () {
+        //     expect(compound.sub_compounds[0].formula()).toEqual("13HFe10");
+        //     expect(compound.sub_compounds[1].formula()).toEqual("4H2O");
+        // });
+    });
+
 
 });
