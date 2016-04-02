@@ -7,6 +7,7 @@ var ionic_reg = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g;
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
 var not_in_parentheses_reg = /[(^\)]+\)(?:^|\s)([\w']+)(?!\))\b|(?:^|\s)([\w']+)(?!\))/g;
+var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
 
 /**
  * Stores a full chemical compound constructed from an array of compound components. Array of compound components
@@ -105,7 +106,6 @@ function Compound(components, qty){
 
     self.add_sub_compounds = function(subpounds){
 
-
         for(var i = 0; i<subpounds.length; i++){
             var pieces = split_sub_compound(subpounds[i]);
             //var qty = parseInt(pieces[3]);
@@ -136,17 +136,15 @@ function Compound(components, qty){
  */
 function string_to_compound(input){
 
+    var formula = remove_parentheses(input);
+    var ionic_formula = input.replace(formula, "");
+
     //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
-    var segments = input.match(split_compound_reg);
+    var segments = formula.match(split_compound_reg);
+
     var components = [];
 
     var compound_qty = front_number(input);
-
-    if(/^\d+/g.test(input)){
-        //check if input had a qty at the beginning
-        compound_qty = input.match(/^\d+/)[0];
-    }
-
 
     /*
         Populate components array with components created from the parsed string.
@@ -156,7 +154,7 @@ function string_to_compound(input){
         //index 0 = element + quantity
         //index 1 = element
         //index 2 = quantity
-        var pieces = segment_to_pieces(segments[i])
+        var pieces = segment_to_pieces(segments[i]);
 
         var element = pieces[1]; //get element symbol
         var quantity = parseInt(pieces[2]) || 1; //default qty is 1
@@ -166,9 +164,23 @@ function string_to_compound(input){
     }
 
     var comp = new Compound(components, parseInt(compound_qty));
+
+    if( /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.test(ionic_formula)){
+        var sub_compounds = string_to_ionic_compounds(ionic_formula);
+        comp.add_sub_compounds(sub_compounds);
+    }
+    
     return comp;
 }
 
+function remove_parentheses(str){
+    if(/([^[\)]+)(?:$|[\(])/g.test(str)){
+        return /([^[\)]+)(?:$|[\(])/g.exec(str)[0].replace("(", "");
+    }
+    else{
+        return str;
+    }
+}
 
 
 
@@ -333,11 +345,6 @@ function sum_string_lengths(array){
     return total_length;
 }
 
-function print(str){
-    document.write(str + "<br />");
-}
-
-
 /**
  * Tests whether the compound formula has a valid format or not.
  *
@@ -408,6 +415,11 @@ function is_valid_formula_test(str) {
     return isValid.valueOf();
 }
 
+/**
+ *
+ * @param str
+ * @returns {Array|{index: number, input: string}}
+ */
 function string_to_ionic_compounds(str){
     var compounds = str.match(ionic_reg);
     return compounds;

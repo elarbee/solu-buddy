@@ -226,8 +226,6 @@ describe("compound creation", function(){
             expect(pieces0[0]).toEqual("(HFe10)13");
             expect(pieces0[1]).toEqual("HFe10");
             expect(pieces0[3]).toEqual("13");
-
-
         });
 
         it("(H2O)4 splits properly", function(){
@@ -236,12 +234,22 @@ describe("compound creation", function(){
             expect(pieces1[3]).toEqual("4");
         });
 
-        // compound.add_sub_compounds(compounds);
-        //
-        // it("should accept ionic formulas", function () {
-        //     expect(compound.sub_compounds[0].formula()).toEqual("13HFe10");
-        //     expect(compound.sub_compounds[1].formula()).toEqual("4H2O");
-        // });
+        compound.add_sub_compounds(compounds);
+
+        it("should add formulas to a pre-existing formula.", function () {
+            expect(compound.sub_compounds[0].formula()).toEqual("13HFe10");
+            expect(compound.sub_compounds[1].formula()).toEqual("4H2O");
+        });
+    });
+
+    describe("remove_parentheses(input) ", function() {
+
+        it("should properly grab all text not inside parenthesis", function(){
+            var test1 = "(H2O)2343(H2O)(NaCl)";
+
+            expect(remove_parentheses(test1)).toEqual("2343");
+        });
+
     });
 
 
