@@ -94,8 +94,8 @@ function Compound(components, qty, formula_str){
         }
 
         if(self.sub_compounds.length > 0){
-            for(var i = 0; i < sub_compounds.length; i++){
-                sum += sub_compounds[i].total_molecular_weight();
+            for(var i = 0; i < self.sub_compounds.length; i++){
+                sum += self.sub_compounds[i].total_molecular_weight();
             }
         }
         return sum;
@@ -274,9 +274,9 @@ function is_valid_formula(str) {
 
 /**
  * Breaks a segment string down into an array containing the element and quantity
- * index 0 = element + quantity
- * index 1 = element
- * index 2 = quantity
+ *      index 0 = element + quantity
+ *      index 1 = element
+ *      index 2 = quantity
  *
  * @param segment string to break down
  * @returns {Array|{index: number, input: string}} array whos contents are:
@@ -345,9 +345,9 @@ function string_to_ionic_compounds(str){
  * var water = (H2O)4
  *  var pieces = split_sub_compound(water);
  *
- *  pieces[0] == "(H2O)2";
- *  pieces[1] == "H2O";
- *  pieces[3] == "4";
+ *          pieces[0] == "(H2O)2";
+ *          pieces[1] == "H2O";
+ *          pieces[3] == "4";
  *
  * @param str Sub compound to split. Must be enclosed by parentheses with its quantity trailing at the end.
  * @returns {Array|{index: number, input: string}} String array of pieces.

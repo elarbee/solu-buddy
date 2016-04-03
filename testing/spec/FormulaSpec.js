@@ -225,7 +225,7 @@ describe("compound creation", function(){
             expect(comp1.sub_compounds[0].sub_compounds.length).toEqual(0);
             expect(comp1.sub_compounds.length).toEqual(1);
 
-            //expect(comp1.molecular_weight()).toEqual(192.12);
+            expect(comp1.molecular_weight()).toEqual(192.1232);
 
         });
 
