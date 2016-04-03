@@ -97,10 +97,18 @@ h3{
 .stuffContainer{
     display: inline-block;
     text-align: center;
-    background-color: rgba(42,42,42,.8);
+    background-color: rgba(42,42,42,.75);
     border-radius: 10px;
     alignment: center;
     border: 1px solid white;
+}
+
+.stepsTexBox{
+    text-align: left;
+    background-color: rgba(42,42,42,.75);
+    color: white;
+    font-size: medium;
+    padding: 20px;
 
 }
 

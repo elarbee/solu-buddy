@@ -1,76 +1,92 @@
 /**
  * Created by Howerton on 3/31/2016.
  */
+
+/**
+ * Creates a new solution object using solute/solvent formulas, final volume, and goal concentration.
+ *
+ * @param solute String chemical formula of the solute.
+ * @param solvent String chemical formula of the solvent.
+ * @param volume Volume of the final solution in liters.
+ * @param solution_concentration Goal solution concentration as Molarity.
+ *
+ * @returns {{}} Solution object (self).
+ * @constructor
+ */
 function Solution(solute, solvent, volume, solution_concentration){
     var self = {};
 
-    self.components = components;
-    self.compound_atomic_weight = 0;
-    self.quantity = qty;
+    //new dictionary holding "single" solution properties.
+    self.single = {};
+
+    //new dictionary holding single solution properties for solutions
+    // created from a calculated solute mass where the solute is a solid
+    self.single.sol = {};
+
+    self.single.sol.solution_calculator = new SingleSolution(
+        solution_concentration,
+        volume,
+        string_to_compound(solute).molecular_weight());
+
+    //new dictionary holding single solution properties for solutions
+    //created from a calculated volume of a pure liquid solute
+    self.single.volumetric = {};
+
+    //new dictionary holding single solution properties for solutions
+    //created from a calculated solute mass where the solute is a pure liquid
+    self.single.gravimetric = {};
+
+
+
+    /* Fields required for all solutions */
+    self.solute = string_to_compound(solute);
+    self.solvent = string_to_compound(solvent);
+    self.volume = volume;
+    self.solution_concentration = solution_concentration;
+    /*----------------------------------------------------*/
+
+
 
     /**
-     * Calculates the molecular weight of the compound as the summation of each element's atomic weight multiplied by
-     * the element's quantity.
-     *  i.e. molecular_weight = SUM(element[0...n].atomic_weight * #(element[0...n]))
-     * @returns {number} Molecular weight of the compound.
+     * Returns an inner html block listing the steps required to create this specific solution.
+     * @returns {string} List of steps to create the solution.
      */
-    self.molecular_weight = function(){
-        var sum = 0;
-        for(var o = 0; o < self.components.length; o++){
-            sum += self.components[o].get_component_atomic_weight();
-        }
-        return sum;
-    };
+    self.single.sol.steps_html = function(){
+        var desc = "<br />Steps to produce " + self.description() + "<br /><br />" +
+                "1) Pick a container that can safely contain "+ self.volume +"L<br />" +
+                "2) Calculate amount of solute necessary("+ self.single.sol.solution_calculator.solid()+"g) using: <br /> " +
+                "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "M<br />" +
+                "\u00A0\u00A0\u00A0\u00A0b. chosen volume: "+ self.volume + "L<br />" +
+                "\u00A0\u00A0\u00A0\u00A0c. solute's molecular weight: "+self.solute.molecular_weight() +"g<br />" +
+                "4) Carefully measure out " + self.single.sol.solution_calculator.solid() + "g of " + solute + "<br /> " +
+                "5) Using standard methods, transfer the solute to your flask.<br /> " +
+                "6) Add solvent (" + solvent + ") to your solution until you reach " + self.volume + "<br /> ";
 
-    /**
-     * Returns the molecular weight of the compound multiplied by the quantity of the compound,
-     * giving the total molecular weight.
-     * @returns {number} Total molecular weight (molecular weight * quantity)
-     */
-    self.total_molecular_weight = function(){
-        return self.molecular_weight() * self.quantity;
-    };
-
-    /**
-     * Creates a string description of the compound and returns it. Includes: formula, molecular weight,
-     * quantity of the compound, total molecular weight, and information on each component (element name and quantity).
-     *
-     * Can be used to verify accuracy when debugging.
-     * @returns {string} Description string.
-     */
-    self.get_description = function(){
-        var desc = "<br />Compound Description<br />Formula: " + self.formula() +
-            "<br />Molecular Weight: " + self.molecular_weight()+"<br />" +
-            "Compound Quantity: " + self.quantity + "<br />Total Molecular Weight: " +
-            self.total_molecular_weight() + "<br />";
-        for(var i = 0; i < self.components.length; i++){
-            desc = desc + "Element["+i+"]: "+components[i].element.name + "|| Qty: " +
-                components[i].quantity + "<br />";
-        }
         return desc;
     };
 
+    //TODO: add steps functions for the other solution variants
+
     /**
-     * Creates the formula for the compound using component elements and their respective quantities.
-     *
-     * Example Usage
-     *
-     *  var water = new Compound('H2O');
-     *
-     *  var formula = water.formula();
-     *
-     *  -> formula == 'H2O'
-     *
-     * @returns {string} Formula for the compound.
+     * Gets a short, one-line description of the solution.
+     * @returns {string} Description of the solution.
      */
-    self.formula = function(){
-        var formula = (self.quantity == 1)? "" : self.quantity;
-        for(var i = 0; i < self.components.length; i++){
-            formula += components[i].element.symbol;
-            formula += (components[i].quantity == 1)? "" : components[i].quantity;
-        }
-        return formula;
+    self.description = function(){
+        var description = self.solute.molecular_weight() + "g " + solute + " in " + self.volume + "L of "
+          + solvent + " where Molarity = " + self.solution_concentration;
+        return description;
     };
 
+    // self.generic_steps = function(){
+    //     var desc = "<br />Steps to produce " + self.description() + "<br />" +
+    //         "1) Choose a final volume and container for your solution. <br />" +
+    //         "2) Choose a goal concentration for your solution. <br />" +
+    //         "3) Calculate amount of solute necessary (g) using <br /> " +
+    //         "   concentration, volume, and the solute's molecular weight <br />" +
+    //         "4) Carefully measure out <br /> ";
+    // };
+
+
     return self;
+
 }
