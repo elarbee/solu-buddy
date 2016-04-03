@@ -2,6 +2,11 @@
  * Created by Howerton on 2/23/2016.
  */
 
+//var split_ionic_reg = /([(]{1}([A-Z]{1}[a-z]?\d*)+[)]{1}(\d*))/g;
+var ionic_reg = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g;
+var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
+var split_compound_reg = /[A-Z][a-z]?\d*/g;
+var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
 
 /**
  * Stores a full chemical compound constructed from an array of compound components. Array of compound components
@@ -26,26 +31,15 @@
  * @param components Array of components used to make the compound.
  * @constructor
  */
-function Compound(components, qty){
+function Compound(components, qty, formula_str){
     var self = {};
 
     self.components = components;
     self.compound_atomic_weight = 0;
     self.quantity = qty;
+    self.sub_compounds = [];
+    self.formula = formula_str;
 
-    /**
-     * Calculates the molecular weight of the compound as the summation of each element's atomic weight multiplied by
-     * the element's quantity.
-     *  i.e. molecular_weight = SUM(element[0...n].atomic_weight * #(element[0...n]))
-     * @returns {number} Molecular weight of the compound.
-     */
-    self.molecular_weight = function(){
-        var sum = 0;
-        for(var o = 0; o < self.components.length; o++){
-            sum += self.components[o].get_component_atomic_weight();
-        }
-        return sum;
-    };
 
     /**
      * Returns the molecular weight of the compound multiplied by the quantity of the compound,
@@ -75,26 +69,36 @@ function Compound(components, qty){
         return desc;
     };
 
-    /**
-     * Creates the formula for the compound using component elements and their respective quantities.
-     *
-     * Example Usage
-     *
-     *  var water = new Compound('H2O');
-     *
-     *  var formula = water.formula();
-     *
-     *  -> formula == 'H2O'
-     *
-     * @returns {string} Formula for the compound.
-     */
-    self.formula = function(){
-        var formula = (self.quantity == 1)? "" : self.quantity;
-        for(var i = 0; i < self.components.length; i++){
-            formula += components[i].element.symbol;
-            formula += (components[i].quantity == 1)? "" : components[i].quantity;
+
+    self.add_sub_compounds = function(sub_compounds){
+
+        for(var i = 0; i<sub_compounds.length; i++){
+            var pieces = split_sub_compound(sub_compounds[i]);
+            //var qty = parseInt(pieces[3]);
+            var formula = pieces[3] + pieces[1];
+
+            this.sub_compounds.push(string_to_compound(formula));
         }
-        return formula;
+    };
+
+    /**
+     * Calculates the molecular weight of the compound as the summation of each element's atomic weight multiplied by
+     * the element's quantity.
+     *  i.e. molecular_weight = SUM(element[0...n].atomic_weight * #(element[0...n]))
+     * @returns {number} Molecular weight of the compound.
+     */
+    self.molecular_weight = function(){
+        var sum = 0;
+        for(var o = 0; o < self.components.length; o++){
+            sum += self.components[o].get_component_atomic_weight();
+        }
+
+        if(self.sub_compounds.length > 0){
+            for(var i = 0; i < self.sub_compounds.length; i++){
+                sum += self.sub_compounds[i].total_molecular_weight();
+            }
+        }
+        return sum;
     };
 
     return self;
@@ -118,38 +122,47 @@ function Compound(components, qty){
  */
 function string_to_compound(input){
 
-    //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
-    var segments = input.match(/[A-Z]{1}[a-z]?\d*/g);
-    var components = [];
-
     var compound_qty = front_number(input);
+    var formula = input;
+    var sub_compounds;
 
-    if(/^\d+/g.test(input)){
-        //check if input had a qty at the beginning
-        compound_qty = input.match(/^\d+/)[0];
-    }
-
-    /*
-        Populate components array with components created from the parsed string.
+    /**
+     * Checks to see if the input string has any parentheses. If it does, it has sub-compounds.
      */
-    for(var i = 0; i < segments.length; i++){
+    if( /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.test(input)){
+        sub_compounds = string_to_ionic_compounds(input);
 
-        //index 0 = element + quantity
-        //index 1 = element
-        //index 2 = quantity
-        var pieces = segment_to_pieces(segments[i])
+        for(var i = 0; i < sub_compounds.length; i++){
+            formula = formula.replace(sub_compounds[i], "");
+        }
+    }
+    //Gets segments from the leftover formula.
+    var segments = string_to_compound_segments(formula);
 
-        var element = pieces[1]; //get element symbol
-        var quantity = parseInt(pieces[2]) || 1; //default qty is 1
+    var components = segments_to_compound_components(segments);
 
-        var component = new Compound_Component(element, quantity);
-        components.push(component);
+    var comp = new Compound(components, parseInt(compound_qty), input);
+
+    if(sub_compounds != null){
+        comp.add_sub_compounds(sub_compounds);
     }
 
-    var comp = new Compound(components, parseInt(compound_qty));
     return comp;
 }
 
+/**
+ * Will
+ * @param str
+ * @returns {*}
+ */
+function remove_parentheses(str){
+    if(/([^[\)]+)(?:$|[\(])/g.test(str)){
+        return /([^[\)]+)(?:$|[\(])/g.exec(str)[0].replace("(", "");
+    }
+    else{
+        return str;
+    }
+}
 
 
 
@@ -159,7 +172,7 @@ function string_to_compound(input){
  *      ex. Water = H2O = {Compound_Component(H, 2), Compound_Component(O, 1)};
  *
  * @param symbol Symbol of individual element.
- * @param qty How many of a particular element in the compound.
+ * @param qty How many of a particular element in the compound. n n
  * @constructor New compound component.
  */
 function Compound_Component(symbol, qty){
@@ -213,6 +226,7 @@ function is_valid_formula(str) {
         formulaString = str.substring(qty.length);
     }
 
+
     if(isValid){
         var segments = string_to_compound_segments(formulaString);
         var acceptedSegmentLengths = 0;
@@ -226,6 +240,9 @@ function is_valid_formula(str) {
             var pieces = segment_to_pieces(segment);
             var element = pieces[1]; //get element symbol
 
+            if(find_element(element) == null){
+                return false;
+            }
             /* Check if element has already been used */
             var temp;
             var count = 0;
@@ -257,9 +274,9 @@ function is_valid_formula(str) {
 
 /**
  * Breaks a segment string down into an array containing the element and quantity
- * index 0 = element + quantity
- * index 1 = element
- * index 2 = quantity
+ *      index 0 = element + quantity
+ *      index 1 = element
+ *      index 2 = quantity
  *
  * @param segment string to break down
  * @returns {Array|{index: number, input: string}} array whos contents are:
@@ -269,7 +286,7 @@ function is_valid_formula(str) {
  *
  */
 function segment_to_pieces(segment){
-    return segment.match(/([A-Z]{1}[a-z]?)(\d*)/);
+    return segment.match(split_segment_reg);
 }
 
 /**
@@ -278,7 +295,7 @@ function segment_to_pieces(segment){
  * @returns {Array|{index: number, input: string}} an array of elements concatenated with their quantities
  */
 function string_to_compound_segments(str){
-    return str.match(/[A-Z]{1}[a-z]?\d*/g);
+    return str.match(split_compound_reg);
 }
 
 
@@ -310,6 +327,59 @@ function sum_string_lengths(array){
     return total_length;
 }
 
-function print(str){
-    document.write(str + "<br />");
+
+/**
+ *
+ * @param str
+ * @returns {Array|{index: number, input: string}}
+ */
+function string_to_ionic_compounds(str){
+    var compounds = str.match(ionic_reg);
+    return compounds;
+}
+
+/**
+ * Splits a sub-compound into an array of pieces to use in building ionic compounds.
+ *
+ * example usage:
+ * var water = (H2O)4
+ *  var pieces = split_sub_compound(water);
+ *
+ *          pieces[0] == "(H2O)2";
+ *          pieces[1] == "H2O";
+ *          pieces[3] == "4";
+ *
+ * @param str Sub compound to split. Must be enclosed by parentheses with its quantity trailing at the end.
+ * @returns {Array|{index: number, input: string}} String array of pieces.
+ */
+function split_sub_compound(str){
+    var pieces = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.exec(str);
+    return pieces;
+}
+
+/**
+ * Turns an array of formula string segments into Compound_Components
+ * @param segments Formula segments, i.e. Fe2, Cl9 (element+qty)
+ * @returns {Array} Array of Compound_Components
+ */
+function segments_to_compound_components(segments){
+    var components = [];
+    /*
+     Populate components array with components created from the parsed string.
+     */
+    for(var i = 0; i < segments.length; i++){
+
+        //index 0 = element + quantity
+        //index 1 = element
+        //index 2 = quantity
+        var pieces = segment_to_pieces(segments[i]);
+
+        var element = pieces[1]; //get element symbol
+        var quantity = parseInt(pieces[2]) || 1; //default qty is 1
+
+        var component = new Compound_Component(element, quantity);
+        components.push(component);
+    }
+
+    return components;
 }
