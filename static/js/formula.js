@@ -6,7 +6,6 @@
 var ionic_reg = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g;
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
-var not_in_parentheses_reg = /[(^\)]+\)(?:^|\s)([\w']+)(?!\))\b|(?:^|\s)([\w']+)(?!\))/g;
 var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
 
 /**
@@ -104,10 +103,10 @@ function Compound(components, qty){
         return formula;
     };
 
-    self.add_sub_compounds = function(subpounds){
+    self.add_sub_compounds = function(sub_compounds){
 
-        for(var i = 0; i<subpounds.length; i++){
-            var pieces = split_sub_compound(subpounds[i]);
+        for(var i = 0; i<sub_compounds.length; i++){
+            var pieces = split_sub_compound(sub_compounds[i]);
             //var qty = parseInt(pieces[3]);
             var formula = pieces[3] + pieces[1];
 
@@ -138,6 +137,10 @@ function string_to_compound(input){
 
     var compound_qty = front_number(input);
     var formula = input;
+
+    /**
+     * Checks to see if the input string has any parentheses. If it does, it has sub-compounds.
+     */
     if( /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.test(input)){
         var sub_compounds = string_to_ionic_compounds(input);
 
@@ -145,32 +148,10 @@ function string_to_compound(input){
             formula = formula.replace(sub_compounds[i], "");
         }
     }
+    //Gets segments from the leftover formula.
+    var segments = string_to_compound_segments(formula);
 
-
-
-    //Regex forces 1 capital letter, 0 or 1 lowercase, and any number of digits proceeding the element
-    var segments = formula.match(split_compound_reg);
-
-    var components = [];
-
-
-
-    /*
-        Populate components array with components created from the parsed string.
-     */
-    for(var i = 0; i < segments.length; i++){
-
-        //index 0 = element + quantity
-        //index 1 = element
-        //index 2 = quantity
-        var pieces = segment_to_pieces(segments[i]);
-
-        var element = pieces[1]; //get element symbol
-        var quantity = parseInt(pieces[2]) || 1; //default qty is 1
-
-        var component = new Compound_Component(element, quantity);
-        components.push(component);
-    }
+    var components = segments_to_compound_components(segments);
 
     var comp = new Compound(components, parseInt(compound_qty));
 
@@ -181,7 +162,11 @@ function string_to_compound(input){
     return comp;
 }
 
-
+/**
+ * Will
+ * @param str
+ * @returns {*}
+ */
 function remove_parentheses(str){
     if(/([^[\)]+)(?:$|[\(])/g.test(str)){
         return /([^[\)]+)(?:$|[\(])/g.exec(str)[0].replace("(", "");
@@ -354,75 +339,6 @@ function sum_string_lengths(array){
     return total_length;
 }
 
-/**
- * Tests whether the compound formula has a valid format or not.
- *
- * is_valid_formula("nacl") == false
- * is_valid_formula("NaCl") == true
- * is_valid_formula("H2OH") == false
- *
- * @str Formula string to test.
- * @return Returns true if valid, false if invalid.
- *
- * */
-function is_valid_formula_test(str) {
-
-    var isValid = /([(]{1}((\d*[A-Z]{1}[a-z]?\d*)*)[)]{1}(\d*))+/.test(str).valueOf();
-    var usedElements = [];
-    var formulaString = str;
-    var qty = 0;
-    
-    /* Gets rid of the leading number for validation*/
-    if(/^\d+/.test(str)){
-        qty = str.match(/^\d+/)[0];
-        formulaString = str.substring(qty.length);
-    }
-
-
-
-    if(isValid){
-
-        var ionicCompounds = string_to_ionic_compounds(formulaString);
-
-        var segments = string_to_compound_segments(formulaString);
-        var acceptedSegmentLengths = 0;
-
-
-        for (var i = 0; i < segments.length; i++) {
-
-            /* Get Element Symbol From Segment*/
-            var segment = segments[i];
-            var pieces = segment_to_pieces(segment);
-            var element = pieces[1]; //get element symbol
-
-            /* Check if element has already been used */
-            var temp;
-            var count = 0;
-
-            while(count < usedElements.length){ //iterate through each used element
-
-                temp = usedElements[count]; //store current used element
-
-                if(temp == element){ //check against element of our current segment
-                    return false;    //returns false if it's the same
-                }
-                count++;
-            }
-            count = 0;
-
-            usedElements.push(element); //add element from this segment to array of currently used elements
-
-            acceptedSegmentLengths += segment.length; //increment length of accepted segments
-        }
-
-
-        //If the total length of segments obtained from the string are not equal to the original
-        //string, then there is an invalid piece.
-        isValid = sum_string_lengths(segments) == formulaString.length;
-    }
-
-    return isValid.valueOf();
-}
 
 /**
  *
@@ -451,4 +367,31 @@ function string_to_ionic_compounds(str){
 function split_sub_compound(str){
     var pieces = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.exec(str);
     return pieces;
+}
+
+/**
+ * Turns an array of formula string segments into Compound_Components
+ * @param segments Formula segments, i.e. Fe2, Cl9 (element+qty)
+ * @returns {Array} Array of Compound_Components
+ */
+function segments_to_compound_components(segments){
+    var components = [];
+    /*
+     Populate components array with components created from the parsed string.
+     */
+    for(var i = 0; i < segments.length; i++){
+
+        //index 0 = element + quantity
+        //index 1 = element
+        //index 2 = quantity
+        var pieces = segment_to_pieces(segments[i]);
+
+        var element = pieces[1]; //get element symbol
+        var quantity = parseInt(pieces[2]) || 1; //default qty is 1
+
+        var component = new Compound_Component(element, quantity);
+        components.push(component);
+    }
+
+    return components;
 }

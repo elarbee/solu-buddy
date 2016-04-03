@@ -280,6 +280,25 @@ describe("compound creation", function(){
 
     });
 
+    describe("segments_to_compound_components(segments)", function() {
 
+        it("should make compound_components properly", function(){
+            var test1 = ["Na2", "H2", "Cl99", "Fe9"];
+
+            var components = segments_to_compound_components(test1);
+
+            expect(components[0].quantity).toEqual(2);
+            expect(components[1].quantity).toEqual(2);
+            expect(components[2].quantity).toEqual(99);
+            expect(components[3].quantity).toEqual(9);
+
+            expect(components[0].element.symbol).toEqual("Na");
+            expect(components[1].element.symbol).toEqual("H");
+            expect(components[2].element.symbol).toEqual("Cl");
+            expect(components[3].element.symbol).toEqual("Fe");
+
+        });
+
+    });
 
 });
