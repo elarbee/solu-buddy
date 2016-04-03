@@ -40,19 +40,6 @@ function Compound(components, qty, formula_str){
     self.sub_compounds = [];
     self.formula = formula_str;
 
-    /**
-     * Calculates the molecular weight of the compound as the summation of each element's atomic weight multiplied by
-     * the element's quantity.
-     *  i.e. molecular_weight = SUM(element[0...n].atomic_weight * #(element[0...n]))
-     * @returns {number} Molecular weight of the compound.
-     */
-    self.molecular_weight = function(){
-        var sum = 0;
-        for(var o = 0; o < self.components.length; o++){
-            sum += self.components[o].get_component_atomic_weight();
-        }
-        return sum;
-    };
 
     /**
      * Returns the molecular weight of the compound multiplied by the quantity of the compound,
@@ -94,6 +81,26 @@ function Compound(components, qty, formula_str){
         }
     };
 
+    /**
+     * Calculates the molecular weight of the compound as the summation of each element's atomic weight multiplied by
+     * the element's quantity.
+     *  i.e. molecular_weight = SUM(element[0...n].atomic_weight * #(element[0...n]))
+     * @returns {number} Molecular weight of the compound.
+     */
+    self.molecular_weight = function(){
+        var sum = 0;
+        for(var o = 0; o < self.components.length; o++){
+            sum += self.components[o].get_component_atomic_weight();
+        }
+
+        if(self.sub_compounds.length > 0){
+            for(var i = 0; i < sub_compounds.length; i++){
+                sum += sub_compounds[i].total_molecular_weight();
+            }
+        }
+        return sum;
+    };
+
     return self;
 }
 
@@ -117,12 +124,13 @@ function string_to_compound(input){
 
     var compound_qty = front_number(input);
     var formula = input;
+    var sub_compounds;
 
     /**
      * Checks to see if the input string has any parentheses. If it does, it has sub-compounds.
      */
     if( /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.test(input)){
-        var sub_compounds = string_to_ionic_compounds(input);
+        sub_compounds = string_to_ionic_compounds(input);
 
         for(var i = 0; i < sub_compounds.length; i++){
             formula = formula.replace(sub_compounds[i], "");

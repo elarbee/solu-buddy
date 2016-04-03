@@ -173,7 +173,7 @@ describe("compound creation", function(){
 
         });
 
-        it("should be able to create ionic compounds", function () {
+        it("should be able to create simple ionic compounds", function () {
 
 
             var form1 = "(NH4)2SO4";
@@ -195,7 +195,37 @@ describe("compound creation", function(){
             expect(comp1.sub_compounds[0].components[1].quantity).toEqual(4);
             expect(comp1.sub_compounds[0].quantity).toEqual(2);
 
+        });
 
+        it("should be able to create complex organic compounds", function () {
+
+
+            var form1 = "C3H4OH(COOH)3";
+            var comp1 = string_to_compound(form1);
+
+            expect(comp1.components[0].element.symbol).toEqual("C");
+            expect(comp1.components[0].quantity).toEqual(3);
+            expect(comp1.components[1].element.symbol).toEqual("H");
+            expect(comp1.components[1].quantity).toEqual(4);
+            expect(comp1.components[2].element.symbol).toEqual("O");
+            expect(comp1.components[2].quantity).toEqual(1);
+            expect(comp1.components[3].element.symbol).toEqual("H");
+            expect(comp1.components[3].quantity).toEqual(1);
+
+            expect(comp1.sub_compounds[0].components[0].element.symbol).toEqual("C");
+            expect(comp1.sub_compounds[0].components[0].quantity).toEqual(1);
+            expect(comp1.sub_compounds[0].components[1].element.symbol).toEqual("O");
+            expect(comp1.sub_compounds[0].components[1].quantity).toEqual(1);
+            expect(comp1.sub_compounds[0].components[2].element.symbol).toEqual("O");
+            expect(comp1.sub_compounds[0].components[2].quantity).toEqual(1);
+            expect(comp1.sub_compounds[0].components[3].element.symbol).toEqual("H");
+            expect(comp1.sub_compounds[0].components[3].quantity).toEqual(1);
+
+            expect(comp1.sub_compounds[0].quantity).toEqual(3);
+            expect(comp1.sub_compounds[0].sub_compounds.length).toEqual(0);
+            expect(comp1.sub_compounds.length).toEqual(1);
+
+            //expect(comp1.molecular_weight()).toEqual(192.12);
 
         });
 
@@ -269,6 +299,7 @@ describe("compound creation", function(){
             expect(compound.sub_compounds[1].formula).toEqual("4H2O");
         });
     });
+
 
     describe("remove_parentheses(input) ", function() {
 
