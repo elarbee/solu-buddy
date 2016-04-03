@@ -40,7 +40,8 @@ $(function(){
                 fill_fields();
 
                 /* Shows answer page.*/
-                $("#answerDiv").slideDown("slow");
+                $("#answerDiv").show();
+                $("#headerDiv").parent().hide();
             }
 
         }catch(ex){
@@ -50,7 +51,8 @@ $(function(){
     
     //Back arrow for answer page
     $("#arrowContainer img").click(function(){
-       $("#answerDiv").slideUp("fast");
+        $("#answerDiv").hide();
+        $("#headerDiv").parent().show();
     });
     
 });

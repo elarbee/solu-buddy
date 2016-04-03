@@ -21,26 +21,33 @@
         include '../top-header.php';
     ?>
 <!-- Solution Input page -->
-<div id="headerDiv">
-    <h3>Fill in the fields below to set up the dilution series</h3>
-</div>
-<div id="divContainer">
-    <?php
-        //Choose which table to display depending on whether or not a solution was passed in.
-        if(isset($_POST['initialSolution'])){
-            include "content/initializedTable.php";
-        }
-        else{
-            include "content/uninitializedTable.php";
-        }
-    ?>
+<div class="text-center">
+    <div id="inputDiv" class="grey-div">
+        <div id="headerDiv">
+            <h3>Fill in the fields below to set up the dilution series</h3>
+        </div>
+        <div id="divContainer">
+            <?php
+                //Choose which table to display depending on whether or not a solution was passed in.
+                if(isset($_POST['initialSolution'])){
+                    include "content/initializedTable.php";
+                }
+                else{
+                    include "content/uninitializedTable.php";
+                }
+            ?>
+        </div>
+    </div>
 </div>
 
-<hr>
+
     
 <!-- This is the answer page -->
-<div id="answerDiv">
-
+<div id="answerDiv" class="grey-div">
+        <div id="arrowContainer">
+            <img src="down-arrow.png">
+       </div>
+    
         <h2>Serial Dilution</h2>
         <!-- Contains the content of the answer page -->
         <div id="answerContent" >
@@ -71,7 +78,7 @@
                     
                     <!-- Need to format '1' as subscript here-->
                     <p id="molarity">M1</p>
-                    <p id="molarityValue">1.00 x 10^-1</p>
+                    <p id="molarityValue">1.00 x 10<sup>-1</sup></p>
                 </div> 
             </div>
             <!-- Buttons -->

@@ -17,11 +17,18 @@
     ?>
     
 <?php
-  //Declaring global final variables.    
+  //Declaring global final variables.
+    //Used for keeping track of 'Make it Niw' solutions.
     $SOLID = "SOLID";
     $GRAVIMETRIC = "GRAV";
     $VOLUMETRIC = "VOLU";
+    
+    $CALIBRATION1 = "calibration1";
+    $CALIBRATION2 = "calibration2";
+    $SERIAL = "serial";
 ?>
+<div class="text-center">
+<div class="grey-div">
 
 <!-- Solution Input page -->
 <div id="headerDiv">
@@ -66,12 +73,11 @@
     // Dynamically load one of three pages based on the valuiie of '$_GET['value']'
     
     //Check that something was passed in through get
-     if (count($_GET) > 0) {
+     if (isset($_GET['value'])) {
         //If it's the solid solution page.
         if ($_GET["value"] == $GLOBALS['SOLID']) {
             include 'content/solid.php'; 
         }
-
 
         elseif ($_GET["value"] == $GLOBALS['GRAVIMETRIC']) {
             include 'content/gravimetric.php';
@@ -83,6 +89,9 @@
 
     
     ?>
+</div>
+    
+</div>
 </div>
 
 <?php

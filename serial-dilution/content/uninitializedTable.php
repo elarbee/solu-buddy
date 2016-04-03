@@ -9,7 +9,7 @@
             <td> <button class="makeItNowButton">Make it Now!</button>  </td>
             <td> <input id="solventChemID" type="text" placeholder="Solvent Chemical Identity"></td>
             <td> <input id="numDilutions" type="text" placeholder="Number of dilutions to prepare"> </td>
-            <td> <a href="#answerDiv"><button id="nextButton">Next</button></a></td>
+            <td> <button id="nextButton">Next</button></td>
         </tr>
         <tr>
             <td> <button id="savedSolutionButton">Use Saved Solution!</button> </td>

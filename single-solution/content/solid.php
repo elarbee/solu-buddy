@@ -10,12 +10,18 @@
 		<img src="beaker.png" style="width:150px">
         <br>
         
-        
         <?php 
             //This code handles whether or not the solution is passed on to another page.
             //If it is null the solution will be solved here.
             if(isset($_GET['passTo'])){
-                include 'content/serialForm.php'; 
+                
+                if($_GET['passTo'] == $GLOBALS['SERIAL']){
+                    include 'content/serialForm.php';
+                }
+                
+                elseif($_GET['passTo'] == 'calibration1' or $_GET['passTo'] == 'calibration2'){
+                    include 'content/calibrationForm.php';
+                }
             } 
             else{
                echo "<button id=\"nextButton\" onclick=\"fill_fields()\">Next</button>";

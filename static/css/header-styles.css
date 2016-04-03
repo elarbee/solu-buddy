@@ -23,16 +23,9 @@ ul li li a{
 }
 
 #myNavbar ul li a {
-    padding-left: 35px;
-    margin-top: 15px;
+
 }
 
 #btn-log{
-    height: 35px;
-    width: 97px;
-    margin-top: 25px;
-    margin-left: 10px;
-    margin-right: 5px;
-    position: fixed;
-    right: 265px;
+
 }
