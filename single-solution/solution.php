@@ -1,8 +1,14 @@
+<?php
+session_start();
+require("../dynamicHelpers.php");
+renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings", "navField2" => "Saved Solutions",
+    "navField3" => "Chemistry Terms", "navField4" => "Create Solution(s)"] );
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <?php
-        include '../script-includes.html';
+    include '../script-includes.html';
     ?>
 
     <script src="SolutionPage.js"></script>
@@ -15,10 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>
-    <?php
-        include '../top-header.php';
-    ?>
-    
+<form action="/accounts/saveSolution.php" method="get">
 <?php
   //Declaring global final variables.
     //Used for keeping track of 'Make it Niw' solutions.
@@ -101,12 +104,11 @@
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
-        <button onclick="">Save Solution</button>
-        <button onclick="">Print Solution</button>
+        <button onclick="submit">Save Solution</button>
+
+        <button type="button" onclick="">Print Solution</button>
 
     </div>
-</div>
-    
 </div>
 
 <?php
@@ -114,7 +116,6 @@
     if(!isset($_GET['passTo'])){
         include 'content/answerDiv.php'; 
      }        
-?>
-    
+?></form>
 </body>
 </html>

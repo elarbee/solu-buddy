@@ -23,7 +23,7 @@
                 }
             }
             else{
-                echo "<button id=\"nextButton\" onclick=\"next_check('". $_GET['value'] . "')\">Next</button>";
+                echo "<button type=\"button\" id=\"nextButton\" onclick=\"next_check('". $_GET['value'] . "')\">Next</button>";
             }
 
         ?>
@@ -32,7 +32,7 @@
 	<div class="inline-div">
 		<img src="scale.jpg" style="width:150px">
         <br>
-        <button onClick="window.location.href='../'">SoluBuddy Home</button>
+        <button type="button" onClick="window.location.href='../'">SoluBuddy Home</button> <!-- TODO: change to link plz-->
 	</div>
 
 	<div class="inline-div">
@@ -40,5 +40,5 @@
         <br>
 		<input id="massToAdd" type="text" placeholder="Mass of Solute to Add">
         <br>
-		<button onclick="">How do I calculate this?</button>
+		<button type="button" onclick="">How do I calculate this?</button>
 	</div>

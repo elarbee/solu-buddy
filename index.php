@@ -2,7 +2,6 @@
 <html>
 <head>
 
-    <link rel="stylesheet" type="text/css" href="static/css/creator.css">
     <link rel="stylesheet" type="text/css" href="static/css/nav-styles.css">
     <link rel="stylesheet" type="text/css" href="static/css/header-styles.css">
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
@@ -16,6 +15,12 @@
     <script src="static/js/calculator.js"></script>
 </head>
 <body>
+<?php
+require ("dynamicHelpers.php");
+renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings", "navField2" => "Saved Solutions",
+    "navField3" => "Chemistry Terms", "navField4" => "Create Solution(s)"] );
+?>
+
     <div id="header">
         <img id="logo" src="static/images/logo.png">
     </div>
