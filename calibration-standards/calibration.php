@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-    <?php
-        include '../script-includes.html';
-    ?>
+    <?php include '../script-includes.html'; ?>
     <script src="calibrationPage.js"></script>
-	<link rel="stylesheet" type="text/css" href="calibrationStyle.css">
+    <link rel="stylesheet" type="text/css" href="calibrationStyle.css">
 </head>
+
 <body>
-    
-    <?php
-        include '../top-header.php';
 
-        //Declaring global final variables.    
-        $EXTERNAL = "EXTERNAL";
-        $INTERNAL = "INTERNAL";
-        $ADDITION = "ADDITION";
+    <?php include '../top-header.php';
+    //Declaring global final variables.
+    //These can be called later with the $_GLOBALS variable
+        $EXTERNAL="EXTERNAL" ; $INTERNAL="INTERNAL" ; $ADDITION="ADDITION" ;
     ?>
-<div id="content"> 
-    <?php 
+    <div id="content">
+        <div id="inputDiv">
+        <?php // Dynamically load one of three pages based on the valuiie of '$_GET['value ']' //Make sure a value is passed in if(isset($_GET[ "value"])){ //If it 's the external calibrations page.
+            if ($_GET["value"] == $GLOBALS['EXTERNAL']) {
+                include 'content/external.php '; 
+            }
 
-        // Dynamically load one of three pages based on the valuiie of '$_GET['value']'
-
-        //If it's the solid solution page.
-        if ($_GET["value"] == $GLOBALS['EXTERNAL']) {
-            include 'content/external.php'; 
-        }
-
-
-        elseif ($_GET["value"] == $GLOBALS['INTERNAL']) {
-            include 'content/internal.php';
-        }
-        elseif ($_GET["value"] == $GLOBALS['ADDITION']) {
-            include 'content/addition.php';
-        }
-    
+            //If its the internal calibrations page
+            elseif ($_GET["value"] == $GLOBALS['INTERNAL']) {
+                include 'content/internal.php ';
+            }
+            
+            //If its the standard addition page
+            elseif ($_GET["value"] == $GLOBALS['ADDITION']) {
+                include 'content/addition.php ';
+            }    
     ?>
-
-    <hr>   
+        </div>
+  
 <!-- This is the answer page -->
 <div id="answerDiv">
-
+        <div id="arrowContainer">
+            <img src="down-arrow.png">
+        </div>
         <h2>External Standards Method</h2>
         <!-- Contains the content of the answer page -->
         <div id="answerContent" >
             <!-- Unknown -->
             <div id="stockSolutionDiv" class="inline-div">
-                <p id="stockSolutionDescription">Name of unkown,i.e. 'River Water'</p>
+                <p id="stockSolutionDescription">Name of unkown,i.e. 'River Water '</p>
                 <img src="beaker.png">
             </div>
             
@@ -61,7 +58,7 @@
                         <p id="flaskNumber">1</p>
                     </div>
                     
-                    <!-- Need to format '1' as subscript here-->
+                    <!-- Need to format '1 ' as subscript here-->
                     <p id="molarity">M1</p>
                     <p id="molarityValue">1.00 x 10^-1</p>
                 </div>
@@ -78,7 +75,7 @@
                 <br>
                 <button id="printButton" onClick="">Print Set of Standards Series</button>
                 <br>
-                <button id="answerHomeButton" onClick="window.location.href='/'">SoluBuddy Home</button>
+                <button id="answerHomeButton" onClick="window.location.href='/ '">SoluBuddy Home</button>
                 <!-- Style Hack Fix this -->
                 <br>
                 <br>
@@ -89,4 +86,3 @@
 
 </body>
 </html>
-

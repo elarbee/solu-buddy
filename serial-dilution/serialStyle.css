@@ -1,56 +1,65 @@
-.inline-div{
-	position: relative;
-    display:inline-block;
-    margin: 20px;    
+.inline-div {
+    margin: 20px;
+    position: relative;
+    display: inline-block;
 }
-
-input{
-    color:white;
+input {
+    height: 40px;
+    color: white;
     margin-top: 10px;
     background: #5b9bd5;
-    height: 40px;
     border-radius: 10px;
 }
 
-td{
-    padding-left: 5px;
-    padding-right: 5px;
-    border: none;
-    cursor: auto;
+.grey-div{
+    color:white;
+    background: rgba(40,40,40,0.6);
+    border: 1px solid white;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 20px;
 }
 
+td {
+    border: none;
+    cursor: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.text-center{
+    text-align: center;
+}
 /*Place holder text color. Probably only works in Chrome */
-::-webkit-input-placeholder{
+
+::-webkit-input-placeholder {
     color: white;
 }
 
-html,body{
-    width:100%;
-    margin:0px;
+html,
+body {
+    width: 100%;
+    margin: 0px;
     height: 100%;
 }
-
-button{
-    color:white;
+button {
+    color: white;
+    width: 100px;
+    height: 3.5em;
     margin-top: 10px;
     background: #92d050;
-    height: 3.5em;
-    width: 100px;
     border-radius: 10px;
 }
-
-table p{
+table p {
     text-align: center;
     font-family: sans-serif;
 }
-
-#headerDiv h2{
+#headerDiv h2 {
     margin-top: 100px;
     text-align: center;
     font-family: sans-serif;
 }
-h3{
-    background: -webkit-linear-gradient(white, #b9d5ed);
+h3 {
     text-align: center;
     font-family: sans-serif;
     width: 35em;
@@ -58,62 +67,56 @@ h3{
     margin-left: auto;
     margin-right: auto;
 }
-
 /* This is a hack. Need to fix to fix this to really center */
-#divContainer{
+
+#divContainer {
     width: 550px;
     margin-left: auto;
     margin-right: auto;
 }
-
 /* Answer Div Styles */
 
-#answerDiv{
+#answerDiv {
+    display: none;
+    margin:15px;
+    color:white;
     text-align: center;
 }
-
-.dilutionFlask{
+.dilutionFlask {
+    width: 225px;
     position: relative;
-    width:225px;
 }
-
-#arrowContainer{
+#arrowContainer {
     text-align: center;
 }
-
-#arrowContainer img{
+#arrowContainer img {
     height: 35px;
     width: 100px;
-    margin-top: 10px;   
+    margin-top: 10px;
 }
-
-.blueArrow{
-    position: absolute;
+.blueArrow {
+    top: 40%;
     right: 0px;
-    top:40%;
+    position: absolute;
 }
-
-#molarity, #molarityValue{
+#molarity,
+#molarityValue {
     margin-top: 0px;
     margin-bottom: 0px;
 }
-
-.flaskImgAndNumberDiv{
-    height: 217px;   
+.flaskImgAndNumberDiv {
+    height: 217px;
 }
-
-.flaskImgAndNumberDiv p{
-    margin-top: 0; 
+.flaskImgAndNumberDiv p {
+    margin-top: 0;
     position: relative;
-    bottom:2em;
+    bottom: 2em;
     font-size: 1.5em;
 }
-
-#answerButtonsDiv{
+#answerButtonsDiv {
     padding-bottom: 40px;
 }
-#answerButtonsDiv button{
-    
+#answerButtonsDiv button {
     margin-top: 30px;
     margin-bottom: 30px;
 }

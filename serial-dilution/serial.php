@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
+    <?php
+        //If a solution is passed in via the 'POST' Method with value 'initialSolution',
+        //then initialize a javascipt object containing it.
+        if(isset($_POST['initialSolution'])){
+            echo "<script> var initialSolution = " . $_POST['initialSolution'] . ";</script>";
+        }
+    ?>
+    
     <?php
         include '../script-includes.html';
     ?>
@@ -13,44 +22,33 @@
         include '../top-header.php';
     ?>
 <!-- Solution Input page -->
-<div id="headerDiv">
-    <h2>Serial Dilution</h2>
-    <h3>Fill in the fields below to set up the dilution series</h3>
-</div>
-<div id="divContainer">
-	<table>
-        <tr>
-            <td><p>The Initial (stock) solution </p></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td> <button class="makeItNowButton">Make it Now!</button>  </td>
-            <td> <input id="solventChemID" type="text" placeholder="Solvent Chemical Identity"></td>
-            <td> <input id="numDilutions" type="text" placeholder="Number of dilutions to prepare"> </td>
-            <td> <a href="#answerDiv"><button id="nextButton">Next</button></a></td>
-        </tr>
-        <tr>
-            <td> <button id="savedSolutionButton">Use Saved Solution!</button> </td>
-            <td> <input id="soluteChemID" type="text" placeholder="Solute Chemical Identity (i.e., Formula)"> </td>
-            <td> <input id="flasksVolume" type="text" placeholder="Volume of flasks in which dilutions are prepared"> </td>
-            <td> <button id="homeButton" onClick="window.location.href='../'">SoluBuddy Home</button> </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input id="soluteMW" type="text" placeholder="Solute Molecular Weight"></td>
-            <td><input id="volumeTransferred" type="text" placeholder="Volume of solution transferred to next flask"></td>
-            <td></td>
-        </tr>
-    </table>
+<div class="text-center">
+    <div id="inputDiv" class="grey-div">
+        <div id="headerDiv">
+            <h3>Fill in the fields below to set up the dilution series</h3>
+        </div>
+        <div id="divContainer">
+            <?php
+                //Choose which table to display depending on whether or not a solution was passed in.
+                if(isset($_POST['initialSolution'])){
+                    include "content/initializedTable.php";
+                }
+                else{
+                    include "content/uninitializedTable.php";
+                }
+            ?>
+        </div>
+    </div>
 </div>
 
-<hr>
+
     
 <!-- This is the answer page -->
-<div id="answerDiv">
-
+<div id="answerDiv" class="grey-div">
+        <div id="arrowContainer">
+            <img src="down-arrow.png">
+       </div>
+    
         <h2>Serial Dilution</h2>
         <!-- Contains the content of the answer page -->
         <div id="answerContent" >
@@ -81,7 +79,7 @@
                     
                     <!-- Need to format '1' as subscript here-->
                     <p id="molarity">M1</p>
-                    <p id="molarityValue">1.00 x 10^-1</p>
+                    <p id="molarityValue">1.00 x 10<sup>-1</sup></p>
                 </div> 
             </div>
             <!-- Buttons -->
@@ -107,6 +105,7 @@
     //Include the Saved solutions modal.
         include '../shared-content/savedSolutionsModal.php'; 
     ?> 
+    
 
 </body>
 </html>

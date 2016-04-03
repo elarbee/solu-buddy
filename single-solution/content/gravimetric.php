@@ -1,5 +1,3 @@
-
-
 <div class="inline-div">
 		<input id = "solvent_formula" type="text" placeholder="Solvent Chemical Identity"> <br>
 		<input id = "solute_formula" type="text" placeholder="Solute Chemical Identity"><br>
@@ -11,7 +9,19 @@
 	<div class="inline-div">
 		<img src="beaker.png" style="width:150px">
         <br>
-		<button id="nextButton" onclick="next_check('<?php echo $_GET["value"];?>')">Next</button>
+
+		<?php 
+            //This code handles whether or not the solution is passed on to another page.
+            //If it is null the solution will be solved here.
+            if(isset($_GET['passTo'])){
+                include 'content/serialForm.php'; 
+            } 
+            else{
+               echo "<button id=\"nextButton\" onclick="next_check('<?php echo $_GET["value"];?>')">Next</button>";
+            }
+        
+        ?>
+        
 	</div>
 
 	<div class="inline-div">

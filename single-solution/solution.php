@@ -10,6 +10,8 @@
     <script src="../static/js/elements.js"></script>
     <script src="../static/js/calculator.js"></script>
     <script src="../static/js/solution.js"></script>
+    <script src="../static/js/solutionObjectBuilder.js"></script>
+    
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>
@@ -18,11 +20,17 @@
     ?>
     
 <?php
-  //Declaring global final variables.    
+  //Declaring global final variables.
+    //Used for keeping track of 'Make it Niw' solutions.
     $SOLID = "SOLID";
     $GRAVIMETRIC = "GRAV";
     $VOLUMETRIC = "VOLU";
+    
+    $CALIBRATION1 = "calibration1";
+    $CALIBRATION2 = "calibration2";
+    $SERIAL = "serial";
 ?>
+
     <div class="divCenterer">
                 <!-- Solution Input page -->
                 <div id="headerDiv">
@@ -96,6 +104,14 @@
         </div>
     </div>
 </div>
+</div>
+
+<?php
+    //Only show answer div if 'passTo' value is null
+    if(!isset($_GET['passTo'])){
+        include 'content/answerDiv.php'; 
+     }        
+?>
     
 </body>
 </html>

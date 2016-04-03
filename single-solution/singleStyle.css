@@ -1,63 +1,62 @@
-.inline-div{
-	display:inline-block;
+.inline-div {
+    display: inline-block;
     margin: 20px;
     text-align: center;
 }
-
-input{
-    color:white;
+#headerDiv {
+    text-align: center;
+}
+input {
+    color: white;
     margin-top: 10px;
     background: rgba(42,42,42,0.9);
     border: 1px solid white;
     border-radius: 10px;
-    width:180px;
+    width: 180px;
     text-align: center;
 }
-
 /*Place holder text color. Probably only works in Chrome */
-::-webkit-input-placeholder{
+
+::-webkit-input-placeholder {
     color: white;
     text-align: center;
 }
-
-html,body{
-    width:100%;
-    margin:0px;
+html,
+body {
+    width: 100%;
+    margin: 0px;
 }
-
 /* Background Image */
-html{
-  background: url(../static/images/lab.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
 
-button{
-    color: black;
+html {
+    background: url(../static/images/lab.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+button {
+    color: white;
     margin-top: 10px;
-    background: rgba(233,233,233,0.9);
-    border: 1px solid black;
+    background: rgba(100, 130, 100, 0.9);
+    height: 30px;
+    border: 1px solid white;
     border-radius: 10px;
 }
-
-button:hover{
-   background: RGBa(245,245,245,0.4); 
+button:hover {
+    background: RGBa(245, 245, 245, 0.4);
 }
-
-#headerDiv h2{
+#headerDiv h2 {
     color: white;
     margin-top: 100px;
     text-align: center;
 
     font-family: sans-serif;
 }
-h3{
-    color:white;
+h3 {
+    color: white;
     text-align: center;
     font-family: sans-serif;
-    
     width: 35em;
     height: 30px;
     margin-left: auto;
@@ -65,33 +64,46 @@ h3{
 }
 
 .divCenterer {
+
+    MakeItNow-SavedSolutions
     text-align: center;
     margin: 10px;
     padding: 20px;
 }
-
-#answerBeaker{
+#answerBeaker {
     height: 323px;
 }
-
-#answerDiv{
+#answerDiv {
+    display: none;
+    margin:15px;
+    color:white;
     text-align: center;
+    background: rgba(40,40,40,0.6);
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 30px;
 }
-
-.caption{
+.caption {
     position: relative;
     bottom: 125px;
     text-align: center;
 }
-
-#arrowContainer{
+#arrowContainer {
     text-align: center;
 }
-
-#arrowContainer img{
+#arrowContainer img {
     height: 35px;
     width: 100px;
-    margin-top: 10px;   
+    margin-top: 10px;
+}
+
+.grey-div{
+    color:white;
+    background: rgba(40,40,40,0.6);
+    border: 1px solid white;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 20px;
 }
 
 .stuffContainer{

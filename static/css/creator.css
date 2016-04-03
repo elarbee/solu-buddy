@@ -48,8 +48,7 @@ ul li li a{
 }
 
 #myNavbar ul li a {
-	padding-left: 35px;
-	margin-top: 15px;
+
 }
 
 #btn-log{
@@ -58,7 +57,6 @@ ul li li a{
 	margin-top: 20px;
 	margin-left: 10px;
 	margin-right: 5px;
-	position: fixed;
 	right: 265px;
 }
 
@@ -68,7 +66,6 @@ ul li li a{
 	margin-top: 20px;
 	margin-left: 10px;
 	margin-right: 5px;
-	position: fixed;
 	right: 375px;
 }
 

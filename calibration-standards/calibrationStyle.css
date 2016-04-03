@@ -7,6 +7,14 @@ html{
   background-size: cover;
 }
 
+#inputDiv{
+    color:white;
+    background: rgba(40,40,40,0.6);
+    border: 1px solid white;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 20px;
+}
 /*Place holder text color. Probably only works in Chrome */
 #content ::-webkit-input-placeholder{
     color: white;
@@ -39,6 +47,7 @@ html,body{
 }
 
 #headerDiv h2{
+    color: white;
     margin-top: 100px;
     text-align: center;
     font-family: sans-serif;
@@ -57,7 +66,14 @@ html,body{
 
 /* Answer page style */
 #answerDiv{
+    display: none;
+    margin:15px;
+    color:white;
     text-align: center;
+    background: rgba(40,40,40,0.6);
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 30px;
 }
 
 #arrowContainer{
@@ -67,7 +83,8 @@ html,body{
 #arrowContainer img{
     height: 35px;
     width: 100px;
-    margin-top: 10px;   
+    margin-top: 10px;
+    cursor:pointer;
 }
 
 
@@ -100,9 +117,7 @@ html,body{
     top:40%;
 }
 
-
 .dilutionFlask{
     position: relative;
     width:225px;
 }
-

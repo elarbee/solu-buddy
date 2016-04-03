@@ -37,7 +37,6 @@ function next_check(page){
             msg += "Solvent formula is not valid.\n";
         }
 
-
         /* If either formula was invalid, the message will be displayed to the user. */
         if(!valid_solute || !valid_solvent){
             window.alert(msg);
