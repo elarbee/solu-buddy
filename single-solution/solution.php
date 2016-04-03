@@ -98,12 +98,15 @@
 <hr>
 <!-- This is the answer page -->
 <div id="answerDiv">
-
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
+        <button onclick="">Save Solution</button>
+        <button onclick="">Print Solution</button>
+
     </div>
 </div>
+    
 </div>
 
 <?php
