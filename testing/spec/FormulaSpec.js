@@ -148,7 +148,7 @@ describe("compound creation", function(){
             expect(comp1.components[1].element.symbol).toEqual("Cl");
             expect(comp1.components[1].quantity).toEqual(1);
 
-            expect(comp1.formula()).toEqual("NaCl");
+            expect(comp1.formula).toEqual("NaCl");
             expect(comp1.quantity).toEqual(1);
             expect(comp1.molecular_weight()).toEqual(58.4427);
             expect(comp1.total_molecular_weight()).toEqual(58.4427);
@@ -165,7 +165,7 @@ describe("compound creation", function(){
             expect(comp1.components[1].element.symbol).toEqual("Cl");
             expect(comp1.components[1].quantity).toEqual(1);
 
-            expect(comp1.formula()).toEqual("4NaCl");
+            expect(comp1.formula).toEqual("4NaCl");
             expect(comp1.quantity).toEqual(4);
             expect(comp1.molecular_weight()).toEqual(58.4427);
             expect(comp1.total_molecular_weight()).toEqual(233.7708);
@@ -265,8 +265,8 @@ describe("compound creation", function(){
         compound.add_sub_compounds(compounds);
 
         it("should add formulas to a pre-existing formula.", function () {
-            expect(compound.sub_compounds[0].formula()).toEqual("13HFe10");
-            expect(compound.sub_compounds[1].formula()).toEqual("4H2O");
+            expect(compound.sub_compounds[0].formula).toEqual("13HFe10");
+            expect(compound.sub_compounds[1].formula).toEqual("4H2O");
         });
     });
 

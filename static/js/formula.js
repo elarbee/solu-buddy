@@ -31,13 +31,14 @@ var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
  * @param components Array of components used to make the compound.
  * @constructor
  */
-function Compound(components, qty){
+function Compound(components, qty, formula_str){
     var self = {};
 
     self.components = components;
     self.compound_atomic_weight = 0;
     self.quantity = qty;
     self.sub_compounds = [];
+    self.formula = formula_str;
 
     /**
      * Calculates the molecular weight of the compound as the summation of each element's atomic weight multiplied by
@@ -81,27 +82,6 @@ function Compound(components, qty){
         return desc;
     };
 
-    /**
-     * Creates the formula for the compound using component elements and their respective quantities.
-     *
-     * Example Usage
-     *
-     *  var water = new Compound('H2O');
-     *
-     *  var formula = water.formula();
-     *
-     *  -> formula == 'H2O'
-     *
-     * @returns {string} Formula for the compound.
-     */
-    self.formula = function(){
-        var formula = (self.quantity == 1)? "" : self.quantity;
-        for(var i = 0; i < self.components.length; i++){
-            formula += components[i].element.symbol;
-            formula += (components[i].quantity == 1)? "" : components[i].quantity;
-        }
-        return formula;
-    };
 
     self.add_sub_compounds = function(sub_compounds){
 
@@ -153,7 +133,7 @@ function string_to_compound(input){
 
     var components = segments_to_compound_components(segments);
 
-    var comp = new Compound(components, parseInt(compound_qty));
+    var comp = new Compound(components, parseInt(compound_qty), input);
 
     if(sub_compounds != null){
         comp.add_sub_compounds(sub_compounds);
