@@ -1,10 +1,10 @@
 /* Background Image */
 html{
-  background: url(../static/images/lab.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url(../static/images/lab.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #inputDiv{
@@ -23,11 +23,15 @@ html{
 td{
     border: none;
     cursor: auto;
+    padding: .5em;
+
 }
+
 html,body{
     width:100%;
     margin:0px;
     text-align: center;
+
 }
 
 #content input,#content button{
@@ -38,12 +42,20 @@ html,body{
     border-radius: 10px;
 }
 #content input{
-    background: #5b9bd5;
+    color: white;
+    margin-top: 10px;
+    background: rgba(42,42,42,0.9);
+    border: 1px solid white;
+    border-radius:10px;
+    width: 280px;
+    text-align: center;
 }
+
 
 #content button{
     background: #92d050;
-
+    color: black;
+    font-weight: 600;
 }
 
 #headerDiv h2{
@@ -89,9 +101,9 @@ html,body{
 
 
 .inline-div{
-	position: relative;
+    position: relative;
     display:inline-block;
-    margin: 20px;    
+    margin: 20px;
 }
 
 
@@ -101,11 +113,11 @@ html,body{
 }
 
 .flaskImgAndNumberDiv{
-    height: 217px;   
+    height: 217px;
 }
 
 .flaskImgAndNumberDiv p{
-    margin-top: 0; 
+    margin-top: 0;
     position: relative;
     bottom:2em;
     font-size: 1.5em;
