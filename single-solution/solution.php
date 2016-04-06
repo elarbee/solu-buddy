@@ -105,18 +105,18 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
-        <button onclick="submit()">Save Solution</button>
+        <button onclick="submit">Save Solution</button>
 
         <button type="button" onclick="">Print Solution</button>
 
     </div>
 </div>
-
-<?php
+    <?php
     //Only show answer div if 'passTo' value is null
     if(!isset($_GET['passTo'])){
-        include 'content/answerDiv.php'; 
-     }        
-?></form>
+        include 'content/answerDiv.php';
+    }
+    ?>
+</form>
 </body>
 </html>

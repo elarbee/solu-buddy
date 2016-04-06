@@ -32,6 +32,13 @@ function Solution(solute, solvent, volume, solution_concentration){
     //created from a calculated volume of a pure liquid solute
     self.single.volumetric = {};
 
+    self.single.volumetric.solution_calculator = new SingleSolution(
+        solution_concentration,
+        volume,
+        string_to_compound(solute).molecular_weight());
+
+
+
     //new dictionary holding single solution properties for solutions
     //created from a calculated solute mass where the solute is a pure liquid
     self.single.gravimetric = {};
@@ -52,7 +59,7 @@ function Solution(solute, solvent, volume, solution_concentration){
      * @returns {string} List of steps to create the solution.
      */
     self.single.sol.steps_html = function(){
-        var desc = "<br />Steps to produce " + self.description() + "<br /><br />" +
+        var desc = "<br />Steps to produce " + self.single.sol.description() + "<br /><br />" +
                 "1) Pick a container that can safely contain "+ self.volume +"L<br />" +
                 "2) Calculate amount of solute necessary("+ self.single.sol.solution_calculator.solid()+"g) using: <br /> " +
                 "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "M<br />" +
@@ -65,15 +72,64 @@ function Solution(solute, solvent, volume, solution_concentration){
         return desc;
     };
 
+    self.single.volumetric.steps_html = function(density){
+        var desc = "<br />Steps to produce " + self.single.volumetric.description(density) + "<br /><br />" +
+            "1) Pick a container that can safely contain "+ self.volume +"L<br />" +
+            "2) Calculate amount of solute necessary("+ self.single.volumetric.solution_calculator.volume(density)+"mL) using: <br /> " +
+            "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "M<br />" +
+            "\u00A0\u00A0\u00A0\u00A0b. chosen volume: "+ self.volume + "L<br />" +
+            "\u00A0\u00A0\u00A0\u00A0c. solute's molecular weight: "+self.solute.molecular_weight() +"g<br />" +
+            "\u00A0\u00A0\u00A0\u00A0c. solute's density: "+density +"g/mL<br />" +
+            "4) Carefully measure out " + self.single.volumetric.solution_calculator.volume(density)+"mL of " + solute + "<br /> " +
+            "5) Using standard methods, transfer the solute to your flask.<br /> " +
+            "6) Add solvent (" + solvent + ") to your solution until you reach " + self.volume + "<br /> ";
+
+        return desc;
+    };
+
+    self.single.gravimetric.steps_html = function(){
+        var desc = "<br />Steps to produce " + self.single.gravimetric.description() + "<br /><br />" +
+            "1) Pick a container that can safely contain "+ self.volume +"L<br />" +
+            "2) Calculate amount of solute necessary("+ self.single.sol.solution_calculator.solid()+"g) using: <br /> " +
+            "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "M<br />" +
+            "\u00A0\u00A0\u00A0\u00A0b. chosen volume: "+ self.volume + "L<br />" +
+            "\u00A0\u00A0\u00A0\u00A0c. solute's molecular weight: "+self.solute.molecular_weight() +"g<br />" +
+            "4) Carefully measure out " + self.single.sol.solution_calculator.solid() + "g of " + solute + "<br /> " +
+            "5) Using standard methods, transfer the solute to your flask.<br /> " +
+            "6) Add solvent (" + solvent + ") to your solution until you reach " + self.volume + "<br /> ";
+
+        return desc;
+    };
+
     //TODO: add steps functions for the other solution variants
 
     /**
      * Gets a short, one-line description of the solution.
      * @returns {string} Description of the solution.
      */
-    self.description = function(){
+    self.single.gravimetric.description = function(){
         var description = self.solute.molecular_weight() + "g " + solute + " in " + self.volume + "L of "
           + solvent + " where Molarity = " + self.solution_concentration;
+        return description;
+    };
+
+    /**
+     * Gets a short, one-line description of the solution.
+     * @returns {string} Description of the solution.
+     */
+    self.single.sol.description = function(){
+        var description = self.solute.molecular_weight() + "g " + solute + " in " + self.volume + "L of "
+          + solvent + " where Molarity = " + self.solution_concentration;
+        return description;
+    };
+
+    /**
+     * Gets a short, one-line description of the solution.
+     * @returns {string} Description of the solution.
+     */
+    self.single.volumetric.description = function(density){
+        var description =  self.single.volumetric.solution_calculator.volume(density)+ "mL " + solute + " in " + self.volume + "L of "
+          + solvent + " where Molarity = " + self.solution_concentration+"mol/L";
         return description;
     };
 
