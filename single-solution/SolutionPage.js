@@ -62,8 +62,7 @@ function fill_fields(page){
 
         var desired_mass_to_add = $("#massToAdd").val();
 
-        /* Finds the lowest number of sigfigs between entered molecular weight and user's given mass-to-add. */
-        var min_sigfig = find_min([count_sig_figs(solute_molecular_weight), count_sig_figs(desired_mass_to_add)]);
+        var min_sigfig = count_sig_figs(desired_mass_to_add);
 
         /* Creates a SingleSolution object using the target concentration (Molarity), total volume of the end solution,
         * and molecular weight of the solute used.*/
@@ -84,7 +83,7 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                window.alert("Calculated mass to add is: " + calculated_mass_to_add + "Error is: " + precise_round(percent_error, 2) + "%");
+                window.alert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
                 window.alert("Correct!");
@@ -107,7 +106,7 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                window.alert("Calculated mass to add is: " + calculated_mass_to_add + "Error is: " + precise_round(percent_error, 2) + "%");
+                window.alert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
                 window.alert("Correct!");
@@ -133,7 +132,7 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                window.alert("Calculated mass to add is: " + calculated_mass_to_add + "Error is: " + precise_round(percent_error, 2) + "%");
+                window.alert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
                 window.alert("Correct!");
