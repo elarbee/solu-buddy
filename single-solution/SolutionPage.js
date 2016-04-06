@@ -43,6 +43,7 @@ function next_check(page){
 function fill_fields(page){
     try {
 
+
         /* Collects variables from input fields and creates other necessary variables using the input variables */
         var solvent_compound = string_to_compound($("#solvent_formula").val());
         var solute_compound = string_to_compound($("#solute_formula").val());
@@ -56,6 +57,10 @@ function fill_fields(page){
 
         /* Get target solution concentration from the input field.*/
         var target_solution_concentration = $("#solution_concentration").val();
+
+        var desired_mass_to_add = $("#massToAdd").val();
+
+        var min_sigfig = get_min_int([get_sig_fig_count(solute_molecular_weight), get_sig_fig_count(total_volume), get_sig_fig_count(target_solution_concentration), get_sig_fig_count(desired_mass_to_add)]);
 
         /* Creates a SingleSolution object using the target concentration (Molarity), total volume of the end solution,
         * and molecular weight of the solute used.*/
@@ -73,7 +78,16 @@ function fill_fields(page){
 
             /* Calculates the mass of solute to add to the solvent using the 'solid()' function within SingleSolution object.*/
             mass_of_solute_to_add = single_solution.solid();
-            $("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
+            var calculated_mass_to_add = single_solution.solid().toPrecision(min_sigfig);
+
+            var percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
+
+            if(percent_error > 5){
+                window.alert("Calculated mass to add is: " + calculated_mass_to_add + "Error is: " + precise_round(percent_error, 2) + "%");
+            }else{
+                window.alert("Correct!");
+            }
+            //$("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
 
             var new_solution = new Solution(
                 $("#solute_formula").val(),
@@ -100,28 +114,7 @@ function fill_fields(page){
 
         }
 
-
-        /**
-         * Fills in the answer page using values collected and calculated above.
-         *
-         * DEPRECATED; WILL BE REMOVED SOON!
-         */
-
-        // $("#molarity_span1").html(molarity);
-        // $("#molarity_span2").html(molarity);
-        //
-        // $("#solvent_span1").html(solvent_compound.formula());
-        // $("#solvent_span2").html(solvent_compound.formula());
-        // $("#solvent_span3").html(solvent_compound.formula());
-        //
-        // $("#solute_span1").html(solute_compound.formula());
-        // $("#solute_span2").html(solute_compound.formula());
-        // $("#solute_span3").html(solute_compound.formula());
-        //
-        // $("#volume_span1").html(total_volume);
-        // $("#volume_span2").html(total_volume);
-        //
-        // $("#mass_span").html(mass_of_solute_to_add);
+        
 
     }catch (ex){
         window.alert(ex.message);
