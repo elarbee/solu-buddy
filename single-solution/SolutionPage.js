@@ -60,7 +60,7 @@ function fill_fields(page){
 
         var desired_mass_to_add = $("#massToAdd").val();
 
-        var min_sigfig = get_min_int([get_sig_fig_count(solute_molecular_weight), get_sig_fig_count(total_volume), get_sig_fig_count(target_solution_concentration), get_sig_fig_count(desired_mass_to_add)]);
+        var min_sigfig = find_min([count_sig_figs(solute_molecular_weight), count_sig_figs(total_volume), count_sig_figs(target_solution_concentration), count_sig_figs(desired_mass_to_add)]);
 
         /* Creates a SingleSolution object using the target concentration (Molarity), total volume of the end solution,
         * and molecular weight of the solute used.*/
