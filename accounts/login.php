@@ -1,6 +1,6 @@
 <?php 
 session_start();
-
+$_SESSION['loggedIn'] = true;
 // Connect to database
 require_once 'soluMySQLConnect.php';
 
@@ -16,9 +16,9 @@ $return_page = $_GET['next'] ?: '/index.php';
 $query = "SELECT Username, Password FROM accounts WHERE username = '$username' AND password = '$encrypt_password'";
 $result = mysqli_query($dbc, $query);
 if (!$result) {
-	echo 'Could not run query: ' . mysql_error();
+	echo 'Could not run query: ' . mysqli_error();
 	exit;
-}$row = mysql_fetch_array($result);
+}$row = mysqli_fetch_array($result);
 
 
 if (mysqli_num_rows($result) == 1) {

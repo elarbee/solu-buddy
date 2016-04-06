@@ -227,6 +227,11 @@ describe("compound creation", function(){
 
             expect(comp1.molecular_weight()).toEqual(192.1232);
 
+            var form2 = "NH2CH(C4H5N2)COOH";
+            var comp2 = string_to_compound(form2);
+
+            expect(comp2.molecular_weight()).toEqual(155.1542);
+
         });
 
 

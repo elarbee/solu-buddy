@@ -1,17 +1,3 @@
-// $(function(){
-//
-//
-//     /**
-//      * 'Next' button control function. This function is called when the 'Next' button is pressed
-//      */
-//
-//     //Back arrow for answer page
-//     $("#arrowContainer img").click(function(){
-//        $("#answerDiv").slideUp("fast");
-//     });
-//
-// });
-
 function next_check(page){
     try {
 

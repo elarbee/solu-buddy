@@ -50,7 +50,7 @@ function createSolidSolutionFromHTMLInput(){
     var solventChemicalID = document.getElementById("solvent_formula").value;
     var soluteID = document.getElementById("solute_formula").value;
     var soluteMolWeight = document.getElementById("solute_molec_weight").value;
-    var solutionTotalVolume = document.getElementById("totalVolume").value;
+    var solutionTotalVolume = document.getElementById("total_volume").value;
     var solutionConcentration = document.getElementById("solution_concentration").value;
     
     return createSolidSolution(solventChemicalID, soluteID, soluteMolWeight, solutionTotalVolume, solutionConcentration);

@@ -3,8 +3,8 @@
 		<input id = "solute_formula" type="text" placeholder="Solute Identity"><br>
 		<input id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
 		<input id = "density" type="text" placeholder="Density of Pure Solute"><br>
+		<input id= "total_volume" type="text" placeholder="Solution Total Volume (milli Liters)"><br>
 		<input id = "solution_concentration" type="text" placeholder="Solution Concentration"><br>
-    	<input id= "total_volume" type="text" placeholder="Solution Total Volume (milli Liters)"><br>
 	</div>
 
 	<div class="inline-div">
@@ -18,7 +18,7 @@
                 include 'content/serialForm.php'; 
             } 
             else{
-               echo "<button id=\"nextButton\" onclick="next_check('<?php echo $_GET["value"];?>')">Next</button>";
+				echo "<button id=\"nextButton\" onclick=\"next_check('". $_GET['value'] . "')\">Next</button>";
             }
         ?>
         

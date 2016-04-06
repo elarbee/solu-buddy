@@ -1,0 +1,17 @@
+td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
+
+#tableSolutions{
+	
+	width: 1500px;
+    border: 1px solid #333;
+}
+
+.click{
+background:#FF9900;
+color: white
+}
+
+.hover{
+background:blue;
+color: white
+}
