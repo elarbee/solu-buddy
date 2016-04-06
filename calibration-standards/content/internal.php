@@ -43,6 +43,7 @@
     ?> 
     
     <!-- Table used for Internal Standards Method -->
+	<!--
     <table id="internalTable">
         <tr>
             <td><input type="text" placeholder="Name of Unknown"></td>
@@ -67,8 +68,40 @@
         </tr>
     </table>
     <td> <button id="nextButton">Next</button> </td>
-    
-
+    -->
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><p>Stock Solution of analyte</p></div>
+		<div class="col-md-4 col-sm-4"><button id="makeItNowButton1">Make It Now!</button></div>
+		<div class="col-md-4 col-sm-4"><button id="savedSolution1">Use Saved Solution!</button></div>	
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><p>Stock Solution of Internal Standard</p></div>
+		<div class="col-md-4 col-sm-4"><button id="makeItNowButton2">Make It Now!</button></div>
+		<div class="col-md-4 col-sm-4"><button id="savedSolution2">Use Saved Solution!</button></div>	
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Name of Unknown"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Analyte Molecular Weight"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Number of Calibration Standards"></div>	
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Solvent Chemical Identity"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Internal Standard Chemical Identity"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Volume of Calibration Standard Flasks"></div>	
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Volume of Calibration Standard Flasks"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Analyte Chemical Identity"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Internal Standard Molecular Weight"></div>	
+	</div>
+	<button id="nextButton">Next</button>
+	
+	
+	<!--<div class="row">
+		<div class="col-md-4 col-sm-4"></div>
+		<div class="col-md-4 col-sm-4"></div>
+		<div class="col-md-4 col-sm-4"></div>	
+	</div>-->
 <div>
 	
 </div>
