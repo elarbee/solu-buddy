@@ -13,7 +13,7 @@ html{
     border: 1px solid white;
     border-radius: 10px;
     display: inline-block;
-    padding: 20px;
+    padding: 40px;
 }
 /*Place holder text color. Probably only works in Chrome */
 #content ::-webkit-input-placeholder{
@@ -43,7 +43,7 @@ html,body{
 }
 #content input{
     color: white;
-    margin-top: 10px;
+    margin-top: 20px;
     background: rgba(42,42,42,0.9);
     border: 1px solid white;
     border-radius:10px;
@@ -54,6 +54,8 @@ html,body{
 
 #content button{
     background: #92d050;
+	margin-top: 40px;
+    margin-top: 40px;
     color: black;
     font-weight: 600;
 }
@@ -133,3 +135,9 @@ html,body{
     position: relative;
     width:225px;
 }
+
+table {
+	table-layout: fixed;
+	word-wrap:break-word !important;
+}
+
