@@ -1,6 +1,6 @@
 <div class="inline-div">
-		<input id = "solvent_formula" type="text" placeholder="Solvent Chemical Identity"> <br>
-		<input id = "solute_formula" type="text" placeholder="Solute Identity"><br>
+		<input id = "solvent_formula" type="text" placeholder="Solvent Formula"> <br>
+		<input id = "solute_formula" type="text" placeholder="Solute Formula"><br>
 		<input id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
 		<input id = "total_volume" type="text" placeholder="Solution Total Volume (milli Liters)"><br>
 		<input id = "solution_concentration" type="text" placeholder="Sol'n Concentration (mol/L)"><br>

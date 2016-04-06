@@ -33,12 +33,12 @@ describe("Formula parsing and validation", function() {
 
           });
     
-          it("should be able to reject duplicate elements", function () {
-             expect(is_valid_formula("NaHH")).toEqual(false);
-             expect(is_valid_formula("4NaHH")).toEqual(false);
-             expect(is_valid_formula("Na2H4H5")).toEqual(false);
-             expect(is_valid_formula("NaHClH")).toEqual(false);
-             expect(is_valid_formula("NaClNa")).toEqual(false);
+          it("should not reject duplicate elements", function () {
+             expect(is_valid_formula("NaHH")).toEqual(true);
+             expect(is_valid_formula("4NaHH")).toEqual(true);
+             expect(is_valid_formula("Na2H4H5")).toEqual(true);
+             expect(is_valid_formula("NaHClH")).toEqual(true);
+             expect(is_valid_formula("NaClNa")).toEqual(true);
     
           });
     

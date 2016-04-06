@@ -14,7 +14,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <script src="SolutionPage.js"></script>
     <script src="../static/js/formula.js"></script>
     <script src="../static/js/elements.js"></script>
-    
+    <script src="../static/js/utility.js"></script>
     <script src="../static/js/calculator.js"></script>
     <script src="../static/js/solution.js"></script>
     <script src="../static/js/solutionObjectBuilder.js"></script>
