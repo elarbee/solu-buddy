@@ -23,6 +23,7 @@
     ?>
 <!-- Solution Input page -->
 <div class="text-center">
+    <img src="serial.png" width="550"><br><br>
     <div id="inputDiv" class="grey-div">
         <div id="headerDiv">
             <h3>Fill in the fields below to set up the dilution series</h3>
