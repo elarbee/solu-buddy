@@ -21,7 +21,7 @@ renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings"
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>
-<form action="/accounts/saveSolution.php" method="get">
+<form action="/accounts/saveSolution.php" method="post">
 <?php
   //Declaring global final variables.
     //Used for keeping track of 'Make it Niw' solutions.
@@ -35,6 +35,9 @@ renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings"
 ?>
 
     <div class="divCenterer">
+        <div id ="titleDiv">
+            <img src="single.png" width="565"><br><br>
+        </div>
                 <!-- Solution Input page -->
                 <div id="headerDiv">
                     <div class="stuffContainer">

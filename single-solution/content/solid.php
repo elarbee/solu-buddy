@@ -30,13 +30,13 @@
 	</div>
 
 	<div class="inline-div">
-		<img src="scale.jpg" style="width:150px">
+		<img src="scale.png" style="width:150px">
         <br>
         <button type="button" onClick="window.location.href='../'">SoluBuddy Home</button> <!-- TODO: change to link plz-->
 	</div>
 
 	<div class="inline-div">
-		<img src="solid.jpg" style="width:150px">
+		<img src="solid.png" style="width:150px">
         <br>
 		<input id="massToAdd" type="text" placeholder="Mass of Solute to Add">
         <br>
