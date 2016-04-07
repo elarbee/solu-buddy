@@ -132,7 +132,7 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                window.alert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
+                window.alert("Calculated volume to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
                 window.alert("Correct!");

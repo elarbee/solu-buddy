@@ -3,6 +3,13 @@
     margin: 20px;
     text-align: center;
 }
+
+.input-div{
+    display: inline-block;
+    margin: 20px;
+    text-align: right;
+    color: white;
+}
 #headerDiv {
     text-align: center;
 }
