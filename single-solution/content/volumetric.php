@@ -1,11 +1,13 @@
-<div class="inline-div">
-		<input id = "solvent_formula" type="text" placeholder="Solvent Chemical Identity"> <br>
-		<input id = "solute_formula" type="text" placeholder="Solute Identity"><br>
-		<input id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
-		<input id = "density" type="text" placeholder="Density of Pure Solute"><br>
-		<input id= "total_volume" type="text" placeholder="Solution Total Volume (milli Liters)"><br>
-		<input id = "solution_concentration" type="text" placeholder="Solution Concentration"><br>
-	</div>
+<div class="input-div">
+		Solvent Formula <input id = "solvent_formula" type="text" placeholder="Solvent Formula"> <br>
+		Solute Formula <input id = "solute_formula" type="text" placeholder="Solute Formula"><br>
+		Solute Molecular Weight <input id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
+		Density of Pure Solute (g/mL) <input id = "density" type="text" placeholder="Density of Pure Solute"><br>
+	Solution Total Volume (mL) <input id= "total_volume" type="text" placeholder="Solution Total Volume (mL)"><br>
+	Sol'n Concentration (mol/L) <input id = "solution_concentration" type="text" placeholder="Sol'n Concentration (mol/L)"><br>
+		Volume of Solute to Add (mL) <input id="massToAdd" type="text" placeholder="Volume of Solute to Add"><br>
+
+</div>
 
 	<div class="inline-div">
 		<img src="beaker.png" style="width:150px">
@@ -33,7 +35,7 @@
 	<div class="inline-div">
 		<img src="solid.png" style="width:150px">
         <br>
-		<input id="massToAdd" type="text" placeholder="Volume of Solute to Add">
+        <br>
         <br>
 		<button onclick="">How do I calculate this?</button>
 	</div>

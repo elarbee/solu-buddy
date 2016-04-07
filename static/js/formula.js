@@ -243,22 +243,6 @@ function is_valid_formula(str) {
             if(find_element(element) == null){
                 return false;
             }
-            /* Check if element has already been used */
-            var temp;
-            var count = 0;
-
-            while(count < usedElements.length){ //iterate through each used element
-
-                temp = usedElements[count]; //store current used element
-
-                if(temp == element){ //check against element of our current segment
-                    return false;    //returns false if it's the same
-                }
-                count++;
-            }
-            count = 0;
-
-            usedElements.push(element); //add element from this segment to array of currently used elements
 
             acceptedSegmentLengths += segment.length; //increment length of accepted segments
         }
