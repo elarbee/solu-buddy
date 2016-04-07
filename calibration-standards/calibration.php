@@ -15,7 +15,11 @@
     //These can be called later with the $_GLOBALS variable
         $EXTERNAL="EXTERNAL" ; $INTERNAL="INTERNAL" ; $ADDITION="ADDITION" ;
     ?>
+
     <div id="content">
+        <div id="logo"  style="width:100%; height:100%">
+            <img src="calibration.png" width="800"><br><br>
+        </div>
         <div id="inputDiv">
         <?php // Dynamically load one of three pages based on the valuiie of '$_GET['value ']' //Make sure a value is passed in if(isset($_GET[ "value"])){ //If it 's the external calibrations page.
             if ($_GET["value"] == $GLOBALS['EXTERNAL']) {
