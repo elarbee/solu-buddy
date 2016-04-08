@@ -14,5 +14,5 @@
 		<div class="col-md-4 col-sm-12"><input type="text" placeholder="Number of Calibration Standards"></div>
 		<div class="col-md-4 col-sm-12"><input type="text" placeholder="Total volume of flasks"></div>
 	</div>
-	<div class="col-md-12"><button id="nextButton">Next</button></div>
+	<div class="col-md-12"><button id="nextButton" class="nextButton">Next</button></div>
 </div>

@@ -1,7 +1,6 @@
 
 <div id = "divContainer">
-	<p>The Initial (stock) solution </p>
-		<div class="col-md-6 col-sm-6"></div>
+		<div class="col-md-12 col-sm-12"><p class = "altStockText">The Initial (stock) solution </p></div>
 		<div class="col-md-12 col-sm-12"><button class="makeItNowButton">Make it Now!</button></div>
 	<div class="row">
 		<div class="col-md-4 col-sm-6 col-xs-12"><input id="solventChemID" type="text" placeholder="Solvent Chemical Identity"></div>
@@ -15,5 +14,5 @@
 		<div class="col-md-4 col-sm-6"><input id="volumeTransferred" type="text" placeholder="Volume of solution transferred"></div>
 		<!--<div class="col-md-2 col-sm-12"><button id="homeButton" onClick="window.location.href='../'">SoluBuddy Home</button></div>-->
 	</div>
-		<div class="col-md-12 col-sm-12"><button id="nextButton">Next</button></div>	
+		<div class="col-md-12 col-sm-12"><button id="nextButton" class="nextButton">Next</button></div>	
 </div>

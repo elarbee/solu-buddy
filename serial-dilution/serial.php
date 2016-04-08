@@ -16,30 +16,31 @@
     <script src="SolutionPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="serialStyle.css">
 	<link rel="stylesheet" type="text/css" href="../single-solution/singleStyle.css">
+	<link rel="stylesheet" type="text/css" href="../shared-content/inputStyle.css">
 </head>
 <body>
     <?php
         include '../top-header.php';
     ?>
+	
 <!-- Solution Input page -->
-<div class="text-center">
-    <div id="inputDiv" class="grey-div">
-        <div id="headerDiv">
+
+<div id="content">
+    <div id="inputDiv">
+		<div id="headerDiv">
             <h3>Fill in the fields below to set up the dilution series</h3>
         </div>
-        <div id="divContainer">
-            <?php
-                //Choose which table to display depending on whether or not a solution was passed in.
-                if(isset($_POST['initialSolution'])){
-                    include "content/initializedTable.php";
-                }
-                else{
-                    include "content/uninitializedTable.php";
-                }
-            ?>
-        </div>
+
+        <?php
+            //Choose which table to display depending on whether or not a solution was passed in.
+            if(isset($_POST['initialSolution'])){
+                include "content/initializedTable.php";
+            }
+            else{
+                include "content/uninitializedTable.php";
+            }
+		?>
     </div>
-</div>
 
 
     

@@ -5,6 +5,7 @@
 
     <?php include '../script-includes.html'; ?>
     <script src="calibrationPage.js"></script>
+	<link rel="stylesheet" type="text/css" href="../shared-content/inputStyle.css">
     <link rel="stylesheet" type="text/css" href="calibrationStyle.css">
 </head>
 
@@ -33,6 +34,7 @@
             }    
     ?>
         </div>
+	</div>
   
 <!-- This is the answer page -->
 <div id="answerDiv">
