@@ -1,3 +1,9 @@
+<?php
+session_start();
+require('../dynamicHelpers.php');
+renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings', 'navField2' => 'Saved Solutions',
+    'navField3' => 'Chemistry Terms', 'navField4' => 'Create Solution(s)'] );
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,9 +27,6 @@
     <title>Solubuddy - Serial Dilution</title>
 </head>
 <body>
-    <?php
-        include '../top-header.php';
-    ?>
 <!-- Solution Input page -->
 <div class="text-center">
     <img src="serial.png" width="550"><br><br>
