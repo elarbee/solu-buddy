@@ -1,0 +1,115 @@
+/* Background Image */
+html{
+    background: url(../static/images/lab.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+html,body{
+    width:100%;
+    text-align: center;
+	font-size: 15px;
+	padding-bottom: 0px;
+}
+
+#inputDiv{
+    color:white;
+    background: rgba(40,40,40,0.6);
+    border: 1px solid white;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 40px;
+}
+
+/*Place holder text color. Probably only works in Chrome */
+#content ::-webkit-input-placeholder{
+    color: white;
+}
+#content input,#content button {
+    color:white;
+    margin-top: 10px;
+    height:3.7em;
+    width: 18em;
+}
+
+#content input{
+    color: white;
+    margin-top: 20px;
+    background: rgba(42,42,42,0.9);
+    border: 1px solid white;
+    border-radius:10px;
+    /*width: 280px;*/
+    text-align: center;
+}
+
+#content button{
+    background: #92d050;
+	margin-top: 40px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 600;
+	border-radius:20px;
+}
+
+#content button.nextButton{
+	background: #92d050;
+	margin-top: 60px;
+	height: 65px;
+	width: 260px;
+	font-size: 20px;
+	border-radius:40px;
+}
+#content button.makeItNowButton{
+	background: #6495ed;
+}
+
+#content button.savedSolButton {
+	background: #ffff94;
+}
+
+#content .regText{
+	/*Vertically aligns text even if it's double lined*/
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-40%);
+	font-size: 18px;
+	padding-top: 4em;
+	padding-bottom:0px;
+	margin-bottom: -3em;
+	
+}
+#content .stockText{
+	/*Vertically aligns text even if it's double lined*/
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-40%);
+	margin-top:60px;
+	color: white;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+#content .altStockText{
+	margin-top:60px;
+	margin-bottom: -20px;
+	color: white;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+#headerDiv h2{
+    color: white;
+    margin-top: 100px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+#content hr{
+    color: black;
+    width: 80%;
+}

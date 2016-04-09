@@ -18,13 +18,17 @@
     <script src="serialPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="../single-solution/singleStyle.css">
     <link rel="stylesheet" type="text/css" href="serialStyle.css">
+	<link rel="stylesheet" type="text/css" href="../shared-content/inputStyle.css">
     <title>Solubuddy - Serial Dilution</title>
 </head>
 <body>
     <?php
         include '../top-header.php';
     ?>
+	
+	
 <!-- Solution Input page -->
+<!--
 <div class="text-center">
     <img src="serial.png" width="550"><br><br>
     <div id="inputDiv" class="grey-div">
@@ -32,7 +36,22 @@
             <h3>Fill in the fields below to set up the dilution series</h3>
         </div>
         <div id="divContainer">
-            <?php
+            
+        </div>
+        <div id="myAlert" class="alert alert-danger">
+            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+        </div>
+    </div>
+</div>
+-->
+
+<div id="content">
+    <div id="inputDiv">
+		<div id="headerDiv">
+            <h3>Fill in the fields below to set up the dilution series</h3>
+        </div>
+
+        <?php
                 include "content/serialTable.php";
             ?>
         </div>
@@ -40,7 +59,7 @@
             <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
         </div>
     </div>
-</div>
+
 
 
     
