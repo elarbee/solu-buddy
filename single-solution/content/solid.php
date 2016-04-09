@@ -1,6 +1,6 @@
 <div class="input-div">
 
-    Solvent Formula <input id = "solvent_formula" type="text" placeholder="Solvent Formula"> <br>
+    Solvent Formula <input id = "solvent_formula" type="text" placeholder="Solvent Formula"><br>
     Solute Formula <input id = "solute_formula" type="text" placeholder="Solute Formula"><br>
     Solute Molecular Weight <input id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
     Solution Total Volume (mL) <input id = "total_volume" type="text" placeholder="Solution Total Volume (mL)"><br>

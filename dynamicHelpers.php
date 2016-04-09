@@ -15,10 +15,10 @@ layout of how web pages will be designed-->
     function renderHead($data = [])
     {
         extract($data);
-		if(isset($_SESSION['solutions']) && $_SESSION['solutions'] == true){
+		if( (isset($_SESSION['solutions']) ) && ($_SESSION['solutions'] == 'true') ){
 			require("headerSolution.php");
 		}
-		elseif(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
+		elseif(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 'true') {
 			require("headerLogged.php");
 		} else {
 			require("header.html");

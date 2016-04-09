@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+	<link rel="stylesheet" type="text/css" href="static/css/navBar.css">
     <link rel="stylesheet" type="text/css" href="static/css/nav-styles.css">
     <link rel="stylesheet" type="text/css" href="static/css/header-styles.css">
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
@@ -17,9 +17,7 @@
 <body>
 <?php
 session_start();
-if(isset($_SESSION['solutions'])){
-	$_SESSION['solutions'] == false;
-}
+$_SESSION['solutions'] = 'false';
 require ("dynamicHelpers.php");
 renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings", "navField2" => "Saved Solutions",
     "navField3" => "Chemistry Terms", "navField4" => "Create Solution(s)"] );

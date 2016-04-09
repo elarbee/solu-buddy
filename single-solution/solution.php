@@ -8,10 +8,9 @@ renderHead( ['navField1' => 'Account Settings', 'navField2' => 'Saved Solutions'
 <!DOCTYPE html>
 <html>
 <head>
-    <?php
-    include '../script-includes.html';
-    ?>
-
+ 
+	<script src="../static/js/jquery-1.11.3.min.js"></script>
+	<script src="../static/js/registration.js"></script>
     <script src="SolutionPage.js"></script>
     <script src="../static/js/formula.js"></script>
     <script src="../static/js/elements.js"></script>
@@ -19,17 +18,16 @@ renderHead( ['navField1' => 'Account Settings', 'navField2' => 'Saved Solutions'
     <script src="../static/js/calculator.js"></script>
     <script src="../static/js/solution.js"></script>
     <script src="../static/js/solutionObjectBuilder.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/css/nav-styles.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/navBar.css">
     <link rel="stylesheet" type="text/css" href="../static/css/header-styles.css">
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>
-<form action="/accounts/saveSolution.php" method="post">
 <?php
   //Declaring global final variables.
-    //Used for keeping track of 'Make it Niw' solutions.
+    //Used for keeping track of 'Make it Now' solutions.
     $SOLID = 'SOLID';
     $GRAVIMETRIC = 'GRAV';
     $VOLUMETRIC = 'VOLU';
@@ -112,8 +110,9 @@ renderHead( ['navField1' => 'Account Settings', 'navField2' => 'Saved Solutions'
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
+		<form action="../accounts/saveSolution.php" method="post">
         <button onclick="submit">Save Solution</button>
-
+		</form>
         <button type="button" onclick="">Print Solution</button>
 
     </div>
@@ -124,6 +123,5 @@ renderHead( ['navField1' => 'Account Settings', 'navField2' => 'Saved Solutions'
         include 'content/answerDiv.php';
     }
     ?>
-</form>
 </body>
 </html>

@@ -8,14 +8,6 @@
 	
 }
 
-td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
-
-.selected {
-    background-color: brown;
-    color: #FFF;
-}
-
-
 li li a {
 	font-size: 18px;
 	font-weight: 750;
@@ -47,9 +39,6 @@ ul li li a{
 	margin-left: 215px;
 }
 
-#myNavbar ul li a {
-
-}
 
 #btn-log{
 	height: 35px;
@@ -69,12 +58,8 @@ ul li li a{
 	right: 375px;
 }
 
-#textbox {
-	
-}
 
 #popups{
-	
 	background-color: #1278b6;
 }
 

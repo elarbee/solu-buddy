@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$_SESSION['loggedIn'] = true;
+$_SESSION['loggedIn'] = 'true';
 // Connect to database
 require_once 'soluMySQLConnect.php';
 

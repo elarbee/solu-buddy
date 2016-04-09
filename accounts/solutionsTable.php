@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['solutions'] = 'true';
 require ("soluMySQLConnect.php");
 require ("../dynamicHelpers.php");
 renderHead( ["title" => "Solutions Page", "navField1" => "Account Settings", "navField2" => "Saved Solutions",
@@ -21,8 +22,8 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
 <!DOCTYPE html>
 <html>
 <head>
-<link href = "/static/css/table.css" type="text/css" rel = "stylesheet">
-<link href = "/static/css/navBar.css" type="text/css" rel = "stylesheet">
+<link href = "../static/css/table.css" type="text/css" rel = "stylesheet">
+<link href = "../static/css/navBar.css" type="text/css" rel = "stylesheet">
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
