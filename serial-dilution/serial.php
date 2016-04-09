@@ -28,30 +28,15 @@
 	
 	
 <!-- Solution Input page -->
-<!--
-<div class="text-center">
+
+<div id = "content" class="text-center">
     <img src="serial.png" width="550"><br><br>
     <div id="inputDiv" class="grey-div">
         <div id="headerDiv">
             <h3>Fill in the fields below to set up the dilution series</h3>
         </div>
         <div id="divContainer">
-            
-        </div>
-        <div id="myAlert" class="alert alert-danger">
-            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
-        </div>
-    </div>
-</div>
--->
-
-<div id="content">
-    <div id="inputDiv">
-		<div id="headerDiv">
-            <h3>Fill in the fields below to set up the dilution series</h3>
-        </div>
-
-        <?php
+            <?php
                 include "content/serialTable.php";
             ?>
         </div>
@@ -59,8 +44,7 @@
             <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
         </div>
     </div>
-
-
+</div>
 
     
 <!-- This is the answer page -->

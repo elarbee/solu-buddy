@@ -6,11 +6,11 @@ html{
     -o-background-size: cover;
     background-size: cover;
 }
+
 html,body{
     width:100%;
     text-align: center;
 	font-size: 15px;
-	padding-bottom: 0px;
 }
 
 #inputDiv{
@@ -19,28 +19,28 @@ html,body{
     border: 1px solid white;
     border-radius: 10px;
     display: inline-block;
-    padding: 40px;
+    padding: 20px;
 }
 
 /*Place holder text color. Probably only works in Chrome */
 #content ::-webkit-input-placeholder{
     color: white;
 }
+
+
 #content input,#content button {
     color:white;
-    margin-top: 10px;
     height:3.7em;
     width: 18em;
 }
 
 #content input{
-    color: white;
-    margin-top: 20px;
     background: rgba(42,42,42,0.9);
     border: 1px solid white;
     border-radius:10px;
-    /*width: 280px;*/
+    width: 280px;
     text-align: center;
+	margin-top:2em;
 }
 
 #content button{
@@ -69,16 +69,15 @@ html,body{
 }
 
 #content .regText{
-	/*Vertically aligns text even if it's double lined*/
 	position: relative;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-40%);
 	font-size: 18px;
-	padding-top: 4em;
+	margin-top: 4em;
 	padding-bottom:0px;
-	margin-bottom: -3em;
+	margin-bottom: -2em;
 	
 }
 #content .stockText{

@@ -43,31 +43,39 @@
     ?> 
     
     <!-- Table used for Internal Standards Method -->
-    <table id="internalTable">
-        <tr>
-            <td><input type="text" placeholder="Name of Unknown"></td>
-            <td><input type="text" placeholder="Analyte Molecular Weight"></td>
-            <td><p>Stock Solution of analyte</p> </td>
-            <td><p>Stock Solution of Internal Standard</p>
-            <td><input type="text" placeholder="Number of Calibration Standards"> </td>
-        </tr>
-        <tr>
-            <td><input type="text" placeholder="Solvent Chemical Identity"></td>
-            <td><input type="text" placeholder="Internal Standard Chemical Identity"></td>
-            <td><button id="makeItNowButton1">Make It Now!</button></td>
-            <td><button id="makeItNowButton2">Make It Now!</button></td>
-            <td><input type="text" placeholder="Volume of Calibration Standard Flasks"></td>
-        </tr>
-        <tr>
-            <td><input type="text" placeholder="Analyte Chemical Identity"></td>
-            <td><input type="text" placeholder="Internal Standard Molecular Weight"></td>
-            <td><button id="savedSolution1">Use Saved Solution!</button></td>
-            <td><button id="savedSolution2">Use Saved Solution!</button></td>
-            <td></td>
-        </tr>
-    </table>
-    <td> <button id="nextButton">Next</button> </td>
-    
-    
-
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><p class="stockText">Stock Solution of analyte</p></div>
+		<div class="col-md-4 col-sm-4"><button id="makeItNowButton1" class="makeItNowButton">Make It Now!</button></div>
+		<div class="col-md-4 col-sm-4"><button id="savedSolution1" class="savedSolButton">Use Saved Solution!</button></div>	
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><p class="stockText">Stock Solution of Internal Standard</p></div>
+		<div class="col-md-4 col-sm-4"><button id="makeItNowButton2" class="makeItNowButton">Make It Now!</button></div>
+		<div class="col-md-4 col-sm-4"><button id="savedSolution2" class="savedSolButton">Use Saved Solution!</button></div>	
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Name of Unknown"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Analyte Molecular Weight"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Number of Calibration Standards"></div>	
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Solvent Chemical Identity"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Internal Standard Chemical Identity"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Volume of Calibration Standard Flasks"></div>	
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Volume of Calibration Standard Flasks"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Analyte Chemical Identity"></div>
+		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Internal Standard Molecular Weight"></div>	
+	</div>
+	<button id="nextButton" class="nextButton">Next</button>
+	
+	
+	<!--<div class="row">
+		<div class="col-md-4 col-sm-4"></div>
+		<div class="col-md-4 col-sm-4"></div>
+		<div class="col-md-4 col-sm-4"></div>	
+	</div>-->
+<div>
+	
 </div>
