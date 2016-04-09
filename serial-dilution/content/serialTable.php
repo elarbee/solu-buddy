@@ -17,7 +17,7 @@
         <tr>
             <td> <input id="soluteChemID" type="text" placeholder="Solute" tabindex="2"> </td>
             <td> <input id="flasksVolume" type="number" placeholder="Dilution Flask Volume" tabindex="5"> </td>
-            <td> <button id="nextButton" tabindex="7">Next</button></td>
+            <td> <button type="button" id="nextButton" tabindex="7">Next</button></td>
         </tr>
         
         <tr>

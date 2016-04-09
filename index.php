@@ -21,10 +21,6 @@ require ("dynamicHelpers.php");
 renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings", "navField2" => "Saved Solutions",
     "navField3" => "Chemistry Terms", "navField4" => "Create Solution(s)"] );
 ?>
-
-    <div id="header">
-        <img id="logo" src="static/images/logo.png">
-    </div>
 	<div id="choices">
         
         <!-- Option 1 -->

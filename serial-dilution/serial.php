@@ -87,7 +87,7 @@
             <div id="answerButtonsDiv" class="inline-div">
                 <button id="saveButton">Save Dilution Series</button>
                 <br>
-                <button id="printButton" onClick="window.print();">Print Dilution Series</button>
+                <button type="button" id="printButton" onClick="window.print();">Print Dilution Series</button>
             </div>
         </div>
 </div>

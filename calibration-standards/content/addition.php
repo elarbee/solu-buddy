@@ -20,5 +20,5 @@
 
     </table>
 
-    <td> <button id="nextButton">Next</button> </td>
+    <td> <button type="button" id="nextButton">Next</button> </td>
 </div>

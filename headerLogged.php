@@ -1,6 +1,7 @@
 <header>	
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
+    <a href="/" class="pull-left"><img src="/static/images/logoWhite.png" style="height:60px;margin: 10px;"></a>
+    <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>

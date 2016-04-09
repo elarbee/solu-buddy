@@ -104,7 +104,8 @@ function postID() {
 					<td>" . $row['Solute_Concentration'] . "</td>
 					<td>" . $row['Dillution_Set'] . "</td>
 					<td>" . $row['Calibration_Set'] . "</td>
-					<form action='deleteSolution.php' method=\"post\">
+					<form action='deleteSolution.php' method=\"POST\">
+					<input type=\"hidden\" value=\"" . $row['ID'] . "\" name=\"solutionID\" id=\"solutionID\">
 					<td><input type=\"submit\" value=\"Delete\" name=\"submit\"></form></td>
 				</tr>
 			<tbody>";  

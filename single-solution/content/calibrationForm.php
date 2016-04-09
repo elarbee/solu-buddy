@@ -6,13 +6,13 @@
     <?php if(isset($_GET['value'])){
             switch($_GET['value']){
                 case "SOLID":
-                    echo "<button id=\"nextButton\" onclick=\"localStorage.setItem(formulaValue,JSON.stringify(createSolidSolutionFromHTMLInput())); \">Next</button>";
+                    echo "<button type=\"button\" id=\"nextButton\" onclick=\"localStorage.setItem(formulaValue,JSON.stringify(createSolidSolutionFromHTMLInput())); \">Next</button>";
                     break;
                 case "GRAV":
-                    echo "<button id=\"nextButton\" onclick=\"localStorage.setItem(formulaValue,JSON.stringify(createGravimetricSolutionFromHTMLInput()));\">Next</button>";
+                    echo "<button type=\"button\" id=\"nextButton\" onclick=\"localStorage.setItem(formulaValue,JSON.stringify(createGravimetricSolutionFromHTMLInput()));\">Next</button>";
                     break;
                 case "VOLU":
-                    echo "<button id=\"nextButton\" onclick=\"localStorage.setItem(formulaValue,JSON.stringify(createVolumetricSolutionFromHTMLInput()));\">Next</button>";
+                    echo "<button type=\"button\" id=\"nextButton\" onclick=\"localStorage.setItem(formulaValue,JSON.stringify(createVolumetricSolutionFromHTMLInput()));\">Next</button>";
                     break;
             }
         }
