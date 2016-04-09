@@ -1,3 +1,10 @@
+<?php
+session_start();
+require('../dynamicHelpers.php');
+renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings', 'navField2' => 'Saved Solutions',
+    'navField3' => 'Chemistry Terms', 'navField4' => 'Create Solution(s)'] );
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -10,14 +17,14 @@
 
 <body>
 
-    <?php include '../top-header.php';
+    <?php
     //Declaring global final variables.
     //These can be called later with the $_GLOBALS variable
         $EXTERNAL="EXTERNAL" ; $INTERNAL="INTERNAL" ; $ADDITION="ADDITION" ;
     ?>
 
     <div id="content">
-        <div id="logo"  style="width:100%; height:100%">
+        <div id="logo" style="width: 100%;">
             <img src="calibration.png" width="800"><br><br>
         </div>
         <div id="inputDiv">
