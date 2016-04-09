@@ -1,7 +1,8 @@
 <?php
 session_start();
+$_SESSION['solutions'] = true;
 require('../dynamicHelpers.php');
-renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings', 'navField2' => 'Saved Solutions',
+renderHead( ['navField1' => 'Account Settings', 'navField2' => 'Saved Solutions',
     'navField3' => 'Chemistry Terms', 'navField4' => 'Create Solution(s)'] );
 ?>
 <!DOCTYPE html>
@@ -18,7 +19,10 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <script src="../static/js/calculator.js"></script>
     <script src="../static/js/solution.js"></script>
     <script src="../static/js/solutionObjectBuilder.js"></script>
-    
+    <link rel="stylesheet" type="text/css" href="../static/css/nav-styles.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/header-styles.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>

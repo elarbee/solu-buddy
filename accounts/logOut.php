@@ -3,5 +3,5 @@
 	$_SESSION['loggedIn'] = False;
 	session_unset();
 	session_destroy();
-	header("location:/");
+	header("location:../index.php");
 ?>

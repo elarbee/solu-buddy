@@ -1,3 +1,44 @@
+<script>
+function checkUsername(){
+			var $uname = $("#uname");
+			var $message = $("#availableMessage");
+			var goodColor = "#66cc66";
+			var badColor = "#ff6666";
+			$.post( "accounts/CheckUnameAvailability.php", { uname: $uname.val()})
+				.done(function( data ) {
+					if(data == 0){
+					$uname.css("backgroundColor", badColor);
+					$message.css("color", badColor);
+					$message.text("Not Available");
+					$('#signupSubmit').prop('disabled', true);
+					}
+					else {
+					$uname.css("backgroundColor", goodColor);
+					$message.css("color", goodColor);
+					$message.text("Available");
+					$('#signupSubmit').prop('disabled', false);
+					}
+				});
+		}
+		
+		function checkPass(){
+			var $pass2 = $("#pass2");
+			var $message = $("#confirmMessage");
+			var goodColor = "#66cc66";
+			var badColor = "#ff6666";
+			if($("#pass1").val() == $pass2.val() && $pass2.val() != ""){
+				$pass2.css("backgroundColor", goodColor);
+				$message.css("color", goodColor);
+				$message.text("Passwords Match!");
+				$('#signupSubmit').prop('disabled', false);
+			}else{
+				$pass2.css("backgroundColor", badColor);
+				$message.css("color", badColor);
+				$message.text("Passwords Do Not Match!");
+				$('#signupSubmit').prop('disabled', true);
+			}
+		}
+</script>
 <!-- Modal 1-->
 <div id="modal-1" class="modal fade" role="dialog">
   <div class="modal-dialog modal-sm">
@@ -8,7 +49,7 @@
         <h4 class="modal-title">Log In</h4>
       </div>
       <div class="modal-body">
-        <form action="/accounts/login.php?next=<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+        <form action="./accounts/login.php" method="post">
 					<input type = "text" name="username" id="textbox" placeholder="Username"><br>
 					<input type = "password" name="password"  id="textbox" placeholder="Password"><br>
       <div class="modal-footer">
@@ -31,7 +72,7 @@
         <h4 class="modal-title" >Sign Up</h4>
 		</div>
       <div class="modal-body">
-        <form action="/accounts/soluRegistration.php?next=<?php echo $_SERVER['REQUEST_URI']; ?>" id = "signup" method="post">
+        <form action="./accounts/soluRegistration.php" id = "signup" method="post">
 					<input type = "text" name="firstname" id="textbox" placeholder="First name"><br>
 					<input type = "text" name="lastname" id="textbox" placeholder="Last name"><br>
 					<input type = "text" name="username" id="uname" placeholder="Username" onkeyup="checkUsername()";><span id="availableMessage" class="availableMessage"></span><br>

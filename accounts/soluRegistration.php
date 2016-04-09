@@ -9,7 +9,7 @@ $password = $_POST['password'];
 $encrypted_password=md5($password);
 
 // Redirect back to the specified page or go to the homepage if not specified.
-$return_page = $_GET['next'] ?: '/index.php';
+$return_page = $_GET['next'] ?: '../index.php';
 
 $sql = "INSERT INTO accounts (First_Name, Last_Name, Username, Password) 
 VALUES ('$firstName', '$lastName', '$userName', '$encrypted_password')";

@@ -2,13 +2,6 @@
 layout of how web pages will be designed-->
 
 <?php
-    
-    //Check if a session is uninitialized before callign session_start()
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
-
     require("modals.php");
 	
 	/* Renders foot of page. */
@@ -22,18 +15,14 @@ layout of how web pages will be designed-->
     function renderHead($data = [])
     {
         extract($data);
-        
-        //Check that 'loggedIn' is set first
-        if(isset($_SESSION['loggedIn'])) {
-
-            if($_SESSION['loggedIn'] !== True) {
-                require("header.html");
-            } 
-            else {
-                require("headerLogged.php");
-            }
-        }
-        
+		if(isset($_SESSION['solutions']) && $_SESSION['solutions'] == true){
+			require("headerSolution.php");
+		}
+		elseif(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
+			require("headerLogged.php");
+		} else {
+			require("header.html");
+		}
     }
 
 ?>
