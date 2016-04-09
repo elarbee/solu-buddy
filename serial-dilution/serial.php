@@ -13,9 +13,12 @@
     <?php
         include '../script-includes.html';
     ?>
-    <script src="SolutionPage.js"></script>
-	<link rel="stylesheet" type="text/css" href="serialStyle.css">
+    <!-- Big decimal javascript used for floating point precision -->
+    <script src="big.min.js"></script>
+    <script src="serialPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="../single-solution/singleStyle.css">
+    <link rel="stylesheet" type="text/css" href="serialStyle.css">
+    <title>Solubuddy - Serial Dilution</title>
 </head>
 <body>
     <?php
@@ -30,14 +33,11 @@
         </div>
         <div id="divContainer">
             <?php
-                //Choose which table to display depending on whether or not a solution was passed in.
-                if(isset($_POST['initialSolution'])){
-                    include "content/initializedTable.php";
-                }
-                else{
-                    include "content/uninitializedTable.php";
-                }
+                include "content/serialTable.php";
             ?>
+        </div>
+        <div id="myAlert" class="alert alert-danger">
+            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
         </div>
     </div>
 </div>
@@ -55,7 +55,7 @@
         <div id="answerContent" >
             <!-- Stock Solution -->
             <div id="stockSolutionDiv" class="inline-div">
-                <img src="beaker.png">
+                <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
                 <!-- Arrow Div -->
                 <div class="blueArrow">
                     <p>10 ML</p>
@@ -68,7 +68,7 @@
                 <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
                 <div id="dilutionFlask" class="dilutionFlask inline-div" >
                     <div class="flaskImgAndNumberDiv">
-                        <img src="beakerSmall.png">
+                        <img id="smallBeakerImg" src="../static/images/beaker.png">
                            
                         <p id="flaskNum">1</p>
                     </div>
@@ -77,10 +77,10 @@
                         <p>10 ML</p>
                         <img src="blueArrow.png">
                     </div>
-                    
-                    <!-- Need to format '1' as subscript here-->
-                    <p id="molarity">M1</p>
-                    <p id="molarityValue">1.00 x 10<sup>-1</sup></p>
+                    <div class="flaskDescription">
+                        <p id="solutionName">Solute diluted in Solvent</p>
+                        <p id="molarityValue">1.00 x 10<sup>-1</sup></p>
+                    </div>
                 </div> 
             </div>
             <!-- Buttons -->
@@ -88,11 +88,6 @@
                 <button id="saveButton">Save Dilution Series</button>
                 <br>
                 <button id="printButton" onClick="window.print();">Print Dilution Series</button>
-                <br>
-                <button id="answerHomeButton" onClick="window.location.href='../'">SoluBuddy Home</button>
-                <!-- Style Hack Fix this -->
-                <br>
-                <br>
             </div>
         </div>
 </div>

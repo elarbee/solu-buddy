@@ -4,11 +4,7 @@
     display: inline-block;
 }
 input {
-    height: 40px;
-    color: white;
-    margin-top: 10px;
-    background: #5b9bd5;
-    border-radius: 10px;
+    height: 50px;
 }
 
 .grey-div{
@@ -44,15 +40,21 @@ body {
 }
 button {
     color: white;
+    background: rgba(100, 130, 100, 0.9);
     width: 100px;
-    height: 3.5em;
-    margin-top: 10px;
-    background: #92d050;
-    border-radius: 10px;
+    height: 45px;
 }
+
+button:hover {
+    background: rgba(120, 150, 120, 0.9);
+}
+
+
 table p {
     text-align: center;
     font-family: sans-serif;
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 #headerDiv h2 {
     margin-top: 100px;
@@ -99,8 +101,10 @@ h3 {
     right: 0px;
     position: absolute;
 }
-#molarity,
-#molarityValue {
+
+.flaskDescription {
+    position: relative;
+    bottom:-35px;
     margin-top: 0px;
     margin-bottom: 0px;
 }
@@ -108,6 +112,7 @@ h3 {
     height: 217px;
 }
 .flaskImgAndNumberDiv p {
+    color:black;
     margin-top: 0;
     position: relative;
     bottom: 2em;
@@ -119,4 +124,23 @@ h3 {
 #answerButtonsDiv button {
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+#myAlert{
+    display: none;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    border: 1px solid white;
+}
+
+#largeBeakerImg{
+    width: 180px;
+}
+
+#smallBeakerImg{
+    width: 130px;
+}
+
+#stockSolutionDiv .blueArrow{
+    right: -50px;
 }
