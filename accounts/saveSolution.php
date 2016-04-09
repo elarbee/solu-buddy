@@ -10,14 +10,12 @@ if(!$accountIdQuery){
 	exit;
 }
 $accountIdResult = mysqli_fetch_row($accountIdQuery);
-
 $accountId = $accountIdResult[0];
 $solventId = $_POST['solvent_formula'];  
 $soluteId = $_POST['solute_formula']; 
 $soluteWeight = $_POST['solute_molec_weight'];
 $solutionVol = $_POST['totalVolume'];
 $solutionConc = $_POST['solution_concentration'];
-echo $solventId;
 
 $sql = "INSERT INTO solutions (Account_ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solution_Volume, Solute_Concentration) 
 VALUES ('$accountId', '$solventId', '$soluteId', '$soluteWeight', '$solutionVol', '$solutionConc')";
@@ -28,8 +26,7 @@ if (!mysqli_query($dbc, $sql)) {
 }
 
 echo 'Solution has been saved!';
-header('refresh:3; solidSolution.php');
+header('refresh:0; /');
 mysqli_close($dbc);
 
 ?>
-	

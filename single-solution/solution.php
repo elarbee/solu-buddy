@@ -108,7 +108,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
-        <button onclick="submit">Save Solution</button>
+        <button type="submit">Save Solution</button>
 
         <button type="button" onclick="">Print Solution</button>
 
