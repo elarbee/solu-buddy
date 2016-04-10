@@ -26,5 +26,5 @@
 			<div class="hidden-xl hidden-lg hidden-md hidden-sm col-xs-12"><p class="regText">How much solution will you transfer each time? (ML)</p></div>
 			<div class="col-md-6 col-sm-6 col-xs-12"><input id="volumeTransferred" type="number" placeholder="Solution Transferred Vol" tabindex="6"></div>
 		</div>
-		<div class="col-md-12 col-sm-12"><button id="nextButton" class="nextButton">Next</button></div>	
+		<div class="col-md-12 col-sm-12"><button type="button" id="nextButton" class="nextButton">Next</button></div>	
 </div>

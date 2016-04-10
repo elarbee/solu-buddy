@@ -75,12 +75,12 @@ function Solution(solute, solvent, volume, solution_concentration){
     self.single.volumetric.steps_html = function(density){
         var desc = "<br />Steps to produce " + self.single.volumetric.description(density) + "<br /><br />" +
             "1) Pick a container that can safely contain "+ self.volume +"L<br />" +
-            "2) Calculate amount of solute necessary("+ self.single.volumetric.solution_calculator.volume(density)+"mL) using: <br /> " +
+            "2) Calculate amount of solute necessary("+ self.single.volumetric.solution_calculator.liquid.volume(density)+"mL) using: <br /> " +
             "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "M<br />" +
             "\u00A0\u00A0\u00A0\u00A0b. chosen volume: "+ self.volume + "L<br />" +
             "\u00A0\u00A0\u00A0\u00A0c. solute's molecular weight: "+self.solute.molecular_weight() +"g<br />" +
             "\u00A0\u00A0\u00A0\u00A0c. solute's density: "+density +"g/mL<br />" +
-            "4) Carefully measure out " + self.single.volumetric.solution_calculator.volume(density)+"mL of " + solute + "<br /> " +
+            "4) Carefully measure out " + self.single.volumetric.solution_calculator.liquid.volume(density)+"mL of " + solute + "<br /> " +
             "5) Using standard methods, transfer the solute to your flask.<br /> " +
             "6) Add solvent (" + solvent + ") to your solution until you reach " + self.volume + "<br /> ";
 
@@ -128,7 +128,7 @@ function Solution(solute, solvent, volume, solution_concentration){
      * @returns {string} Description of the solution.
      */
     self.single.volumetric.description = function(density){
-        var description =  self.single.volumetric.solution_calculator.volume(density)+ "mL " + solute + " in " + self.volume + "L of "
+        var description =  self.single.volumetric.solution_calculator.liquid.volume(density)+ "mL " + solute + " in " + self.volume + "L of "
           + solvent + " where Molarity = " + self.solution_concentration+"mol/L";
         return description;
     };
