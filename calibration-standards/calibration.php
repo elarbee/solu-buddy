@@ -12,6 +12,13 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 
     <?php include '../script-includes.html'; ?>
     <script src="calibrationPage.js"></script>
+    <script src="../static/js/formula.js"></script>
+    <script src="../static/js/elements.js"></script>
+    <script src="../static/js/utility.js"></script>
+    <script src="../static/js/calculator.js"></script>
+    <script src="../static/js/solution.js"></script>
+    <script src="../static/js/solutionObjectBuilder.js"></script>
+    
 	<link rel="stylesheet" type="text/css" href="../shared-content/InputStyle.css">
     <link rel="stylesheet" type="text/css" href="calibrationStyle.css">
 </head>
@@ -44,26 +51,26 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 	</div>
   
 <!-- This is the answer page -->
-<div id="answerDiv">
+<div id="answerDiv" class="gray-div">
         <div id="arrowContainer">
             <img src="down-arrow.png">
         </div>
         <h2>External Standards Method</h2>
         <!-- Contains the content of the answer page -->
-        <div id="answerContent" >
+        <div id="answerContent" class="inline-div">
             <!-- Unknown -->
             <div id="stockSolutionDiv" class="inline-div">
-                <p id="stockSolutionDescription">Name of unkown,i.e. 'River Water '</p>
-                <img src="beaker.png">
+                <p id="unknownSolutionDescription">Name of unkown,i.e. 'River Water '</p>
+                <img src="../static/images/beakerSpecial.png">
             </div>
             
             <!-- Dilution flasks -->
             <div id="dilutionFlasksDiv" class="inline-div">
                 <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
-                <div id="dilutionFlask1" class="dilutionFlask">
+                <div id="dilutionFlask1" class="dilutionFlask inline-div">
                     <div class="flaskImgAndNumberDiv">
                         <td><input type="text" placeholder="V, sas, std1"></td>
-                        <img src="beakerSmall.png">
+                        <img id="smallBeakerImg" src="../static/images/beaker.png">
                         <p id="flaskNumber">1</p>
                     </div>
                     
@@ -74,8 +81,8 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
             
             <div id="stockSolutionDiv" class="inline-div">
-                <p id="stockSolutionDescription">Analyte</p>
-                <img src="beaker.png">
+                <p id="analyteSolutionDescription">Analyte</p>
+                <img src="../static/images/beakerSpecial.png">
             </div>
             
             <!-- Buttons -->
@@ -91,7 +98,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
         </div>
 </div>
-</div>
+
 
 </body>
 </html>

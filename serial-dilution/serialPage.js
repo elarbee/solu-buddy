@@ -141,7 +141,7 @@ $(function() {
 
             //Remove arrow from last flask
             $("#dilutionFlasksDiv").children().last().find(".blueArrow").remove();
-            }
+        }
         
 
     });
