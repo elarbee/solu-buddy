@@ -1,3 +1,9 @@
+<?php
+session_start();
+require('../dynamicHelpers.php');
+renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings', 'navField2' => 'Saved Solutions',
+    'navField3' => 'Chemistry Terms', 'navField4' => 'Create Solution(s)'] );
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,11 +28,6 @@
     <title>Solubuddy - Serial Dilution</title>
 </head>
 <body>
-    <?php
-        include '../top-header.php';
-    ?>
-	
-	
 <!-- Solution Input page -->
 
 <div id = "content" class="text-center">
@@ -90,7 +91,7 @@
             <div id="answerButtonsDiv" class="inline-div">
                 <button id="saveButton">Save Dilution Series</button>
                 <br>
-                <button id="printButton" onClick="window.print();">Print Dilution Series</button>
+                <button type="button" id="printButton" onClick="window.print();">Print Dilution Series</button>
             </div>
         </div>
 </div>

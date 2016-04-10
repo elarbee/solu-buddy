@@ -1,3 +1,10 @@
+<?php
+session_start();
+require('../dynamicHelpers.php');
+renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings', 'navField2' => 'Saved Solutions',
+    'navField3' => 'Chemistry Terms', 'navField4' => 'Create Solution(s)'] );
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -5,13 +12,13 @@
 
     <?php include '../script-includes.html'; ?>
     <script src="calibrationPage.js"></script>
-	<link rel="stylesheet" type="text/css" href="../shared-content/inputStyle.css">
+	<link rel="stylesheet" type="text/css" href="../shared-content/InputStyle.css">
     <link rel="stylesheet" type="text/css" href="calibrationStyle.css">
 </head>
 
 <body>
 
-    <?php include '../top-header.php';
+    <?php
     //Declaring global final variables.
     //These can be called later with the $_GLOBALS variable
         $EXTERNAL="EXTERNAL" ; $INTERNAL="INTERNAL" ; $ADDITION="ADDITION" ;
@@ -20,17 +27,17 @@
         <div id="inputDiv">
         <?php // Dynamically load one of three pages based on the valuiie of '$_GET['value ']' //Make sure a value is passed in if(isset($_GET[ "value"])){ //If it 's the external calibrations page.
             if ($_GET["value"] == $GLOBALS['EXTERNAL']) {
-                include 'content/external.php '; 
+                include 'content/external.php';
             }
 
             //If its the internal calibrations page
             elseif ($_GET["value"] == $GLOBALS['INTERNAL']) {
-                include 'content/internal.php ';
+                include 'content/internal.php';
             }
             
             //If its the standard addition page
             elseif ($_GET["value"] == $GLOBALS['ADDITION']) {
-                include 'content/addition.php ';
+                include 'content/addition.php';
             }    
     ?>
         </div>
