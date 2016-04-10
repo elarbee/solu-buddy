@@ -9,7 +9,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 <html>
 
 <head>
-
+    
     <?php include '../script-includes.html'; ?>
     <script src="calibrationPage.js"></script>
     <script src="../static/js/formula.js"></script>

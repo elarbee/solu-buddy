@@ -17,7 +17,7 @@ $(function () {
         $("#dilutionFlasksDiv").empty().append(externalFlask);
 
     });
-
+    
     function validateInput(){
         var solventFormula = $("#solvent_formula").val();
         var analyteFormula = $("#analyte_formula").val();
