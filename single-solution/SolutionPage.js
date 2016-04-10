@@ -96,8 +96,7 @@ function fill_fields(page){
                 $("#steps_div").html(new_solution.single.sol.steps_html());
             }
             //$("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
-
-
+            
 
         }else if(page == "GRAV"){
 
