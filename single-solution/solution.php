@@ -19,6 +19,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <script src="../static/js/solution.js"></script>
     <script src="../static/js/solutionObjectBuilder.js"></script>
     
+	<link rel="stylesheet" type="text/css" href="../shared-content/InputStyle.css">
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>
@@ -78,8 +79,8 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
         </div>
 
-    <div class="divCenterer">
-        <div class="stuffContainer">
+    <div id="content" class="divCenterer">
+        <div id="inputDiv" class="stuffContainer">
 
             <?php
 
