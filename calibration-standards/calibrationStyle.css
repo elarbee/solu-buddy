@@ -7,63 +7,6 @@ html{
   background-size: cover;
 }
 
-#inputDiv{
-    color:white;
-    background: rgba(40,40,40,0.6);
-    border: 1px solid white;
-    border-radius: 10px;
-    display: inline-block;
-    padding: 20px;
-}
-/*Place holder text color. Probably only works in Chrome */
-#content ::-webkit-input-placeholder{
-    color: white;
-}
-
-td{
-    border: none;
-    cursor: auto;
-}
-html,body{
-    width:100%;
-    margin:0px;
-    text-align: center;
-}
-
-#content input,#content button{
-    color:white;
-    margin-top: 10px;
-    height:50px;
-    width: 215px;
-    border-radius: 10px;
-}
-#content input{
-    background: #5b9bd5;
-}
-
-#content button{
-    background: #92d050;
-
-}
-
-#headerDiv h2{
-    color: white;
-    margin-top: 100px;
-    text-align: center;
-    font-family: sans-serif;
-}
-
-#content hr{
-    color: black;
-    width: 80%;
-}
-#divContainer{
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align:     center;
-}
-
 /* Answer page style */
 #answerDiv{
     display: none;

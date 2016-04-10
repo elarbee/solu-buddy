@@ -12,6 +12,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 
     <?php include '../script-includes.html'; ?>
     <script src="calibrationPage.js"></script>
+	<link rel="stylesheet" type="text/css" href="../shared-content/InputStyle.css">
     <link rel="stylesheet" type="text/css" href="calibrationStyle.css">
 </head>
 
@@ -22,15 +23,11 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     //These can be called later with the $_GLOBALS variable
         $EXTERNAL="EXTERNAL" ; $INTERNAL="INTERNAL" ; $ADDITION="ADDITION" ;
     ?>
-
-    <div id="content">
-        <div id="logo" style="width: 100%;">
-            <img src="calibration.png" width="800"><br><br>
-        </div>
+    <div id="content" class="text-center">
         <div id="inputDiv">
         <?php // Dynamically load one of three pages based on the valuiie of '$_GET['value ']' //Make sure a value is passed in if(isset($_GET[ "value"])){ //If it 's the external calibrations page.
             if ($_GET["value"] == $GLOBALS['EXTERNAL']) {
-                include 'content/external.php'; 
+                include 'content/external.php';
             }
 
             //If its the internal calibrations page
@@ -44,6 +41,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             }    
     ?>
         </div>
+	</div>
   
 <!-- This is the answer page -->
 <div id="answerDiv">

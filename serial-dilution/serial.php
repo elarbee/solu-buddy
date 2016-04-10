@@ -24,11 +24,13 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <script src="serialPage.js"></script>
 	<link rel="stylesheet" type="text/css" href="../single-solution/singleStyle.css">
     <link rel="stylesheet" type="text/css" href="serialStyle.css">
+	<link rel="stylesheet" type="text/css" href="../shared-content/inputStyle.css">
     <title>Solubuddy - Serial Dilution</title>
 </head>
 <body>
 <!-- Solution Input page -->
-<div class="text-center">
+
+<div id = "content" class="text-center">
     <img src="serial.png" width="550"><br><br>
     <div id="inputDiv" class="grey-div">
         <div id="headerDiv">
@@ -44,7 +46,6 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
         </div>
     </div>
 </div>
-
 
     
 <!-- This is the answer page -->
