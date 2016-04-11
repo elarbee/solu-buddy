@@ -8,27 +8,7 @@ html{
 }
 
 /* Answer page style */
-#answerDiv{
-    display: none;
-    margin:15px;
-    color:white;
-    text-align: center;
-    background: rgba(40,40,40,0.6);
-    border: 1px solid white;
-    border-radius: 10px;
-    padding: 30px;
-}
 
-#arrowContainer{
-    text-align: center;
-}
-
-#arrowContainer img{
-    height: 35px;
-    width: 100px;
-    margin-top: 10px;
-    cursor:pointer;
-}
 
 
 .inline-div{

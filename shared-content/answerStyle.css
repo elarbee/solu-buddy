@@ -1,0 +1,96 @@
+#answerDiv{
+    display: none;
+    margin:15px;
+    color:white;
+    text-align: center;
+    background: rgba(40,40,40,0.6);
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+#arrowContainer{
+    text-align: center;
+}
+
+#arrowContainer img{
+    height: 35px;
+    width: 100px;
+    margin-top: 10px;
+    cursor:pointer;
+}
+
+.inline-div{
+	/*position: relative;
+    display:inline-block;
+    margin: 20px;  
+	/*position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-40%);
+	font-size: 18px;
+	margin-top: 4em;
+	padding-bottom:0px;
+	margin-bottom: -2em;*/	
+}
+
+#answerDiv input{
+	color:white;
+    height:3.7em;
+    width: 18em;
+	background: rgba(42,42,42,0.9);
+    border: 1px solid white;
+    border-radius:10px;
+    width: 280px;
+    text-align: center;
+	margin-top:2em;
+	margin-bottom: 3em;
+}
+
+#answerDiv .regText{
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-40%);
+	font-size: 18px;
+	font-weight:600;
+	margin-top: 3em;
+	margin-bottom: 1em;
+}
+
+#answerDiv .flaskNumber{
+	color:black;
+	font-size:20;
+	z-index:100;
+}
+
+#answerDiv .subScript{
+	font-size:15;
+	margin-top:7em;
+}
+
+#answerDiv button{
+	color:white;
+    height:3.7em;
+    width: 18em;
+    background: #92d050;
+	margin-top: 3.6em;
+    margin-bottom: 1em;
+    color: black;
+    font-weight: 600;
+	border-radius:20px;
+}
+
+#answerDiv button.saveButton{
+	background: #ffff94;
+}
+
+#answerDiv button.soluHome{
+	background: #6495ed;
+}
+
+#answerDiv button.printButton{
+	background: #92d050;
+}
