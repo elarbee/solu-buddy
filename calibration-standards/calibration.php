@@ -30,38 +30,55 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     //These can be called later with the $_GLOBALS variable
         $EXTERNAL="EXTERNAL" ; $INTERNAL="INTERNAL" ; $ADDITION="ADDITION" ;
     ?>
+    
     <div id="content" class="text-center">
-        <div id="inputDiv">
-        <?php // Dynamically load one of three pages based on the valuiie of '$_GET['value ']' //Make sure a value is passed in if(isset($_GET[ "value"])){ //If it 's the external calibrations page.
-            if ($_GET["value"] == $GLOBALS['EXTERNAL']) {
-                include 'content/external.php';
-            }
-
-            //If its the internal calibrations page
-            elseif ($_GET["value"] == $GLOBALS['INTERNAL']) {
-                include 'content/internal.php';
-            }
-            
-            //If its the standard addition page
-            elseif ($_GET["value"] == $GLOBALS['ADDITION']) {
-                include 'content/addition.php';
-            }    
-    ?>
+        <img src="calibration.png" width="550"><br><br>
+        <div id="inputDiv" class="grey-div">
+            <div id="divContainer">
+                <?php // Dynamically load one of three pages based on the value of '$_GET['value ']' //Make sure a value is passed in if(isset($_GET[ "value"])){ //If it 's the external calibrations page.
+                    if ($_GET["value"] == $GLOBALS['EXTERNAL']) {
+                        include 'content/external.php';
+                    }
+        
+                    //If its the internal calibrations page
+                    elseif ($_GET["value"] == $GLOBALS['INTERNAL']) {
+                        include 'content/internal.php';
+                    }
+                    
+                    //If its the standard addition page
+                    elseif ($_GET["value"] == $GLOBALS['ADDITION']) {
+                        include 'content/addition.php';
+                    }    
+                ?>
+            </div>
+            <div id="myAlert" class="alert alert-danger" hidden>
+                <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+            </div>
         </div>
 	</div>
   
 <!-- This is the answer page -->
-<div id="answerDiv" class="gray-div">
+<div id="answerDiv" class="gray-div" >
         <div id="arrowContainer">
             <img src="down-arrow.png">
         </div>
-        <h2>External Standards Method</h2>
+        <h2 id="answerDivHeader"></h2>
         <!-- Contains the content of the answer page -->
         <div id="answerContent" class="inline-div">
             <!-- Unknown -->
             <div id="stockSolutionDiv" class="inline-div">
                 <p id="unknownSolutionDescription">Name of unkown,i.e. 'River Water '</p>
-                <img src="../static/images/beakerSpecial.png">
+                <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
+            </div>
+
+            <div id="stockSolutionDiv" class="inline-div">
+                <p id="analyteSolutionDescription">Analyte</p>
+                <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
+            </div>
+
+            <div id="standardSolutionDiv" class="inline-div">
+                <p id="analyteSolutionDescription">Internal Standard</p>
+                <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
             </div>
             
             <!-- Dilution flasks -->
@@ -73,17 +90,15 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
                         <img id="smallBeakerImg" src="../static/images/beaker.png">
                         <p id="flaskNumber">1</p>
                     </div>
-                    
-                    <!-- Need to format '1 ' as subscript here-->
-                    <p id="molarity">M1</p>
-                    <p id="molarityValue">1.00 x 10^-1</p>
+
+                    <div class="flaskDescription">
+                        <!-- Need to format '1 ' as subscript here-->
+                        <p id="value">1.00 x 10^-1</p>
+                    </div>
                 </div>
             </div>
             
-            <div id="stockSolutionDiv" class="inline-div">
-                <p id="analyteSolutionDescription">Analyte</p>
-                <img src="../static/images/beakerSpecial.png">
-            </div>
+
             
             <!-- Buttons -->
             <div id="answerButtonsDiv" class="inline-div">

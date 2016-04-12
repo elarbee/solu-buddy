@@ -1,25 +1,26 @@
-<?php
-    //If a solution is passed in via the 'POST' Method with value 'initialSolution',
-    //then initialize a javascipt object containing it.
-    if(isset($_POST['formulaValue1'])){
-        echo "<script> var formulaValue1 = " . $_POST['formulaValue1'] . ";</script>";
-    }
-?>
-
-
 <script>
 //Check if solutions are loaded and make style changes accordingly.
     $(function(){
-     if(localStorage.getItem('calibration1')!=null){
+
+	 	var storedAnalyte = JSON.parse(localStorage.getItem('calibration1'));
+		var storedStandard = JSON.parse(localStorage.getItem('calibration2'));
+
+     if(storedAnalyte != null){
          $("#makeItNowButton1").remove();
          $("#savedSolution1").remove();
+		 $("#completedSolution1").add();
+		 $("#completedSolution1").show();
+
      }   
     
-    if(localStorage.getItem('calibration2')!=null){
+    if(storedStandard != null){
          $("#makeItNowButton2").remove();
          $("#savedSolution2").remove();
+		 $("#completedSolution2").add();
+		 $("#completedSolution2").show();
      }
-    
+		//console.log(storedAnalyte.SoluteID);
+
     });
 </script>
 
@@ -39,43 +40,29 @@
     
     <?php
     //Include the Saved solutions modal.
-        include '../../shared-content/savedSolutionsModal.php';
-    ?> 
+        include '../shared-content/savedSolutionsModal.php';
+    ?>
     
     <!-- Table used for Internal Standards Method -->
 	<div class="row">
 		<div class="col-md-4 col-sm-4"><p class="stockText">Stock Solution of analyte</p></div>
 		<div class="col-md-4 col-sm-4"><button id="makeItNowButton1" class="makeItNowButton">Make It Now!</button></div>
-		<div class="col-md-4 col-sm-4"><button id="savedSolution1" class="savedSolButton">Use Saved Solution!</button></div>	
+		<div class="col-md-4 col-sm-4"><button id="savedSolution1" class="savedSolButton">Use Saved Solution!</button></div>
+		<div class="col-md-4 col-sm-4"><button id="completedSolution1" class="completedSolButton" hidden disabled>Analyte Stock Solution Completed!</button></div>
 	</div>
 	<div class="row">
 		<div class="col-md-4 col-sm-4"><p class="stockText">Stock Solution of Internal Standard</p></div>
 		<div class="col-md-4 col-sm-4"><button id="makeItNowButton2" class="makeItNowButton">Make It Now!</button></div>
-		<div class="col-md-4 col-sm-4"><button id="savedSolution2" class="savedSolButton">Use Saved Solution!</button></div>	
+		<div class="col-md-4 col-sm-4"><button id="savedSolution2" class="savedSolButton">Use Saved Solution!</button></div>
+		<div class="col-md-4 col-sm-4"><button id="completedSolution2" class="completedSolButton" disabled hidden>Internal Standard Stock Solution Completed!</button></div>
 	</div>
 	<div class="row">
-		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Name of Unknown"></div>
-		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Analyte Molecular Weight"></div>
-		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Number of Calibration Standards"></div>	
-	</div>
-	<div class="row">
-		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Solvent Chemical Identity"></div>
-		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Internal Standard Chemical Identity"></div>
-		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Volume of Calibration Standard Flasks"></div>	
-	</div>
-	<div class="row">
-		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Volume of Calibration Standard Flasks"></div>
-		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Analyte Chemical Identity"></div>
-		<div class="col-md-4 col-sm-4"><input type="text" placeholder="Internal Standard Molecular Weight"></div>	
+		<div class="col-md-4 col-sm-4"><input id="unknown" type="text" placeholder="Name of Unknown"></div>
+		<div class="col-md-4 col-sm-4"><input id="num_standards" type="text" placeholder="Number of Calibration Standards" ></div>
+		<div class="col-md-4 col-sm-4"><input id="volume_standards" type="text" placeholder="Volume of Calibration Standard Flasks"></div>
 	</div>
 	<button id="nextButton" class="nextButton">Next</button>
-	
-	
-	<!--<div class="row">
-		<div class="col-md-4 col-sm-4"></div>
-		<div class="col-md-4 col-sm-4"></div>
-		<div class="col-md-4 col-sm-4"></div>	
-	</div>-->
+
 <div>
 	
 </div>

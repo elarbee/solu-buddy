@@ -97,3 +97,7 @@ renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings"
 	</div>
 </body>
 </html>
+
+<script>
+    localStorage.clear();
+</script>
