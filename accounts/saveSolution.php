@@ -12,12 +12,12 @@ if(!$accountIdQuery){
 $accountIdResult = mysqli_fetch_row($accountIdQuery);
 
 $accountId = $accountIdResult[0];
-$solventId = $_POST['solvent_formula'];  
-$soluteId = $_POST['solute_formula']; 
-$soluteWeight = $_POST['solute_molec_weight'];
-$solutionVol = $_POST['totalVolume'];
-$solutionConc = $_POST['solution_concentration'];
-echo $solventId;
+$solventId = $_POST['solvent'];
+$soluteId = $_POST['solute'];
+$soluteWeight = $_POST['soluteWeight'];
+$solutionVol = $_POST['volume'];
+$solutionConc = $_POST['concentration'];
+
 
 $sql = "INSERT INTO solutions (Account_ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solution_Volume, Solute_Concentration) 
 VALUES ('$accountId', '$solventId', '$soluteId', '$soluteWeight', '$solutionVol', '$solutionConc')";

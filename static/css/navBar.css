@@ -41,6 +41,13 @@ li:hover li a:hover {
 	right: 375px;
 }
 
+#btn-changePass{
+	width: 140px;
+	height: 35px;
+	margin-top: 20px;
+	margin-right: 100px;
+}
+
 #popups{
 	background-color: #1278b6;
 }

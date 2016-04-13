@@ -19,7 +19,7 @@ if (!mysqli_query($dbc, $sql)) {
 }
 
 echo 'Account has been created!<br>Redirecting back to home...';
-header("refresh: 0; $return_page");
+header("refresh: 4; $return_page");
 
 mysqli_close($dbc);
 

@@ -99,12 +99,12 @@ function postID() {
 		echo "<tbody>
 				<tr>
 					<td>" . $row['ID'] . "</td>
+					<td>" . $row['Dillution_Set'] . "</td>
+					<td>" . $row['Calibration_Set'] . "</td>
 					<td>" . $row['Solvent_Identity'] . "</td>
 					<td>" . $row['Solute_Identity'] . "</td>
 					<td>" . $row['Solution_Volume'] . "</td>
 					<td>" . $row['Solute_Concentration'] . "</td>
-					<td>" . $row['Dillution_Set'] . "</td>
-					<td>" . $row['Calibration_Set'] . "</td>
 					<form action='deleteSolution.php' method=\"post\">
 					<td><input type=\"submit\" value=\"Delete\" name=\"submit\"></form></td>
 				</tr>

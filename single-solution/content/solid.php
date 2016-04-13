@@ -1,47 +1,46 @@
-<div class="input-div">
+<form action="../accounts/saveSolution.php" method="post">
+    <div class="input-div">
 
-    Solvent Formula <input id = "solvent_formula" type="text" placeholder="Solvent Formula"><br>
-    Solute Formula <input id = "solute_formula" type="text" placeholder="Solute Formula"><br>
-    Solute Molecular Weight <input id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
-    Solution Total Volume (mL) <input id = "total_volume" type="text" placeholder="Solution Total Volume (mL)"><br>
-    Sol'n Concentration (mol/L) <input id = "solution_concentration" type="text" placeholder="Sol'n Concentration (mol/L)"><br>
-    Mass of Solute to Add (g) <input id="massToAdd" type="text" placeholder="Mass of Solute to Add"><br>
+        Solvent Formula <input id="solvent_formula" name="solvent" type="text" placeholder="Solvent Formula"/><br>
+        Solute Formula <input id="solute_formula" name="solute" type="text" placeholder="Solute Formula"><br>
+        Solute Molecular Weight <input id="solute_molec_weight" name="soluteWeight" type="text" placeholder="Solute Molecular Weight"><br>
+        Solution Total Volume (mL) <input id="total_volume" name="volume" type="text" placeholder="Solution Total Volume (mL)"><br>
+        Sol'n Concentration (mol/L) <input id="solution_concentration" name="concentration" type="text" placeholder="Sol'n Concentration (mol/L)"><br>
+        Mass of Solute to Add (g) <input id="massToAdd" type="text" placeholder="Mass of Solute to Add"><br>
 
-</div>
+    </div>
 
-	<div class="inline-div">
-		<img src="beaker.png" style="width:150px">
+    <div class="inline-div">
+        <img src="beaker.png" style="width:150px">
         <br>
         <?php
-            //This code handles whether or not the solution is passed on to another page.
-            //If it is null the solution will be solved here.
-            if(isset($_GET['passTo'])){
-
-                if($_GET['passTo'] == $GLOBALS['SERIAL']){
-                    include 'content/serialForm.php';
-                }
-
-                elseif($_GET['passTo'] == 'calibration1' or $_GET['passTo'] == 'calibration2'){
-                    include 'content/calibrationForm.php';
-                }
+        //This code handles whether or not the solution is passed on to another page.
+        //If it is null the solution will be solved here.
+        if (isset($_GET['passTo'])) {
+            if ($_GET['passTo'] == $GLOBALS['SERIAL']) {
+                include 'content/serialForm.php';
+            } elseif ($_GET['passTo'] == 'calibration1' or $_GET['passTo'] == 'calibration2') {
+                include 'content/calibrationForm.php';
             }
-            else{
-                echo "<button type=\"button\" id=\"nextButton\" onclick=\"next_check('". $_GET['value'] . "')\">Next</button>";
-            }
+        } else {
+            echo "<button type=\"button\" id=\"nextButton\" onclick=\"next_check('" . $_GET['value'] . "')\">Next</button>";
+        }
 
         ?>
-	</div>
+    </div>
 
-	<div class="inline-div">
-		<img src="scale.png" style="width:150px">
+    <div class="inline-div">
+        <img src="scale.png" style="width:150px">
         <br>
-        <button type="button" onClick="window.location.href='../'">SoluBuddy Home</button> <!-- TODO: change to link plz-->
-	</div>
+        <button type="button" onClick="window.location.href='../'">SoluBuddy Home</button>
+        <!-- TODO: change to link plz-->
+    </div>
 
-	<div class="inline-div">
-		<img src="solid.png" style="width:150px">
+    <div class="inline-div">
+        <img src="solid.png" style="width:150px">
         <br>
         <br>
         <br>
-		<button type="button" onclick="">How do I calculate this?</button>
-	</div>
+        <button onclick="">How do I calculate this?</button>
+    </div>
+</form>

@@ -36,7 +36,7 @@ renderHead( ['navField1' => 'Account Settings', 'navField2' => 'Saved Solutions'
     $CALIBRATION2 = 'calibration2';
     $SERIAL = 'serial';
 ?>
-
+<!--<form action="../accounts/saveSolution.php" method="post">-->
     <div class="divCenterer">
         <div id ="titleDiv">
             <img src="single.png" width="565"><br><br>
@@ -110,9 +110,9 @@ renderHead( ['navField1' => 'Account Settings', 'navField2' => 'Saved Solutions'
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
-		<form action="../accounts/saveSolution.php" method="post">
+
         <button onclick="submit">Save Solution</button>
-		</form>
+
         <button type="button" onclick="">Print Solution</button>
 
     </div>
@@ -124,4 +124,5 @@ renderHead( ['navField1' => 'Account Settings', 'navField2' => 'Saved Solutions'
     }
     ?>
 </body>
+</form>
 </html>

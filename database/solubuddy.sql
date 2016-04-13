@@ -1,43 +1,27 @@
---
 -- Database: `solubuddy`
 --
-
 -- --------------------------------------------------------
-
---
--- Table structure for table `solutions`
---
-
-CREATE TABLE IF NOT EXISTS `solutions` (
-  `ID` int(11) NOT NULL,
-  `Account_ID` int(11) NOT NULL,
-  `Solvent_Identity` varchar(20) NOT NULL,
-  `Solute_Identity` varchar(20) NOT NULL,
-  `Solute_Weight` decimal(10,3) NOT NULL,
-  `Solution_Volume` int(20) NOT NULL,
-  `Solute_Concentration` decimal(10,2) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
-
 --
 -- Table structure for table `accounts`
 --
 
+DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE IF NOT EXISTS `accounts` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(25) NOT NULL,
   `Password` varchar(50) NOT NULL,
   `First_Name` varchar(25) NOT NULL,
-  `Last_Name` varchar(25) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+  `Last_Name` varchar(25) NOT NULL,
+  KEY `ID` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 
--- --------------------------------------------------------
 
 --
 -- Table structure for table `elements`
 --
 
+DROP TABLE IF EXISTS `elements`;
 CREATE TABLE IF NOT EXISTS `elements` (
   `Name` varchar(20) NOT NULL,
   `Symbol` varchar(3) NOT NULL,
@@ -156,26 +140,21 @@ INSERT INTO `elements` (`Name`, `Symbol`, `Atomic_Mass`) VALUES
 -- --------------------------------------------------------
 
 --
--- Indexes for table `accounts`
+-- Table structure for table `solutions`
 --
-ALTER TABLE `accounts`
-  ADD KEY `ID` (`ID`);
 
---
--- Indexes for table `solutions`
---
-ALTER TABLE `solutions`
-  ADD KEY `ID` (`ID`);
+DROP TABLE IF EXISTS `solutions`;
+CREATE TABLE IF NOT EXISTS `solutions` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Dillution_Set` int(11) DEFAULT NULL,
+  `Calibration_Set` int(11) DEFAULT NULL,
+  `Account_ID` int(11) NOT NULL,
+  `Solvent_Identity` varchar(20) NOT NULL,
+  `Solute_Identity` varchar(20) NOT NULL,
+  `Solute_Weight` decimal(10,3) NOT NULL,
+  `Solution_Volume` int(20) NOT NULL,
+  `Solute_Concentration` decimal(10,2) NOT NULL,
+  KEY `ID` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-
---
--- AUTO_INCREMENT for table `accounts`
---
-ALTER TABLE `accounts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT for table `solutions`
---
-ALTER TABLE `solutions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 
