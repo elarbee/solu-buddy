@@ -110,9 +110,7 @@ renderHead( ['navField1' => 'Account Settings', 'navField2' => 'Saved Solutions'
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
-
-        <button onclick="submit">Save Solution</button>
-
+			<button onclick="submit">Save Solution</button>
         <button type="button" onclick="">Print Solution</button>
 
     </div>

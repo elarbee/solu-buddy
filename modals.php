@@ -21,13 +21,12 @@
 			});
 	}
 
-	function checkPass(password1, password2){
-		var $pass1 = password1;
-		var $pass2 = password2;
+	function checkPass(){
+		var $pass2 = $("#pass2");
 		var $message = $("#confirmMessage");
 		var goodColor = "#66cc66";
 		var badColor = "#ff6666";
-		if(($pass1.val() == $pass2.val()) && $pass2.val() != ""){
+		if($("#pass1").val() == $pass2.val() && $pass2.val() != ""){
 			$pass2.css("backgroundColor", goodColor);
 			$message.css("color", goodColor);
 			$message.text("Passwords Match!");
@@ -37,6 +36,24 @@
 			$message.css("color", badColor);
 			$message.text("Passwords Do Not Match!");
 			$("#signupSubmit").prop('disabled', true);
+		}
+	}
+
+	function checkPassChange(){
+		var $newPass2 = $("#newPass2");
+		var $message = $("#confirmPass");
+		var goodColor = "#66cc66";
+		var badColor = "#ff6666";
+		if($("#newPass").val() == $newPass2.val() && $newPass2.val() != ""){
+			$newPass2.css("backgroundColor", goodColor);
+			$message.css("color", goodColor);
+			$message.text("Passwords Match!");
+			$("#changePassSubmit").prop('disabled', false);
+		}else{
+			$newPass2.css("backgroundColor", badColor);
+			$message.css("color", badColor);
+			$message.text("Passwords Do Not Match!");
+			$("#changePassSubmit").prop('disabled', true);
 		}
 	}
 
@@ -105,8 +122,8 @@
 			<div class="modal-body">
 				<form action="./accounts/changePass.php" method="post">
 					<input type = "text" id="oldPass" placeholder="Old Password"><br>
-					<input type = "password" id="newPass" placeholder="New Password"><br>
-					<input type = "password" id="newPass2" placeholder="Confirm Password" onkeyup="checkPass(newPass, newPass2)"><br>
+					<input type = "password" id="newPass" placeholder="New Password" onkeyup="checkPassChange()"><br>
+					<input type = "password" id="newPass2" placeholder="Confirm Password" onkeyup="checkPassChange()"><br>
 					<span id="confirmPass" class="confirmMessage"></span><br>
 					<div class="modal-footer">
 						<input type="submit" class="btn btn-success" name="submit" id="changePassSubmit" value="Change Password">
