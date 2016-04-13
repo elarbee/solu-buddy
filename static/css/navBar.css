@@ -26,9 +26,7 @@ li:hover li a:hover {
 	width: 97px;
 	margin-top: 20px;
 	margin-left: 10px;
-	margin-right: 5px;
-	position: fixed;
-	right: 265px;
+	margin-right: 120px;
 }
 
 #btn-signUp{
@@ -36,16 +34,15 @@ li:hover li a:hover {
 	width: 97px;
 	margin-top: 20px;
 	margin-left: 10px;
-	margin-right: 5px;
-	position: fixed;
-	right: 375px;
+	margin-right: 10px;
 }
 
 #btn-changePass{
 	width: 140px;
 	height: 35px;
-	margin-top: 20px;
-	margin-right: 100px;
+	margin-top: -35px;
+	margin-left: 10px;
+	margin-right: 240px;
 }
 
 #popups{
