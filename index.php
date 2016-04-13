@@ -2,7 +2,6 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="static/css/navBar.css">
-    <link rel="stylesheet" type="text/css" href="static/css/nav-styles.css">
     <link rel="stylesheet" type="text/css" href="static/css/header-styles.css">
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">

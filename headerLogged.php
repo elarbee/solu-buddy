@@ -28,11 +28,9 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <form action="./accounts/logOut.php" method="post">
-              <button type="submit" id = "btn-log" class="btn btn-danger pull-right">Log Out</button>
-          </form>
-
-              <button type="submit" id = "btn-changePass" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-3">Change Password</button>
-
+            <button type="submit" id = "btn-log" class="btn btn-danger pull-right">Log Out</button>
+        </form>
+        <button type="submit" id = "btn-changePass" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-3">Change Password</button>
       </ul>
     </div>
   </div>

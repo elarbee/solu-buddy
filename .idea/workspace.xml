@@ -22,11 +22,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-612">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="headerLogged.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/headerLogged.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+            <state relative-caret-position="187">
+              <caret line="11" column="56" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -68,30 +88,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="saveSolution.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/accounts/saveSolution.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <marker date="1460513682283" expanded="true" signature="131:183" placeholder="SELECT ID FR... accounts" />
-                <marker date="1460513682283" expanded="true" signature="545:768" placeholder="INSERT INTO solutions... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="solutionsTable.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/accounts/solutionsTable.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="104" column="60" selection-start-line="104" selection-start-column="60" selection-end-line="104" selection-end-column="60" />
+            <state relative-caret-position="362">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding>
-                <marker date="1460514000301" expanded="true" signature="386:438" placeholder="SELECT ID FR... accounts" />
-                <marker date="1460514000301" expanded="true" signature="2562:2617" placeholder="SELECT * FRO... solutions" />
-                <marker date="1460514000301" expanded="true" signature="2791:3261" placeholder="..." />
-                <marker date="1460514000301" expanded="true" signature="2800:3257" placeholder="..." />
-                <marker date="1460514000301" expanded="true" signature="3169:3242" placeholder="..." />
+                <marker date="1460520775794" expanded="true" signature="386:438" placeholder="SELECT ID FR... accounts" />
+                <marker date="1460520775794" expanded="true" signature="2583:2638" placeholder="SELECT * FRO... solutions" />
+                <marker date="1460520775794" expanded="true" signature="2813:3283" placeholder="..." />
+                <marker date="1460520775794" expanded="true" signature="2822:3279" placeholder="..." />
+                <marker date="1460520775794" expanded="true" signature="3191:3264" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -115,6 +122,7 @@
         <option value="$PROJECT_DIR$/accounts/changePass.php" />
         <option value="$PROJECT_DIR$/single-solution/content/solid.php" />
         <option value="$PROJECT_DIR$/accounts/saveSolution.php" />
+        <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/accounts/solutionsTable.php" />
       </list>
     </option>
@@ -323,16 +331,16 @@
       <updated>1460331535602</updated>
       <workItem from="1460331537191" duration="221000" />
       <workItem from="1460410783273" duration="4041000" />
-      <workItem from="1460501360307" duration="6116000" />
+      <workItem from="1460501360307" duration="9448000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10378000" />
+    <option name="totallyTimeSpent" value="13710000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15991472" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -436,14 +444,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/single-solution/content/serialForm.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -518,14 +518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/headerLogged.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modals.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="267">
@@ -544,6 +536,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/accounts/saveSolution.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <marker date="1460513682283" expanded="true" signature="131:183" placeholder="SELECT ID FR... accounts" />
+            <marker date="1460513682283" expanded="true" signature="545:768" placeholder="INSERT INTO solutions... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/headerLogged.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="56" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/single-solution/content/solid.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="55" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-612">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/accounts/changePass.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -556,35 +591,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/single-solution/content/solid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="55" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/accounts/saveSolution.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <marker date="1460513682283" expanded="true" signature="131:183" placeholder="SELECT ID FR... accounts" />
-            <marker date="1460513682283" expanded="true" signature="545:768" placeholder="INSERT INTO solutions... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/accounts/solutionsTable.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="104" column="60" selection-start-line="104" selection-start-column="60" selection-end-line="104" selection-end-column="60" />
+        <state relative-caret-position="362">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding>
-            <marker date="1460514000301" expanded="true" signature="386:438" placeholder="SELECT ID FR... accounts" />
-            <marker date="1460514000301" expanded="true" signature="2562:2617" placeholder="SELECT * FRO... solutions" />
-            <marker date="1460514000301" expanded="true" signature="2791:3261" placeholder="..." />
-            <marker date="1460514000301" expanded="true" signature="2800:3257" placeholder="..." />
-            <marker date="1460514000301" expanded="true" signature="3169:3242" placeholder="..." />
+            <marker date="1460520775794" expanded="true" signature="386:438" placeholder="SELECT ID FR... accounts" />
+            <marker date="1460520775794" expanded="true" signature="2583:2638" placeholder="SELECT * FRO... solutions" />
+            <marker date="1460520775794" expanded="true" signature="2813:3283" placeholder="..." />
+            <marker date="1460520775794" expanded="true" signature="2822:3279" placeholder="..." />
+            <marker date="1460520775794" expanded="true" signature="3191:3264" placeholder="..." />
           </folding>
         </state>
       </provider>
