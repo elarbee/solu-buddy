@@ -42,4 +42,4 @@
 		<img src="solid.png" style="width:150px">
         <br>
 		<button type="button" onclick="">How do I calculate this?</button>
-	</div>
+	</div>\
