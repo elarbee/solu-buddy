@@ -40,7 +40,7 @@
     
     <?php
     //Include the Saved solutions modal.
-        include '../shared-content/savedSolutionsModal.php';
+        include '../../shared-content/savedSolutionsModal.php';
     ?>
     
     <!-- Table used for Internal Standards Method -->
