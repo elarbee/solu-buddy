@@ -46,8 +46,8 @@ $(function() {
         }
         
          // If invalid dilution number entered
-        if(Number(numDilutions) <= 0 || Number(numDilutions) > 20){
-            showAlert("Please enter a number of dilutions less than 20 and greater than 0!");
+        if(Number(numDilutions) <= 0 || Number(numDilutions) > 25){
+            showAlert("Please enter a number of dilutions between 0 and 20!");
             return false;
         }
         
@@ -88,7 +88,7 @@ $(function() {
     }
     //Show the alert div
     function showAlert(alertMessage){
-        $("#myAlert").css("display","block").html(alertMessage);
+        $("#myAlert").css("display","block").html("<b>"+alertMessage+"</b>");
     }
 
     //Next Button Click Handler

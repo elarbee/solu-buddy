@@ -41,7 +41,5 @@
 	<div class="inline-div">
 		<img src="solid.png" style="width:150px">
         <br>
-        <br>
-        <br>
 		<button type="button" onclick="">How do I calculate this?</button>
 	</div>
