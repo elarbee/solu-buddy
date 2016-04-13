@@ -4,7 +4,7 @@
 			<div class="col-md-6 col-sm-6 hidden-xs"><p class="regText">How many dilution flasks will you use?</p></div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-sm-6 col-xs-12"><input id="solventChemID" class = "input" type="text" placeholder="Solvent" tabindex="1"></div>
+			<div class="col-md-6 col-sm-6 col-xs-12"><input id="solventChemID" name="" class = "input" type="text" placeholder="Solvent" tabindex="1"></div>
 			<div class="hidden-xl hidden-lg hidden-md hidden-sm col-xs-12"><p class="regText">How many dilution flasks will you use?</p></div>
 			<div class="col-md-6 col-sm-6 col-xs-12"><input id="numDilutions" type="number" placeholder="Number of dilutions." tabindex="4"></div>
 		</div>

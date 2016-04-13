@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$_SESSION['loggedIn'] = true;
+
 // Connect to database
 require_once 'soluMySQLConnect.php';
 
@@ -20,8 +20,8 @@ if (!$result) {
 	exit;
 }$row = mysqli_fetch_array($result);
 
-
 if (mysqli_num_rows($result) == 1) {
+	$_SESSION['loggedIn'] = true;
     header("Refresh: 0; $return_page");
 	exit();
 } 

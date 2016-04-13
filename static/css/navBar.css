@@ -27,7 +27,6 @@ li:hover li a:hover {
 	margin-top: 20px;
 	margin-left: 10px;
 	margin-right: 5px;
-	position: fixed;
 	right: 265px;
 }
 
@@ -37,8 +36,15 @@ li:hover li a:hover {
 	margin-top: 20px;
 	margin-left: 10px;
 	margin-right: 5px;
-	position: fixed;
 	right: 375px;
+}
+
+#btn-changePass{
+	width: 140px;
+	height: 35px;
+	margin-top: -35px;
+	margin-left: 10px;
+	margin-right: 240px;
 }
 
 #popups{

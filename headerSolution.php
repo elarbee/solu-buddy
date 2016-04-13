@@ -1,7 +1,7 @@
 <header>	
 <nav class="navbar navbar-inverse">
-    <a href="/" class="pull-left"><img src="/static/images/logoWhite.png" style="height:60px;margin: 10px;"></a>
-    <div class="container-fluid">
+<a href="/" class="pull-left"><img src="/static/images/logoWhite.png" style="height:60px;margin: 10px;"></a>
+  <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
@@ -30,7 +30,7 @@
         <form action="/accounts/logOut.php" method="post">
 			<button type="submit" id = "btn-log" class="btn btn-danger pull-right">Log Out</button>
 		</form>
-          <button type="submit" id = "btn-changePass" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-3">Change Password</button>
+		<button type="submit" id = "btn-changePass" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-3">Change Password</button>
       </ul>
     </div>
   </div>

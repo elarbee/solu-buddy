@@ -29,7 +29,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 </head>
 <body>
 <!-- Solution Input page -->
-
+<form action="/accounts/saveSolution.php" method="POST">
 <div id = "content" class="text-center">
     <img src="serial.png" width="550"><br><br>
     <div id="inputDiv" class="grey-div">
@@ -95,7 +95,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
         </div>
 </div>
-
+</form>
     <?php
     //Include the 'Make it Now' modal.
         include '../shared-content/makeItNowModal.php'; 

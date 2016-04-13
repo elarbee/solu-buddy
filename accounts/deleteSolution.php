@@ -1,11 +1,36 @@
 <?php
-session_start(); 
+session_start();
 require ("soluMySQLConnect.php");
-if($_POST['solutionID'])
+
+if(!isset($_GET['ID']))
 {
-$id = mysqli_real_escape_string($dbc, $_POST['solutionID']);
-$delete = "DELETE FROM `solutions` WHERE id = '$id' ";
-$result = mysqli_query($dbc, $delete);
+    echo 'No ID was given.';
+    exit;
 }
-header("Refresh: 0; solutionsTable.php");
+
+$deleteQuery = "DELETE FROM solutions WHERE ID = ?";
+if(!$result = $dbc->prepare($deleteQuery))
+{
+    die('Query failed: (' . $dbc->errno . ') ' . $dbc->error);
+}
+
+if(!$result->bind_param('i', $_GET['ID']))
+{
+    die('Binding parameters failed: (' . $result->errno . ') ' .$result->error);
+}
+
+if(!$result->execute())
+{
+    die('Execute failed: (' . $result->errno . ') ' . $result->error);
+}
+if($result->affected_rows > 0)
+{
+    echo "Solution was successfully deleted.";
+}
+else
+{
+    echo "Couldn't delete the solution.";
+}
+$result->close();
+$dbc->close();
 ?>
