@@ -26,7 +26,6 @@ if (!mysqli_query($dbc, $sql)) {
 }
 
 echo 'Solution has been saved!';
-header('refresh:0; /');
 mysqli_close($dbc);
 
 ?>

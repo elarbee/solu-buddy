@@ -27,6 +27,7 @@ function renderHead($data = [])
     elseif(isset($_SESSION['loggedIn'])) {
         require("headerLogged.php");
     } else {
+        require("loginModal.php");
         require("header.html");
     }
 }
