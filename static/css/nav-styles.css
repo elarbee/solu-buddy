@@ -1,8 +1,4 @@
-li:hover li a:hover {
-    font-size: 19px;
-    color: white;
-    background: #282828;
-}
+
 
 ul li li a{
     color: #000000;
@@ -28,20 +24,6 @@ ul li li a{
 
 h1{
     margin-top: 10%;
-}
-
-h2{
-    color: white;
-    display: inline;
-    font-size: 22px;
-    margin-left: 40px;
-}
-
-#myNavbar li{
-    margin-top: 10px;
-    font-size: 18px;
-    color: white;
-    height: 50px;
 }
 
 #logo{

@@ -8,45 +8,6 @@ li:hover li a:hover {
 	background: #282828;
 }
 
-#myNavbar {
-	margin-top: 10px;
-	font-size: 18px;
-	color: white;
-	height: 50px;
-	margin-left: 450px;
-}
-
-#myNavbar ul li a {
-	padding-left: 35px;
-	margin-top: 15px;
-}
-
-#btn-log{
-	height: 35px;
-	width: 97px;
-	margin-top: 20px;
-	margin-left: 10px;
-	margin-right: 5px;
-	right: 265px;
-}
-
-#btn-signUp{
-	height: 35px;
-	width: 97px;
-	margin-top: 20px;
-	margin-left: 10px;
-	margin-right: 5px;
-	right: 375px;
-}
-
-#btn-changePass{
-	width: 140px;
-	height: 35px;
-	margin-top: -35px;
-	margin-left: 10px;
-	margin-right: 240px;
-}
-
 #popups{
 	background-color: #1278b6;
 }
@@ -58,4 +19,14 @@ li:hover li a:hover {
 	height: 100%;
 	background-size: cover;
 	background-position: -50px 78px;
+}
+
+.navbar-nav > li {
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	.navbar-nav > li > a {
+		margin-top: 20px;
+	}
 }
