@@ -37,7 +37,6 @@ html{
 }
 
 #single, #multiple,#calibration{
-    width: 33.33%;
     height: 100%;
 }
 #single{
@@ -130,4 +129,19 @@ select:hover{
         height:40%;
     }
 
+}
+
+@media (min-width: 1250px){
+    #single, #multiple, #calibration{
+        width: 33.33%;
+    }
+}
+
+@media (min-width: 1050px) and (max-width: 1250px){
+    #single, #multiple, #calibration{
+        width: 40%;
+    }
+    #calibration {
+        float: none;
+    }
 }
