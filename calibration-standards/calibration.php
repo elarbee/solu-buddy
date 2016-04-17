@@ -27,7 +27,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 </head>
 
 <body>
-<form id="solutionForm" action="/accounts/saveSolution.php" method="POST">
+<form id="solutionForm" onsubmit="event.preventDefault();">
     <?php
     //Declaring global final variables.
     //These can be called later with the $_GLOBALS variable
@@ -87,7 +87,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
                 <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
                 <div id="dilutionFlask1" class="dilutionFlask inline-div">
                     <div class="flaskImgAndNumberDiv">
-                        <td><input type="text" placeholder="V, sas, std1"></td>
+                        <input type="text" placeholder="V, sas, std1">
                         <img id="smallBeakerImg" src="../static/images/beaker.png">
                         <p id="flaskNumber">1</p>
                     </div>

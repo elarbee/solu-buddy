@@ -25,7 +25,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>
-<form id="solutionForm" action="/accounts/saveSolution.php" method="post">
+<form id="solutionForm" onclick="event.preventDefault();">
 <?php
   //Declaring global final variables.
     //Used for keeping track of 'Make it Niw' solutions.
