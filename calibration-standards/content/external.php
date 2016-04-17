@@ -16,5 +16,5 @@
     </div>
     <input type="hidden" name="solution_type" value="calibration_external">
 
-    <div class="col-md-12"><button id="nextButton" class="nextButton">Next</button></div>
+    <div class="col-md-12"><button type="button" id="nextButton" class="nextButton">Next</button></div>
 </div>

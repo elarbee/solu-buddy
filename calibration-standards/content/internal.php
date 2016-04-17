@@ -46,15 +46,15 @@
     <!-- Table used for Internal Standards Method -->
 	<div class="row">
 		<div class="col-md-4 col-sm-4"><p class="stockText">Stock Solution of analyte</p></div>
-		<div class="col-md-4 col-sm-4"><button id="makeItNowButton1" class="makeItNowButton">Make It Now!</button></div>
-		<div class="col-md-4 col-sm-4"><button id="savedSolution1" class="savedSolButton">Use Saved Solution!</button></div>
-		<div class="col-md-4 col-sm-4"><button id="completedSolution1" class="completedSolButton" hidden disabled>Analyte Stock Solution Completed!</button></div>
+		<div class="col-md-4 col-sm-4"><button type="button" id="makeItNowButton1" class="makeItNowButton">Make It Now!</button></div>
+		<div class="col-md-4 col-sm-4"><button type="button" id="savedSolution1" class="savedSolButton">Use Saved Solution!</button></div>
+		<div class="col-md-4 col-sm-4"><button type="button" id="completedSolution1" class="completedSolButton" hidden disabled>Analyte Stock Solution Completed!</button></div>
 	</div>
 	<div class="row">
 		<div class="col-md-4 col-sm-4"><p class="stockText">Stock Solution of Internal Standard</p></div>
-		<div class="col-md-4 col-sm-4"><button id="makeItNowButton2" class="makeItNowButton">Make It Now!</button></div>
-		<div class="col-md-4 col-sm-4"><button id="savedSolution2" class="savedSolButton">Use Saved Solution!</button></div>
-		<div class="col-md-4 col-sm-4"><button id="completedSolution2" class="completedSolButton" disabled hidden>Internal Standard Stock Solution Completed!</button></div>
+		<div class="col-md-4 col-sm-4"><button type="button" id="makeItNowButton2" class="makeItNowButton">Make It Now!</button></div>
+		<div class="col-md-4 col-sm-4"><button type="button" id="savedSolution2" class="savedSolButton">Use Saved Solution!</button></div>
+		<div class="col-md-4 col-sm-4"><button type="button" id="completedSolution2" class="completedSolButton" disabled hidden>Internal Standard Stock Solution Completed!</button></div>
 	</div>
 	<div class="row">
 		<div class="col-md-4 col-sm-4"><input name="unknown" id="unknown" type="text" placeholder="Name of Unknown"></div>
@@ -63,7 +63,7 @@
 	</div>
 	<input type="hidden" name="solution_type" value="calibration_internal">
 
-	<button id="nextButton" class="nextButton">Next</button>
+	<button type="button" id="nextButton" class="nextButton">Next</button>
 
 <div>
 	

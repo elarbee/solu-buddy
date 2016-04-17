@@ -52,9 +52,9 @@
             <input name="volumeTransferred" id="volumeTransferred" type="number" placeholder="Solution Transferred Vol" tabindex="6">
         </div>
 	</div>
-	<div class="row">
+    <input type="hidden" name="solution_type" value="serial">
+    <div class="row">
         <button type="button" id="nextButton" class="nextButton">Next</button>
     </div>
-	<input type="hidden" name="solution_type" value="serial">
 
 </div>

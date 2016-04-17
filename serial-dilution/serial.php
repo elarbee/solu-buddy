@@ -29,7 +29,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 </head>
 <body>
 <!-- Solution Input page -->
-<form id="#solutionForm" action="/accounts/saveSolution.php" method="POST">
+<form id="solutionForm" action="/accounts/saveSolution.php" method="POST">
 <div id = "content" class="text-center">
     <img src="serial.png" width="550"><br><br>
     <div id="inputDiv" class="grey-div">
