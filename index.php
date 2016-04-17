@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" type="text/css" href="static/css/nav-styles.css">
     <link rel="stylesheet" type="text/css" href="static/css/header-styles.css">

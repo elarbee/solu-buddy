@@ -64,8 +64,6 @@ h3 {
     color: white;
     text-align: center;
     font-family: sans-serif;
-    width: 35em;
-    height: 30px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -130,3 +128,14 @@ h3 {
 
 }
 
+
+@media (min-width: 565px){
+    .titleImage {
+        width: 565px;
+    }
+}
+@media (max-width: 565px){
+    .titleImage {
+        width: 100%;
+    }
+}

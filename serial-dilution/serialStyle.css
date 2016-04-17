@@ -41,8 +41,6 @@ body {
 button {
     color: white;
     background: rgba(100, 130, 100, 0.9);
-    width: 100px;
-    height: 45px;
 }
 
 button:hover {
@@ -65,7 +63,6 @@ table p {
 h3 {
     text-align: center;
     font-family: sans-serif;
-    width: 35em;
     height: 30px;
     margin-left: auto;
     margin-right: auto;
@@ -73,7 +70,7 @@ h3 {
 /* This is a hack. Need to fix to fix this to really center */
 
 #divContainer {
-    width: 550px;
+    /*width: 550px;*/
     margin-left: auto;
     margin-right: auto;
 }
