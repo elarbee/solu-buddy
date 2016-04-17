@@ -1,11 +1,12 @@
 <div class="input-div">
-		Solvent Formula <input name="solvent_formula" id = "solvent_formula" type="text" placeholder="Solvent Formula"> <br>
-		Solute Formula <input name="solute_formula" id = "solute_formula" type="text" placeholder="Solute Formula"><br>
-		Solute Molecular Weight <input name="solute_molec_weight" id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
-		Density of Pure Solute (g/mL) <input name="density" id = "density" type="text" placeholder="Density of Pure Solute"><br>
+	Solvent Formula <input name="solvent_formula" id = "solvent_formula" type="text" placeholder="Solvent Formula"> <br>
+	Solute Formula <input name="solute_formula" id = "solute_formula" type="text" placeholder="Solute Formula"><br>
+	Solute Molecular Weight <input name="solute_molec_weight" id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
+	Density of Pure Solute (g/mL) <input name="density" id = "density" type="text" placeholder="Density of Pure Solute"><br>
 	Solution Total Volume (mL) <input name="total_volume" id= "total_volume" type="text" placeholder="Solution Total Volume (mL)"><br>
 	Sol'n Concentration (mol/L) <input name="solution_concentration" id = "solution_concentration" type="text" placeholder="Sol'n Concentration (mol/L)"><br>
-		Volume of Solute to Add (mL) <input name="massToAdd" id="massToAdd" type="text" placeholder="Volume of Solute to Add"><br>
+	Volume of Solute to Add (mL) <input name="volToAdd" id="volToAdd" type="text" placeholder="Volume of Solute to Add"><br>
+	<input type="hidden" name="solution_type" value="single_liquid_vol">
 
 </div>
 

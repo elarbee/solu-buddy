@@ -23,7 +23,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>
-<form action="/accounts/saveSolution.php" method="post">
+<form id="solutionForm" action="/accounts/saveSolution.php" method="post">
 <?php
   //Declaring global final variables.
     //Used for keeping track of 'Make it Niw' solutions.
@@ -109,7 +109,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
-        <button type="submit">Save Solution</button>
+        <button id="saveSolutionButton" type="button">Save Solution</button>
 
         <button type="button" onclick="">Print Solution</button>
 
@@ -122,5 +122,17 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     }
     ?>
 </form>
+<script>
+    var submit_button = $('#saveSolutionButton');
+    submit_button.on('click', function (event) {
+        $.ajax({
+            url: '/accounts/saveSolution.php',
+            data: $('input, select, textarea', '#solutionForm').serializeArray(),
+            method: 'post'
+        }).then(function(data){
+            submit_button.text(data);
+        });
+    });
+</script>
 </body>
 </html>

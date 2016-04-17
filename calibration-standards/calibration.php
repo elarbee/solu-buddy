@@ -24,7 +24,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 </head>
 
 <body>
-
+<form id="solutionForm" action="/accounts/saveSolution.php" method="POST">
     <?php
     //Declaring global final variables.
     //These can be called later with the $_GLOBALS variable
@@ -102,11 +102,11 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             
             <!-- Buttons -->
             <div id="answerButtonsDiv" class="inline-div">
-                <button id="saveButton">Save Set of Standards</button>
+                <button type="button" id="saveButton">Save Set of Standards</button>
                 <br>
-                <button id="printButton" onClick="">Print Set of Standards Series</button>
+                <button type="button" id="printButton" onClick="">Print Set of Standards Series</button>
                 <br>
-                <button id="answerHomeButton" onClick="window.location.href='/ '">SoluBuddy Home</button>
+                <button type="button" id="answerHomeButton" onClick="window.location.href='/ '">SoluBuddy Home</button>
                 <!-- Style Hack Fix this -->
                 <br>
                 <br>
@@ -114,6 +114,6 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
         </div>
 </div>
 
-
+</form>
 </body>
 </html>

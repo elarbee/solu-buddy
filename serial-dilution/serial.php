@@ -29,7 +29,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 </head>
 <body>
 <!-- Solution Input page -->
-<form action="/accounts/saveSolution.php" method="POST">
+<form id="solutionForm" action="/accounts/saveSolution.php" method="POST">
 <div id = "content" class="text-center">
     <img src="serial.png" width="550"><br><br>
     <div id="inputDiv" class="grey-div">
@@ -89,7 +89,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
             <!-- Buttons -->
             <div id="answerButtonsDiv" class="inline-div">
-                <button id="saveButton">Save Dilution Series</button>
+                <button type="button" id="saveButton">Save Dilution Series</button>
                 <br>
                 <button type="button" id="printButton" onClick="window.print();">Print Dilution Series</button>
             </div>
@@ -104,8 +104,19 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <?php
     //Include the Saved solutions modal.
         include '../shared-content/savedSolutionsModal.php'; 
-    ?> 
-    
+    ?>
 
+<script>
+    var submit_button = $('#saveButton');
+    submit_button.on('click', function (event) {
+        $.ajax({
+            url: '/accounts/saveSolution.php',
+            data: $('input, select, textarea', '#solutionForm').serializeArray(),
+            method: 'post'
+        }).then(function(data){
+            submit_button.text(data);
+        });
+    });
+</script>
 </body>
 </html>
