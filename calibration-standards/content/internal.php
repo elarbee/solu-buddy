@@ -57,10 +57,12 @@
 		<div class="col-md-4 col-sm-4"><button id="completedSolution2" class="completedSolButton" disabled hidden>Internal Standard Stock Solution Completed!</button></div>
 	</div>
 	<div class="row">
-		<div class="col-md-4 col-sm-4"><input id="unknown" type="text" placeholder="Name of Unknown"></div>
-		<div class="col-md-4 col-sm-4"><input id="num_standards" type="text" placeholder="Number of Calibration Standards" ></div>
-		<div class="col-md-4 col-sm-4"><input id="volume_standards" type="text" placeholder="Volume of Calibration Standard Flasks"></div>
+		<div class="col-md-4 col-sm-4"><input name="unknown" id="unknown" type="text" placeholder="Name of Unknown"></div>
+		<div class="col-md-4 col-sm-4"><input name="num_standards" id="num_standards" type="text" placeholder="Number of Calibration Standards" ></div>
+		<div class="col-md-4 col-sm-4"><input name="volume_standards" id="volume_standards" type="text" placeholder="Volume of Calibration Standard Flasks"></div>
 	</div>
+	<input type="hidden" name="solution_type" value="calibration_internal">
+
 	<button id="nextButton" class="nextButton">Next</button>
 
 <div>
