@@ -25,8 +25,21 @@ li:hover li a:hover {
 	text-align: center;
 }
 
+.navbar-right {
+	color: white;
+}
+
 @media (min-width: 768px) {
 	.navbar-nav > li > a {
 		margin-top: 20px;
+	}
+	.navbar-right {
+		margin-top: 20px;
+	}
+	.navbar-right li{
+		margin-right: 16px;
+	}
+	.logged-message {
+		margin-top: 15px;
 	}
 }

@@ -24,12 +24,12 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
 <head>
     <meta name="viewport" content="width=device-width">
 
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
     <link href = "/static/css/table.css" type="text/css" rel = "stylesheet">
-	<link href = "/static/css/navBar.css" type="text/css" rel = "stylesheet">
-	<link href = "/static/css/header-styles.css" type="text/css" rel = "stylesheet">
-	<script src="/static/js/jquery-1.11.3.min.js"></script>
-	<script src="/static/js/bootstrap.js"></script>
-	<link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link href = "/static/css/header-styles.css" type="text/css" rel = "stylesheet">
+    <link href = "/static/css/navBar.css" type="text/css" rel = "stylesheet">
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/jquery-1.11.3.min.js"></script>
     <style>
         .page {
             margin: 16px;
