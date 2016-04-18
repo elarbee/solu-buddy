@@ -101,61 +101,40 @@ function fill_fields(page){
         /* Sets the molecular weight field to the newly calculated value.*/
         //$("#solute_molec_weight").val(solute_molecular_weight);
         /* Get total volume value from input field*/
-        var total_volume = $("#total_volume").val()/1000;
+        var total_volume = parseFloat($("#total_volume").val())/1000;
 
         /* Get target solution concentration from the input field.*/
         var target_solution_concentration = $("#solution_concentration").val();
 
-        var desired_mass_to_add = $("#massToAdd").val();
+        var user_mass_to_add = parseFloat($('#massToAdd').val());
 
-        var min_sigfig = count_sig_figs(desired_mass_to_add);
+        var min_sigfig = count_sig_figs(user_mass_to_add);
 
         /* Creates a SingleSolution object using the target concentration (Molarity), total volume of the end solution,
         * and molecular weight of the solute used.*/
         var single_solution = SingleSolution(target_solution_concentration, total_volume,
             solute_molecular_weight);
 
-
-        var mass_of_solute_to_add;
-        var calculated_mass_to_add;
-        var percent_error;
         var new_solution;
 
         if(page == "SOLID"){
 
-
-            calculated_mass_to_add = single_solution.solid().toPrecision(min_sigfig);
-
-            percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
-
-            if(percent_error > ACCEPTED_PERCENT_ERROR){
-                showAlert("Calculated mass to add is incorrect. Error is: " + precise_round(percent_error, 2) + "%");
-                $("#massToAdd").val("");
-            }else{
-
-                hideAlert();
+            if(check_mass(single_solution.solid().toPrecision(min_sigfig))){
                 new_solution = new Solution(
-                $("#solute_formula").val(),
-                $("#solvent_formula").val(),
-                total_volume,
-                target_solution_concentration);
+                    $("#solute_formula").val(),
+                    $("#solvent_formula").val(),
+                    total_volume,
+                    target_solution_concentration);
 
                 $("#steps_div").html(new_solution.single.sol.steps_html());
 
                 /* Shows answer page.*/
                 $("#answerDiv").slideDown("slow");
             }
-        }else if(page == "GRAV"){
+        }
+        else if(page == "GRAV"){
 
-            calculated_mass_to_add = single_solution.solid().toPrecision(min_sigfig);
-
-            percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
-
-            if(percent_error > ACCEPTED_PERCENT_ERROR){
-                showAlert("Calculated mass to add is incorrect. Error is: " + precise_round(percent_error, 2) + "%");
-                $("#massToAdd").val("");
-            }else{
-
+            if(check_mass(single_solution.solid().toPrecision(min_sigfig))){
                 hideAlert();
                 new_solution = new Solution(
                     $("#solute_formula").val(),
@@ -169,19 +148,13 @@ function fill_fields(page){
                 $("#answerDiv").slideDown("slow");
             }
 
-        }else if(page == "VOLU"){
+        }
+        else if(page == "VOLU"){
 
             var density = parseFloat($("#density").val());
 
-            calculated_mass_to_add = single_solution.liquid.volume(density).toPrecision(min_sigfig);
 
-            percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
-
-            if(percent_error > ACCEPTED_PERCENT_ERROR){
-                showAlert("Calculated volume to add is incorrect. Error is: " + precise_round(percent_error, 2) + "%");
-                $("#massToAdd").val("");
-            }else{
-                hideAlert();
+            if(check_vol(single_solution.liquid.volume(density).toPrecision(min_sigfig))){
                 new_solution = new Solution(
                     $("#solute_formula").val(),
                     $("#solvent_formula").val(),
@@ -193,6 +166,115 @@ function fill_fields(page){
                 /* Shows answer page.*/
                 $("#answerDiv").slideDown("slow");
             }
+            
+        }
+        else if(page == 'CONC'){
+
+            var solute_molarity = parseFloat($('#solution_concentration').val());
+            var mass_percent = parseFloat($('#solute_percent_mass').val());
+            var density = parseFloat($('#density').val());
+
+            var dilution = new SingleDilution(target_solution_concentration, total_volume);
+
+            var user_vol_to_add = parseFloat($('#solute_volume').val()) / 1000; //convert to liters
+
+            /**
+             * Concentrated molarity
+             */
+            if($('#knownSelect').val() == 'CONC_MOL'){
+
+                min_sigfig = count_sig_figs(user_vol_to_add);
+                if(check_vol(dilution.solute_volume(solute_molarity))) {
+                    new_solution = new Solution(
+                        $("#solute_formula").val(),
+                        $("#solvent_formula").val(),
+                        total_volume,
+                        target_solution_concentration);
+
+                    $("#steps_div").html(new_solution.concentrated.steps_html_mol(solute_molarity));
+
+                    /* Shows answer page.*/
+                    $("#answerDiv").slideDown("slow");
+                }
+
+            }
+
+            /**
+             * Concentrated Grav
+             */
+            else if($('#knownSelect').val() == 'CONC_GRAV'){
+
+                min_sigfig = count_sig_figs(user_mass_to_add);
+
+                if(check_mass(dilution.grav_mass(solute_compound, solute_molarity))){
+                    new_solution = new Solution(
+                        $("#solute_formula").val(),
+                        $("#solvent_formula").val(),
+                        total_volume,
+                        target_solution_concentration);
+
+                    $("#steps_div").html(new_solution.concentrated.steps_html_grav(mass_percent));
+
+                    /* Shows answer page.*/
+                    $("#answerDiv").slideDown("slow");
+                }
+            }
+            /**
+             * Concentrated Vol
+             */
+            else if($('#knownSelect').val() == 'CONC_VOL'){
+
+                min_sigfig = count_sig_figs(user_vol_to_add);
+                if(check_vol(dilution.vol_transfer(solute_compound, mass_percent, density))){
+                    new_solution = new Solution(
+                        $("#solute_formula").val(),
+                        $("#solvent_formula").val(),
+                        total_volume,
+                        target_solution_concentration);
+
+                    $("#steps_div").html(new_solution.concentrated.steps_html_vol(mass_percent, density));
+
+                    /* Shows answer page.*/
+                    $("#answerDiv").slideDown("slow");
+                }
+            }
+            
+        }
+    }catch (ex){
+        showAlert(ex.message);
+    }
+};
+
+function check_vol(calculated_vol){
+
+    try {
+        var percent_error = calculate_error(calculated_vol, parseFloat($('#solute_volume').val()) / 1000);
+
+        if (percent_error > ACCEPTED_PERCENT_ERROR) {
+            showAlert("Chosen volume to add is "+ calculated_vol + ". Error is: " + precise_round(percent_error, 2) + "%");
+            $('#solute_volume').val("");
+            return false;
+        } else {
+            hideAlert();
+            return true;
+        }
+    }catch (ex){
+        showAlert(ex.message);
+    }
+};
+
+function check_mass(calculated_mass){
+
+    try {
+        var percent_error = calculate_error(calculated_mass, parseFloat($('#massToAdd').val()));
+
+        if (percent_error > ACCEPTED_PERCENT_ERROR) {
+            showAlert("Chosen mass to add is "+calculated_mass+". Error is: " + precise_round(percent_error, 2) + "%");
+            $('#massToAdd').val("");
+            return false;
+        } else {
+            hideAlert();
+            return true;
         }
     }catch (ex){
         showAlert(ex.message);

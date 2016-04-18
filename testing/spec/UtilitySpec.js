@@ -56,6 +56,17 @@ describe("Utility Functions", function() {
         });
     });
 
+    describe("Create a single dilution object.", function(){
+       
+        it("Should be able to create simple dilutions.", function(){
+           var dilution = new SingleDilution(1, 1);
+            
+            expect(dilution.solute_volume(5)).toEqual(.2);
+            expect(dilution.solute_molarity(2)).toEqual(.5);
+            
+            
+        });
+    });
 
 
 

@@ -80,7 +80,7 @@ function calculate_error(theoretical, actual){
  * @constructor
  */
 function SingleDilution(target_molarity, target_volume){
-
+    
     var self = {};
 
     /**
@@ -91,7 +91,7 @@ function SingleDilution(target_molarity, target_volume){
      */
     self.solute_molarity = function calculate_solute_molarity(v1){
         return (target_molarity * target_volume)/v1;
-    }
+    };
 
     /**
      * Calculates volume required to achieve a target concentration (target molarity) of solute in a total
@@ -101,7 +101,7 @@ function SingleDilution(target_molarity, target_volume){
      */
     self.solute_volume = function calculate_solute_volume(M1){
         return (target_molarity * target_volume)/M1;
-    }
+    };
 
 
     /**
@@ -113,9 +113,9 @@ function SingleDilution(target_molarity, target_volume){
      */
     self.grav_mass = function calculate_transferred_gravimetric_mass(solute, solute_mass_percent){
         //mass to add if mass/vol % was 100 for the solute.
-        var ideal_mass_to_add = new SingleSolution(target_molarity, target_volume, solute.molecular_weight()).solid();
-        return ideal_mass_to_add * (100/solute_mass_percent);
-    }
+        var minimum_mass_to_add = new SingleSolution(target_molarity, target_volume, solute.molecular_weight()).solid();
+        return minimum_mass_to_add * (100/solute_mass_percent);
+    };
 
     /**
      * Calculates volume to volumetrically transfer when making a solution from a stock concentrated solute when the
@@ -128,9 +128,11 @@ function SingleDilution(target_molarity, target_volume){
     self.vol_transfer = function calculate_transferred_volumetric_volume(solute, solute_mass_percent, density){
 
         //mass to add if mass/vol % was 100 for the solute.
-        var ideal_vol_to_add = new SingleSolution(target_molarity, target_volume, solute.molecular_weight()).liquid.volume(density);
+        var minimum_vol_to_add = new SingleSolution(target_molarity, target_volume, solute.molecular_weight()).liquid.volume(density);
 
-        return ideal_vol_to_add * (100/solute_mass_percent);
-    }
+        return minimum_vol_to_add * (100/solute_mass_percent);
+    };
+
+    return self;
 
 }
