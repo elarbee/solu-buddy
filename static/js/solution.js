@@ -8,12 +8,12 @@
  * @param solute String chemical formula of the solute.
  * @param solvent String chemical formula of the solvent.
  * @param volume Volume of the final solution in liters.
- * @param solution_concentration Goal solution concentration as Molarity.
+ * @param target_concentration Goal solution concentration as Molarity.
  *
  * @returns {{}} Solution object (self).
  * @constructor
  */
-function Solution(solute, solvent, volume, solution_concentration){
+function Solution(solute, solvent, volume, target_concentration){
     var self = {};
 
     //new dictionary holding "single" solution properties.
@@ -24,7 +24,7 @@ function Solution(solute, solvent, volume, solution_concentration){
     self.single.sol = {};
 
     self.single.sol.solution_calculator = new SingleSolution(
-        solution_concentration,
+        target_concentration,
         volume,
         string_to_compound(solute).molecular_weight());
 
@@ -33,7 +33,7 @@ function Solution(solute, solvent, volume, solution_concentration){
     self.single.volumetric = {};
 
     self.single.volumetric.solution_calculator = new SingleSolution(
-        solution_concentration,
+        target_concentration,
         volume,
         string_to_compound(solute).molecular_weight());
 
@@ -49,7 +49,7 @@ function Solution(solute, solvent, volume, solution_concentration){
     self.solute = string_to_compound(solute);
     self.solvent = string_to_compound(solvent);
     self.volume = volume;
-    self.solution_concentration = solution_concentration;
+    self.solution_concentration = target_concentration;
     /*----------------------------------------------------*/
 
 
