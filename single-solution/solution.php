@@ -28,7 +28,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 <form id="solutionForm" onclick="event.preventDefault();">
 <?php
   //Declaring global final variables.
-    //Used for keeping track of 'Make it Niw' solutions.
+    //Used for keeping track of 'Make it Now' solutions.
     $SOLID = 'SOLID';
     $GRAVIMETRIC = 'GRAV';
     $VOLUMETRIC = 'VOLU';

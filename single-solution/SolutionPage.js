@@ -92,7 +92,6 @@ function showAlert(alertMessage){
 function fill_fields(page){
     try {
 
-
         /* Collects variables from input fields and creates other necessary variables using the input variables */
         var solvent_compound = string_to_compound($("#solvent_formula").val());
         var solute_compound = string_to_compound($("#solute_formula").val());
@@ -146,9 +145,6 @@ function fill_fields(page){
                 /* Shows answer page.*/
                 $("#answerDiv").slideDown("slow");
             }
-            //$("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
-            
-
         }else if(page == "GRAV"){
 
             calculated_mass_to_add = single_solution.solid().toPrecision(min_sigfig);
@@ -172,9 +168,6 @@ function fill_fields(page){
                 /* Shows answer page.*/
                 $("#answerDiv").slideDown("slow");
             }
-
-            //$("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
-
 
         }else if(page == "VOLU"){
 
@@ -200,14 +193,7 @@ function fill_fields(page){
                 /* Shows answer page.*/
                 $("#answerDiv").slideDown("slow");
             }
-
-            //$("#massToAdd").val(mass_of_solute_to_add + " mL"); //answer presented in mL
-
-
-        } 
-
-        
-
+        }
     }catch (ex){
         showAlert(ex.message);
     }
