@@ -1,4 +1,15 @@
+/**
+ * A constant to use in this form. This number represents the accepted percentage of error
+ * when calculating mass or volume to add.
+ * @type {number} Allowed percent error to consider correct. (0-100)
+ */
 var ACCEPTED_PERCENT_ERROR = 1;
+
+$(function(){
+
+    hideAlert();
+    
+});
 
 function next_check(page){
     try {
@@ -27,19 +38,27 @@ function next_check(page){
 
         /* If either formula was invalid, the message will be displayed to the user. */
         if(!valid_solute || !valid_solvent){
-            window.alert(msg);
+            showAlert(msg);
         }else{
             /* Otherwise, the inputs are assumed to be correct.
              *   The answer fields will be filled and the answer page and the answer page will be shown. */
+            hideAlert();
             fill_fields(page);
 
-            /* Shows answer page.*/
-            $("#answerDiv").slideDown("slow");
         }
 
     }catch(ex){
-        window.alert(ex.message);
+        showAlert(ex.message);
     }
+}
+
+//Hide the alert DIV
+function hideAlert(){
+    $("#alert").css("display","none");
+}
+//Show the alert div
+function showAlert(alertMessage){
+    $("#alert").css("display","block").html("<b>"+alertMessage+"</b>");
 }
 
 function fill_fields(page){
@@ -83,17 +102,21 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                window.alert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
+                showAlert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
-                window.alert("Correct!");
+
+                hideAlert();
                 new_solution = new Solution(
-                    $("#solute_formula").val(),
-                    $("#solvent_formula").val(),
-                    total_volume,
-                    target_solution_concentration);
+                $("#solute_formula").val(),
+                $("#solvent_formula").val(),
+                total_volume,
+                target_solution_concentration);
 
                 $("#steps_div").html(new_solution.single.sol.steps_html());
+
+                /* Shows answer page.*/
+                $("#answerDiv").slideDown("slow");
             }
             //$("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
             
@@ -105,11 +128,11 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                window.alert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
+                showAlert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
-                window.alert("Correct!");
 
+                hideAlert();
                 new_solution = new Solution(
                     $("#solute_formula").val(),
                     $("#solvent_formula").val(),
@@ -117,6 +140,9 @@ function fill_fields(page){
                     target_solution_concentration);
 
                 $("#steps_div").html(new_solution.single.gravimetric.steps_html());
+
+                /* Shows answer page.*/
+                $("#answerDiv").slideDown("slow");
             }
 
             //$("#massToAdd").val(mass_of_solute_to_add + "g"); // mass presented as 'grams'
@@ -131,11 +157,10 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                window.alert("Calculated volume to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
+                showAlert("Calculated volume to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
-                window.alert("Correct!");
-
+                hideAlert();
                 new_solution = new Solution(
                     $("#solute_formula").val(),
                     $("#solvent_formula").val(),
@@ -143,6 +168,9 @@ function fill_fields(page){
                     target_solution_concentration);
 
                 $("#steps_div").html(new_solution.single.volumetric.steps_html(density));
+
+                /* Shows answer page.*/
+                $("#answerDiv").slideDown("slow");
             }
 
             //$("#massToAdd").val(mass_of_solute_to_add + " mL"); //answer presented in mL
@@ -153,6 +181,6 @@ function fill_fields(page){
         
 
     }catch (ex){
-        window.alert(ex.message);
+        showAlert(ex.message);
     }
 };
