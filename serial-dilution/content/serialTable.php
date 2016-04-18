@@ -35,18 +35,18 @@
 	</div>
 	<div class="row">
 		<div class="col-md-6 col-sm-6 col-xs-12">
-            <p class="regText">What's your solute's Molecular weight? (M)</p>
+            <p class="regText">What's the Molarity of the original stock solution? (M)</p>
         </div>
 		<div class="col-md-6 col-sm-6 hidden-xs">
-            <p class="regText">How much solution will you transfer each time? (ML)</p>
+            <p class="regText">How much solution will you transfer each time? (mL)</p>
         </div>
 	</div>
 	<div class="row">
 		<div class="col-md-6 col-sm-6 col-xs-12">
-            <input name="soluteMW" id="soluteMW" type="number" placeholder="Solute Molecular Weight" tabindex="3">
+            <input name="soluteMW" id="soluteMW" type="number" placeholder="Molarity" tabindex="3">
         </div>
 		<div class="hidden-xl hidden-lg hidden-md hidden-sm col-xs-12">
-            <p class="regText">How much solution will you transfer each time? (ML)</p>
+            <p class="regText">How much solution will you transfer each time? (mL)</p>
         </div>
 		<div class="col-md-6 col-sm-6 col-xs-12">
             <input name="volumeTransferred" id="volumeTransferred" type="number" placeholder="Solution Transferred Vol" tabindex="6">

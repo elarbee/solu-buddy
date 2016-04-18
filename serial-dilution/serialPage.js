@@ -120,7 +120,7 @@ $(function() {
             //Name
             $("#dilutionFlask").find("#solutionName").html(flasksVolume +"ML of "+ soluteID + " diluted in " + solventID);
             //Molarity
-            $("#dilutionFlask").find("#molarityValue").html("Molarity = "+molWeight+"M x "+mySerialDilution.concentrationArray[0]);
+            $("#dilutionFlask").find("#molarityValue").html("Molarity = "+mySerialDilution.concentrationArray[0]+"M");
             
             //Iterate through number of flasks inputted and add them to the page.
             for (i = 0; i < numFlasks - 1; i++) {
@@ -133,7 +133,7 @@ $(function() {
                 //Update name of flask
                 $("#dilutionFlasksDiv").children().last().find("#solutionName").html(flasksVolume +"ML of "+ soluteID + " diluted in " + solventID);
                 //Update molar value of flask
-                $("#dilutionFlasksDiv").children().last().find("#molarityValue").html("Molarity = "+molWeight+"M x "+mySerialDilution.concentrationArray[i+1]);
+                $("#dilutionFlasksDiv").children().last().find("#molarityValue").html("Molarity = "+mySerialDilution.concentrationArray[i+1]+"M");
             }
 
             //Set the value of all of the blue arrow divs to the value specified
@@ -162,10 +162,10 @@ $(function() {
         var currentConcentration = ratio;
         
         //Add first flask concentration
-        flasks.push(currentConcentration);
+        flasks.push(Big(currentConcentration).times(bigMolarity));
         for(i=0;i<numFlasks;i++){
             currentConcentration = ratio.times(currentConcentration);
-            flasks.push(currentConcentration);
+            flasks.push(currentConcentration.times(bigMolarity));
         }
         
         return {solvent:solventName, solute:soluteName, molarity:soluteMolarity,concentrationArray:flasks} 
