@@ -8,43 +8,71 @@ var ACCEPTED_PERCENT_ERROR = 1;
 $(function(){
 
     hideAlert();
-    
+
 });
 
 function next_check(page){
     try {
+
+        var all_clear = true;
+        var msg = "";
 
         /* Checks the solute & solvent formula for validity.
          *   Conditions for valid formula:
          *
          *       1) No duplicate elements.
          *       2) Proper nomenclature.*/
-        var valid_solute = is_valid_formula($("#solute_formula").val());
-        var valid_solvent = is_valid_formula($("#solvent_formula").val());
 
-        var msg = "";
 
-        /* An error message is formulated depending on which formula is correct.
-         * An additive strategy is used so a combination of error messages can be displayed
-         * in one message box to avoid an 'intrusive' number of message boxes popping up.*/
-        if(!valid_solute) {
-            //Tells the user the solute formula is incorrect.
-            msg += "Solute formula is not valid.\n";
+        if(!is_valid_formula($("#solute_formula").val())){
+            all_clear = false;
+
+            /* An error message is formulated depending on which formula is correct.
+             * An additive strategy is used so a combination of error messages can be displayed
+             * in one message box to avoid an 'intrusive' number of message boxes popping up.*/
+            msg += "Solute formula is not valid.<br/>";
         }
-        if(!valid_solvent){
-            //Tells the user the solvent formula is invalid.
-            msg += "Solvent formula is not valid.\n";
+        if(!is_valid_formula($("#solvent_formula").val())){
+            all_clear = false;
+            msg += "Solvent formula is not valid.<br/>";
         }
 
-        /* If either formula was invalid, the message will be displayed to the user. */
-        if(!valid_solute || !valid_solvent){
-            showAlert(msg);
-        }else{
+        //Checks other fields for emptiness.
+        if($("#solute_molec_weight").val() == "" || $("#total_volume").val() == "" || $("#solution_concentration").val() == "" ||
+            $("#massToAdd").val() == ""){
+
+            msg += "Please fill in the empty fields.<br/>";
+            all_clear = false;
+        }
+
+
+        //Checks density field for volumetric solution page.
+        if(page == "VOLU" && $("#density").val() == ""){
+            msg += "Please fill in the empty fields.<br/>";
+            all_clear = false;
+        }
+
+        //Everything valid so far, check molecular weight.
+        if(all_clear){
+            var solute = string_to_compound($("#solute_formula").val());
+            var calculated_molec_weight = solute.molecular_weight();
+            var percent_error = calculate_error(calculated_molec_weight, parseFloat($("#solute_molec_weight").val()));
+
+            if(percent_error > ACCEPTED_PERCENT_ERROR){
+                msg += "Solute molecular weight is incorrect. Error is " + precise_round(percent_error, 2) + "%<br/>"
+                all_clear = false;
+            }
+            /* If either formula was invalid, the message will be displayed to the user. */
+        }
+
+        if(all_clear){
             /* Otherwise, the inputs are assumed to be correct.
              *   The answer fields will be filled and the answer page and the answer page will be shown. */
             hideAlert();
             fill_fields(page);
-
+        }
+        else{
+            showAlert(msg);
         }
 
     }catch(ex){
@@ -72,7 +100,7 @@ function fill_fields(page){
         /* Obtains the molecular weight for the compound using a formula in the compound object.*/
         var solute_molecular_weight = solute_compound.molecular_weight();
         /* Sets the molecular weight field to the newly calculated value.*/
-        $("#solute_molec_weight").val(solute_molecular_weight);
+        //$("#solute_molec_weight").val(solute_molecular_weight);
         /* Get total volume value from input field*/
         var total_volume = $("#total_volume").val()/1000;
 
@@ -102,7 +130,7 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                showAlert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
+                showAlert("Calculated mass to add is incorrect. Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
 
@@ -128,7 +156,7 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                showAlert("Calculated mass to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
+                showAlert("Calculated mass to add is incorrect. Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
 
@@ -157,7 +185,7 @@ function fill_fields(page){
             percent_error = calculate_error(calculated_mass_to_add, desired_mass_to_add);
 
             if(percent_error > ACCEPTED_PERCENT_ERROR){
-                showAlert("Calculated volume to add is: " + calculated_mass_to_add + ". Error is: " + precise_round(percent_error, 2) + "%");
+                showAlert("Calculated volume to add is incorrect. Error is: " + precise_round(percent_error, 2) + "%");
                 $("#massToAdd").val("");
             }else{
                 hideAlert();
