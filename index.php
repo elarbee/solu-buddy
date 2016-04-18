@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" type="text/css" href="static/css/nav-styles.css">
-    <link rel="stylesheet" type="text/css" href="static/css/header-styles.css">
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
-    
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/header-styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/navBar.css">
 
     <!-- jQuery -->
-    <script src="static/js/jquery-1.11.3.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
-    <script src="landing.js"></script>
-    <script src="static/js/calculator.js"></script>
+    <script src="/static/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/landing.js"></script>
+    <script src="/static/js/calculator.js"></script>
 </head>
 <body>
 <?php

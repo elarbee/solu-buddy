@@ -8,16 +8,92 @@
 -- Table structure for table `solutions`
 --
 
-CREATE TABLE IF NOT EXISTS `solutions` (
-  `ID` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `single_solution_solid` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Account_ID` int(11) NOT NULL,
   `Solvent_Identity` varchar(20) NOT NULL,
   `Solute_Identity` varchar(20) NOT NULL,
   `Solute_Weight` decimal(10,3) NOT NULL,
-  `Solution_Volume` int(20) NOT NULL,
-  `Solute_Concentration` decimal(10,2) NOT NULL
+  `Solution_Total_Volume` decimal(10, 4) NOT NULL,
+  `Solution_Concentration` decimal(10,2) NOT NULL,
+  `Mass_Solute_Add` decimal(10,4) NOT NULL,
+  PRIMARY KEY (ID)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `single_solution_liquid_grav` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Account_ID` int(11) NOT NULL,
+  `Solvent_Identity` varchar(20) NOT NULL,
+  `Solute_Identity` varchar(20) NOT NULL,
+  `Solute_Weight` decimal(10,3) NOT NULL,
+  `Solution_Total_Volume` decimal(10, 4) NOT NULL,
+  `Solution_Concentration` decimal(10,2) NOT NULL,
+  `Mass_Solute_Add` decimal(10,4) NOT NULL,
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `single_solution_liquid_vol` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Account_ID` int(11) NOT NULL,
+  `Solvent_Identity` varchar(20) NOT NULL,
+  `Solute_Identity` varchar(20) NOT NULL,
+  `Solute_Weight` decimal(10,3) NOT NULL,
+  `Solute_Density` decimal(10,3) NOT NULL,
+  `Solution_Total_Volume` decimal(10, 4) NOT NULL,
+  `Solution_Concentration` decimal(10,2) NOT NULL,
+  `Volume_Solute_Add` decimal(10,4) NOT NULL,
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `serial_dilution` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Account_ID` int(11) NOT NULL,
+  `Solvent_Identity` varchar(20) NOT NULL,
+  `Solute_Identity` varchar(20) NOT NULL,
+  `Solute_Weight` decimal(10,3) NOT NULL,
+  `Dilution_Flask_Volume` decimal(10, 4) NOT NULL,
+  `Number_Flasks` int(11) NOT NULL,
+  `Volume_Transfer` decimal(10,4) NOT NULL,
+  PRIMARY KEY (ID)
+
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `calibration_external` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Account_ID` int(11) NOT NULL,
+  `Solvent_Identity` varchar(20) NOT NULL,
+  `Analyte_Identity` varchar(20) NOT NULL,
+  `Analyte_Weight` decimal(10,3) NOT NULL,
+  `Unknown_Name` decimal(10,3) NOT NULL,
+  `Number_Standards` int(11) NOT NULL,
+  `Flask_Volumes` decimal(10,4) NOT NULL,
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `calibration_addition` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Account_ID` int(11) NOT NULL,
+  `Solvent_Identity` varchar(20) NOT NULL,
+  `Analyte_Identity` varchar(20) NOT NULL,
+  `Analyte_Weight` decimal(10,3) NOT NULL,
+  `Unknown_Name` decimal(10,3) NOT NULL,
+  `Number_Standards` int(11) NOT NULL,
+  `Flask_Volumes` decimal(10,4) NOT NULL,
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `calibration_internal` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Account_ID` int(11) NOT NULL,
+  `Analyte_Solution_ID` int(11) NOT NULL,
+  `Analyte_Solution_Type` varchar(20) NOT NULL,
+  `Internal_Standard_Solution_ID` int(11) NOT NULL,
+  `Internal_Standard_Solution_Type` varchar(20) NOT NULL,
+  `Unknown_Name` varchar(20) NOT NULL,
+  `Number_Standards` int(11) NOT NULL,
+  `Flask_Volumes` decimal(10,4) NOT NULL,
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `accounts`
@@ -28,7 +104,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `Username` varchar(25) NOT NULL,
   `Password` varchar(50) NOT NULL,
   `First_Name` varchar(25) NOT NULL,
-  `Last_Name` varchar(25) NOT NULL
+  `Last_Name` varchar(25) NOT NULL,
+  PRIMARY KEY (ID)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 
@@ -156,26 +233,8 @@ INSERT INTO `elements` (`Name`, `Symbol`, `Atomic_Mass`) VALUES
 -- --------------------------------------------------------
 
 --
--- Indexes for table `accounts`
---
-ALTER TABLE `accounts`
-  ADD KEY `ID` (`ID`);
-
---
--- Indexes for table `solutions`
---
-ALTER TABLE `solutions`
-  ADD KEY `ID` (`ID`);
-
-
---
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT for table `solutions`
---
-ALTER TABLE `solutions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 

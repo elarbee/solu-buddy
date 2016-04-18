@@ -1,3 +1,15 @@
+
+@media (min-width: 565px){
+	.titleImage {
+		width: 565px;
+	}
+}
+@media (max-width: 565px){
+	.titleImage {
+		width: 100%;
+	}
+}
+
 /* Background Image */
 html{
     background: url(../static/images/lab.jpg) no-repeat center center fixed;
@@ -10,7 +22,6 @@ html{
 html,body{
     width:100%;
     text-align: center;
-	font-size: 15px;
 }
 
 #inputDiv{
@@ -111,4 +122,8 @@ html,body{
 #content hr{
     color: black;
     width: 80%;
+}
+
+#inputDiv {
+	width: 80%;
 }

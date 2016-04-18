@@ -39,36 +39,6 @@ ul li li a{
 	text-align: left;
 }
 
-#myNavbar {
-	margin-top: 10px;
-	font-size: 18px;
-	color: white;
-	height: 50px;
-	margin-left: 215px;
-}
-
-#myNavbar ul li a {
-
-}
-
-#btn-log{
-	height: 35px;
-	width: 97px;
-	margin-top: 20px;
-	margin-left: 10px;
-	margin-right: 5px;
-	right: 265px;
-}
-
-#btn-signUp{
-	height: 35px;
-	width: 97px;
-	margin-top: 20px;
-	margin-left: 10px;
-	margin-right: 5px;
-	right: 375px;
-}
-
 #textbox {
 	
 }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['solutions'] = true;
 require('../dynamicHelpers.php');
 renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings', 'navField2' => 'Saved Solutions',
     'navField3' => 'Chemistry Terms', 'navField4' => 'Create Solution(s)'] );
@@ -7,22 +8,24 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width">
+
     <?php
     include '../script-includes.html';
     ?>
 
     <script src="SolutionPage.js"></script>
-    <script src="../static/js/formula.js"></script>
-    <script src="../static/js/elements.js"></script>
-    <script src="../static/js/utility.js"></script>
-    <script src="../static/js/calculator.js"></script>
-    <script src="../static/js/solution.js"></script>
-    <script src="../static/js/solutionObjectBuilder.js"></script>
+    <script src="/static/js/formula.js"></script>
+    <script src="/static/js/elements.js"></script>
+    <script src="/static/js/utility.js"></script>
+    <script src="/static/js/calculator.js"></script>
+    <script src="/static/js/solution.js"></script>
+    <script src="/static/js/solutionObjectBuilder.js"></script>
     
 	<link rel="stylesheet" type="text/css" href="singleStyle.css">
 </head>
 <body>
-<form action="/accounts/saveSolution.php" method="post">
+<form id="solutionForm" onclick="event.preventDefault();">
 <?php
   //Declaring global final variables.
     //Used for keeping track of 'Make it Niw' solutions.
@@ -37,7 +40,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 
     <div class="divCenterer">
         <div id ="titleDiv">
-            <img src="single.png" width="565"><br><br>
+            <img src="single.png" class="titleImage"><br><br>
         </div>
                 <!-- Solution Input page -->
                 <div id="headerDiv">
@@ -108,7 +111,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
-        <button type="submit">Save Solution</button>
+        <button id="saveSolutionButton" type="button">Save Solution</button>
 
         <button type="button" onclick="">Print Solution</button>
 
@@ -121,5 +124,17 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     }
     ?>
 </form>
+<script>
+    var submit_button = $('#saveSolutionButton');
+    submit_button.on('click', function (event) {
+        $.ajax({
+            url: '/accounts/saveSolution.php',
+            data: $('input, select, textarea', '#solutionForm').serializeArray(),
+            method: 'post'
+        }).then(function(data){
+            submit_button.text(data);
+        });
+    });
+</script>
 </body>
 </html>

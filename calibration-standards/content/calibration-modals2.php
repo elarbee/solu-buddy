@@ -6,7 +6,8 @@
                 <button class="closeModal2">x</button>
             </div>
             <hr>
-            <form action="../single-solution/solution.php">
+            <form></form>
+            <form action="/single-solution/solution.php">
                 <select name="value" id="singleSelect2">
                   <option value="SOLID">It is a pure solid, i.e. in a bottle, and I will add it by mass.</option>
                   <option value="liquid">It is a pure (i.e., neat) liquid.</option>
@@ -17,7 +18,7 @@
                 <button id="singleButton2" type="submit">Go</button>
             </form>
 
-             <form action="../single-solution/solution.php">
+             <form action="/single-solution/solution.php">
                 <div id="liquidDiv2">
                     <p>What information do you know about this liquid substance, and hence how will you transfer a portion of it into the solution?</p>
                     <select name="value" id="liquidSelect2">

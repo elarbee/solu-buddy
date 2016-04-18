@@ -16,20 +16,21 @@ layout of how web pages will be designed-->
         extract($data); 
         require("footer.php");
     }
-	
-    /* Renders head of page. */
-    function renderHead($data = [])
-    {
-        extract($data);
-        
-        // If the user is logged in then we show them the logged in header.
-        if(!isset($_SESSION['loggedIn'])) {
-            require("header.html");
-        }
-        else {
-            require("headerLogged.php");
-        }
+
+/* Renders head of page. */
+function renderHead($data = [])
+{
+    extract($data);
+    if( (isset($_SESSION['solutions'])) && ($_SESSION['solutions'] == 'true') && isset($_SESSION['loggedIn']) ){
+        require("headerSolution.php");
     }
+    elseif(isset($_SESSION['loggedIn'])) {
+        require("headerLogged.php");
+    } else {
+        require("loginModal.php");
+        require("header.html");
+    }
+}
 
 ?>
 
