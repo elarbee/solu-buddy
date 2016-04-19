@@ -170,7 +170,7 @@ function fill_fields(page){
         }
         else if(page == 'CONC'){
 
-            var solute_molarity = parseFloat($('#solution_concentration').val());
+            var solute_molarity = parseFloat($('#solute_concentration').val());
             var mass_percent = parseFloat($('#solute_percent_mass').val());
             var density = parseFloat($('#density').val());
 

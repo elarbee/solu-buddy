@@ -7,6 +7,12 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
+    //Plugins
+    plugins: [
+      'karma-jasmine',
+      'karma-coverage',
+      'karma-firefox-launcher'
+    ],
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -15,11 +21,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'static/js/solution.js',
-      'static/js/utility.js',
-      'static/js/formula.js',
-      'static/js/elements.js',
-      'static/js/calculator.js'
+        'static/js/solution.js',
+        'static/js/utility.js',
+        'static/js/formula.js',
+        'static/js/elements.js',
+        'static/js/calculator.js',
+        'testing/spec/*.js'
     ],
 
 
@@ -31,9 +38,19 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-	'*.js': ['coverage']
+        'static/js/solution.js' : ['coverage'],
+        'static/js/utility.js': ['coverage'],
+        'static/js/formula.js': ['coverage'],
+        'static/js/elements.js': ['coverage'],
+        'static/js/calculator.js': ['coverage'],
+        'testing/spec/*.js' : ['coverage']
     },
 
+    // preprocessors : {
+    //   '**/app/js/*/*.js' : 'coverage',
+    //   '**/app/js/modules/*/*.js' : 'coverage',
+    //   '**/app/js/services/*/*.js' : 'coverage'
+    // },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
