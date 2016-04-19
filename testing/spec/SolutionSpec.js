@@ -8,7 +8,6 @@ describe('Solution.js testing', function() {
     it('Should be able to create its compounds accurately.', function() {
 
         expect(solution.solute.formula).toEqual('NaCl');
-        expect(solution.solvent.formula).toEqual('H2O');
         expect(solution.volume).toEqual(1);
         expect(solution.solution_concentration).toEqual(1.5);
         expect(solution.single.sol.solution_calculator.solid()).toEqual(87.66405);

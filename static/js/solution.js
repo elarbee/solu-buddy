@@ -47,7 +47,7 @@ function Solution(solute, solvent, volume, target_concentration){
 
     /* Fields required for all solutions */
     self.solute = string_to_compound(solute);
-    self.solvent = string_to_compound(solvent);
+    self.solvent = solvent;
     self.volume = volume;
     self.solution_concentration = target_concentration;
     /*----------------------------------------------------*/
