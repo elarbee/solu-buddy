@@ -127,8 +127,9 @@ function SingleDilution(target_molarity, target_volume){
      */
     self.vol_transfer = function calculate_transferred_volumetric_volume(solute, solute_mass_percent, density){
 
+        var solution = new SingleSolution(target_molarity, target_volume, solute.molecular_weight());
         //mass to add if mass/vol % was 100 for the solute.
-        var minimum_vol_to_add = new SingleSolution(target_molarity, target_volume, solute.molecular_weight()).liquid.volume(density);
+        var minimum_vol_to_add = solution.liquid.volume(density);
 
         return minimum_vol_to_add * (100/solute_mass_percent);
     };

@@ -194,15 +194,6 @@ function Solution(solute, solvent, volume, target_concentration){
         return description;
     };
 
-    // self.generic_steps = function(){
-    //     var desc = "<br />Steps to produce " + self.description() + "<br />" +
-    //         "1) Choose a final volume and container for your solution. <br />" +
-    //         "2) Choose a goal concentration for your solution. <br />" +
-    //         "3) Calculate amount of solute necessary (g) using <br /> " +
-    //         "   concentration, volume, and the solute's molecular weight <br />" +
-    //         "4) Carefully measure out <br /> ";
-    // };
-
 
     return self;
 
