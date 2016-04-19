@@ -28,7 +28,7 @@
 <div id="headerDiv">
     <h2>Making Calibration Standards by Internal Standards Method</h2>
 </div>
-<div id="divContainer">
+<div class="container">
     
         <?php
         //Include the 'Make it Now' modal.
@@ -45,25 +45,32 @@
     
     <!-- Table used for Internal Standards Method -->
 	<div class="row">
-		<div class="col-md-4 col-sm-4"><p class="stockText">Stock Solution of analyte</p></div>
-		<div class="col-md-4 col-sm-4"><button type="button" id="makeItNowButton1" class="makeItNowButton">Make It Now!</button></div>
-		<div class="col-md-4 col-sm-4"><button type="button" id="savedSolution1" class="savedSolButton">Use Saved Solution!</button></div>
-		<div class="col-md-4 col-sm-4"><button type="button" id="completedSolution1" class="completedSolButton" hidden disabled>Analyte Stock Solution Completed!</button></div>
+		<div class="col-md-4 col-sm-12"><p class="stockText">Stock Solution of analyte</p></div>
+		<div class="col-md-4 col-sm-12"><button id="makeItNowButton1" class="makeItNowButton">Make It Now!</button></div>
+		<div class="col-md-4 col-sm-12"><button id="savedSolution1" class="savedSolButton">Use Saved Solution!</button></div>
+		<div class="col-md-4 col-sm-12"><button id="completedSolution1" class="completedSolButton" hidden disabled>Analyte Stock Solution Completed!</button></div>
 	</div>
 	<div class="row">
-		<div class="col-md-4 col-sm-4"><p class="stockText">Stock Solution of Internal Standard</p></div>
-		<div class="col-md-4 col-sm-4"><button type="button" id="makeItNowButton2" class="makeItNowButton">Make It Now!</button></div>
-		<div class="col-md-4 col-sm-4"><button type="button" id="savedSolution2" class="savedSolButton">Use Saved Solution!</button></div>
-		<div class="col-md-4 col-sm-4"><button type="button" id="completedSolution2" class="completedSolButton" disabled hidden>Internal Standard Stock Solution Completed!</button></div>
+		<div class="col-md-4 col-sm-12"><p class="stockText">Stock Solution of Internal Standard</p></div>
+		<div class="col-md-4 col-sm-12"><button id="makeItNowButton2" class="makeItNowButton">Make It Now!</button></div>
+		<div class="col-md-4 col-sm-12"><button id="savedSolution2" class="savedSolButton">Use Saved Solution!</button></div>
+		<div class="col-md-4 col-sm-12"><button id="completedSolution2" class="completedSolButton" disabled hidden>Internal Standard Stock Solution Completed!</button></div>
 	</div>
 	<div class="row">
-		<div class="col-md-4 col-sm-4"><input name="unknown" id="unknown" type="text" placeholder="Name of Unknown"></div>
-		<div class="col-md-4 col-sm-4"><input name="num_standards" id="num_standards" type="text" placeholder="Number of Calibration Standards" ></div>
-		<div class="col-md-4 col-sm-4"><input name="volume_standards" id="volume_standards" type="text" placeholder="Volume of Calibration Standard Flasks"></div>
+		<div class="col-md-4 col-sm-12"><p class="regText">Enter name for your Unknown</p></div>
+		<div class="col-md-4 hidden-sm hidden-xs"><p class="regText">How many calibrations will there be?</p></div>
+		<div class="col-md-4 hidden-sm hidden-xs"><p class="regText">What is the total volume of the calibration flasks?</p></div>
 	</div>
-	<input type="hidden" name="solution_type" value="calibration_internal">
-
-	<button type="button" id="nextButton" class="nextButton">Next</button>
+	<div class="row">
+		<div class="col-md-4 col-sm-12"><input id="unknown" type="text" placeholder="Name of Unknown"></div>
+		<div class="hidden-xl hidden-lg hidden-md col-sm-12"><p class="regText">How many calibrations will there be?</p></div>
+		<div class="col-md-4 col-sm-12"><input id="num_standards" type="text" placeholder="Number of Calibration Standards" ></div>
+		<div class="hidden-xl hidden-lg hidden-md col-sm-12"><p class="regText">What is the total volume of the calibration flasks?</p></div>
+		<div class="col-md-4 col-sm-12"><input id="volume_standards" type="text" placeholder="Volume of Calibration Standard Flasks"></div>
+	</div>
+	<div class="row">
+		<button id="nextButton" class="nextButton">Next</button>
+	</div>
 
 <div>
 	
