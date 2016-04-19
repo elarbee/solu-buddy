@@ -1,44 +1,82 @@
-    <div class="input-div">
-        Solvent Formula <input name="solvent_formula" id = "solvent_formula" type="text" placeholder="Solvent Formula"> <br>
-        Solute Formula <input name="solute_formula" id = "solute_formula" type="text" placeholder="Solute Formula"><br>
-        Solute Molecular Weight <input name="solute_molec_weight" id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"><br>
-        Solution Total Volume (mL) <input name="total_volume" id = "total_volume" type="text" placeholder="Solution Total Volume (mL)"><br>
-        Sol'n Concentration (mol/L) <input name="solution_concentration" id = "solution_concentration" type="text" placeholder="Sol'n Concentration (mol/L)"><br>
-        Mass of Solute to Add (g) <input name="massToAdd" id="massToAdd" type="text" placeholder="Mass of Solute to Add"><br>
-        <input type="hidden" name="solution_type" value="single_solid">
-    </div>
-
-	<div class="inline-div">
-		<img src="beaker.png" style="width:150px">
-        <br>
-        <?php
-            //This code handles whether or not the solution is passed on to another page.
-            //If it is null the solution will be solved here.
-            if(isset($_GET['passTo'])){
-
-                if($_GET['passTo'] == $GLOBALS['SERIAL']){
-                    include 'content/serialForm.php';
-                }
-
-                elseif($_GET['passTo'] == 'calibration1' or $_GET['passTo'] == 'calibration2'){
-                    include 'content/calibrationForm.php';
-                }
-            }
-            else{
-                echo "<button type=\"button\" id=\"nextButton\" onclick=\"next_check('". $_GET['value'] . "')\">Next</button>";
-            }
-
-        ?>
+<div id="content" class="container">
+<div class="row">
+	<div class=" col-lg-5 col-md-12 col-xs-12">
+			<div class="row">
+				<div class="col-lg-5 col-md-12 regText">Solvent Formula</div>
+				<div class="col-lg-5 col-md-12"><input name="solvent_formula" id = "solvent_formula" type="text" placeholder="Solvent Formula"></div>
+				<div class="col-lg-2"></div>
+				<br>
+			</div>
+			<div class="row">
+				<div class="col-lg-5 col-md-12 regText">Solute Formula</div>  
+				<div class="col-lg-5 col-md-12"><input name="solute_formula" id = "solute_formula" type="text" placeholder="Solute Formula"></div> 
+				<div class="col-lg-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-lg-5 col-md-12 regText">Solute Molecular Weight</div>  
+				<div class="col-lg-5 col-md-12"><input name="solute_molec_weight" id = "solute_molec_weight" type="text" placeholder="Solute Molecular Weight"></div> 
+				<div class="col-lg-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-lg-5 col-md-12 regText">Solution Total Volume (mL)</div>  
+				<div class="col-lg-5 col-md-12"><input name="total_volume" id = "total_volume" type="text" placeholder="Solution Total Volume (mL)"></div> 
+				<div class="col-lg-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-lg-5 col-md-12 regText">Sol'n Concentration (mol/L)</div>  
+				<div class="col-lg-5 col-md-12"><input name="solution_concentration" id = "solution_concentration" type="text" placeholder="Sol'n Concentration (mol/L)"></div> 
+				<div class="col-lg-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-lg-5 col-md-12 regText">Mass of Solute to Add (g)</div>  
+				<div class="col-lg-5 col-md-12"><input name="massToAdd" id="massToAdd" type="text" placeholder="Mass of Solute to Add"></div> 
+				<div class="col-lg-2"></div>
+			</div>
 	</div>
+	<div class="col-lg-7 col-sm-12">
+		<div class="row">
+			<div class="hidden-xl col-lg-12 hidden-md hidden-sm hidden-xs vertical-align picturePadding">
+				<div class="col-lg-4 vertical-align-bottom"><img src="beaker.png" style="width:150px"></div>
+				<div class="col-lg-4 vertical-align-bottom"><img src="scale.png" style="width:150px"></div>
+				<div class="col-lg-4 vertical-align-bottom"><img src="solid.png" style="width:150px"></div>
+			</div>
+			<div class="hidden-xl hidden-lg col-md-12 hidden-sm hidden-xs vertical-align picturePadding">
+				<div class="col-md-2"></div>
+				<div class="col-md-3 vertical-align-bottom"><img src="beaker.png" style="width:130px"></div><br>
+				<div class="col-md-3 vertical-align-bottom"><img src="scale.png" style="width:130px"></div><br>
+				<div class="col-md-3 vertical-align-bottom"><img src="solid.png" style="width:130px"></div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="hidden-xl hidden-lg hidden-md col-xs-12 vertical-align picturePadding">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3 vertical-align-bottom"><img src="beaker.png" style="width:100px"></div><br>
+				<div class="col-sm-3 vertical-align-bottom"><img src="scale.png" style="width:100px"></div><br>
+				<div class="col-sm-3 vertical-align-bottom"><img src="solid.png" style="width:100px"></div>
+				<div class="col-sm-2"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<?php
+				//This code handles whether or not the solution is passed on to another page.
+				//If it is null the solution will be solved here.
+				if(isset($_GET['passTo'])){
 
-	<div class="inline-div">
-		<img src="scale.png" style="width:150px">
-        <br>
-        <button type="button" onClick="window.location.href='../'">SoluBuddy Home</button> <!-- TODO: change to link plz-->
+					if($_GET['passTo'] == $GLOBALS['SERIAL']){
+						include 'content/serialForm.php';
+					}
+
+					elseif($_GET['passTo'] == 'calibration1' or $_GET['passTo'] == 'calibration2'){
+						include 'content/calibrationForm.php';
+					}
+				}
+				else{
+					echo "<button type=\"button\" id=\"nextButton\" class=\"nextButton\" onclick=\"next_check('". $_GET['value'] . "')\">Next</button>";
+				}
+			?>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><button type="button" onclick="" class="howButton">How do I calculate this?</button></div>
+		</div>
 	</div>
-
-	<div class="inline-div">
-		<img src="solid.png" style="width:150px">
-        <br>
-		<button type="button" onclick="">How do I calculate this?</button>
-	</div>\
+	</div>
+</div>

@@ -1,15 +1,3 @@
-
-@media (min-width: 565px){
-	.titleImage {
-		width: 565px;
-	}
-}
-@media (max-width: 565px){
-	.titleImage {
-		width: 100%;
-	}
-}
-
 /* Background Image */
 html{
     background: url(../static/images/lab.jpg) no-repeat center center fixed;
@@ -22,15 +10,40 @@ html{
 html,body{
     width:100%;
     text-align: center;
+	font-size: 15px;
+	margin: 0px;
 }
 
-#inputDiv{
+#headerDiv {
+	text-align: center;
+    font-family: sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+	word-wrap: break-word;
+	width: 100%;
+	height: auto;
+}
+
+.titleImage{
+	  max-width: 100%;
+	  max-height: 100%;
+	  display: block;
+	  margin: auto;
+}
+
+
+/*Grey background for input section*/
+.grey-div{
     color:white;
-    background: rgba(40,40,40,0.6);
+    background: rgba(40,40,40,0.8);
     border: 1px solid white;
     border-radius: 10px;
     display: inline-block;
     padding: 20px;
+	margin: 10px;
+	text-align: center;
+	height: auto;
+	width: auto;
 }
 
 /*Place holder text color. Probably only works in Chrome */
@@ -38,7 +51,7 @@ html,body{
     color: white;
 }
 
-
+/*Content id and its classes are applied inside the grey div for textfields, text, and buttons*/
 #content input,#content button {
     color:white;
     height:3.7em;
@@ -63,6 +76,10 @@ html,body{
 	border-radius:20px;
 }
 
+#content button:hover {
+    background: RGBa(245, 245, 245, 0.4);
+}
+
 #content button.nextButton{
 	background: #92d050;
 	margin-top: 60px;
@@ -71,14 +88,27 @@ html,body{
 	font-size: 20px;
 	border-radius:40px;
 }
+
+#content button.howButton{
+	background: #6495ed;
+	margin-top: 60px;
+	height: 65px;
+	width: 260px;
+	font-size: 20px;
+	border-radius:40px;
+}
+/*blue*/
 #content button.makeItNowButton{
 	background: #6495ed;
 }
 
+
+/*yellow*/
 #content button.savedSolButton {
 	background: #ffff94;
 }
 
+/*What the default for most text will look like*/
 #content .regText{
 	position: relative;
 	top: 50%;
@@ -86,11 +116,12 @@ html,body{
 	-ms-transform: translateY(-50%);
 	transform: translateY(-40%);
 	font-size: 18px;
-	margin-top: 2em;
+	margin-top: 3em;
 	padding-bottom:0px;
 	margin-bottom: -2em;
 	
 }
+/*Used for stock solution text in the Internal calibration standard page*/
 #content .stockText{
 	/*Vertically aligns text even if it's double lined*/
 	position: relative;
@@ -104,6 +135,7 @@ html,body{
 	font-weight: 600;
 }
 
+
 #content .altStockText{
 	margin-top:60px;
 	margin-bottom: -20px;
@@ -112,18 +144,147 @@ html,body{
 	font-weight: 600;
 }
 
-#headerDiv h2{
-    color: white;
-    margin-top: 100px;
-    text-align: center;
-    font-family: sans-serif;
-}
-
 #content hr{
     color: black;
     width: 80%;
 }
 
-#inputDiv {
-	width: 80%;
+
+
+#largeBeakerImg{
+    width: 180px;
+}
+
+#smallBeakerImg{
+    width: 130px;
+}
+
+#myAlert{
+    display: none;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    border: 1px solid white;
+}
+
+/*Use on pictures in single solution*/
+.vertical-align {
+    display: flex;
+    align-items: center;
+	justify-content: center;
+}
+/*Lines up pictures in the single solutions*/
+.vertical-align-bottom{
+	align-self: flex-end;
+}
+
+.picturePadding {
+	margin-top: 7em;
+}
+
+.inline-div {
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
+}
+
+.input-div{
+    display: inline-block;
+    margin: 20px;
+    text-align: right;
+    color: white;
+}
+
+.caption {
+    position: relative;
+    bottom: 125px;
+    text-align: center;
+}
+
+.stepsTexBox{
+    text-align: left;
+    background-color: rgba(42,42,42,.75);
+    color: white;
+    font-size: medium;
+    padding: 20px;
+
+}
+
+/* Answer page style */
+#answerDiv{
+    display: none;
+    margin:15px;
+    color:black;
+    text-align: center;
+    background: rgba(40,40,40,0.6);
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+#answerButtonsDiv {
+    padding-bottom: 40px;
+}
+
+#answerButtonsDiv button {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#arrowContainer{
+    text-align: center;
+}
+
+#arrowContainer img{
+    height: 35px;
+    width: 100px;
+    margin-top: 10px;
+    cursor:pointer;
+}
+
+#molarity, #molarityValue{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#stockSolutionDiv .blueArrow{
+    right: -50px;
+}
+
+#answerBeaker {
+    height: 323px;
+}
+
+.flaskDescription {
+    position: relative;
+    bottom:-35px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.flaskDescription {
+    position: relative;
+    bottom:-35px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.flaskImgAndNumberDiv{
+    height: 217px;   
+}
+
+.flaskImgAndNumberDiv p{
+    margin-top: 0; 
+    position: relative;
+    bottom:2em;
+    font-size: 1.5em;
+}
+
+.blueArrow{
+    position: absolute;
+    right: 0px;
+    top:40%;
+}
+
+.dilutionFlask{
+    position: relative;
+    width:225px;
 }

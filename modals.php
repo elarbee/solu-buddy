@@ -63,15 +63,15 @@
 </script>
 
 <!-- Modal 2-->
-<div id="modal-2" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-sm">
+<div id="modal-2" class="modal fade" style="margin-top:9em;" role="dialog">
+  <div id="loginModal" class="modal-dialog modal-sm">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" id ="popups">
+      <div class="modal-header header" id ="popups">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" >Sign Up</h4>
 		</div>
-      <div class="modal-body">
+      <div id="loginModal" class="modal-body body">
         <form action="/accounts/soluRegistration.php?next=<?php echo $_SERVER['REQUEST_URI']; ?>" id = "signup" method="post">
 					<input type = "text" name="firstname" id="textbox" placeholder="First name"><br>
 					<input type = "text" name="lastname" id="textbox" placeholder="Last name"><br>
@@ -81,9 +81,9 @@
 					<span id="confirmMessage" class="confirmMessage"></span><br>
                     <span id="invalidChars" class="availableMessage"></span>
 
-      <div class="modal-footer">
-      	<input type="submit" class="btn btn-success" name="submit" id="signupSubmit" value="Sign Up">
-        <input type="button" class="btn btn-primary" data-dismiss="modal" value="Cancel">
+      <div class="modal-footer footer">
+      	<input type="submit" class="submit" name="submit" id="signupSubmit" value="Sign Up">
+        <input type="button" class="cancel" data-dismiss="modal" value="Cancel">
       </div>
       </form>
       </div>

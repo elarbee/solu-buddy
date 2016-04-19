@@ -1,0 +1,47 @@
+#loginModal input{
+	color:white;
+    height:3em;
+    background: rgba(42,42,42,1);
+    border: 1px solid white;
+	border-radius: 6px;
+	padding:1em;
+	margin-bottom:1em;
+    width: auto;
+    text-align: left;
+}
+
+#loginModal input.submit{
+	padding:0;
+	margin-top:0;
+	margin:auto;
+	color: black;
+	font-weight: 600;
+	width: 6em;
+	background: #92d050;
+	text-align: center;
+}
+
+#loginModal input.cancel{
+	padding:0;
+	margin-top:0;
+	margin:auto;
+	color: black;
+	font-weight: 600;
+	width: 6em;
+	background: #6495ed;
+	text-align: center;
+}
+
+#loginModal .header {
+	color: white;
+	background: black;
+	opacity: 0.8;
+}
+
+#loginModal .footer {
+	background: rgba(42,42,42,0.5);
+}
+
+#loginModal .body{
+	background: rgba(42,42,42,0.4);
+}
