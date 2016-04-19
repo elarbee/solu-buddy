@@ -1,0 +1,68 @@
+li li a {
+	font-size: 18px;
+	font-weight: 750;
+}
+
+li:hover li a:hover {
+	color: white;
+	background: #282828;
+}
+
+#myNavbar button {
+	color: white;
+    background: transparent;
+    height:2em;
+	width: 6.5em;
+	font-size:20px;
+    border: 2px solid white;
+    border-radius: 10px;
+	margin:auto;
+}
+
+#myNavbar button:hover{
+   background: RGBa(245,245,245,0.4); 
+   border-top-color: grey;
+}
+
+#myNavbar button:active{
+	border-bottom-color: grey;
+	border-radius: 10px;
+}
+
+
+
+#popups{
+	background-color: #1278b6;
+}
+
+#bodyDefault {
+	background-image: url('../images/home3.jpg');
+	background-color: #212121;
+	background-repeat: no-repeat;
+	height: 100%;
+	background-size: cover;
+	background-position: -50px 78px;
+}
+
+.navbar-nav > li {
+	text-align: center;
+}
+
+.navbar-right {
+	color: white;
+}
+
+@media (min-width: 768px) {
+	.navbar-nav > li > a {
+		margin-top: 20px;
+	}
+	.navbar-right {
+		margin-top: 20px;
+	}
+	.navbar-right li{
+		margin-right: 16px;
+	}
+	.logged-message {
+		margin-top: 15px;
+	}
+}

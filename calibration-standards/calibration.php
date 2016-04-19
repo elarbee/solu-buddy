@@ -21,7 +21,6 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <script src="/static/js/solutionObjectBuilder.js"></script>
     
 	<link rel="stylesheet" type="text/css" href="/shared-content/InputStyle.css">
-    <link rel="stylesheet" type="text/css" href="calibrationStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/css/navBar.css">
 
 </head>
@@ -36,7 +35,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     
     <div id="content" class="text-center">
         <img src="calibration.png" class="titleImage"><br><br>
-        <div id="inputDiv" class="grey-div">
+        <div class="grey-div">
             <?php // Dynamically load one of three pages based on the value of '$_GET['value ']' //Make sure a value is passed in if(isset($_GET[ "value"])){ //If it 's the external calibrations page.
                 if ($_GET["value"] == $GLOBALS['EXTERNAL']) {
                     include 'content/external.php';
