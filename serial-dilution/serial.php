@@ -22,29 +22,24 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <!-- Big decimal javascript used for floating point precision -->
     <script src="big.min.js"></script>
     <script src="serialPage.js"></script>
-	<link rel="stylesheet" type="text/css" href="/single-solution/singleStyle.css">
-    <link rel="stylesheet" type="text/css" href="serialStyle.css">
+
 	<link rel="stylesheet" type="text/css" href="/shared-content/InputStyle.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/navBar.css">
     <title>Solubuddy - Serial Dilution</title>
 </head>
 <body>
+
 <!-- Solution Input page -->
-<form id="solutionForm" onclick="event.preventDefault();">
 <div id="content" class="text-center">
     <img src="serial.png" class="titleImage"><br><br>
-    <div id="inputDiv" class="grey-div">
-        <div id="headerDiv">
-            <h3>Fill in the fields below to set up the dilution series</h3>
-        </div>
-        <?php
-            include "content/serialTable.php";
-        ?>
+    <div class="grey-div">
+            <?php
+                include "content/serialTable.php";
+            ?>
         <div id="myAlert" class="alert alert-danger">
             <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
         </div>
     </div>
-</div>
 
     
 <!-- This is the answer page -->
