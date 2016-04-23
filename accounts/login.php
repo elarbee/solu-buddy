@@ -1,35 +1,43 @@
 <?php 
 session_start();
-
+mysqli_report(MYSQLI_REPORT_ERROR);
 // Connect to database
 require_once 'soluMySQLConnect.php';
 
 $username = $_POST['username'];
-$_SESSION["username"] = $username;
 $password = $_POST['password'];
-$_SESSION["password"] = $password;
 $encrypt_password=md5($password);
 
 // Redirect back to the specified page or go to the homepage if not specified.
 $return_page = $_GET['next'] ?: '/index.php';
 
-$query = "SELECT Username, Password FROM accounts WHERE username = '$username' AND password = '$encrypt_password'";
-$result = mysqli_query($dbc, $query);
-if (!$result) {
-	echo 'Could not run query: ' . mysqli_error();
-	exit;
-}$row = mysqli_fetch_array($result);
+$statement = mysqli_prepare($dbc, "SELECT Username FROM accounts WHERE Username=? AND Password=?");
+mysqli_stmt_bind_param($statement, 'ss', $username, $encrypt_password);
 
-if (mysqli_num_rows($result) == 1) {
-	$_SESSION['loggedIn'] = true;
-    header("Refresh: 0; $return_page");
-	exit();
-} 
-else if (mysqli_num_rows($result) < 1) {
-     echo("Bad username and password. <br> Redirecting back to page...");
-	 header("Refresh: 2; $return_page");
+$statementWorked = mysqli_stmt_execute($statement);
+
+if (!$statementWorked) {
+	echo 'Could not run query: ' . mysqli_stmt_error($statement);
+	mysqli_stmt_close($statement);
+	mysqli_close($dbc);
+	exit;
 }
 
-mysqli_close($dbc);
+mysqli_stmt_bind_result($statement, $dbUser);
+mysqli_stmt_fetch($statement);
+// If we have a user returned then they entered the correct information
+if ($dbUser) {
+	$_SESSION["username"] = $username;
+	$_SESSION['loggedIn'] = true;
+    header("Refresh: 0; $return_page");
+	mysqli_stmt_close($statement);
+	mysqli_close($dbc);
+}
+else {
+	echo("Bad username and password. <br> Redirecting back to page...");
+	mysqli_stmt_close($statement);
+	mysqli_close($dbc);
+	header("Refresh: 2; $return_page");
+}
 ?>
 
