@@ -86,7 +86,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $row['Solution_Total_Volume']; ?> mL</td>
                             <td><?= $row['Solution_Concentration']; ?> mol/L</td>
                             <td><?= $row['Mass_Solute_Add']; ?> g</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>">Delete</a></td>
+                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=single_sol_solid">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
@@ -134,7 +134,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $row['Solution_Total_Volume']; ?> mL</td>
                             <td><?= $row['Solution_Concentration']; ?> mol/L</td>
                             <td><?= $row['Mass_Solute_Add']; ?> g</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>">Delete</a></td>
+                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=single_sol_liq_grav">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
@@ -184,7 +184,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $row['Solution_Total_Volume']; ?> mL</td>
                             <td><?= $row['Solution_Concentration']; ?> mol/L</td>
                             <td><?= $row['Volume_Solute_Add']; ?> mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>">Delete</a></td>
+                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=single_sol_liq_vol">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
@@ -234,7 +234,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $row['Dilution_Flask_Volume']; ?> mL</td>
                             <td><?= $row['Number_Flasks']; ?></td>
                             <td><?= $row['Volume_Transfer']; ?> mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>">Delete</a></td>
+                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=serial">Delete</a></td>
                         </tr>
                         </tbody>
                         <?php
@@ -284,7 +284,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $row['Unknown_Name']; ?></td>
                             <td><?= $row['Number_Standards']; ?></td>
                             <td><?= $row['Flask_Volumes']; ?> mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>">Delete</a></td>
+                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=calibration_ext">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
@@ -332,7 +332,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $row['Unknown_Name']; ?></td>
                             <td><?= $row['Number_Standards']; ?></td>
                             <td><?= $row['Flask_Volumes']; ?> mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>">Delete</a></td>
+                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=calibration_add">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
@@ -382,7 +382,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $row['Unknown_Name']; ?></td>
                             <td><?= $row['Number_Standards']; ?></td>
                             <td><?= $row['Flask_Volumes']; ?>mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>">Delete</a></td>
+                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=calibration_int">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
