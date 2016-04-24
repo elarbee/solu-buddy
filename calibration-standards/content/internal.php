@@ -68,6 +68,7 @@
 		<div class="hidden-xl hidden-lg hidden-md col-sm-12"><p class="regText">What is the total volume of the calibration flasks?</p></div>
 		<div class="col-md-4 col-sm-12"><input id="volume_standards" type="text" placeholder="Volume of Calibration Standard Flasks"></div>
 	</div>
+	<input type="hidden" name="solution_type" value="calibration_internal">
 	<div class="row">
 		<button id="nextButton" class="nextButton">Next</button>
 	</div>

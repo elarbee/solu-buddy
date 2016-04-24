@@ -27,6 +27,7 @@
 		<div class="hidden-xl hidden-lg hidden-md col-sm-12"><p class="regText">What's your solute's Molecular weight? (M)</p></div>
         <div  class="col-md-4 col-sm-12"><input id="volumeTransferred" type="number" placeholder="Solution Transferred Vol" tabindex="6"></div>
     </div>
+	<input type="hidden" name="solution_type" value="serial">
 	<div class="row">
 		<div class="col-md-12"><button id="nextButton" class="nextButton">Next</button></div>
 	</div>

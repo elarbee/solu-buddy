@@ -37,6 +37,8 @@
 				<div class="col-lg-5 col-md-12"><input name="massToAdd" id="massToAdd" type="text" placeholder="Volume of Solute to Add"></div> 
 				<div class="col-lg-2"></div>
 			</div>
+		<input type="hidden" name="solution_type" value="single_liquid_vol">
+
 	</div>
 	<div class="col-lg-7 col-sm-12">
 		<div class="row">

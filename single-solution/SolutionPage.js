@@ -32,13 +32,10 @@ function next_check(page){
              * in one message box to avoid an 'intrusive' number of message boxes popping up.*/
             msg += "Solute formula is not valid.<br/>";
         }
-        if(!is_valid_formula($("#solvent_formula").val())){
-            all_clear = false;
-            msg += "Solvent formula is not valid.<br/>";
-        }
+
 
         //Checks other fields for emptiness.
-        if($("#solute_molec_weight").val() == "" || $("#total_volume").val() == "" || $("#solution_concentration").val() == "" ||
+        if($('#solvent_formula').val() == "" || $("#solute_molec_weight").val() == "" || $("#total_volume").val() == "" || $("#solution_concentration").val() == "" ||
             $("#massToAdd").val() == ""){
 
             msg += "Please fill in the empty fields.<br/>";
@@ -93,7 +90,6 @@ function fill_fields(page){
     try {
 
         /* Collects variables from input fields and creates other necessary variables using the input variables */
-        var solvent_compound = string_to_compound($("#solvent_formula").val());
         var solute_compound = string_to_compound($("#solute_formula").val());
 
         /* Obtains the molecular weight for the compound using a formula in the compound object.*/
