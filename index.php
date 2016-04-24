@@ -37,7 +37,6 @@ renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings"
                       <option value="SOLID">It is a pure solid, i.e. in a bottle, and I will add it by mass.</option>
                       <option value="liquid">It is a pure (i.e., neat) liquid.</option>
                       <option value="CONC">It is a concentrated stock solution (like conc. HCL or NaOH).</option>
-                      <option value="saved">It is in a solution that I created (and saved) previously.</option>
                     </select>
                     <br>
                     <button id="singleButton" type="submit">Go</button>
