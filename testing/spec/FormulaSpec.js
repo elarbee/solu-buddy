@@ -271,6 +271,11 @@ describe('compound creation', function(){
 
     });
 
+    describe("Accept ionic formulas", function(){
+       it("Should be able to approve of formulas with ionic compounds.", function () {
+          expect(is_valid_formula("(NaCl)(H2O)4")).toEqual(true);
+       });
+    });
     
     describe('string_to_compounds(str) testing', function() {
     

@@ -3,6 +3,11 @@
  */
 
 var ionic_reg = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g;
+
+var match_ionic = /(\(([A-Z][a-z]?\d*)*\)\d*)*/g;
+
+var match_non_ionic = /([A-Z][a-z]?\d*)+/g;
+
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
 var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
@@ -118,8 +123,11 @@ function string_to_compound(input){
     //Gets segments from the leftover formula.
     var segments = string_to_compound_segments(formula);
 
-    var components = segments_to_compound_components(segments);
-
+    try {
+        var components = segments_to_compound_components(segments);
+    }catch (e){
+        console.log("formula = " + input);
+    }
     var comp = new Compound(components, parseInt(compound_qty), input);
 
     if(sub_compounds != null){
@@ -127,6 +135,7 @@ function string_to_compound(input){
     }
 
     return comp;
+
 }
 
 
@@ -172,9 +181,14 @@ function Compound_Component(symbol, qty){
 function is_valid_formula(str) {
 
 
-    var isValid = /\d*[A-Z]{1}[a-z]?\d*/.test(str).valueOf();
+
+    var isValid = /(([A-Z][a-z]?\d*)+(\([A-Z][a-z]?\d*\))*)+/g.test(str).valueOf();
     var formulaString = str;
     var qty = 0;
+
+    if(str.contains("(") || str.contains(")")){
+        return /(([A-Z][a-z]?\d*)+(\([A-Z][a-z]?\d*\))*)+/g.test(str).valueOf();
+    }
 
     /* Gets rid of the leading number for validation*/
     if(/^\d+/.test(str)){
@@ -200,7 +214,7 @@ function is_valid_formula(str) {
                 return false;
             }
 
-            acceptedSegmentLengths += segment.length; //increment length of accepted segments
+            //acceptedSegmentLengths += segment.length; //increment length of accepted segments
         }
 
 
@@ -305,6 +319,8 @@ function split_sub_compound(str){
  */
 function segments_to_compound_components(segments){
     var components = [];
+
+
     /*
      Populate components array with components created from the parsed string.
      */
@@ -319,7 +335,10 @@ function segments_to_compound_components(segments){
         var quantity = parseInt(pieces[2]) || 1; //default qty is 1
 
         var component = new Compound_Component(element, quantity);
-        components.push(component);
+
+        if(component != undefined){
+            components.push(component);
+        }
     }
 
     return components;

@@ -129,8 +129,4 @@ describe("Utility Functions", function() {
         });
     });
 
-
-
-
-
 });
