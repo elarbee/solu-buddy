@@ -239,6 +239,20 @@ describe('compound creation', function(){
 
         });
 
+        it('should be able to create very long compounds', function(){
+
+            var form1 = '100C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)' +
+                '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3'+
+                '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3'+
+                '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3'+
+                '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3';
+
+            var comp = string_to_compound(form1);
+            expect(comp.components[0].element.symbol).toEqual('C');
+            expect(comp.total_molecular_weight()).toEqual(1019950.8400000001);
+            expect(comp.quantity).toEqual(100);
+        });
+
 
 
         //TODO: make more tests here. need to test more complex compounds

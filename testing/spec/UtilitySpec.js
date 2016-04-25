@@ -118,12 +118,12 @@ describe("Utility Functions", function() {
         });
     });
 
-    describe("Random, random, random!", function(){
+    describe("Random element creation.", function(){
 
-        it("should be random!", function(){
+        it("Should never return an invalid element.", function(){
 
-            for(var i = 0; i < 10; i++){
-                expect(find_element(getRandomElementKey())).toBeNull();
+            for(var i = 0; i < 100000; i++){
+                expect(find_element(getRandomElementKey())).toBeDefined();
             }
 
         });

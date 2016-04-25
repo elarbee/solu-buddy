@@ -2,9 +2,7 @@
  * Created by Howerton on 2/23/2016.
  */
 
-//var split_ionic_reg = /([(]{1}([A-Z]{1}[a-z]?\d*)+[)]{1}(\d*))/g;
 var ionic_reg = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g;
-
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
 var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
@@ -172,6 +170,7 @@ function Compound_Component(symbol, qty){
  *
  * */
 function is_valid_formula(str) {
+
 
     var isValid = /\d*[A-Z]{1}[a-z]?\d*/.test(str).valueOf();
     var formulaString = str;
