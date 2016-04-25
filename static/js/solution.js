@@ -104,40 +104,43 @@ function Solution(solute, solvent, volume, target_concentration){
     };
 
     self.concentrated.steps_html_mol = function(solute_molarity){
+        var dilution = new SingleDilution(self.solution_concentration, self.volume);
         var desc = "<br />Steps to produce " + self.concentrated.mol_description(solute_molarity) + "<br /><br />" +
             "1) Pick a container that can safely contain "+ self.volume +"L<br />" +
-            "2) Calculate amount of solute necessary ("+ self.single.sol.solution_calculator.solid()+"g) using: <br /> " +
+            "2) Calculate amount of solute necessary ("+ dilution.solute_volume(solute_molarity)+"L) using: <br /> " +
             "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "M<br />" +
             "\u00A0\u00A0\u00A0\u00A0b. chosen volume: "+ self.volume + "L<br />" +
             "\u00A0\u00A0\u00A0\u00A0c. solute's molecular weight: "+self.solute.molecular_weight() +"g<br />" +
-            "4) Carefully measure out " + self.single.sol.solution_calculator.solid() + "g of " + solute + "<br /> " +
+            "4) Carefully measure out " + dilution.solute_volume(solute_molarity) + "L of " + solute + "<br /> " +
             "5) Using standard methods, transfer the solute to your flask.<br /> " +
             "6) Add solvent (" + solvent + ") to your solution until you reach " + self.volume + "<br /> ";
 
         return desc;
     };
     self.concentrated.steps_html_grav = function(mass_percent){
+        var dilution = new SingleDilution(self.solution_concentration, self.volume);
         var desc = "<br />Steps to produce " + self.concentrated.grav_description(mass_percent) + "<br /><br />" +
             "1) Pick a container that can safely contain "+ self.volume +"L<br />" +
-            "2) Calculate amount of solute necessary ("+ self.single.sol.solution_calculator.solid()+"g) using: <br /> " +
+            "2) Calculate amount of solute necessary ("+ dilution.grav_mass(self.solute, mass_percent)+"g) using: <br /> " +
             "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "M<br />" +
             "\u00A0\u00A0\u00A0\u00A0b. chosen volume: "+ self.volume + "L<br />" +
             "\u00A0\u00A0\u00A0\u00A0c. solute's % mass: "+ mass_percent +"g<br />" +
-            "4) Carefully measure out " + self.single.sol.solution_calculator.solid() + "g of " + solute + "<br /> " +
+            "4) Carefully measure out " + dilution.grav_mass(self.solute, mass_percent) + "g of " + solute + "<br /> " +
             "5) Using standard methods, transfer the solute to your flask.<br /> " +
             "6) Add solvent (" + solvent + ") to your solution until you reach " + self.volume + "<br /> ";
 
         return desc;
     };
     self.concentrated.steps_html_vol = function(mass_percent, density){
+        var dilution = new SingleDilution(self.solution_concentration, self.volume);
         var desc = "<br />Steps to produce " + self.concentrated.vol_description(mass_percent, density) + "<br /><br />" +
             "1) Pick a container that can safely contain "+ self.volume +"L<br />" +
-            "2) Calculate amount of solute necessary ("+ self.single.sol.solution_calculator.solid()+"g) using: <br /> " +
+            "2) Calculate amount of solute necessary ("+ dilution.vol_transfer(self.solute, mass_percent, density)+"L) using: <br /> " +
             "\u00A0\u00A0\u00A0\u00A0a. goal concentration: "+ self.solution_concentration + "M<br />" +
             "\u00A0\u00A0\u00A0\u00A0b. chosen volume: "+ self.volume + "L<br />" +
             "\u00A0\u00A0\u00A0\u00A0c. solute's % mass: "+mass_percent +"g<br />" +
             "\u00A0\u00A0\u00A0\u00A0c. solute's density: "+density +"g/mL<br />" +
-            "4) Carefully measure out " + self.single.sol.solution_calculator.solid() + "g of " + solute + "<br /> " +
+            "4) Carefully measure out " + dilution.vol_transfer(self.solute, mass_percent, density) + "g of " + solute + "<br /> " +
             "5) Using standard methods, transfer the solute to your flask.<br /> " +
             "6) Add solvent (" + solvent + ") to your solution until you reach " + self.volume + "<br /> ";
 
