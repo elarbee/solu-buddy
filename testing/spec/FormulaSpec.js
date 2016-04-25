@@ -61,13 +61,19 @@ describe('Formula parsing and validation', function() {
             expect(front_number('4NaCl')).toEqual(4);
             expect(front_number('NaCl')).toEqual(1);
             expect(front_number('Na200Cl')).toEqual(1);
+            expect(front_number('8999Na200Cl')).toEqual(8999);
+        });
+
+        it('should ignore decimals', function () {
+            expect(front_number('4.2NaCl')).toEqual(4);
+            expect(front_number('.2NaCl')).toEqual(1);
         });
 
     });
 
     describe('string_to_compound_segments(str) function testing', function() {
 
-        it('should break down a simple formula into its elements', function () {
+        it('should break down a s4imple formula into its elements', function () {
 
             var test1 = 'NaCl';
             expect(string_to_compound_segments(test1).length).toEqual(2);
@@ -129,6 +135,7 @@ describe('Formula parsing and validation', function() {
 
         it('should correctly sum the lengths of all strings in an array', function () {
             expect(sum_string_lengths(['o', 'hi', 'say', 'cano', 'youou'])).toEqual(15);
+            expect(sum_string_lengths([])).toEqual(0);
         });
 
     });
@@ -181,8 +188,6 @@ describe('compound creation', function(){
 
             expect(remove_parentheses(form1)).toEqual('2SO4');
 
-
-
             expect(comp1.components[0].element.symbol).toEqual('S');
             expect(comp1.components[0].quantity).toEqual(1);
 
@@ -234,6 +239,20 @@ describe('compound creation', function(){
 
         });
 
+        it('should be able to create very long compounds', function(){
+
+            var form1 = '100C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)' +
+                '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3'+
+                '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3'+
+                '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3'+
+                '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3';
+
+            var comp = string_to_compound(form1);
+            expect(comp.components[0].element.symbol).toEqual('C');
+            expect(comp.total_molecular_weight()).toEqual(1019950.8400000001);
+            expect(comp.quantity).toEqual(100);
+        });
+
 
 
         //TODO: make more tests here. need to test more complex compounds
@@ -252,12 +271,6 @@ describe('compound creation', function(){
 
     });
 
-    describe('is_valid_formula_test(str) function testing', function() {
-    
-        it('should accept ionic formulas', function () {
-           // expect(is_valid_formula_test('2(NaCl)2H2O')).toEqual(true);
-        });
-    });
     
     describe('string_to_compounds(str) testing', function() {
     
@@ -312,6 +325,10 @@ describe('compound creation', function(){
             var test1 = '(H2O)2343(H2O)(NaCl)';
 
             expect(remove_parentheses(test1)).toEqual('2343');
+
+            var test1 = 'helloworld)';
+
+            expect(remove_parentheses(test1)).toEqual('helloworld)');
         });
 
     });
