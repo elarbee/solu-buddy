@@ -53,7 +53,7 @@
 </div>
 
 <script>
-    $('#uname').change(function checkUsername(){
+    $('#uname').on('change keypress', function checkUsername(){
         var $uname = $("#uname");
         var $message = $("#availableMessage");
         var $invalid = $("#invalidChars");
