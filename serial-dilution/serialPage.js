@@ -22,7 +22,7 @@ $(function() {
         
         //Grab input values and set them to local variables
         var chemID = $("#soluteChemID").val();
-        var molWeight = $("#soluteMW").val();
+        var solutionMolarity = $("#molaritySolution").val();
         var numDilutions = $("#numDilutions").val();
         var flasksVolume = $("#flasksVolume").val();
         var volumeTransferred = $("#volumeTransferred").val();
@@ -34,8 +34,8 @@ $(function() {
         }
         
         // If no mol weight entered
-        if( molWeight == ""){
-            showAlert("Please enter a Molecular Weight for your solute!");
+        if( solutionMolarity == ""){
+            showAlert("Please enter a Molarity for the original stock solution!");
             return false;
         }
         
@@ -104,23 +104,23 @@ $(function() {
              //Grab input values and set them to local variables
             var solventID = $("#solventChemID").val();
             var soluteID = $("#soluteChemID").val();
-            var molWeight = $("#soluteMW").val();
+            var solutionMolarity = $("#molaritySolution").val();
             var numFlasks = $("#numDilutions").val();
             var flasksVolume = $("#flasksVolume").val();
             var volumeTransferred = $("#volumeTransferred").val();
-            
-            var mySerialDilution = CalculateSerialDilution(solventID, soluteID, Number(molWeight), Number(numFlasks), Number(volumeTransferred), Number(flasksVolume));
+
+            var mySerialDilution = CalculateSerialDilution(solventID, soluteID, Number(solutionMolarity), Number(numFlasks), Number(volumeTransferred), Number(flasksVolume));
             
             //Set description of solute
-            $("#stockSolutionDescription").html(molWeight+"M Solution of "+ soluteID);
+            $("#stockSolutionDescription").html(solutionMolarity+" M Solution of "+ soluteID);
             
            
             
             //Set values of first serial div
             //Name
-            $("#dilutionFlask").find("#solutionName").html(flasksVolume +"ML of "+ soluteID + " diluted in " + solventID);
+            $("#dilutionFlask").find("#solutionName").html(flasksVolume +" ML of "+ soluteID + " diluted in " + solventID);
             //Molarity
-            $("#dilutionFlask").find("#molarityValue").html("Molarity = "+mySerialDilution.concentrationArray[0]+"M");
+            $("#dilutionFlask").find("#molarityValue").html("Molarity = "+mySerialDilution.concentrationArray[0]+" M");
             
             //Iterate through number of flasks inputted and add them to the page.
             for (i = 0; i < numFlasks - 1; i++) {
@@ -131,9 +131,9 @@ $(function() {
                 
                 
                 //Update name of flask
-                $("#dilutionFlasksDiv").children().last().find("#solutionName").html(flasksVolume +"ML of "+ soluteID + " diluted in " + solventID);
+                $("#dilutionFlasksDiv").children().last().find("#solutionName").html(flasksVolume +" mL of "+ soluteID + " diluted in " + solventID);
                 //Update molar value of flask
-                $("#dilutionFlasksDiv").children().last().find("#molarityValue").html("Molarity = "+mySerialDilution.concentrationArray[i+1]+"M");
+                $("#dilutionFlasksDiv").children().last().find("#molarityValue").html("Molarity = "+mySerialDilution.concentrationArray[i+1]+" M");
             }
 
             //Set the value of all of the blue arrow divs to the value specified
@@ -155,17 +155,22 @@ $(function() {
         var bigMolarity = Big(soluteMolarity);
         var bigTransferVolume = Big(transferVolume);
         var bigVolume = Big(flaskVolume);
-        
+
+        // Determine the smallest number of significant digits that are used.
+        var num_sig_figs = count_sig_figs(soluteMolarity);
+        if(count_sig_figs(transferVolume) < num_sig_figs) num_sig_figs = count_sig_figs(transferVolume);
+        if(count_sig_figs(flaskVolume) < num_sig_figs) num_sig_figs = count_sig_figs(flaskVolume);
+
         //Ratio of flask size to 
         var ratio = bigTransferVolume.div(bigVolume);
         //variable we will update when we build the concentrations of the individual flasks
         var currentConcentration = ratio;
-        
+
         //Add first flask concentration
-        flasks.push(Big(currentConcentration).times(bigMolarity));
+        flasks.push(Big(currentConcentration).times(bigMolarity).toExponential(num_sig_figs));
         for(i=0;i<numFlasks;i++){
             currentConcentration = ratio.times(currentConcentration);
-            flasks.push(currentConcentration.times(bigMolarity));
+            flasks.push(currentConcentration.times(bigMolarity).toExponential(num_sig_figs));
         }
         
         return {solvent:solventName, solute:soluteName, molarity:soluteMolarity,concentrationArray:flasks} 

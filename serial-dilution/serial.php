@@ -22,6 +22,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <!-- Big decimal javascript used for floating point precision -->
     <script src="big.min.js"></script>
     <script src="serialPage.js"></script>
+    <script src="/static/js/utility.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="/shared-content/InputStyle.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/navBar.css">
@@ -89,7 +90,6 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
         </div>
 </div>
-</form>
     <?php
     //Include the 'Make it Now' modal.
         include '../shared-content/makeItNowModal.php'; 

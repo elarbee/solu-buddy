@@ -214,7 +214,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                     <tr>
                         <th>Solvent Formula</th>
                         <th>Solute Formula</th>
-                        <th>Solute Molecular Weight</th>
+                        <th>Original Solution Molarity</th>
                         <th>Dilution Flask Volume</th>
                         <th>Number of Flasks</th>
                         <th>Volume to Transfer</th>
@@ -230,7 +230,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         <tr>
                             <td><?= $row['Solvent_Identity']; ?></td>
                             <td><?= $row['Solute_Identity']; ?></td>
-                            <td><?= $row['Solute_Weight']; ?> g/mol</td>
+                            <td><?= $row['Solution_Molarity']; ?> g/mol</td>
                             <td><?= $row['Dilution_Flask_Volume']; ?> mL</td>
                             <td><?= $row['Number_Flasks']; ?></td>
                             <td><?= $row['Volume_Transfer']; ?> mL</td>

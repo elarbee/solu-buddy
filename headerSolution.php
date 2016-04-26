@@ -11,8 +11,9 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-		<!--Creates rest of navbar dynamically by passing in variables from hash table-->
+		<!-- Creates rest of navbar dynamically by passing in variables from hash table -->
 		<li> <a href="/accounts/solutionsTable.php"><?= htmlspecialchars($navField2) ?></a></li>
+        <li> <a href="/accounts/sendEmail.php">Leave Feedback</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
           <li class="logged-message">
