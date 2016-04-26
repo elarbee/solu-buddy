@@ -240,3 +240,18 @@ ALTER TABLE `accounts`
 
 ALTER TABLE `serial_dilution`
     CHANGE `Solute_Weight` `Solution_Molarity` decimal(10,3);
+
+ALTER TABLE `calibration_internal`
+    DROP COLUMN `Analyte_Solution_ID`;
+
+ALTER TABLE `calibration_internal`
+    DROP COLUMN `Internal_Standard_Solution_ID`;
+
+ALTER TABLE `calibration_internal`
+    CHANGE `Analyte_Solution_Type` `Analyte_Identity` varchar(20);
+
+ALTER TABLE `calibration_internal`
+    CHANGE `Internal_Standard_Solution_Type` `Internal_Standard_Solution_Identity` varchar(20);
+
+ALTER TABLE `calibration_internal`
+    ADD COLUMN `Analyte_Weight` decimal(10, 3);

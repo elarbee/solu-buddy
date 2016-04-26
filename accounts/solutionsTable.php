@@ -1,5 +1,19 @@
 <?php
 session_start();
+
+function displaySolutionMessage($isError=false){
+    if($isError) $msg = "Error getting solutions.";
+    else $msg = "No solutions saved."
+?>
+    <tbody>
+        <tr>
+            <td colspan="7">
+                <?= $msg ?>
+            </td>
+        </tr>
+    </tbody>
+<?php
+}
 $_SESSION['solutions'] = 'true';
 require ("soluMySQLConnect.php");
 require ("../dynamicHelpers.php");
@@ -74,34 +88,35 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         </tr>
                         </thead>
                         <?php
-                        $get = mysqli_query($dbc, "SELECT * FROM single_solution_solid WHERE Account_ID = '$accountId'");
-                        //Creates a loop to interate through results
-                        while($row = mysqli_fetch_array($get)){
+                        if($statment = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solution_Total_Volume, Solution_Concentration, Mass_Solute_Add FROM single_solution_solid WHERE Account_ID = ?")){
+                            $statment->bind_param("i", $accountId);
+                            $statment->execute();
+                            $statment->bind_result($id, $solventIdentity, $soluteIdentity, $soluteWeight, $solutionTotalVolume, $solutionConcentration, $massToAdd);
+                            $statment->store_result();
+                            $numRows = $statment->num_rows;
+                            //Creates a loop to interate through results
+                            while ($statment->fetch()){
                         ?>
                         <tbody>
                         <tr>
-                            <td><?= $row['Solvent_Identity']; ?></td>
-                            <td><?= $row['Solute_Identity']; ?></td>
-                            <td><?= $row['Solute_Weight']; ?> g/mol</td>
-                            <td><?= $row['Solution_Total_Volume']; ?> mL</td>
-                            <td><?= $row['Solution_Concentration']; ?> mol/L</td>
-                            <td><?= $row['Mass_Solute_Add']; ?> g</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=single_sol_solid">Delete</a></td>
+                            <td><?= $solventIdentity ?></td>
+                            <td><?= $soluteIdentity ?></td>
+                            <td><?= $soluteWeight ?> g/mol</td>
+                            <td><?= $solutionTotalVolume ?> mL</td>
+                            <td><?= $solutionConcentration ?> mol/L</td>
+                            <td><?= $massToAdd ?> g</td>
+                            <td><a href="deleteSolution.php?ID=<?= $id ?>&t=single_sol_solid">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
+                            }
+                            if(!$numRows){
+                                displaySolutionMessage();
+                            }
                         }
-                        if (mysqli_num_rows($get)==0){
-                        ?>
-                        <tbody>
-                        <tr>
-                            <td colspan="7">
-                                No solutions saved.
-                            </td>
-                        </tr>
-                        </tbody>
-                    <?php
-                    }
+                        else {
+                            displaySolutionMessage(true);
+                        }
                     ?>
                     </table>
                 </div>
@@ -122,34 +137,35 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         </tr>
                         </thead>
                         <?php
-                        $get = mysqli_query($dbc, "SELECT * FROM single_solution_liquid_grav WHERE Account_ID = '$accountId'");
-                        //Creates a loop to interate through results
-                        while($row = mysqli_fetch_array($get)){
+                        if($statment = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solution_Total_Volume, Solution_Concentration, Mass_Solute_Add FROM single_solution_liquid_grav WHERE Account_ID = ?")){
+                            $statment->bind_param("i", $accountId);
+                            $statment->execute();
+                            $statment->bind_result($id, $solventIdentity, $soluteIdentity, $soluteWeight, $solutionTotalVolume, $solutionConcentration, $massToAdd);
+                            $statment->store_result();
+                            $numRows = $statment->num_rows;
+                            //Creates a loop to interate through results
+                            while ($statment->fetch()){
                         ?>
                         <tbody>
                         <tr>
-                            <td><?= $row['Solvent_Identity']; ?></td>
-                            <td><?= $row['Solute_Identity']; ?></td>
-                            <td><?= $row['Solute_Weight']; ?> g/mol</td>
-                            <td><?= $row['Solution_Total_Volume']; ?> mL</td>
-                            <td><?= $row['Solution_Concentration']; ?> mol/L</td>
-                            <td><?= $row['Mass_Solute_Add']; ?> g</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=single_sol_liq_grav">Delete</a></td>
+                            <td><?= $solventIdentity ?></td>
+                            <td><?= $soluteIdentity ?></td>
+                            <td><?= $soluteWeight ?> g/mol</td>
+                            <td><?= $solutionTotalVolume ?> mL</td>
+                            <td><?= $solutionConcentration ?> mol/L</td>
+                            <td><?= $massToAdd ?> g</td>
+                            <td><a href="deleteSolution.php?ID=<?= $id ?>&t=single_sol_liq_grav">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
+                            }
+                            if(!$numRows){
+                                displaySolutionMessage();
+                            }
                         }
-                        if (mysqli_num_rows($get)==0){
-                        ?>
-                        <tbody>
-                        <tr>
-                            <td colspan="7">
-                                No solutions saved.
-                            </td>
-                        </tr>
-                        </tbody>
-                    <?php
-                    }
+                        else{
+                            displaySolutionMessage(true);
+                        }
                     ?>
                     </table>
                 </div>
@@ -171,35 +187,35 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         </tr>
                         </thead>
                         <?php
-                        $get = mysqli_query($dbc, "SELECT * FROM single_solution_liquid_vol WHERE Account_ID = '$accountId'");
-                        //Creates a loop to interate through results
-                        while($row = mysqli_fetch_array($get)){
+                        if($statment = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solute_Density, Solution_Total_Volume, Solution_Concentration, Volume_Solute_Add FROM single_solution_liquid_vol WHERE Account_ID = ?")){
+                            $statment->bind_param("i", $accountId);
+                            $statment->execute();
+                            $statment->bind_result($id, $solventIdentity, $soluteIdentity, $soluteWeight, $soluteDensity, $solutionTotalVolume, $solutionConcentration, $volumeToAdd);
+                            $statment->store_result();
+                            $numRows = $statment->num_rows;
+                            //Creates a loop to interate through results
+                            while($statment->fetch()){
                         ?>
                         <tbody>
                         <tr>
-                            <td><?= $row['Solvent_Identity']; ?></td>
-                            <td><?= $row['Solute_Identity']; ?></td>
-                            <td><?= $row['Solute_Weight']; ?> g/mol</td>
-                            <td><?= $row['Solute_Density']; ?> g/mL</td>
-                            <td><?= $row['Solution_Total_Volume']; ?> mL</td>
-                            <td><?= $row['Solution_Concentration']; ?> mol/L</td>
-                            <td><?= $row['Volume_Solute_Add']; ?> mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=single_sol_liq_vol">Delete</a></td>
+                            <td><?= $solventIdentity ?></td>
+                            <td><?= $soluteIdentity ?></td>
+                            <td><?= $soluteWeight ?> g/mol</td>
+                            <td><?= $soluteDensity ?> g/mL</td>
+                            <td><?= $solutionTotalVolume ?> mL</td>
+                            <td><?= $solutionConcentration ?> mol/L</td>
+                            <td><?= $volumeToAdd ?> mL</td>
+                            <td><a href="deleteSolution.php?ID=<?= $id ?>&t=single_sol_liq_vol">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
+                            }
+                            if(!$numRows){
+                                displaySolutionMessage();
+                            }
+                        }else {
+                            displaySolutionMessage(true);
                         }
-                        if (mysqli_num_rows($get)==0){
-                        ?>
-                        <tbody>
-                        <tr>
-                            <td colspan="8">
-                                No solutions saved.
-                            </td>
-                        </tr>
-                        </tbody>
-                    <?php
-                    }
                     ?>
                     </table>
                 </div>
@@ -222,35 +238,35 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                     </tr>
                     </thead>
                     <?php
-                    $get = mysqli_query($dbc, "SELECT * FROM serial_dilution WHERE Account_ID = '$accountId'");
-                    //Creates a loop to interate through results
-                    while($row = mysqli_fetch_array($get)) {
-                        ?>
-                        <tbody>
-                        <tr>
-                            <td><?= $row['Solvent_Identity']; ?></td>
-                            <td><?= $row['Solute_Identity']; ?></td>
-                            <td><?= $row['Solution_Molarity']; ?> g/mol</td>
-                            <td><?= $row['Dilution_Flask_Volume']; ?> mL</td>
-                            <td><?= $row['Number_Flasks']; ?></td>
-                            <td><?= $row['Volume_Transfer']; ?> mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=serial">Delete</a></td>
-                        </tr>
-                        </tbody>
-                        <?php
-                        }
-                        if (mysqli_num_rows($get)==0){
+                    if($statement = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solution_Molarity, Dilution_Flask_Volume, Number_Flasks, Volume_Transfer FROM serial_dilution WHERE Account_ID = ?")) {
+                        $statement->bind_param("i", $accountId);
+                        $statement->execute();
+                        $statement->bind_result($id, $solventIdentity, $soluteIdentity, $solutionMolarity, $dilutionFlaskVolume, $numberFlasks, $volumeTransfer);
+                        $statement->store_result();
+                        $numRows = $statement->num_rows;
+                        //Creates a loop to interate through results
+                        while ($statement->fetch()) {
                             ?>
                             <tbody>
                             <tr>
-                                <td colspan="7">
-                                    No solutions saved.
-                                </td>
+                                <td><?= $solventIdentity ?></td>
+                                <td><?= $soluteIdentity ?></td>
+                                <td><?= $solutionMolarity ?> g/mol</td>
+                                <td><?= $dilutionFlaskVolume ?> mL</td>
+                                <td><?= $numberFlasks ?></td>
+                                <td><?= $volumeTransfer ?> mL</td>
+                                <td><a href="deleteSolution.php?ID=<?= $id ?>&t=serial">Delete</a></td>
                             </tr>
                             </tbody>
                             <?php
                         }
-                        ?>
+                        if(!$numRows){
+                            displaySolutionMessage();
+                        }
+                    }else{
+                        displaySolutionMessage(true);
+                    }
+                    ?>
                 </table>
                 </div>
             </div>
@@ -272,34 +288,34 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         </tr>
                         </thead>
                         <?php
-                        $get = mysqli_query($dbc, "SELECT * FROM calibration_external WHERE Account_ID = '$accountId'");
-                        //Creates a loop to interate through results
-                        while($row = mysqli_fetch_array($get)){
+                        if($statement = $dbc->prepare("SELECT ID, Solvent_Identity, Analyte_Identity, Analyte_Weight, Unknown_Name, Number_Standards, Flask_Volumes FROM calibration_external WHERE Account_ID = ?")){
+                            $statement->bind_param("i", $accountId);
+                            $statement->execute();
+                            $statement->bind_result($id, $solventIdentity, $analyteIdentity, $analyteWeight, $unknownName, $numStandards, $flaskVolumes);
+                            $statement->store_result();
+                            $numRows = $statement->num_rows;
+                            //Creates a loop to interate through results
+                            while ($statement->fetch()){
                         ?>
                         <tbody>
                         <tr>
-                            <td><?= $row['Solvent_Identity']; ?></td>
-                            <td><?= $row['Analyte_Identity']; ?></td>
-                            <td><?= $row['Analyte_Weight']; ?> g/mol</td>
-                            <td><?= $row['Unknown_Name']; ?></td>
-                            <td><?= $row['Number_Standards']; ?></td>
-                            <td><?= $row['Flask_Volumes']; ?> mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=calibration_ext">Delete</a></td>
+                            <td><?= $solventIdentity ?></td>
+                            <td><?= $analyteIdentity ?></td>
+                            <td><?= $analyteWeight ?> g/mol</td>
+                            <td><?= $unknownName ?></td>
+                            <td><?= $numStandards ?></td>
+                            <td><?= $flaskVolumes ?> mL</td>
+                            <td><a href="deleteSolution.php?ID=<?= $id ?>&t=calibration_ext">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
+                            }
+                            if(!$numRows){
+                                displaySolutionMessage();
+                            }
+                        }else{
+                            displaySolutionMessage(true);
                         }
-                        if (mysqli_num_rows($get)==0){
-                        ?>
-                        <tbody>
-                        <tr>
-                            <td colspan="7">
-                                No solutions saved.
-                            </td>
-                        </tr>
-                        </tbody>
-                    <?php
-                    }
                     ?>
                     </table>
                 </div>
@@ -320,34 +336,34 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         </tr>
                         </thead>
                         <?php
-                        $get = mysqli_query($dbc, "SELECT * FROM calibration_addition WHERE Account_ID = '$accountId'");
-                        //Creates a loop to interate through results
-                        while($row = mysqli_fetch_array($get)){
+                        if($statement = $dbc->prepare("SELECT ID, Solvent_Identity, Analyte_Identity, Analyte_Weight, Unknown_Name, Number_Standards, Flask_Volumes FROM calibration_addition WHERE Account_ID = ?")){
+                            $statement->bind_param("i", $accountId);
+                            $statement->execute();
+                            $statement->bind_result($id, $solventIdentity, $analyteIdentity, $analyteWeight, $unknownName, $numStandards, $flaskVolumes);
+                            $statement->store_result();
+                            $numRows = $statement->num_rows;
+                            //Creates a loop to interate through results
+                            while ($statement->fetch()){
                         ?>
                         <tbody>
                         <tr>
-                            <td><?= $row['Solvent_Identity']; ?></td>
-                            <td><?= $row['Analyte_Identity']; ?></td>
-                            <td><?= $row['Analyte_Weight']; ?> g/mol</td>
-                            <td><?= $row['Unknown_Name']; ?></td>
-                            <td><?= $row['Number_Standards']; ?></td>
-                            <td><?= $row['Flask_Volumes']; ?> mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=calibration_add">Delete</a></td>
+                            <td><?= $solventIdentity ?></td>
+                            <td><?= $analyteIdentity ?></td>
+                            <td><?= $analyteWeight ?> g/mol</td>
+                            <td><?= $unknownName ?></td>
+                            <td><?= $numStandards ?></td>
+                            <td><?= $flaskVolumes ?> mL</td>
+                            <td><a href="deleteSolution.php?ID=<?= $id ?>&t=calibration_add">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
+                            }
+                            if(!$numRows){
+                                displaySolutionMessage();
+                            }
+                        }else{
+                                displaySolutionMessage(true);
                         }
-                        if (mysqli_num_rows($get)==0){
-                        ?>
-                        <tbody>
-                        <tr>
-                            <td colspan="7">
-                                No solutions saved.
-                            </td>
-                        </tr>
-                        </tbody>
-                    <?php
-                    }
                     ?>
                     </table>
                 </div>
@@ -369,35 +385,35 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         </tr>
                         </thead>
                         <?php
-                        $get = mysqli_query($dbc, "SELECT * FROM calibration_internal WHERE Account_ID = '$accountId'");
-                        //Creates a loop to interate through results
-                        while($row = mysqli_fetch_array($get)){
+                        if($statement = $dbc->prepare("SELECT ID, Internal_Standard_Solution_Identity, Analyte_Identity, Analyte_Weight, Unknown_Name, Number_Standards, Flask_Volumes FROM calibration_internal WHERE Account_ID = ?")){
+                            $statement->bind_param("i", $accountId);
+                            $statement->execute();
+                            $statement->bind_result($id, $internalIdentity, $analyteIdentity, $analyteWeight, $unknownName, $numStandards, $flaskVolumes);
+                            $statement->store_result();
+                            $numRows = $statement->num_rows;
+                            //Creates a loop to interate through results
+                            while ($statement->fetch()){
                         ?>
                         <tbody>
                         <tr>
-                            <td><?= $row['Analyte_Solution_ID']; ?></td>
-                            <td><?= $row['Analyte_Solution_Type']; ?></td>
-                            <td><?= $row['Internal_Standard_Solution_ID']; ?></td>
-                            <td><?= $row['Internal_Standard_Solution_Type']; ?></td>
-                            <td><?= $row['Unknown_Name']; ?></td>
-                            <td><?= $row['Number_Standards']; ?></td>
-                            <td><?= $row['Flask_Volumes']; ?>mL</td>
-                            <td><a href="deleteSolution.php?ID=<?= $row['ID']; ?>&t=calibration_int">Delete</a></td>
+                            <td><?= $internalIdentity ?></td>
+                            <td><?= $analyteIdentity ?></td>
+                            <td><?= $analyteWeight ?> g/mol</td>
+                            <td><?= $unknownName ?></td>
+                            <td><?= $numStandards ?></td>
+                            <td><?= $flaskVolumes ?> mL</td>
+                            <td><a href="deleteSolution.php?ID=<?= $id ?>&t=calibration_int">Delete</a></td>
                         </tr>
                         <tbody>
                         <?php
+                            }
+                            if(!$numRows){
+                                displaySolutionMessage();
+                            }
                         }
-                        if (mysqli_num_rows($get)==0){
-                        ?>
-                        <tbody>
-                        <tr>
-                            <td colspan="8">
-                                No solutions saved.
-                            </td>
-                        </tr>
-                        </tbody>
-                    <?php
-                    }
+                        else{
+                            displaySolutionMessage(true);
+                        }
                     ?>
                     </table>
                 </div>
