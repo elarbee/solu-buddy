@@ -22,7 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailMessage = $_POST['message'];
 
     if($emailMessage){
-        $emailMessage = 'Submission by '. $firstName . $lastName . '\n. Message:\n' . $emailMessage;
+        $emailMessage = "Submission by: \r\n" .
+                        "\tUsername: " . $username . "\r\n" .
+                        "\tFirst Name: " . $firstName . "\r\n" .
+                        "\tLast Name: ". $lastName . "\r\n. Message:\r\n\t" . $emailMessage;
+        
         $msg = wordwrap($emailMessage, 70);
         $headers = 'From: noreply@solubuddy.com' . "\r\n" .
             'Reply-To: noreply@solubuddy.com' . "\r\n" .
