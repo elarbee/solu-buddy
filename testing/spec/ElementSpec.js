@@ -22,4 +22,9 @@ describe("Element", function() {
         expect(element.number).toEqual(109);
     });
 
+    it("should return null if no element is found.", function() {
+        var element = find_element('Nl');
+        expect(element).toEqual(undefined);
+    });
+
 });

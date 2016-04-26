@@ -2,8 +2,12 @@
  * Created by Howerton on 2/23/2016.
  */
 
-//var split_ionic_reg = /([(]{1}([A-Z]{1}[a-z]?\d*)+[)]{1}(\d*))/g;
 var ionic_reg = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g;
+
+var match_ionic = /(\(([A-Z][a-z]?\d*)*\)\d*)*/g;
+
+var match_non_ionic = /([A-Z][a-z]?\d*)+/g;
+
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
 var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
@@ -50,31 +54,11 @@ function Compound(components, qty, formula_str){
         return self.molecular_weight() * self.quantity;
     };
 
-    /**
-     * Creates a string description of the compound and returns it. Includes: formula, molecular weight,
-     * quantity of the compound, total molecular weight, and information on each component (element name and quantity).
-     *
-     * Can be used to verify accuracy when debugging.
-     * @returns {string} Description string.
-     */
-    self.get_description = function(){
-        var desc = "<br />Compound Description<br />Formula: " + self.formula() +
-            "<br />Molecular Weight: " + self.molecular_weight()+"<br />" +
-            "Compound Quantity: " + self.quantity + "<br />Total Molecular Weight: " +
-            self.total_molecular_weight() + "<br />";
-        for(var i = 0; i < self.components.length; i++){
-            desc = desc + "Element["+i+"]: "+components[i].element.name + "|| Qty: " +
-                components[i].quantity + "<br />";
-        }
-        return desc;
-    };
-
 
     self.add_sub_compounds = function(sub_compounds){
 
         for(var i = 0; i<sub_compounds.length; i++){
             var pieces = split_sub_compound(sub_compounds[i]);
-            //var qty = parseInt(pieces[3]);
             var formula = pieces[3] + pieces[1];
 
             this.sub_compounds.push(string_to_compound(formula));
@@ -139,8 +123,11 @@ function string_to_compound(input){
     //Gets segments from the leftover formula.
     var segments = string_to_compound_segments(formula);
 
-    var components = segments_to_compound_components(segments);
-
+    try {
+        var components = segments_to_compound_components(segments);
+    }catch (e){
+        console.log("formula = " + input);
+    }
     var comp = new Compound(components, parseInt(compound_qty), input);
 
     if(sub_compounds != null){
@@ -148,20 +135,7 @@ function string_to_compound(input){
     }
 
     return comp;
-}
 
-/**
- * Will
- * @param str
- * @returns {*}
- */
-function remove_parentheses(str){
-    if(/([^[\)]+)(?:$|[\(])/g.test(str)){
-        return /([^[\)]+)(?:$|[\(])/g.exec(str)[0].replace("(", "");
-    }
-    else{
-        return str;
-    }
 }
 
 
@@ -190,15 +164,6 @@ function Compound_Component(symbol, qty){
         return (self.element.atomic_weight * self.quantity);
     };
 
-    /**
-     * Creates a description of the component using information including: element name, quantity, and total atomic weight.
-     * @returns {string} The component description as a string.
-     */
-    self.get_description = function(){
-        var desc = "<br />Component Description<br />Element: " + self.element.name +"<br />Quantity: " + self.quantity +
-            "<br />Atomic Weight: " + self.get_component_atomic_weight() + "<br />";
-        return desc;
-    };
     return self;
 }
 
@@ -215,10 +180,15 @@ function Compound_Component(symbol, qty){
  * */
 function is_valid_formula(str) {
 
-    var isValid = /\d*[A-Z]{1}[a-z]?\d*/.test(str).valueOf();
-    var usedElements = [];
+
+
+    var isValid = /(([A-Z][a-z]?\d*)+(\([A-Z][a-z]?\d*\))*)+/g.test(str).valueOf();
     var formulaString = str;
     var qty = 0;
+
+    if(str.contains("(") || str.contains(")")){
+        return /(([A-Z][a-z]?\d*)+(\([A-Z][a-z]?\d*\))*)+/g.test(str).valueOf();
+    }
 
     /* Gets rid of the leading number for validation*/
     if(/^\d+/.test(str)){
@@ -244,7 +214,7 @@ function is_valid_formula(str) {
                 return false;
             }
 
-            acceptedSegmentLengths += segment.length; //increment length of accepted segments
+            //acceptedSegmentLengths += segment.length; //increment length of accepted segments
         }
 
 
@@ -255,6 +225,7 @@ function is_valid_formula(str) {
 
     return isValid.valueOf();
 }
+
 
 /**
  * Breaks a segment string down into an array containing the element and quantity
@@ -270,7 +241,7 @@ function is_valid_formula(str) {
  *
  */
 function segment_to_pieces(segment){
-    return segment.match(split_segment_reg);
+    return segment.match(/([A-Z][a-z]?)(\d*)/);
 }
 
 /**
@@ -279,7 +250,7 @@ function segment_to_pieces(segment){
  * @returns {Array|{index: number, input: string}} an array of elements concatenated with their quantities
  */
 function string_to_compound_segments(str){
-    return str.match(split_compound_reg);
+    return str.match(/[A-Z][a-z]?\d*/g);
 }
 
 
@@ -318,7 +289,7 @@ function sum_string_lengths(array){
  * @returns {Array|{index: number, input: string}}
  */
 function string_to_ionic_compounds(str){
-    var compounds = str.match(ionic_reg);
+    var compounds = str.match(/[(](([A-Z][a-z]?\d*)*)[)](\d*)/g);
     return compounds;
 }
 
@@ -348,6 +319,8 @@ function split_sub_compound(str){
  */
 function segments_to_compound_components(segments){
     var components = [];
+
+
     /*
      Populate components array with components created from the parsed string.
      */
@@ -362,8 +335,26 @@ function segments_to_compound_components(segments){
         var quantity = parseInt(pieces[2]) || 1; //default qty is 1
 
         var component = new Compound_Component(element, quantity);
-        components.push(component);
+
+        if(component != undefined){
+            components.push(component);
+        }
     }
 
     return components;
 }
+
+/**
+ * Will
+ * @param str
+ * @returns {*}
+ */
+function remove_parentheses(str){
+    if(/([^[\)]+)(?:$|[\(])/g.test(str)){
+        return /([^[\)]+)(?:$|[\(])/g.exec(str)[0].replace("(", "");
+    }
+    else{
+        return str;
+    }
+}
+

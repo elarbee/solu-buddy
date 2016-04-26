@@ -24,7 +24,7 @@ function next_check(page){
          *       2) Proper nomenclature.*/
 
 
-        if(!is_valid_formula($("#solute_formula").val())){
+        if(!is_valid_formula($("#solute_formula").val()) || $("#solute_formula").val() == ""){
             all_clear = false;
 
             /* An error message is formulated depending on which formula is correct.
@@ -180,7 +180,7 @@ function fill_fields(page){
             if($('#knownSelect').val() == 'CONC_MOL'){
 
                 min_sigfig = count_sig_figs(user_vol_to_add);
-                if(check_vol(dilution.solute_volume(solute_molarity))) {
+                if(check_vol(dilution.solute_volume(solute_molarity).toPrecision(min_sigfig))) {
                     new_solution = new Solution(
                         $("#solute_formula").val(),
                         $("#solvent_formula").val(),
@@ -202,7 +202,7 @@ function fill_fields(page){
 
                 min_sigfig = count_sig_figs(user_mass_to_add);
 
-                if(check_mass(dilution.grav_mass(solute_compound, solute_molarity))){
+                if(check_mass(dilution.grav_mass(solute_compound, solute_molarity).toPrecision(min_sigfig))){
                     new_solution = new Solution(
                         $("#solute_formula").val(),
                         $("#solvent_formula").val(),
@@ -221,7 +221,7 @@ function fill_fields(page){
             else if($('#knownSelect').val() == 'CONC_VOL'){
 
                 min_sigfig = count_sig_figs(user_vol_to_add);
-                if(check_vol(dilution.vol_transfer(solute_compound, mass_percent, density))){
+                if(check_vol(dilution.vol_transfer(solute_compound, mass_percent, density).toPrecision(min_sigfig))){
                     new_solution = new Solution(
                         $("#solute_formula").val(),
                         $("#solvent_formula").val(),
