@@ -9,7 +9,7 @@ renderHead( ["title" => "Solutions Page", "navField1" => "Account Settings", "na
 $username = $_SESSION["username"];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
     $accountIdQuery = mysqli_query($dbc, "SELECT ID, First_Name, Last_Name FROM accounts WHERE Username = '$username'");
     if(!$accountIdQuery){
         echo 'Could not run query: ' . mysqli_error();
@@ -87,7 +87,7 @@ else {
             </div>
             <div class="form-group">
                 <label for="message">Message body</label>
-                <textarea class="form-control" name="message" id="message" placeholder="Enter your feedback here."></textarea>
+                <textarea class="form-control" name="message" id="message" placeholder="Enter your feedback here." rows="4"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
