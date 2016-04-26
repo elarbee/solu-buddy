@@ -111,7 +111,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     ?>
 </div>
 
-    <div id="alert" class="alert alert-danger">
+    <div id="myAlert" class="alert alert-danger">
         <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
     </div>
 <hr>

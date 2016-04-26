@@ -9,6 +9,7 @@ $(function(){
 
     hideAlert();
 
+
 });
 
 function next_check(page){
@@ -79,11 +80,11 @@ function next_check(page){
 
 //Hide the alert DIV
 function hideAlert(){
-    $("#alert").css("display","none");
+    $("#myAlert").css("display","none");
 }
 //Show the alert div
 function showAlert(alertMessage){
-    $("#alert").css("display","block").html("<b>"+alertMessage+"</b>");
+    $("#myAlert").css("display","block").html("<b>"+alertMessage+"</b>");
 }
 
 function fill_fields(page){
