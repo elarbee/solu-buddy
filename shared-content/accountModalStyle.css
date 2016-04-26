@@ -38,9 +38,6 @@
 	opacity: 0.8;
 }
 
-#loginModal .footer {
-	background: rgba(42,42,42,0.5);
-}
 
 #loginModal .body{
 	background: rgba(42,42,42,0.4);
