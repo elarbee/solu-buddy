@@ -22,14 +22,27 @@ renderHead( ["title" => "Solutions Page", "navField1" => "Account Settings", "na
 
 $username = $_SESSION["username"];
 
-$accountIdQuery = mysqli_query($dbc, "SELECT ID FROM accounts WHERE Username = '$username'");
-if(!$accountIdQuery){
-	echo 'Could not run query: ' . mysqli_error();
+if($statement = $dbc->prepare("SELECT ID FROM accounts WHERE Username = ?")){
+    $statement->bind_param("s", $username);
+    $statement->execute();
+    $statement->bind_result($accountId);
+    $statement->store_result();
+    $numAccounts = $statement->num_rows;
+    $statement->fetch();
+    if($numAccounts > 1){
+        echo "More than one account found for username.";
+        $statement->close();
+        exit;
+    } else if($numAccounts == 0){
+        echo "No account found for given username.";
+        $statement->close();
+        exit;
+    }
+    $statement->close();
+} else {
+	echo 'Could not run query: ' . $dbc->error;
 	exit;
 }
-$accountIdResult = mysqli_fetch_row($accountIdQuery);
-$accountId = $accountIdResult[0];
-
 echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
 ?>
 
@@ -113,6 +126,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             if(!$numRows){
                                 displaySolutionMessage();
                             }
+                            $statement->close();
                         }
                         else {
                             displaySolutionMessage(true);
@@ -162,6 +176,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             if(!$numRows){
                                 displaySolutionMessage();
                             }
+                            $statement->close();
                         }
                         else{
                             displaySolutionMessage(true);
@@ -187,14 +202,14 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         </tr>
                         </thead>
                         <?php
-                        if($statment = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solute_Density, Solution_Total_Volume, Solution_Concentration, Volume_Solute_Add FROM single_solution_liquid_vol WHERE Account_ID = ?")){
-                            $statment->bind_param("i", $accountId);
-                            $statment->execute();
-                            $statment->bind_result($id, $solventIdentity, $soluteIdentity, $soluteWeight, $soluteDensity, $solutionTotalVolume, $solutionConcentration, $volumeToAdd);
-                            $statment->store_result();
-                            $numRows = $statment->num_rows;
+                        if($statement = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solute_Density, Solution_Total_Volume, Solution_Concentration, Volume_Solute_Add FROM single_solution_liquid_vol WHERE Account_ID = ?")){
+                            $statement->bind_param("i", $accountId);
+                            $statement->execute();
+                            $statement->bind_result($id, $solventIdentity, $soluteIdentity, $soluteWeight, $soluteDensity, $solutionTotalVolume, $solutionConcentration, $volumeToAdd);
+                            $statement->store_result();
+                            $numRows = $statement->num_rows;
                             //Creates a loop to interate through results
-                            while($statment->fetch()){
+                            while($statement->fetch()){
                         ?>
                         <tbody>
                         <tr>
@@ -213,6 +228,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             if(!$numRows){
                                 displaySolutionMessage();
                             }
+                            $statement->close();
                         }else {
                             displaySolutionMessage(true);
                         }
@@ -263,6 +279,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         if(!$numRows){
                             displaySolutionMessage();
                         }
+                        $statement->close();
                     }else{
                         displaySolutionMessage(true);
                     }
@@ -313,6 +330,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             if(!$numRows){
                                 displaySolutionMessage();
                             }
+                            $statement->close();
                         }else{
                             displaySolutionMessage(true);
                         }
@@ -361,6 +379,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             if(!$numRows){
                                 displaySolutionMessage();
                             }
+                            $statement->close();
                         }else{
                                 displaySolutionMessage(true);
                         }
@@ -410,10 +429,12 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             if(!$numRows){
                                 displaySolutionMessage();
                             }
+                            $statement->close();
                         }
                         else{
                             displaySolutionMessage(true);
                         }
+                        $dbc->close();
                     ?>
                     </table>
                 </div>
