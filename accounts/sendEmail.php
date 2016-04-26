@@ -8,7 +8,7 @@ renderHead( ["title" => "Solutions Page", "navField1" => "Account Settings", "na
 
 $username = $_SESSION["username"];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $username) {
 
     $accountIdQuery = mysqli_query($dbc, "SELECT ID, First_Name, Last_Name FROM accounts WHERE Username = '$username'");
     if(!$accountIdQuery){
@@ -65,37 +65,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="/static/js/bootstrap.js"></script>
 </head>
 <body>
+
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-?>
-<div class="page-header email-header"><h2>Your feedback has been sent.</h2></div>
-<div class="panel panel-default email-panel">
-    <div class="panel-body">
-        Thank you!
+if ($username){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    ?>
+    <div class="page-header email-header"><h2>Your feedback has been sent.</h2></div>
+    <div class="panel panel-default email-panel">
+        <div class="panel-body">
+            Thank you!
+        </div>
     </div>
+    <?php
+    }
+    else {
+    ?>
+    <div class="page-header email-header"><h2>Let us know how we can improve!</h2></div>
+    <div class="panel panel-default email-panel">
+        <div class="panel-body">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="email">Reply Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message body</label>
+                    <textarea class="form-control" name="message" id="message" placeholder="Enter your feedback here."
+                              rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <?php
+    };
+} else{
+?>
+    <div class="page-header email-header"><h2>Must be logged in to leave feedback.</h2></div>
 <?php
 }
-else {
 ?>
-<div class="page-header email-header"><h2>Let us know how we can improve!</h2></div>
-<div class="panel panel-default email-panel">
-    <div class="panel-body">
-        <form method="POST">
-            <div class="form-group">
-                <label for="email">Reply Email</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com">
-            </div>
-            <div class="form-group">
-                <label for="message">Message body</label>
-                <textarea class="form-control" name="message" id="message" placeholder="Enter your feedback here." rows="4"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-<?php
-};
-?>
-</div>
 
 </body>
 </html>
