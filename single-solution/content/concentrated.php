@@ -41,7 +41,7 @@
                     "Mass to Add (g) <input name=\"massToAdd\" id = \"massToAdd\" type=\"text\" placeholder=\" Mass to Add (g)\"><br>");
 
                 if($('#knownSelect').val() == 'CONC_VOL'){
-                    $('#conc_inputs').html("% Mass of Solute <input name=\"solute_%_mass\" id = \"solute_%_mass\" type=\"text\" placeholder=\"% Mass of Solute\"><br>" +
+                    $('#conc_inputs').html("% Mass of Solute <input name=\"solute_percent_mass\" id = \"solute_percent_mass\" type=\"text\" placeholder=\"% Mass of Solute\"><br>" +
                         "Solute Density <input name=\"density\" id = \"density\" type=\"text\" placeholder=\"Density of Solute\"><br>"+
                         "Solute Volume (mL) <input name=\"solute_volume\" id = \"solute_volume\" type=\"text\" placeholder=\"Solute Volume to Add (mL)\"><br>");
                 }
