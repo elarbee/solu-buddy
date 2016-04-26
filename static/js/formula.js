@@ -180,13 +180,11 @@ function Compound_Component(symbol, qty){
  * */
 function is_valid_formula(str) {
 
-
-
     var isValid = /(([A-Z][a-z]?\d*)+(\([A-Z][a-z]?\d*\))*)+/g.test(str).valueOf();
     var formulaString = str;
     var qty = 0;
 
-    if(str.contains("(") || str.contains(")")){
+    if(str.indexOf("(") > -1 || str.indexOf(")") > -1){
         return /(([A-Z][a-z]?\d*)+(\([A-Z][a-z]?\d*\))*)+/g.test(str).valueOf();
     }
 
