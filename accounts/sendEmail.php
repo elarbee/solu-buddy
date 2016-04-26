@@ -20,13 +20,16 @@ $lastName = $accountIdResult[2];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailMessage = $_POST['message'];
+    $replyEmail = $_POST['email'];
 
     if($emailMessage){
         $emailMessage = "Submission by: \r\n" .
+                        "\tReply Email: " . $replyEmail . "\r\n" .
                         "\tUsername: " . $username . "\r\n" .
                         "\tFirst Name: " . $firstName . "\r\n" .
-                        "\tLast Name: ". $lastName . "\r\n. Message:\r\n\t" . $emailMessage;
-        
+                        "\tLast Name: ". $lastName . "\r\n " .
+                        "Message:\r\n\t" . $emailMessage;
+
         $msg = wordwrap($emailMessage, 70);
         $headers = 'From: noreply@solubuddy.com' . "\r\n" .
             'Reply-To: noreply@solubuddy.com' . "\r\n" .
@@ -48,28 +51,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="/static/css/table.css" type="text/css" rel="stylesheet">
     <link href="/static/css/header-styles.css" type="text/css" rel="stylesheet">
     <link href="/static/css/navBar.css" type="text/css" rel="stylesheet">
+    <style>
+        .email-panel {
+            margin: 32px;
+        }
+        .email-header {
+            padding: 0 16px 16px 32px;
+        }
+    </style>
     <script src="/static/js/jquery-1.11.3.min.js"></script>
     <script src="/static/js/bootstrap.js"></script>
 </head>
 <body>
-<div class="panel panel-default">
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
-    <div class="panel-heading">Email Sent</div>
+<div class="page-header email-header">Your feedback has been sent.</div>
+<div class="panel panel-default email-panel">
     <div class="panel-body">
-        Thank you for your feedback!
+        Thank you!
     </div>
 <?php
 }
 else {
 ?>
-    <div class="panel-heading">Email Message</div>
+<div class="page-header email-header"><h2>Let us know how we can improve!</h2></div>
+<div class="panel panel-default email-panel">
     <div class="panel-body">
         <form method="POST">
             <div class="form-group">
+                <label for="email">Reply Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com">
+            </div>
+            <div class="form-group">
                 <label for="message">Message body</label>
-                <textarea class="form-control" name="message" id="message" placeholder="Email message"></textarea>
+                <textarea class="form-control" name="message" id="message" placeholder="Enter your feedback here."></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
