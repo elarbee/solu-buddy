@@ -42,13 +42,13 @@ if($accountStatement) {
 	} elseif ($submission_type == 'serial') {
 		$solventId = $_POST['solventChemID'];
 		$soluteId = $_POST['soluteChemID'];
-		$soluteWeight = $_POST['soluteMW'];
+		$solutionMolarity = $_POST['molaritySolution'];
 		$dilutionFlaskVolume = $_POST['flasksVolume'];
 		$numberFlasks = $_POST['numDilutions'];
 		$volumeTransferred = $_POST['volumeTransferred'];
 
 		$statement = mysqli_prepare($dbc, "INSERT INTO serial_dilution VALUES (DEFAULT, ?,?,?,?,?,?,?)");
-		mysqli_stmt_bind_param($statement, 'issddid', $accountId, $solventId, $soluteId, $soluteWeight, $dilutionFlaskVolume, $numberFlasks, $volumeTransferred);
+		mysqli_stmt_bind_param($statement, 'issddid', $accountId, $solventId, $soluteId, $solutionMolarity, $dilutionFlaskVolume, $numberFlasks, $volumeTransferred);
 	} elseif ($submission_type == 'calibration_internal') {
 		// TODO: The internal calibration needs to be done
 		$unkownName = $_POST['unknown'];
