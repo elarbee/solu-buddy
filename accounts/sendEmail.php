@@ -23,13 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $replyEmail = $_POST['email'];
 
     if($emailMessage){
-        $emailMessage = "New feedback received\r\n=====================" .
+        $emailMessage = "New feedback received\r\n=====================\r\n" .
                         "Submitted by: \r\n" .
                         "\tReply Email: " . $replyEmail . "\r\n" .
                         "\tUsername: " . $username . "\r\n" .
                         "\tFirst Name: " . $firstName . "\r\n" .
                         "\tLast Name: ". $lastName . "\r\n\r\n" .
-                        "Message:\r\n-----------\r\n\r\n" . $emailMessage;
+                        "Message:\r\n=====================\r\n\r\n" . $emailMessage;
 
         $msg = wordwrap($emailMessage, 70);
         $headers = 'From: noreply@solubuddy.com' . "\r\n" .
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
-<div class="page-header email-header">Your feedback has been sent.</div>
+<div class="page-header email-header"><h2>Your feedback has been sent.</h2></div>
 <div class="panel panel-default email-panel">
     <div class="panel-body">
         Thank you!
