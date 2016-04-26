@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'X-Mailer: PHP/' . phpversion();
 
         // send email
-        mail("trumpet2012@gmail.com", "Solubuddy Feedback Submission[$replyEmail]",$msg, $headers);
+        mail("dkreller@georgiasouthern.edu", "Solubuddy Feedback Submission[$replyEmail]",$msg, $headers);
     }
 }
 
