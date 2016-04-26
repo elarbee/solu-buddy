@@ -23,12 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $replyEmail = $_POST['email'];
 
     if($emailMessage){
-        $emailMessage = "Submission by: \r\n" .
+        $emailMessage = "New feedback received\r\n=====================" .
+                        "Submitted by: \r\n" .
                         "\tReply Email: " . $replyEmail . "\r\n" .
                         "\tUsername: " . $username . "\r\n" .
                         "\tFirst Name: " . $firstName . "\r\n" .
-                        "\tLast Name: ". $lastName . "\r\n " .
-                        "Message:\r\n\t" . $emailMessage;
+                        "\tLast Name: ". $lastName . "\r\n\r\n" .
+                        "Message:\r\n-----------\r\n\r\n" . $emailMessage;
 
         $msg = wordwrap($emailMessage, 70);
         $headers = 'From: noreply@solubuddy.com' . "\r\n" .
@@ -36,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'X-Mailer: PHP/' . phpversion();
 
         // send email
-        mail("trumpet2012@gmail.com", "Solubuddy Feedback Submission",$msg, $headers);
+        mail("trumpet2012@gmail.com", "Solubuddy Feedback Submission[$replyEmail]",$msg, $headers);
     }
 }
 
