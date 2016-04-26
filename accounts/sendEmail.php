@@ -8,17 +8,18 @@ renderHead( ["title" => "Solutions Page", "navField1" => "Account Settings", "na
 
 $username = $_SESSION["username"];
 
-$accountIdQuery = mysqli_query($dbc, "SELECT ID, First_Name, Last_Name FROM accounts WHERE Username = '$username'");
-if(!$accountIdQuery){
-    echo 'Could not run query: ' . mysqli_error();
-    exit;
-}
-$accountIdResult = mysqli_fetch_row($accountIdQuery);
-$accountId = $accountIdResult[0];
-$firstName = $accountIdResult[1];
-$lastName = $accountIdResult[2];
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    $accountIdQuery = mysqli_query($dbc, "SELECT ID, First_Name, Last_Name FROM accounts WHERE Username = '$username'");
+    if(!$accountIdQuery){
+        echo 'Could not run query: ' . mysqli_error();
+        exit;
+    }
+    $accountIdResult = mysqli_fetch_row($accountIdQuery);
+    $accountId = $accountIdResult[0];
+    $firstName = $accountIdResult[1];
+    $lastName = $accountIdResult[2];
+
     $emailMessage = $_POST['message'];
     $replyEmail = $_POST['email'];
 
