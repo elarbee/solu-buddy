@@ -55,3 +55,77 @@ function calculate_error(theoretical, actual){
 
     return (Math.abs((actual - theoretical)/theoretical)*100);
 }
+
+/**
+ * Function for calculating amount of solute to add when creating a single solution from a concentrated stock solution.
+ * Formula: M1 * V1 = M2 * V2
+ *
+ * Example Usage:
+ *
+ * var solute = string_to_formula("NaCl");
+ *
+ * //create a single dilution using a liquid solute and gravimetric transfer with a known mass %.
+ * var mass_to_add = new SingleDilution(1.5, 1).grav_mass(solute, 5);
+ *
+ * @param target_molarity Target Molarity for final solution.
+ * @param target_volume Target volume for final solution in Liters.
+ * @constructor
+ */
+function SingleDilution(target_molarity, target_volume){
+
+    var self = {};
+
+    /**
+     * Calculates molarity required to achieve a target concentration (target molarity) of solute in a total
+     * target volume (target_volume) while diluting a chosen volume in Liters (v1).
+     * @param v1 Volume of solute to dilute.
+     * @returns {number} Molarity required of solute. (M1)
+     */
+    self.solute_molarity = function calculate_solute_molarity(v1){
+        return (target_molarity * target_volume)/v1;
+    };
+
+    /**
+     * Calculates volume required to achieve a target concentration (target molarity) of solute in a total
+     * target volume (target_volume) while diluting a solute with a specific concentration (M1)
+     * @param M1 Molarity of solute to dilute.
+     * @returns {number} Volume required of solute in Liters. (v1)
+     */
+    self.solute_volume = function calculate_solute_volume(M1){
+        return (target_molarity * target_volume)/M1;
+    };
+
+
+    /**
+     * Calculates mass to gravimetrically transfer when making a solution from a stock concentrated solute when the
+     * % mass is known.
+     * @param solute Compound object for the solution's solute.
+     * @param solute_mass_percent Percentage of mass belonging to the solute.
+     * @returns {number} Returns calculated mass to add to the solvent.
+     */
+    self.grav_mass = function calculate_transferred_gravimetric_mass(solute, solute_mass_percent){
+        //mass to add if mass/vol % was 100 for the solute.
+        var minimum_mass_to_add = new SingleSolution(target_molarity, target_volume, solute.molecular_weight()).solid();
+        return minimum_mass_to_add * (solute_mass_percent/100);
+    };
+
+    /**
+     * Calculates volume to volumetrically transfer when making a solution from a stock concentrated solute when the
+     * % mass and density of solute is known.
+     * @param solute Compound object for the solution's solute.
+     * @param solute_mass_percent Percentage of mass belonging to the solute.
+     * @param density Density of solute.
+     * @returns {number} Returns calculated volume to add to the solvent.
+     */
+    self.vol_transfer = function calculate_transferred_volumetric_volume(solute, solute_mass_percent, density){
+
+        var solution = new SingleSolution(target_molarity, target_volume, solute.molecular_weight());
+        //mass to add if mass/vol % was 100 for the solute.
+        var minimum_vol_to_add = solution.liquid.volume(density);
+
+        return minimum_vol_to_add * (solute_mass_percent/100);
+    };
+
+    return self;
+
+}

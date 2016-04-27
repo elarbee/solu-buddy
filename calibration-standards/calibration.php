@@ -61,15 +61,12 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 <div id="answerDiv" class="gray-div" >
         <div id="arrowContainer">
             <img src="down-arrow.png">
+            <h2 id="answerDivHeader"></h2>
         </div>
-        <h2 id="answerDivHeader"></h2>
+
+
         <!-- Contains the content of the answer page -->
         <div id="answerContent" class="inline-div">
-            <!-- Unknown -->
-            <div id="stockSolutionDiv" class="inline-div">
-                <p id="unknownSolutionDescription">Name of unkown,i.e. 'River Water '</p>
-                <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
-            </div>
 
             <div id="stockSolutionDiv" class="inline-div">
                 <p id="analyteSolutionDescription">Analyte</p>
@@ -77,16 +74,16 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
 
             <div id="standardSolutionDiv" class="inline-div">
-                <p id="analyteSolutionDescription">Internal Standard</p>
+                <p id="SolutionDescription">Internal Standard</p>
                 <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
             </div>
             
             <!-- Dilution flasks -->
-            <div id="dilutionFlasksDiv" class="inline-div">
+            <div id="dilutionFlasksDiv" class="inline-div" hidden>
                 <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
-                <div id="dilutionFlask1" class="dilutionFlask inline-div">
+                <div id="dilutionFlask" class="dilutionFlask inline-div">
                     <div class="flaskImgAndNumberDiv">
-                        <td><input type="text" placeholder="V, sas, std1"></td>
+                        <td><input type="text" id="volumeOfAnalyte" placeholder="Enter volume of analyte to add to the solution"></td>
                         <img id="smallBeakerImg" src="../static/images/beaker.png">
                         <p id="flaskNumber">1</p>
                     </div>
