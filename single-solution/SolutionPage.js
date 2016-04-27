@@ -63,14 +63,20 @@ function valid_number_field(id){
 
         if(val == ""){
             error_message += "Please fill in missing fields.\n";
-            console.log("field: " + id + " value: " + val);
+            console.log("field: " + id + " value: " + val + " is empty.");
+            return false;
+        }
+        if(!/^-?\d+\.?\d*$/g.test(val)){
+            error_message += "Must enter correct number.\n";
+            console.log("field: " + id + " value: " + val + " failed regex test.");
             return false;
         }
         if (val <= 0){
             error_message += "Field cannot be less than or equal to 0.\n";
-            console.log("field: " + id + " value: " + val);
+            console.log("field: " + id + " value: " + val + " less than or equal to 0");
             return false;
         }
+
         return true;
 
     }catch (ex){
@@ -153,16 +159,21 @@ function check_accuracy(){
 
 function next_check(page){
     error_message = "";
+    var start = window.performance.now();
     try {
 
         if(no_empty_fields(page) && check_accuracy()){
             /* Otherwise, the inputs are assumed to be correct.
              *   The answer fields will be filled and the answer page and the answer page will be shown. */
+            var time = window.performance.now() - start;
+            console.log("Time to verify input: " + time);
             error_message = "";
             hideAlert();
             fill_fields(page);
         }
         else{
+            var time = window.performance.now() - start;
+            console.log("Time to verify input: " + time);
             showAlert(error_message);
         }
 
