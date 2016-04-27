@@ -5,6 +5,7 @@
  */
 var ACCEPTED_PERCENT_ERROR = 1;
 var error_message = "";
+
 $(function(){
 
     hideAlert();
@@ -20,6 +21,14 @@ function verify_volumetric(){
     if(!valid_number_field("density")){
         return false;
     }
+
+    if($('#knownSelect').val() != 'CONC_VOL'){
+        if(!valid_number_field("solute_molec_weight")){
+            return false;
+        }
+    }
+
+
 
     return true;
 }
@@ -101,10 +110,16 @@ function verify_solid(){
 function no_empty_fields(page){
 
 
-    if($("#solvent_formula").val() == ""){
+    var solvent_formula_val = $("#solvent_formula").val();
+    if(solvent_formula_val == ""){
         error_message += "Must enter a solvent name.\n";
         return false;
     }
+    else if(!/^[a-zA-Z\d*]*$/.test(solvent_formula_val)){
+        error_message += "Solvent formula must contain only letters and numbers.\n";
+        return false;
+    }
+
     var solute_val = $("#solute_formula").val();
     if(solute_val == ""){
         error_message += "Must enter a solute.\n";
@@ -152,6 +167,8 @@ function check_accuracy(){
             return false;
         }
     }
+
+
     return true;
 
 
@@ -352,9 +369,13 @@ function fill_fields(page){
 function check_vol(calculated_vol){
 
     try {
-        var percent_error = calculate_error(calculated_vol, parseFloat($('#solute_volume').val()));
+        var solute_vol_added = parseFloat($('#solute_volume').val());
+        var percent_error = calculate_error(calculated_vol, solute_vol_added);
 
-        if (percent_error > ACCEPTED_PERCENT_ERROR) {
+        if(solute_vol_added > parseFloat($("#total_volume").val())){
+            showAlert("Chosen volume to add should be less than your final solution volume.");
+            return false;
+        }else if(percent_error > ACCEPTED_PERCENT_ERROR) {
             showAlert("Chosen volume to add is "+ calculated_vol + ". " +
                 "Calculated volume is " + calculated_vol + ". Error is: " + precise_round(percent_error, 2) + "%");
             return false;
