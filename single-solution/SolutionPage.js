@@ -72,10 +72,9 @@ function verify_concentrated(){
 
 function valid_number_field(id){
     try {
-        
-        var val = $("#"+id+"").val();
 
-        if(val == ""){
+        var value_validater = new Validate($("#"+id+"").val());
+        if(value_validater.not()){
             error_message += "Please fill in missing fields.\n";
             console.log("field: " + id + " value: " + val + " is empty.");
             return false;

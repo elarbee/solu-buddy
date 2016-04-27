@@ -122,9 +122,15 @@ function Validate(value){
         return self;
     };
 
-    self.end = function return_boolean(){
+    self.is = function return_boolean(){
         return self.valid;
     };
+
+    self.not = function return_boolean(){
+        return !self.valid;
+    };
+
+
 
     return self;
 }
