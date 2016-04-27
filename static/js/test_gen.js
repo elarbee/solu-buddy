@@ -25,8 +25,8 @@ function make_random_entries(){
     var amount = document.getElementById("testing_text_area").value;
 
     var doc = new TestGenerator()
-        //.make_all_solutions(amount)
-        .make_serdil(amount)
+        .make_all_solutions(amount)
+        // .make_serdil(amount)
         //.make_all_calibs(amount)
         .get_doc();
 
@@ -510,10 +510,12 @@ function TestEntry(){
         entry_count++;
         self.next_button();
         console.log("Entry: " + entry_count + " correct? " + is_correct_entry);
+        self.component("echo", "", "Entry: " + entry_count + " correct? " + is_correct_entry);
         if(is_correct_entry){
             self.wait_for_non_alert("myAlert");
         }else{
             console.log(incorrect_reasons);
+            self.component("echo", "", incorrect_reasons);
             self.wait_for_alert("myAlert");
         }
         console.log("====================================================\n");

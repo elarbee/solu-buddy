@@ -79,9 +79,9 @@ function valid_number_field(id){
             console.log("field: " + id + " value: " + val + " is empty.");
             return false;
         }
-        if(value_validator.double().not()){
+        if(value_validator.equal(NaN).is()){
             error_message += "Must enter correct number.\n";
-            console.log("field: " + id + " value: " + val + " failed regex test.");
+            console.log("field: " + id + " value: " + val + " is empty.");
             return false;
         }
         if (value_validator.not_zero().not()){
@@ -90,11 +90,17 @@ function valid_number_field(id){
             return false;
         }
 
+        if(value_validator.double().not()){
+            error_message += "Must enter correct number.\n";
+            console.log("field: " + id + " value: " + val + " failed regex test.");
+            return false;
+        }
+
+
         return true;
 
     }catch (ex){
         console.log("field: " + id + " value: " + val);
-        showAlert(ex.message);
     }
 }
 
@@ -200,7 +206,7 @@ function next_check(page){
         }
 
     }catch(ex){
-        showAlert(ex.message);
+        console.log(ex.message);
     }
 }
 
@@ -364,7 +370,7 @@ function fill_fields(page){
         }
     }catch (ex){
         console.trace();
-        showAlert(ex.message);
+        console.log(ex.message);
     }
 };
 
@@ -386,7 +392,7 @@ function check_vol(calculated_vol){
             return true;
         }
     }catch (ex){
-        showAlert(ex.message);
+        console.log(ex.message);
     }
 };
 
@@ -405,6 +411,6 @@ function check_mass(calculated_mass){
             return true;
         }
     }catch (ex){
-        showAlert(ex.message);
+        console.log(ex.message);
     }
 };

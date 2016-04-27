@@ -37,6 +37,7 @@ function Validate(value){
      * Contains no decimals.
      */
     self.integer = function is_an_integer(){
+        self.and(self.val != NaN);
         self.regex_test(/^-?[\d*]*$/);
         check_for_error("Failed integer test.");
         return self;
@@ -46,6 +47,7 @@ function Validate(value){
      * Is a double
      */
     self.double = function is_a_double(){
+        self.and(self.val != NaN);
         self.regex_test(/^-?\d+\.?\d*$/g);
         check_for_error("Failed double test.");
         return self;
