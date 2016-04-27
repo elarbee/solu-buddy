@@ -44,40 +44,43 @@ $(function() {
             showAlert("Please enter a Molarity for the original stock solution!");
             return false;
         }
-        
+
+        var validate_numDilutions = new Validate(numDilutions);
         // If no dilution number entered
-        if(numDilutions == ""){
+        if(!validate_numDilutions.end()){
             showAlert("Please enter a number of dilutions!");
             return false;
         }
         
          // If invalid dilution number entered
-        if(Number(numDilutions) <= 0 || Number(numDilutions) > 25){
-            showAlert("Please enter a number of dilutions between 0 and 20!");
+        if(!validate_numDilutions.not_zero().between_including(1,25).end()){
+            showAlert("Please enter a number of dilutions between 0 and 25!");
             return false;
         }
-        
+
+        var validate_flasksVolume = new Validate(flasksVolume);
         // If no flask volume entered
-        if(flasksVolume == ""){
+        if(!validate_flasksVolume.end()){
             showAlert("Please enter a flask volume!");
             return false;
         }
         
         //If flask volume <0
-        if(Number(flasksVolume) <= 0){
+        if(!validate_flasksVolume.not_zero().end()){
             showAlert("Please enter a flask volume greater than 0!");
             return false;
         }
         
-        
+        var validate_volumeTransferred = new Validate(volumeTransferred);
         // If no transfer volume entered
-        if(volumeTransferred == ""){
+        if(!validate_volumeTransferred.end()){
             showAlert("Please enter a transfer volume!");
             return false;
         }
-        
+
+        //flasksVolume
          // If invalid transfer volume entered
-        if(Number(volumeTransferred) > Number(flasksVolume) || Number(volumeTransferred) <= 0){
+        if(!validate_volumeTransferred.greater(flasksVolume).or(!validate_volumeTransferred.not_zero().end()).end()){
             showAlert("Please enter a transfer volume less than the flask volume and greater than 0!");
             return false;
         }

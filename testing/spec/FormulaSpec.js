@@ -77,7 +77,7 @@ describe('Formula parsing and validation', function() {
 
     describe('string_to_compound_segments(str) function testing', function() {
 
-        it('should break down a s4imple formula into its elements', function () {
+        it('should break down a simple formula into its elements', function () {
 
             var test1 = 'NaCl';
             expect(string_to_compound_segments(test1).length).toEqual(2);

@@ -117,6 +117,11 @@ function Validate(value){
         return self;
     };
 
+    self.equal = function(value){
+        self.and(self.val == value);
+        return self;
+    };
+
     self.end = function return_boolean(){
         return self.valid;
     };

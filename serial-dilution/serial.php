@@ -23,6 +23,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <script src="big.min.js"></script>
     <script src="serialPage.js"></script>
     <script src="/static/js/utility.js"></script>
+    <script src="/static/js/validate.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="/shared-content/InputStyle.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/navBar.css">
