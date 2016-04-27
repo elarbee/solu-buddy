@@ -73,18 +73,18 @@ function verify_concentrated(){
 function valid_number_field(id){
     try {
 
-        var value_validater = new Validate($("#"+id+"").val());
-        if(value_validater.not()){
+        var value_validator = new Validate($("#"+id+"").val());
+        if(value_validator.not()){
             error_message += "Please fill in missing fields.\n";
             console.log("field: " + id + " value: " + val + " is empty.");
             return false;
         }
-        if(!/^-?\d+\.?\d*$/g.test(val)){
+        if(value_validator.double().not()){
             error_message += "Must enter correct number.\n";
             console.log("field: " + id + " value: " + val + " failed regex test.");
             return false;
         }
-        if (val <= 0){
+        if (value_validator.not_zero().not()){
             error_message += "Field cannot be less than or equal to 0.\n";
             console.log("field: " + id + " value: " + val + " less than or equal to 0");
             return false;
@@ -114,12 +114,13 @@ function verify_solid(){
 function no_empty_fields(page){
 
 
-    var solvent_formula_val = $("#solvent_formula").val();
-    if(solvent_formula_val == ""){
+
+    var solvent_validator = new Validate($("#solvent_formula").val());
+    if(solvent_validator.not()){
         error_message += "Must enter a solvent name.\n";
         return false;
     }
-    else if(!/^[a-zA-Z\d*]*$/.test(solvent_formula_val)){
+    else if(solvent_validator.only_letters().not()){
         error_message += "Solvent formula must contain only letters and numbers.\n";
         return false;
     }
@@ -217,11 +218,8 @@ function fill_fields(page){
 
         /* Collects variables from input fields and creates other necessary variables using the input variables */
         var solute_compound = string_to_compound($("#solute_formula").val());
-
         /* Obtains the molecular weight for the compound using a formula in the compound object.*/
         var solute_molecular_weight = solute_compound.molecular_weight();
-        /* Sets the molecular weight field to the newly calculated value.*/
-        //$("#solute_molec_weight").val(solute_molecular_weight);
         /* Get total volume value from input field*/
         var total_volume = parseFloat($("#total_volume").val())/1000;
 
