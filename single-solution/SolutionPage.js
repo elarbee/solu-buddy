@@ -68,6 +68,7 @@ function verify_concentrated(){
 
 function valid_number_field(id){
     try {
+        
         var val = $("#"+id+"").val();
 
         if(val == ""){
