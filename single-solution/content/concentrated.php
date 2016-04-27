@@ -35,16 +35,16 @@
                 $('#conc_inputs').html("Solute Concentration (mol/L) <input name=\"solute_concentration\" id = \"solute_concentration\" type=\"text\" placeholder=\"Solute Concentration (mol/L)\"><br>"+
                     "Solute Volume (mL) <input name=\"solute_volume\" id = \"solute_volume\" type=\"text\" placeholder=\"Solute Volume to Add (mL)\"><br>");
             }
-            else if($('#knownSelect').val() == 'CONC_GRAV' || $('#knownSelect').val() == 'CONC_VOL'){
+            else if($('#knownSelect').val() == 'CONC_GRAV') {
 
-                $('#conc_inputs').html("% Mass of Solute <input name=\"solute_percent_mass\" id = \"solute_percent_mass\" type=\"text\" placeholder=\"% Mass of Solute\"><br>"+
+                $('#conc_inputs').html("% Mass of Solute <input name=\"solute_percent_mass\" id = \"solute_percent_mass\" type=\"text\" placeholder=\"% Mass of Solute\"><br>" +
                     "Mass to Add (g) <input name=\"massToAdd\" id = \"massToAdd\" type=\"text\" placeholder=\" Mass to Add (g)\"><br>");
+                
+            }else if($('#knownSelect').val() == 'CONC_VOL'){
 
-                if($('#knownSelect').val() == 'CONC_VOL'){
-                    $('#conc_inputs').html("% Mass of Solute <input name=\"solute_percent_mass\" id = \"solute_percent_mass\" type=\"text\" placeholder=\"% Mass of Solute\"><br>" +
-                        "Solute Density <input name=\"density\" id = \"density\" type=\"text\" placeholder=\"Density of Solute\"><br>"+
-                        "Solute Volume (mL) <input name=\"solute_volume\" id = \"solute_volume\" type=\"text\" placeholder=\"Solute Volume to Add (mL)\"><br>");
-                }
+                $('#conc_inputs').html("% Mass of Solute <input name=\"solute_percent_mass\" id = \"solute_percent_mass\" type=\"text\" placeholder=\"% Mass of Solute\"><br>" +
+                    "Solute Density <input name=\"density\" id = \"density\" type=\"text\" placeholder=\"Density of Solute\"><br>"+
+                    "Solute Volume (mL) <input name=\"solute_volume\" id = \"solute_volume\" type=\"text\" placeholder=\"Solute Volume to Add (mL)\"><br>");
             }
             else{
                 $('#conc_inputs').html($('#knownSelect').val());

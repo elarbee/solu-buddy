@@ -4,7 +4,7 @@
  * @type {number} Allowed percent error to consider correct. (0-100)
  */
 var ACCEPTED_PERCENT_ERROR = 1;
-
+var error_message = "";
 $(function(){
 
     hideAlert();
@@ -12,65 +12,216 @@ $(function(){
 
 });
 
+function verify_volumetric(){
+    if(!valid_number_field("solute_volume")){
+        return false;
+    }
+
+    if(!valid_number_field("density")){
+        return false;
+    }
+
+    return true;
+}
+
+function verify_concentrated(){
+    if($('#knownSelect').val() == 'CONC_MOL'){
+        if(!valid_number_field("solute_volume")){
+            return false;
+        }
+        if(!valid_number_field("solute_concentration")){
+            return false;
+        }
+    }
+    else if($('#knownSelect').val() == 'CONC_VOL'){
+        if(verify_volumetric()){
+            if(!valid_number_field("solute_percent_mass") || $("#solute_percent_mass").val() > 100){
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }else if($('#knownSelect').val() == 'CONC_GRAV'){
+        if(!valid_number_field("solute_percent_mass") || $("#solute_percent_mass").val() > 100){
+            return false;
+        }
+        if(!valid_number_field("massToAdd")){
+            return false;
+        }
+    }else{
+        return true;
+    }
+}
+
+function valid_number_field(id){
+    try {
+        var val = $("#"+id+"").val();
+
+        if(val == ""){
+            error_message += "Please fill in missing fields.\n";
+            console.log("field: " + id + " value: " + val);
+            return false;
+        }
+        if (val <= 0){
+            error_message += "Field cannot be less than or equal to 0.\n";
+            console.log("field: " + id + " value: " + val);
+            return false;
+        }
+        return true;
+
+    }catch (ex){
+        console.log("field: " + id + " value: " + val);
+        showAlert(ex.message);
+    }
+}
+
+function verify_solid(){
+
+    if(!valid_number_field("massToAdd")){
+        return false;
+    }
+
+    if(!valid_number_field("solute_molec_weight")){
+        return false;
+    }
+
+    return true;
+}
+
+function no_empty_fields(page){
+
+
+    if($("#solvent_formula").val() == ""){
+        error_message += "Must enter a solvent name.\n";
+        return false;
+    }
+    var solute_val = $("#solute_formula").val();
+    if(solute_val == ""){
+        error_message += "Must enter a solute.\n";
+        return false;
+    }
+    if(!valid_number_field("total_volume")){
+        return false;
+    }
+
+    if(!valid_number_field("solution_concentration")){
+        return false;
+    }
+
+    if(page == "SOLID" || page == "GRAV"){
+        if(!verify_solid()){
+            return false;
+        }
+    }
+    else if(page == "VOLU"){
+        if(!verify_volumetric()){
+            return false;
+        }
+
+    }else if(page == "CONC"){
+        if(!verify_concentrated()){
+            return false;
+        }
+    }
+    return true;
+
+}
+
+function check_accuracy(){
+    if(!is_valid_formula($("#solute_formula").val())){
+        error_message += "Must enter a valid solute formula.\n";
+        showAlert(error_message);
+        return false;
+    }
+    if($("#solute_formula") != undefined){
+        var solute = string_to_compound($("#solute_formula").val());
+        var error = calculate_error(solute.molecular_weight(), $("#solute_molec_weight").val());
+        if(error > ACCEPTED_PERCENT_ERROR){
+            error_message += "Molecular weight is incorrect with an error of " + error + "\n";
+            showAlert(error_message);
+            return false;
+        }
+    }
+    return true;
+
+
+}
+
 function next_check(page){
+    error_message = "";
     try {
 
-        var all_clear = true;
-        var msg = "";
+        // var all_clear = true;
+        // var msg = "";
+        //
+        // /* Checks the solute & solvent formula for validity.
+        //  *   Conditions for valid formula:
+        //  *
+        //  *       1) No duplicate elements.
+        //  *       2) Proper nomenclature.*/
+        //
+        //
+        // if(!is_valid_formula($("#solute_formula").val())
+        //     || $("#solute_formula").val() == ""){
+        //     all_clear = false;
+        //
+        //     /* An error message is formulated depending on which formula is correct.
+        //      * An additive strategy is used so a combination of error messages can be displayed
+        //      * in one message box to avoid an 'intrusive' number of message boxes popping up.*/
+        //     msg += "Solute formula is not valid.<br/>";
+        // }
+        //
+        //
+        // //Checks other fields for emptiness.
+        // if($('#solvent_formula').val() == ""
+        //     || $("#solute_molec_weight").val() == ""
+        //     || $("#total_volume").val() == ""
+        //     || $("#solution_concentration").val() == ""
+        //     || $("#massToAdd").val() == ""){
+        //
+        //     msg += "Please fill in the empty fields.<br/>";
+        //     all_clear = false;
+        // }
+        //
+        //
+        // //Checks density field for volumetric solution page.
+        // if(page == "VOLU" && ($("#density").val() == "" || $("#solute_volume").val() == "")){
+        //     msg += "Please fill in the empty fields.<br/>";
+        //     all_clear = false;
+        // }
+        //
+        // if(page == "CONC" && ($('#knownSelect').val() == 'CONC_VOL'
+        //     || $('#knownSelect').val() == 'CONC_MOL')){
+        //
+        //     if($("#solute_volume").val() == ""){
+        //         msg += "Please fill in the empty fields.<br/>";
+        //         all_clear = false;
+        //     }
+        // }
+        //
+        // //Everything valid so far, check molecular weight.
+        // if(all_clear){
+        //     var solute = string_to_compound($("#solute_formula").val());
+        //     var calculated_molec_weight = solute.molecular_weight();
+        //     var percent_error = calculate_error(calculated_molec_weight, parseFloat($("#solute_molec_weight").val()));
+        //
+        //     if(percent_error > ACCEPTED_PERCENT_ERROR){
+        //         msg += "Solute molecular weight is incorrect. Error is " + precise_round(percent_error, 2) + "%<br/>"
+        //         all_clear = false;
+        //     }
+        //     /* If either formula was invalid, the message will be displayed to the user. */
+        // }
 
-        /* Checks the solute & solvent formula for validity.
-         *   Conditions for valid formula:
-         *
-         *       1) No duplicate elements.
-         *       2) Proper nomenclature.*/
-
-
-        if(!is_valid_formula($("#solute_formula").val()) || $("#solute_formula").val() == ""){
-            all_clear = false;
-
-            /* An error message is formulated depending on which formula is correct.
-             * An additive strategy is used so a combination of error messages can be displayed
-             * in one message box to avoid an 'intrusive' number of message boxes popping up.*/
-            msg += "Solute formula is not valid.<br/>";
-        }
-
-
-        //Checks other fields for emptiness.
-        if($('#solvent_formula').val() == "" || $("#solute_molec_weight").val() == "" || $("#total_volume").val() == "" || $("#solution_concentration").val() == "" ||
-            $("#massToAdd").val() == ""){
-
-            msg += "Please fill in the empty fields.<br/>";
-            all_clear = false;
-        }
-
-
-        //Checks density field for volumetric solution page.
-        if(page == "VOLU" && $("#density").val() == ""){
-            msg += "Please fill in the empty fields.<br/>";
-            all_clear = false;
-        }
-
-        //Everything valid so far, check molecular weight.
-        if(all_clear){
-            var solute = string_to_compound($("#solute_formula").val());
-            var calculated_molec_weight = solute.molecular_weight();
-            var percent_error = calculate_error(calculated_molec_weight, parseFloat($("#solute_molec_weight").val()));
-
-            if(percent_error > ACCEPTED_PERCENT_ERROR){
-                msg += "Solute molecular weight is incorrect. Error is " + precise_round(percent_error, 2) + "%<br/>"
-                all_clear = false;
-            }
-            /* If either formula was invalid, the message will be displayed to the user. */
-        }
-
-        if(all_clear){
+        if(no_empty_fields(page) && check_accuracy()){
             /* Otherwise, the inputs are assumed to be correct.
              *   The answer fields will be filled and the answer page and the answer page will be shown. */
+            error_message = "";
             hideAlert();
             fill_fields(page);
         }
         else{
-            showAlert(msg);
+            showAlert(error_message);
         }
 
     }catch(ex){
@@ -150,6 +301,7 @@ function fill_fields(page){
 
             var density = parseFloat($("#density").val());
 
+            min_sigfig = count_sig_figs(parseFloat($('#solute_volume').val()) / 1000);
 
             if(check_vol(single_solution.liquid.volume(density).toPrecision(min_sigfig))){
                 new_solution = new Solution(
@@ -221,6 +373,7 @@ function fill_fields(page){
              */
             else if($('#knownSelect').val() == 'CONC_VOL'){
 
+
                 min_sigfig = count_sig_figs(user_vol_to_add);
                 if(check_vol(dilution.vol_transfer(solute_compound, mass_percent, density).toPrecision(min_sigfig))){
                     new_solution = new Solution(
@@ -238,6 +391,7 @@ function fill_fields(page){
             
         }
     }catch (ex){
+        console.trace();
         showAlert(ex.message);
     }
 };
@@ -248,8 +402,7 @@ function check_vol(calculated_vol){
         var percent_error = calculate_error(calculated_vol, parseFloat($('#solute_volume').val()) / 1000);
 
         if (percent_error > ACCEPTED_PERCENT_ERROR) {
-            showAlert("Chosen volume to add is "+ calculated_vol + ". Error is: " + precise_round(percent_error, 2) + "%");
-            $('#solute_volume').val("");
+            showAlert("Chosen volume to add is "+ calculated_vol + " . Error is: " + precise_round(percent_error, 2) + "%");
             return false;
         } else {
             hideAlert();

@@ -85,7 +85,7 @@ function SingleDilution(target_molarity, target_volume){
 
     /**
      * Calculates molarity required to achieve a target concentration (target molarity) of solute in a total
-     * target volume (target_volume) while diluting a chosen volume (v1).
+     * target volume (target_volume) while diluting a chosen volume in Liters (v1).
      * @param v1 Volume of solute to dilute.
      * @returns {number} Molarity required of solute. (M1)
      */
@@ -97,7 +97,7 @@ function SingleDilution(target_molarity, target_volume){
      * Calculates volume required to achieve a target concentration (target molarity) of solute in a total
      * target volume (target_volume) while diluting a solute with a specific concentration (M1)
      * @param M1 Molarity of solute to dilute.
-     * @returns {number} Volume required of solute. (v1)
+     * @returns {number} Volume required of solute in Liters. (v1)
      */
     self.solute_volume = function calculate_solute_volume(M1){
         return (target_molarity * target_volume)/M1;
@@ -130,7 +130,7 @@ function SingleDilution(target_molarity, target_volume){
         var solution = new SingleSolution(target_molarity, target_volume, solute.molecular_weight());
         //mass to add if mass/vol % was 100 for the solute.
         var minimum_vol_to_add = solution.liquid.volume(density);
-
+        
         return minimum_vol_to_add * (solute_mass_percent/100);
     };
 
