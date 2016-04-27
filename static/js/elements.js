@@ -1,8 +1,6 @@
 /**
- * @author William Robert Howerton III
- * Feb. 23, 2016
+ * Author: William Robert Howerton III
  */
-
 
 var Hydrogen = {
     number:1,

@@ -1,5 +1,5 @@
 /**
- * Created by Howerton on 2/23/2016.
+ * Author: William Robert Howerton III
  */
 
 var ionic_reg = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g;

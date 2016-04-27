@@ -1,4 +1,8 @@
 /**
+ * Author: William Robert Howerton III
+ */
+
+/**
  * A constant to use in this form. This number represents the accepted percentage of error
  * when calculating mass or volume to add.
  * @type {number} Allowed percent error to consider correct. (0-100)

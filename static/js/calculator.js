@@ -1,4 +1,8 @@
 /**
+ * Author: William Robert Howerton III
+ */
+
+/**
  * Function for calculating the amount of solute that should be added in order to create a single solution. Handles
  * creating a solution from a solid solute and a liquid solute (both gravimetrically and volumetrically).
  *

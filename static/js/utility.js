@@ -1,6 +1,7 @@
 /**
- * Created by root on 4/6/16.
+ * Author: William Robert Howerton III
  */
+
 /**
  * Counts the number of significant digits.
  * @param n Number string of which to count the number of significant digits.

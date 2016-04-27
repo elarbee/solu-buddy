@@ -1,3 +1,7 @@
+/**
+ * Author: William Robert Howerton III
+ */
+
 describe('Formula parsing and validation', function() {
 
     describe('is_valid_formula(str) function testing', function() {

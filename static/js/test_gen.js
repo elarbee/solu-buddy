@@ -1,8 +1,7 @@
 
 /**
- * Created by root on 4/24/16.
+ * Author: William Robert Howerton III
  */
-
 /**
  * Prints test cases to text area in test_doc.html
  * located in solu-buddy/testing/

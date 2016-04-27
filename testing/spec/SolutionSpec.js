@@ -1,6 +1,7 @@
 /**
- * Created by Howerton on 3/31/2016.
+ * Author: William Robert Howerton III
  */
+
 describe('Solution.js testing', function() {
 
 

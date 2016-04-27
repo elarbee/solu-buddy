@@ -1,5 +1,5 @@
 /**
- * Created by root on 4/6/16.
+ * Author: William Robert Howerton III
  */
 describe("Utility Functions", function() {
 

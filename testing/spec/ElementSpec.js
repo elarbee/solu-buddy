@@ -1,3 +1,7 @@
+/**
+ * Author: William Robert Howerton III
+ */
+
 describe("Element", function() {
 
 

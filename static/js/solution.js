@@ -1,7 +1,6 @@
 /**
- * Created by Howerton on 3/31/2016.
+ * Author: William Robert Howerton III
  */
-
 /**
  * Creates a new solution object using solute/solvent formulas, final volume, and goal concentration.
  *
