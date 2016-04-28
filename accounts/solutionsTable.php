@@ -7,7 +7,7 @@ function displaySolutionMessage($isError=false){
 ?>
     <tbody>
         <tr>
-            <td colspan="7">
+            <td colspan="10">
                 <?= $msg ?>
             </td>
         </tr>
