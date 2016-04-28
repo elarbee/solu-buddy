@@ -91,6 +91,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
                     <div class="flaskDescription">
                         <!-- Need to format '1 ' as subscript here-->
                         <p class="flaskCalc"></p>
+                        <p class="flaskCalcIS"></p>
                     </div>
                 </div>
             </div>
