@@ -10,9 +10,9 @@
 		<div class="col-md-4 hidden-sm hidden-xs"><p class="regText">Enter the number of flasks</p></div>
 	</div>
 	<div class="row">
-		<div class="col-md-4 col-sm-12"><input id="analyte_formula" type="text" placeholder="Name of Analyte Solution"> </div>
-		<div class="col-md-4 col-sm-12"><input id="analyte_molarity" type="text" placeholder="Molarity of Analyte Solution" ></div>
-		<div class="col-md-4 col-sm-12"><input id="num_standards" type="text" placeholder="Number of Calibration Standards" ></div>
+		<div class="col-md-4 col-sm-12"><input id="analyte_formula" type="text" name="analyte_formula" placeholder="Name of Analyte Solution"> </div>
+		<div class="col-md-4 col-sm-12"><input id="analyte_molarity" name="analyte_molarity" type="text" placeholder="Molarity of Analyte Solution" ></div>
+		<div class="col-md-4 col-sm-12"><input id="num_standards" name="num_standards" type="text" placeholder="Number of Calibration Standards" ></div>
 	</div>
 	<div class="row">
 		<div class="col-md-4 col-sm-12"><p class="regText">Enter an internal standard name</p></div>
@@ -20,9 +20,9 @@
 		<div class="col-md-4 hidden-sm hidden-xs"><p class="regText">Enter a volume for your flasks (mL)</p></div>
 	</div>
 	<div class="row">
-		<div class="col-md-4 col-sm-12"><input id="internal_formula" type="text" placeholder="Name of Internal Standard Solution" ></div>
-		<div class="col-md-4 col-sm-12"><input id="internal_molarity" type="text" placeholder="Molarity of Internal Standard" ></div>
-		<div class="col-md-4 col-sm-12"><input id="total_volume_standards" type="text" placeholder="Volume of Calibration Standard Flasks"></div>
+		<div class="col-md-4 col-sm-12"><input id="internal_formula" name="internal_formula" type="text" placeholder="Name of Internal Standard Solution" ></div>
+		<div class="col-md-4 col-sm-12"><input id="internal_molarity" name="internal_molarity" type="text" placeholder="Molarity of Internal Standard" ></div>
+		<div class="col-md-4 col-sm-12"><input id="total_volume_standards" name="total_volume_standards" type="text" placeholder="Volume of Calibration Standard Flasks"></div>
 
 	</div>
 
