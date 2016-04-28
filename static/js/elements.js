@@ -784,7 +784,7 @@ elements_array = {
     'Ne': Neon,
     'Na': Sodium,
     'Mg': Magnesium,
-    'Al': Aluminum,
+    'Al': Aluminum, 
     'Si': Silicon,
     'P': Phosphorus,
     'S': Sulfur,
@@ -903,4 +903,9 @@ elements_array = {
  */
 function find_element(element_symbol){
     return elements_array[element_symbol];
+}
+
+function getRandomElementKey(){
+    var keys = Object.keys(elements_array);
+    return keys[randomInt(0, keys.length)];
 }

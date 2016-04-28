@@ -26,8 +26,6 @@ $(function () {
         var unknown = $("#unknown").val();
         var numStandards = $("#num_standards").val();
         var totalVolume = $("#total_volume_standards").val();
-        var validSolvent = is_valid_formula(solventFormula);
-        var validAnalyte =  is_valid_formula(analyteFormula);
         var volumeStandards = $("#volume_standards").val();
 
         if(myParam == "EXTERNAL" || myParam == "ADDITION") {
@@ -36,19 +34,9 @@ $(function () {
                 showAlert("Please enter a name for your solvent!");
                 return false;
             }
-            //Check if formula for solvent is valid
-            if (validSolvent != true) {
-                showAlert("Please enter a valid solvent!");
-                return false;
-            }
             //If no analyte entered
             if (analyteFormula == "") {
                 showAlert("Please enter a name for your analyte!");
-                return false;
-            }
-            //Check if formula for analyte is valid
-            if (validAnalyte != true) {
-                showAlert("Please enter a valid analyte!");
                 return false;
             }
             //If no unknown entered

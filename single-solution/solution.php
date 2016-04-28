@@ -33,6 +33,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     $SOLID = 'SOLID';
     $GRAVIMETRIC = 'GRAV';
     $VOLUMETRIC = 'VOLU';
+    $CONCENTRATED = 'CONC';
     
     $CALIBRATION1 = 'calibration1';
     $CALIBRATION2 = 'calibration2';
@@ -66,6 +67,11 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 					echo '<h2> Okay, you are volumetrically adding a solute that is in the form of a pure liquid. </h2>';
 					echo '<h3> Fill in the fields below with the appropriate information </h3>';
 				}
+
+                elseif ($_GET['value'] == $GLOBALS['CONCENTRATED']) {
+					echo '<h2> Okay, you are making a solution from a concentrated stock solution.</h2>';
+					echo '<h3> What best describes your solute?</h3>';
+				}
 			//If none of the above show an error page.
 				else{
 					echo '<h2> Error: Malformed URL, please return to SoluBuddy Home Page and try again. </h2>';
@@ -98,10 +104,16 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             elseif ($_GET['value'] == $GLOBALS['VOLUMETRIC']) {
                 include 'content/volumetric.php';
             }
+            elseif ($_GET['value'] == $GLOBALS['CONCENTRATED']) {
+                include 'content/concentrated.php';
+            }
         }
     ?>
 </div>
 
+    <div id="myAlert" class="alert alert-danger">
+        <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+    </div>
 <hr>
 <!-- This is the answer page -->
 <div id="answerDiv">
