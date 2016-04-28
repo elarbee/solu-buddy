@@ -63,7 +63,6 @@ function calculate_error(theoretical, actual){
     return (Math.abs((actual - theoretical)/theoretical)*100);
 }
 
-
 /**
  * Function for calculating amount of solute to add when creating a single solution from a concentrated stock solution.
  * Formula: M1 * V1 = M2 * V2
@@ -80,7 +79,7 @@ function calculate_error(theoretical, actual){
  * @constructor
  */
 function SingleDilution(target_molarity, target_volume){
-    
+
     var self = {};
 
     /**
@@ -130,7 +129,7 @@ function SingleDilution(target_molarity, target_volume){
         var solution = new SingleSolution(target_molarity, target_volume, solute.molecular_weight());
         //mass to add if mass/vol % was 100 for the solute.
         var minimum_vol_to_add = solution.liquid.volume(density);
-        
+
         return minimum_vol_to_add * (solute_mass_percent/100);
     };
 
