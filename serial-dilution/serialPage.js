@@ -32,6 +32,9 @@ $(function() {
         if(solventID == ""){
             showAlert("Please enter a name for your solvent!");
             return false;
+        }else if(!/^[a-zA-Z\d*]*$/.test(solventID)){
+            showAlert("Solvent formula must contain only letters and numbers.\n");
+            return false;
         }
 
         //If no solute name entered
@@ -57,7 +60,7 @@ $(function() {
         
          // If invalid dilution number entered
         if(Number(numDilutions) <= 0 || Number(numDilutions) > 25){
-            showAlert("Please enter a number of dilutions between 0 and 20!");
+            showAlert("Please enter a number of dilutions between 0 and 25!");
             return false;
         }
         
@@ -66,7 +69,10 @@ $(function() {
             showAlert("Please enter a flask volume!");
             return false;
         }
-        
+        if(isNaN(flasksVolume)){
+            showAlert("Flask volume must be a number!");
+            return false;
+        }
         //If flask volume <0
         if(Number(flasksVolume) <= 0){
             showAlert("Please enter a flask volume greater than 0!");
@@ -79,7 +85,12 @@ $(function() {
             showAlert("Please enter a transfer volume!");
             return false;
         }
-        
+
+        if(isNaN(volumeTransferred)){
+            showAlert("Volume transferred must be a number!");
+            return false;
+        }
+
          // If invalid transfer volume entered
         if(Number(volumeTransferred) > Number(flasksVolume) || Number(volumeTransferred) <= 0){
             showAlert("Please enter a transfer volume less than the flask volume and greater than 0!");

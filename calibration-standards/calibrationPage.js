@@ -62,7 +62,7 @@ $(function () {
             showAlert("Please enter a number of standards!");
             return false;
         }
-        if (Number.isInteger(numStandards) == false) {
+        if (isNaN(numStandards)) {
             showAlert("Number of standards must be an integer!");
             return false;
         }
@@ -76,7 +76,7 @@ $(function () {
             showAlert("Please enter a total flask volume greater than 0!");
             return false;
         }
-        if (Number.isInteger(totalVolume) == false) {
+        if (isNaN(totalVolume)) {
             showAlert("Total volume must be a number");
             return false;
         }
@@ -84,6 +84,9 @@ $(function () {
             //If no solvent entered
             if (solventFormula == "") {
                 showAlert("Please enter a name for your solvent!");
+                return false;
+            }else if(!/^[a-zA-Z\d*]*$/.test(solventFormula)){
+                showAlert("Solvent formula must contain only letters and numbers.");
                 return false;
             }
 
@@ -106,6 +109,9 @@ $(function () {
             if(internalFormula == "") {
                 showAlert("Please enter a name for your internal standard!");
                 return false;
+            }else if(!/^[a-zA-Z\d*]*$/.test(internalFormula)){
+                showAlert("Solvent formula must contain only letters and numbers.");
+                return false;
             }
             if(internalMolarity == "") {
                 showAlert("Please enter internal standard molarity!");
@@ -122,6 +128,9 @@ $(function () {
         } else if (myParam == "ADDITION") {
             if(unknown == "") {
                 showAlert("Please enter a name for the unknown!");
+                return false;
+            }else if(!/^[a-zA-Z\d*]*$/.test(unknown)){
+                showAlert("Solvent formula must contain only letters and numbers.");
                 return false;
             }
             if(unknownVolume == "") {
