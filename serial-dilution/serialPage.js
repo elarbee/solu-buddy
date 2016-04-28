@@ -33,9 +33,13 @@ $(function() {
             showAlert("Please enter a name for your solvent!");
             return false;
         }
+
         //If no solute name entered
         if(chemID == ""){
             showAlert("Please enter a name for your solute!");
+            return false;
+        }else if(!/^[a-zA-Z\d*]*$/.test(chemID)){
+            showAlert("Please enter a valid name for your solute!");
             return false;
         }
         
