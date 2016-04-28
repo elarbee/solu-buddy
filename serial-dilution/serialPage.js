@@ -21,12 +21,18 @@ $(function() {
     function validateInput(){
         
         //Grab input values and set them to local variables
+        var solventID = $("#solventChemID").val();
         var chemID = $("#soluteChemID").val();
         var solutionMolarity = $("#molaritySolution").val();
         var numDilutions = $("#numDilutions").val();
         var flasksVolume = $("#flasksVolume").val();
         var volumeTransferred = $("#volumeTransferred").val();
-        
+
+        //If no solvent name entered
+        if(solventID == ""){
+            showAlert("Please enter a name for your solvent!");
+            return false;
+        }
         //If no solute name entered
         if(chemID == ""){
             showAlert("Please enter a name for your solute!");
