@@ -26,114 +26,22 @@ function make_random_entries(){
     var amount = document.getElementById("testing_text_area").value;
 
     var doc = new TestGenerator()
-        .make_all_solutions(amount)
-        .make_serdil(amount)
-        .make_all_calibs(amount)
+        .make_solid(amount)
+        // .make_all_solutions(amount)
+        // .make_serdil(amount)
+        // .make_all_calibs(amount)
         .get_doc();
 
     document.getElementById("testing_text_area").value = doc;
 }
 
-
-
-
-/**
- * Makes a random double between given low and high
- * @param low Minimum value of expected double
- * @param high Maximum value of expected double
- * @returns {*} Random double within limits
- */
-function randomDouble(low, high){
-    return precise_round((Math.random() * (high-low))+low, 4);
-}
-
-/**
- * Makes a random integer between given low and high
- * @param low Minimum value of expected integer
- * @param high Maximum value of expected integer
- * @returns {*} Random integer within limits.
- */
-function randomInt(low, high){
-    return precise_round((Math.floor(Math.random() * (high-low))+low), 4);
-}
-
-/**
- * Makes a random lower case character.
- * @returns {string} Random lower case character.
- */
-function randomLower(){
-    return String.fromCharCode(randomInt(97, 122));
-}
-
-/**
- * Makes a random upper case character
- * @returns {string} random upper case character
- */
-function randomUpper(){
-    return String.fromCharCode(randomInt(65, 90));
-}
-
-/**
- * Simulates rolling dice by making a random number between 0 and the given max and then comparing the number to "chances".
- * If The generated number is lower than the chances, the roll "succeeeds" and true is returned. False is returned if the
- * roll fails. Chance is approximately (chances/max)%
- * @param chances Approximate chances out of max to succeed.
- * @param max Upper limit of the roll.
- * @returns {boolean} True if success, false otherwise.
- */
-function rollDice(chances, max){
-    return (randomDouble(0, max) < chances);
-}
-
-/**
- * Creates a random valid formula using random elements. Length will be between given low and high.
- * @param low Minimum length
- * @param high Maximum length
- * @returns {string} Valid formula
- */
-function randomFormula(low, high){
-    var length = randomInt(low, high);
-
-    var formula = "";
-
-    for(var i = 0; i < length; i++){
-
-        formula += getRandomElementKey();
-
-        if(rollDice(50, 100)){
-            formula += randomInt(2, 100);
-        }
-    }
-
-    return formula;
-}
-
-/**
- * Creates a random word between the givin min and max length using lower and upper case letters.
- * @param min_length minimum length
- * @param max_length maximum length
- * @returns {string} Word
- */
-function randomWord(min_length, max_length){
-    var length = randomInt(min_length, max_length);
-    var word = "";
-    for(var i = 0; i < length; i++){
-        if(rollDice(50, 100)){
-            word += randomUpper();
-        }else{
-            word += randomLower();
-        }
-    }
-    return word;
-}
-
 function random_shitstorm(min_length, max_length){
     is_correct_entry = false;
     incorrect_reasons += "shitstorm inbound\n";
-    var length = randomInt(min_length, max_length);
+    var length = random_int(min_length, max_length);
     var shit_storm = "";
     for(var i = 0; i < length; i++){
-        shit_storm += String.fromCharCode(randomInt(1, 255));
+        shit_storm += String.fromCharCode(random_int(1, 255));
     }
     return shit_storm;
 }
@@ -147,10 +55,10 @@ function random_shitstorm(min_length, max_length){
  */
 function chance_for_blank(chance, real_val){
 
-    if(rollDice(random_shitstorm_chance, 100)) {
+    if(roll_dice(random_shitstorm_chance, 100)) {
         return random_shitstorm(0, 100);
     }else{
-        if (rollDice(chance, 100)) {
+        if (roll_dice(chance, 100)) {
             incorrect_reasons += "empty field. Previous = "+real_val+"\n";
             is_correct_entry = false;
             return "";
@@ -170,7 +78,7 @@ function chance_for_blank(chance, real_val){
  * @returns {*} real_val (correct) or real_val +/- 10% (incorrect)
  */
 function chance_for_wrong(chance, real_val){
-    if(rollDice(chance, 100)){
+    if(roll_dice(chance, 100)){
         return make_incorrect(real_val);
     }else{
         is_correct_entry = is_correct_entry && true;
@@ -181,11 +89,11 @@ function chance_for_wrong(chance, real_val){
 function make_incorrect(val){
 
     is_correct_entry = false;
-    if(rollDice(random_shitstorm_chance, 100)){
+    if(roll_dice(random_shitstorm_chance, 100)){
         return random_shitstorm(0, 100);
     }else{
         incorrect_reasons += "Incorrect value. Previous = " + val;
-        if(rollDice(50, 100)){
+        if(roll_dice(50, 100)){
             incorrect_reasons += ". Current = "+ val*.90 +"\n";
             return val * .901;
         }else{
@@ -297,7 +205,7 @@ function TestEntry(){
 
 
     self.single.core = function(vol, soln_conc, solute_formula){
-        var solvent_name = chance_for_blank(incorrectness_chance, randomWord(1,30));
+        var solvent_name = chance_for_blank(incorrectness_chance, random_word(1,30));
 
         self.type("solvent_formula", solvent_name)
           .type("solute_formula", solute_formula)
@@ -330,10 +238,10 @@ function TestEntry(){
     };
 
     self.single.make_solid = function(){
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
-        var solute_formula = randomFormula(incorrectness_chance, 20);
+        var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
+        var solute_formula = random_formula(1, 20);
         var solute = string_to_compound(solute_formula);
-        var soln_conc = chance_for_blank(incorrectness_chance, randomDouble(.00001, 20));
+        var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
         var mass = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).solid());
         var mweight = chance_for_blank(incorrectness_chance, solute.molecular_weight());
 
@@ -346,10 +254,10 @@ function TestEntry(){
     };
 
     self.single.make_grav = function(){
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
-        var solute_formula = randomFormula(incorrectness_chance, 20);
+        var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
+        var solute_formula = random_formula(incorrectness_chance, 20);
         var solute = string_to_compound(solute_formula);
-        var soln_conc = chance_for_blank(incorrectness_chance, randomDouble(.00001, 20));
+        var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
         var mass = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).solid());
         var mweight = chance_for_blank(incorrectness_chance, solute.molecular_weight());
 
@@ -362,11 +270,11 @@ function TestEntry(){
     };
 
     self.single.make_vol = function(){
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
-        var soln_conc = chance_for_blank(incorrectness_chance, randomDouble(.00001, 20));
-        var solute_formula = randomFormula(incorrectness_chance, 20);
+        var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
+        var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
+        var solute_formula = random_formula(incorrectness_chance, 20);
         var solute = string_to_compound(solute_formula);
-        var density = chance_for_blank(incorrectness_chance,randomDouble(.001, 20));
+        var density = chance_for_blank(incorrectness_chance,random_double(.001, 20));
         var volume = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).liquid.volume(density));
         var mweight = chance_for_blank(incorrectness_chance, solute.molecular_weight());
 
@@ -382,10 +290,10 @@ function TestEntry(){
     };
 
     self.single.make_cmol = function(){
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
-        var soln_conc = chance_for_blank(incorrectness_chance, randomDouble(.00001, 20));
-        var solute_formula = randomFormula(incorrectness_chance, 20);
-        var solute_concentration = chance_for_blank(incorrectness_chance, randomDouble(.01, 20));
+        var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
+        var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
+        var solute_formula = random_formula(incorrectness_chance, 20);
+        var solute_concentration = chance_for_blank(incorrectness_chance, random_double(.01, 20));
         var volume = chance_for_wrong(incorrectness_chance, new SingleDilution(soln_conc, vol/1000).solute_volume(solute_concentration));
 
         is_correct_entry = is_correct_entry && (volume < vol);
@@ -399,11 +307,11 @@ function TestEntry(){
     };
 
     self.single.make_cgrav = function(){
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
-        var soln_conc = chance_for_blank(incorrectness_chance, randomDouble(.00001, 20));
-        var solute_formula = randomFormula(incorrectness_chance, 20);
+        var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
+        var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
+        var solute_formula = random_formula(incorrectness_chance, 20);
         var solute = string_to_compound(solute_formula);
-        var massp = chance_for_blank(incorrectness_chance, randomDouble(0.1, 100));
+        var massp = chance_for_blank(incorrectness_chance, random_double(0.1, 100));
         var mass = chance_for_wrong(incorrectness_chance, new SingleDilution(soln_conc, vol/1000).grav_mass(solute, massp));
 
         self.single.conc_nav()
@@ -417,12 +325,12 @@ function TestEntry(){
     };
 
     self.single.make_cvol = function(){
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
-        var soln_conc = chance_for_blank(incorrectness_chance, randomDouble(.00001, 20));
-        var solute_formula = randomFormula(incorrectness_chance, 20);
+        var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
+        var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
+        var solute_formula = random_formula(incorrectness_chance, 20);
         var solute = string_to_compound(solute_formula);
-        var massp = chance_for_blank(incorrectness_chance, randomDouble(0.1, 100));
-        var density = chance_for_blank(incorrectness_chance, randomDouble(.001, 20));
+        var massp = chance_for_blank(incorrectness_chance, random_double(0.1, 100));
+        var density = chance_for_blank(incorrectness_chance, random_double(.001, 20));
         var volume = chance_for_wrong(incorrectness_chance, new SingleDilution(soln_conc, vol/1000).vol_transfer(solute, massp, density));
 
         is_correct_entry = is_correct_entry && (volume < vol);
@@ -446,12 +354,12 @@ function TestEntry(){
     };
 
     self.dilution.make_serial_dilution = function(){
-        var flask_size = chance_for_blank(incorrectness_chance, randomDouble(50, 1500));
-        var molarity_solutions = chance_for_blank(incorrectness_chance, randomDouble(.001, 20));
-        var solvent_chemical = chance_for_blank(incorrectness_chance, randomWord(1, 30));
-        var solute_chemical =chance_for_blank(incorrectness_chance, randomWord(1, 30));
-        var num_dilutions = chance_for_blank(incorrectness_chance, randomInt(2, 25));
-        var vol_transferred = chance_for_blank(incorrectness_chance, randomDouble(50, flask_size));
+        var flask_size = chance_for_blank(incorrectness_chance, random_double(50, 1500));
+        var molarity_solutions = chance_for_blank(incorrectness_chance, random_double(.001, 20));
+        var solvent_chemical = chance_for_blank(incorrectness_chance, random_word(1, 30));
+        var solute_chemical =chance_for_blank(incorrectness_chance, random_word(1, 30));
+        var num_dilutions = chance_for_blank(incorrectness_chance, random_int(2, 25));
+        var vol_transferred = chance_for_blank(incorrectness_chance, random_double(50, flask_size));
 
         self.dilution.ser_dil_nav()
             .type("solventChemID", solvent_chemical)
@@ -483,13 +391,13 @@ function TestEntry(){
     };
 
     self.calibration_standard.make_ext = function(){
-        var solute_formula = randomFormula(incorrectness_chance, 20);
+        var solute_formula = random_formula(incorrectness_chance, 20);
         var solute = string_to_compound(solute_formula);
-        var analyte_molarity = chance_for_blank(1, randomDouble(.001,20));
-        var num_stand = chance_for_blank(1, randomInt(2, 21));
+        var analyte_molarity = chance_for_blank(1, random_double(.001,20));
+        var num_stand = chance_for_blank(1, random_int(2, 21));
         var mweight = chance_for_blank(incorrectness_chance, solute.molecular_weight());
-        var solvent_name = chance_for_blank(incorrectness_chance, randomWord(1,30));
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
+        var solvent_name = chance_for_blank(incorrectness_chance, random_word(1,30));
+        var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
 
         // is_correct_entry = is_correct_entry && !Number.isInteger(vol);
 
@@ -505,12 +413,12 @@ function TestEntry(){
 
     };
     self.calibration_standard.make_intrn = function(){
-        var analyte_formula = randomFormula(incorrectness_chance, 20);
-        var analyte_molarity = chance_for_blank(1, randomDouble(.001,20));
-        var internal_molarity = chance_for_blank(1, randomDouble(.001,20));
-        var num_stand = chance_for_blank(1, randomInt(2, 21));
-        var internal_formula = chance_for_blank(incorrectness_chance, randomWord(1,30));
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
+        var analyte_formula = random_formula(incorrectness_chance, 20);
+        var analyte_molarity = chance_for_blank(1, random_double(.001,20));
+        var internal_molarity = chance_for_blank(1, random_double(.001,20));
+        var num_stand = chance_for_blank(1, random_int(2, 21));
+        var internal_formula = chance_for_blank(incorrectness_chance, random_word(1,30));
+        var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
 
 
         self.calibration_standard.internal_nav()
@@ -525,12 +433,12 @@ function TestEntry(){
     };
     self.calibration_standard.make_addition = function(){
 
-        var analyte_formula = randomFormula(incorrectness_chance, 20);
-        var analyte_molarity = chance_for_blank(1, randomDouble(.001,20));
-        var unknown_name = chance_for_blank(1, randomWord(1,20));
-        var num_stand = chance_for_blank(1, randomInt(2, 21));
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
-        var unknown_volume = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
+        var analyte_formula = random_formula(incorrectness_chance, 20);
+        var analyte_molarity = chance_for_blank(1, random_double(.001,20));
+        var unknown_name = chance_for_blank(1, random_word(1,20));
+        var num_stand = chance_for_blank(1, random_int(2, 21));
+        var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
+        var unknown_volume = chance_for_blank(incorrectness_chance, random_double(50, 2000));
 
         is_correct_entry = is_correct_entry && (unknown_volume < vol);
 
@@ -549,7 +457,8 @@ function TestEntry(){
     self.end = function(){
         entry_count++;
         self.next_button();
-        self.component("echo", "", "Entry: " + entry_count + " correct? " + is_correct_entry);
+
+        self.component("echo", "", "Test #: " + entry_count + ". Expecting " + (is_correct_entry)? "correct" : "incorrect");
         console.log("Entry: " + entry_count + " correct? " + is_correct_entry);
         if(is_correct_entry){
             self.wait_for_non_alert("myAlert");

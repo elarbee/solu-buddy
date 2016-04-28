@@ -53,6 +53,7 @@ describe('Formula parsing and validation', function() {
              expect(is_valid_formula('H2o')).toEqual(false);
              expect(is_valid_formula('h2O')).toEqual(false);
           });
+        
     });
 
     describe('front_number(str) function testing', function() {

@@ -6,40 +6,65 @@ describe("Utility Functions", function() {
 
     describe("Count number of significant figures.", function(){
         it("Should count the number of significant figures in numbers without a decimal.", function() {
-            expect(count_sig_figs(42)).toEqual(2);
-            expect(count_sig_figs(899999)).toEqual(6);
-            expect(count_sig_figs(900)).toEqual(1);
-            expect(count_sig_figs(900000)).toEqual(1);
-            expect(count_sig_figs(900001)).toEqual(6);
-            expect(count_sig_figs(0)).toEqual(0);
+
+            var tests_to_expected = {42:2,
+                899999:6,
+                900:1,
+                900000:1,
+                900001:6,
+                0:0};
+
+            Object.keys(tests_to_expected).forEach(function(el, idx, arr){
+               expect(count_sig_figs(el)).toEqual(tests_to_expected[el]);
+            });
 
         });
 
         it("Should count the number of significant figures in negative numbers without a decimal.", function() {
-            expect(count_sig_figs(-42)).toEqual(2);
-            expect(count_sig_figs(-899999)).toEqual(6);
-            expect(count_sig_figs(-900)).toEqual(1);
-            expect(count_sig_figs(-900000)).toEqual(1);
-            expect(count_sig_figs(-900001)).toEqual(6);
+
+            //Negative numbers need to be entered to array as string
+            var tests_to_expected = {
+                "-42":2,
+                "-899999":6,
+                "-900":1,
+                "-900000":1,
+                "-900001":6};
+
+            Object.keys(tests_to_expected).forEach(function(el,idx,arr){
+                expect(count_sig_figs(el)).toEqual(tests_to_expected[el]);
+            });
 
         });
 
         it("Should count the number of significant figures in numbers with a decimal.", function() {
-            expect(count_sig_figs(42.2)).toEqual(3);
-            expect(count_sig_figs(899999.19293)).toEqual(11);
-            expect(count_sig_figs(899999.100001)).toEqual(12);
-            expect(count_sig_figs(890000.100001)).toEqual(12);
-            expect(count_sig_figs(900000.1)).toEqual(7);
-            expect(count_sig_figs(0.0)).toEqual(0);
+
+            var tests_to_expected = {
+                42.2:3,
+                899999.19293:11,
+                899999.100001:12,
+                890000.100001:12,
+                900000.1:7,
+                0.0:0};
+
+            Object.keys(tests_to_expected).forEach(function(el,idx,arr){
+                expect(count_sig_figs(el)).toEqual(tests_to_expected[el]);
+            });
+
 
         });
 
         it("Should count the number of significant figures in negative numbers with a decimal.", function() {
-            expect(count_sig_figs(-42.2)).toEqual(3);
-            expect(count_sig_figs(-899999.19293)).toEqual(11);
-            expect(count_sig_figs(-899999.100001)).toEqual(12);
-            expect(count_sig_figs(-890000.100001)).toEqual(12);
-            expect(count_sig_figs(-900000.1)).toEqual(7);
+
+            var tests_to_expected = {
+                "-42.4":3,
+                "-899999.19293":11,
+                "-899999.100001":12,
+                "-890000.100001":12,
+                "-900000.1":7};
+
+            Object.keys(tests_to_expected).forEach(function(el,idx,arr){
+                expect(count_sig_figs(el)).toEqual(tests_to_expected[el]);
+            });
 
         });
     });
@@ -66,6 +91,49 @@ describe("Utility Functions", function() {
             expect(find_min(arr)).toEqual(0);
         });
 
+    });
+
+    describe("Calculate Percent Error", function(){
+
+        it("Should be able to calculate error for positive and negative integers.", function(){
+                var positive_test_vals = [100000, 2, 984734, 129364726, 5006];
+                var negative_test_vals = [-100000, -2, -91864123, -11233, -5006];
+
+            /*
+             Multiplier will result in an error of exactly ((1-multiplier)*100)
+             */
+            var multiplier_to_error_expected = {
+                .5 : 50,
+                .95 : 5,
+                .9 : 10,
+                .001 : 99.9,
+                .05 : 95,
+                0.0 : 100};
+
+            Object.keys(multiplier_to_error_expected).forEach(function(el,idx){
+                for(var pos in positive_test_vals){
+                    var pos_val = positive_test_vals[pos];
+                    /*
+                        Must use .toPrecision(6) to negate small error which occurs around decimal place 10 or so.
+                        *Note: 6 is arbitrary in this case.
+                     */
+                    expect(calculate_error(pos_val, pos_val*el).toPrecision(6)).toEqual(multiplier_to_error_expected[el].toPrecision(6));
+                }
+
+                for(var neg in negative_test_vals){
+                    var neg_val = negative_test_vals[neg];
+                    /*
+                        Must use .toPrecision(6) to negate small error which occurs around decimal place 10 or so.
+                        *Note: 6 is arbitrary in this case.
+                     */
+                    expect(calculate_error(neg_val, neg_val*el).toPrecision(6)).toEqual(multiplier_to_error_expected[el].toPrecision(6));
+                }
+
+
+
+            });
+
+        });
     });
 
     describe("Round a number to a specific number of decimal places.", function(){
@@ -122,7 +190,7 @@ describe("Utility Functions", function() {
 
         it("Should never return an invalid element.", function(){
 
-            for(var i = 0; i < 1; i++){
+            for(var i = 0; i < 10000; i++){
                 expect(find_element(getRandomElementKey())).toBeDefined();
             }
 
@@ -143,6 +211,14 @@ describe("Utility Functions", function() {
         });
     });
 
+    describe("Testing random_formula_w_ionic and is_valid_formula", function(){
 
-
+        it("Let's see what happens", function(){
+            for(var i = 0; i < 500; i++){
+                var formula = random_formula_w_ionic(40, 2, 100);
+                expect(is_valid_formula(formula)).toEqual(true);
+                // expect(string_to_compound(formula.replace(")", "("))).toEqual(undefined);
+            }
+        });
+    });
 });

@@ -8,6 +8,7 @@ var match_ionic = /(\(([A-Z][a-z]?\d*)*\)\d*)*/g;
 
 var match_non_ionic = /([A-Z][a-z]?\d*)+/g;
 
+var good_regex = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/;
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
 var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
@@ -180,6 +181,9 @@ function Compound_Component(symbol, qty){
  * */
 function is_valid_formula(str) {
 
+    if(str == ""){
+        return false;
+    }
     var isValid = /(([A-Z][a-z]?\d*)+(\([A-Z][a-z]?\d*\))*)+/g.test(str).valueOf();
     var formulaString = str;
     var qty = 0;

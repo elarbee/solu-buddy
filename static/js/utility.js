@@ -55,12 +55,13 @@ function find_min(arr){
  * Calculates the % error between two numbers.
  *
  * @param theoretical Ideal/theoretical/expected number.
+ * **NOTE: A 0 here will result in all results to equal infinity.
  * @param actual Actual number.
  * @returns {number} Percent error between expected and actual. (0-100)
  */
 function calculate_error(theoretical, actual){
 
-    return (Math.abs((actual - theoretical)/theoretical)*100);
+    return (Math.abs((actual - theoretical)/theoretical)*100.0000);
 }
 
 /**

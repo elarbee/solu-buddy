@@ -907,5 +907,5 @@ function find_element(element_symbol){
 
 function getRandomElementKey(){
     var keys = Object.keys(elements_array);
-    return keys[randomInt(0, keys.length)];
+    return keys[random_int(0, keys.length)];
 }

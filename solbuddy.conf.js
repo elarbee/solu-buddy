@@ -26,6 +26,7 @@ module.exports = function(config) {
         'static/js/formula.js',
         'static/js/elements.js',
         'static/js/calculator.js',
+        'static/js/randomize.js',
         'testing/spec/*.js'
     ],
 
@@ -43,6 +44,7 @@ module.exports = function(config) {
         'static/js/formula.js': ['coverage'],
         'static/js/elements.js': ['coverage'],
         'static/js/calculator.js': ['coverage'],
+        'static/js/randomize.js' : ['coverage'],
         'testing/spec/*.js' : ['coverage']
     },
 
