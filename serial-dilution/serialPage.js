@@ -33,7 +33,7 @@ $(function() {
             showAlert("Please enter a name for your solvent!");
             return false;
         }else if(!/^[a-zA-Z\d*]*$/.test(solventID)){
-            error_message += "Solvent formula must contain only letters and numbers.\n";
+            showAlert("Solvent formula must contain only letters and numbers.\n");
             return false;
         }
 
@@ -60,7 +60,7 @@ $(function() {
         
          // If invalid dilution number entered
         if(Number(numDilutions) <= 0 || Number(numDilutions) > 25){
-            showAlert("Please enter a number of dilutions between 0 and 20!");
+            showAlert("Please enter a number of dilutions between 0 and 25!");
             return false;
         }
         
