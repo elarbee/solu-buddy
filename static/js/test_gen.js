@@ -489,7 +489,7 @@ function TestEntry(){
         var num_stand = chance_for_blank(1, randomInt(2, 21));
         var mweight = chance_for_blank(incorrectness_chance, solute.molecular_weight());
         var solvent_name = chance_for_blank(incorrectness_chance, randomWord(1,30));
-        var vol = chance_for_blank(incorrectness_chance, randomInt(50, 2000));
+        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
 
         // is_correct_entry = is_correct_entry && !Number.isInteger(vol);
 
@@ -510,9 +510,8 @@ function TestEntry(){
         var internal_molarity = chance_for_blank(1, randomDouble(.001,20));
         var num_stand = chance_for_blank(1, randomInt(2, 21));
         var internal_formula = chance_for_blank(incorrectness_chance, randomWord(1,30));
-        var vol = chance_for_blank(incorrectness_chance, randomInt(50, 2000));
+        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
 
-        // is_correct_entry = is_correct_entry && !Number.isInteger(vol);
 
         self.calibration_standard.internal_nav()
             .type("analyte_formula", analyte_formula)
@@ -530,12 +529,11 @@ function TestEntry(){
         var analyte_molarity = chance_for_blank(1, randomDouble(.001,20));
         var unknown_name = chance_for_blank(1, randomWord(1,20));
         var num_stand = chance_for_blank(1, randomInt(2, 21));
-        var vol = chance_for_blank(incorrectness_chance, randomInt(50, 2000));
-        var unknown_volume = chance_for_blank(incorrectness_chance, randomInt(50, 2000));
+        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
+        var unknown_volume = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
 
         is_correct_entry = is_correct_entry && (unknown_volume < vol);
 
-        // is_correct_entry = is_correct_entry && !Number.isInteger(vol);
         self.calibration_standard.addition_nav()
             .type("analyte_formula", analyte_formula)
             .type("analyte_molarity", analyte_molarity)
