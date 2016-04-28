@@ -236,7 +236,50 @@ INSERT INTO `elements` (`Name`, `Symbol`, `Atomic_Mass`) VALUES
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+    MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 
 ALTER TABLE `serial_dilution`
     CHANGE `Solute_Weight` `Solution_Molarity` decimal(10,3);
+
+ALTER TABLE `calibration_internal`
+    DROP COLUMN `Analyte_Solution_ID`;
+
+ALTER TABLE `calibration_internal`
+    DROP COLUMN `Internal_Standard_Solution_ID`;
+
+ALTER TABLE `calibration_internal`
+    CHANGE `Analyte_Solution_Type` `Analyte_Identity` varchar(20);
+
+ALTER TABLE `calibration_internal`
+    CHANGE `Internal_Standard_Solution_Type` `Internal_Standard_Solution_Identity` varchar(20);
+
+ALTER TABLE `calibration_internal`
+    ADD COLUMN `Analyte_Weight` decimal(10, 3);
+
+ALTER TABLE `calibration_internal`
+    CHANGE `Analyte_Weight` `Analyte_Molarity` decimal(10, 3);
+
+ALTER TABLE `calibration_internal`
+    DROP COLUMN `Unknown_Name`;
+
+ALTER TABLE `calibration_external`
+    DROP COLUMN `Unknown_Name`;
+
+ALTER TABLE `calibration_external`
+  ADD COLUMN `Analyte_Molarity` DECIMAL(10, 3);
+
+ALTER TABLE `calibration_addition`
+    DROP COLUMN `Solvent_Identity`;
+
+ALTER TABLE `calibration_addition`
+    CHANGE `Analyte_Weight` `Analyte_Molarity` decimal(10, 3);
+
+ALTER TABLE `calibration_addition`
+  ADD COLUMN `Unknown_Volume` DECIMAL(10, 3);
+
+ALTER TABLE `calibration_internal`
+  CHANGE `Analyte_Weight` `Internal_Molarity` decimal(10,3);
+
+ALTER TABLE `calibration_addition`
+  MODIFY Unknown_Name varchar(20);
+
