@@ -111,8 +111,10 @@ function SingleDilution(target_molarity, target_volume){
      * @returns {number} Returns calculated mass to add to the solvent.
      */
     self.grav_mass = function calculate_transferred_gravimetric_mass(solute, solute_mass_percent){
+
+        var solution = new SingleSolution(target_molarity, target_volume, solute.molecular_weight());
         //mass to add if mass/vol % was 100 for the solute.
-        var minimum_mass_to_add = new SingleSolution(target_molarity, target_volume, solute.molecular_weight()).solid();
+        var minimum_mass_to_add = solution.solid();
         return minimum_mass_to_add * (solute_mass_percent/100);
     };
 

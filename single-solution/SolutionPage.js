@@ -325,8 +325,8 @@ function fill_fields(page){
             else if($('#knownSelect').val() == 'CONC_GRAV'){
 
                 min_sigfig = count_sig_figs(user_mass_to_add);
-
-                if(check_mass(dilution.grav_mass(solute_compound, solute_molarity).toPrecision(min_sigfig))){
+                //TODO: problem with running test cases and catching incorrect values
+                if(check_mass(dilution.grav_mass(solute_compound, mass_percent).toPrecision(min_sigfig))){
                     new_solution = new Solution(
                         $("#solute_formula").val(),
                         $("#solvent_formula").val(),
@@ -365,7 +365,7 @@ function fill_fields(page){
         console.trace();
         showAlert(ex.message);
     }
-};
+}
 
 function check_vol(calculated_vol){
 
@@ -387,7 +387,7 @@ function check_vol(calculated_vol){
     }catch (ex){
         console.log(ex.message);
     }
-};
+}
 
 function check_mass(calculated_mass){
 
@@ -395,7 +395,10 @@ function check_mass(calculated_mass){
         var mass_to_add = parseFloat($('#massToAdd').val());
         var percent_error = calculate_error(calculated_mass, mass_to_add);
 
-        if (percent_error > ACCEPTED_PERCENT_ERROR) {
+        console.log("calc: " + calculated_mass + " to add " + mass_to_add +
+            " err " + percent_error);
+
+        if (percent_error > ACCEPTED_PERCENT_ERROR || percent_error == NaN) {
             showAlert("Chosen mass to add is "+mass_to_add+". " +
                 ". Error is: " + precise_round(percent_error, 2) + "%");
             $('#massToAdd').val("");
@@ -407,4 +410,4 @@ function check_mass(calculated_mass){
     }catch (ex){
         console.log(ex.message);
     }
-};
+}
