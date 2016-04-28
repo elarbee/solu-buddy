@@ -44,7 +44,7 @@ function make_random_entries(){
  * @returns {*} Random double within limits
  */
 function randomDouble(low, high){
-    return (Math.random() * (high-low))+low;
+    return precise_round((Math.random() * (high-low))+low, 4);
 }
 
 /**
@@ -54,7 +54,7 @@ function randomDouble(low, high){
  * @returns {*} Random integer within limits.
  */
 function randomInt(low, high){
-    return (Math.floor(Math.random() * (high-low))+low);
+    return precise_round((Math.floor(Math.random() * (high-low))+low), 4);
 }
 
 /**
@@ -187,10 +187,10 @@ function make_incorrect(val){
         incorrect_reasons += "Incorrect value. Previous = " + val;
         if(rollDice(50, 100)){
             incorrect_reasons += ". Current = "+ val*.90 +"\n";
-            return val * .90;
+            return val * .901;
         }else{
             incorrect_reasons += ". Current = "+ val*1.1 +"\n";
-            return val * 1.1;
+            return val * 1.101;
         }
     }
 
@@ -205,9 +205,7 @@ function make_incorrect(val){
 function TestEntry(){
 
     is_correct_entry = true;
-    var incorrectness_chance = 2;
-
-
+    var incorrectness_chance = 20;
 
 
     var self = {};
@@ -487,17 +485,19 @@ function TestEntry(){
     self.calibration_standard.make_ext = function(){
         var solute_formula = randomFormula(incorrectness_chance, 20);
         var solute = string_to_compound(solute_formula);
-        var unknown_name = chance_for_blank(1, randomWord(1,20));
+        var analyte_molarity = chance_for_blank(1, randomDouble(.001,20));
         var num_stand = chance_for_blank(1, randomInt(2, 21));
         var mweight = chance_for_blank(incorrectness_chance, solute.molecular_weight());
         var solvent_name = chance_for_blank(incorrectness_chance, randomWord(1,30));
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
+        var vol = chance_for_blank(incorrectness_chance, randomInt(50, 2000));
+
+        // is_correct_entry = is_correct_entry && !Number.isInteger(vol);
 
         self.calibration_standard.external_nav()
             .type("solvent_formula", solvent_name)
             .type("analyte_formula", solute_formula)
             .type("analyte_molec_weight", mweight)
-            .type("unknown", unknown_name)
+            .type("analyte_molarity", analyte_molarity)
             .type("num_standards", num_stand)
             .type("total_volume_standards", vol);
 
@@ -505,33 +505,43 @@ function TestEntry(){
 
     };
     self.calibration_standard.make_intrn = function(){
-        var unknown_name = chance_for_blank(1, randomWord(1,20));
+        var analyte_formula = randomFormula(incorrectness_chance, 20);
+        var analyte_molarity = chance_for_blank(1, randomDouble(.001,20));
+        var internal_molarity = chance_for_blank(1, randomDouble(.001,20));
         var num_stand = chance_for_blank(1, randomInt(2, 21));
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
+        var internal_formula = chance_for_blank(incorrectness_chance, randomWord(1,30));
+        var vol = chance_for_blank(incorrectness_chance, randomInt(50, 2000));
+
+        // is_correct_entry = is_correct_entry && !Number.isInteger(vol);
 
         self.calibration_standard.internal_nav()
-            .type("unknown", unknown_name)
+            .type("analyte_formula", analyte_formula)
+            .type("analyte_molarity", analyte_molarity)
+            .type("internal_formula", internal_formula)
+            .type("internal_molarity", internal_molarity)
             .type("num_standards", num_stand)
-            .type("volume_standards", vol);
+            .type("total_volume_standards", vol);
 
         return self;
     };
     self.calibration_standard.make_addition = function(){
 
-        var solute_formula = randomFormula(incorrectness_chance, 20);
-        var solute = string_to_compound(solute_formula);
-        var mweight = chance_for_blank(incorrectness_chance, solute.molecular_weight());
-        var solvent_name = chance_for_blank(incorrectness_chance, randomWord(1,30));
+        var analyte_formula = randomFormula(incorrectness_chance, 20);
+        var analyte_molarity = chance_for_blank(1, randomDouble(.001,20));
         var unknown_name = chance_for_blank(1, randomWord(1,20));
         var num_stand = chance_for_blank(1, randomInt(2, 21));
-        var vol = chance_for_blank(incorrectness_chance, randomDouble(50, 2000));
+        var vol = chance_for_blank(incorrectness_chance, randomInt(50, 2000));
+        var unknown_volume = chance_for_blank(incorrectness_chance, randomInt(50, 2000));
 
+        is_correct_entry = is_correct_entry && (unknown_volume < vol);
+
+        // is_correct_entry = is_correct_entry && !Number.isInteger(vol);
         self.calibration_standard.addition_nav()
-            .type("solvent_formula", solvent_name)
-            .type("analyte_formula", solute_formula)
-            .type("analyte_molec_weight", mweight)
-            .type("unknown", unknown_name)
+            .type("analyte_formula", analyte_formula)
+            .type("analyte_molarity", analyte_molarity)
             .type("num_standards", num_stand)
+            .type("unknown", unknown_name)
+            .type("unknown_volume", unknown_volume)
             .type("total_volume_standards", vol);
 
         return self;

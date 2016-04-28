@@ -3,7 +3,7 @@ var values = [];
 
 $(function () {
     var divClone = $("#answerDiv").clone();
-    var myParam = location.search.split('value=')[1]
+    var myParam = location.search.split('value=')[1];
 
     //Used for holding a copy of the external standard flask div
     var externalFlask;
@@ -30,7 +30,6 @@ $(function () {
         var unknown = $("#unknown").val();
         var numStandards = Number($("#num_standards").val());
         var totalVolume = Number($("#total_volume_standards").val());
-        var volumeStandards = Number($("#volume_standards").val());
         var analyteMolarity = Number($("#analyte_molarity").val());
         var internalMolarity = Number($("#internal_molarity").val());
         var internalFormula =  $("#internal_formula").val();
