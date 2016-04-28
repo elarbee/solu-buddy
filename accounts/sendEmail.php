@@ -1,14 +1,16 @@
 <?php
 session_start();
-$_SESSION['solutions'] = 'true';
 require ("soluMySQLConnect.php");
-require ("../dynamicHelpers.php");
-renderHead( ["title" => "Solutions Page", "navField1" => "Account Settings", "navField2" => "Saved Solutions",
-    "navField3" => "Chemistry Terms", "navField4" => "Create Solution(s)"] );
 
 $username = $_SESSION["username"];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $username) {
+// To limit the number of submissions a user can send we set a cookie to track their submissions
+// the limit is two submissions per hour.
+$canSubmit = true;
+if(isset($_COOKIE['submissions']) && $_COOKIE['submissions'] > 2){
+    $canSubmit = false;
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $username && $canSubmit) {
     if($statement = $dbc->prepare("SELECT ID, First_Name, Last_Name FROM accounts WHERE Username = ?")){
         $statement->bind_param('s', $username);
         $statement->execute();
@@ -25,22 +27,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $username) {
 
     if($emailMessage){
         $emailMessage = "New feedback received\r\n=====================\r\n" .
-                        "Submitted by: \r\n" .
-                        "\tReply Email: " . $replyEmail . "\r\n" .
-                        "\tUsername: " . $username . "\r\n" .
-                        "\tFirst Name: " . $firstName . "\r\n" .
-                        "\tLast Name: ". $lastName . "\r\n\r\n" .
-                        "Message:\r\n=====================\r\n\r\n" . $emailMessage;
+            "Submitted by: \r\n" .
+            "\tReply Email: " . $replyEmail . "\r\n" .
+            "\tUsername: " . $username . "\r\n" .
+            "\tFirst Name: " . $firstName . "\r\n" .
+            "\tLast Name: ". $lastName . "\r\n\r\n" .
+            "Message:\r\n=====================\r\n\r\n" . $emailMessage;
 
         $msg = wordwrap($emailMessage, 70);
         $headers = 'From: noreply@solubuddy.com' . "\r\n" .
             'Reply-To: noreply@solubuddy.com' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
-        // send email
-        mail("dkreller@georgiasouthern.edu", "Solubuddy Feedback Submission[$replyEmail]",$msg, $headers);
+        if(mail("dkreller@georgiasouthern.edu", "Solubuddy Feedback Submission[$replyEmail]",$msg, $headers)){
+            if(!isset($_COOKIE['submissions'])){
+                // create cookie for tracking number of submissions, expires in an hour
+                setcookie('submissions', 1, time() + 3600);
+            }else{
+                $_COOKIE['submissions'] += 1;
+            }
+        }
     }
 }
+
+$_SESSION['solutions'] = 'true';
+require ("../dynamicHelpers.php");
+renderHead( ["title" => "Solutions Page", "navField1" => "Account Settings", "navField2" => "Saved Solutions",
+    "navField3" => "Chemistry Terms", "navField4" => "Create Solution(s)"] );
 
 ?>
 
@@ -67,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $username) {
 <body>
 
 <?php
-if ($username){
+if ($username && $canSubmit){
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ?>
     <div class="page-header email-header"><h2>Your feedback has been sent.</h2></div>
@@ -99,9 +112,21 @@ if ($username){
     </div>
     <?php
     };
-} else{
+} else if($canSubmit){
 ?>
     <div class="page-header email-header"><h2>Must be logged in to leave feedback.</h2></div>
+<?php
+} else {
+?>
+    <div class="page-header email-header">
+        <h2>
+            We appreciate your feedback.
+        </h2>
+        <h3>
+            However, to reduce the amount of email traffic we
+            receive there is a limit of two submissions per hour. Please try again later.
+        </h3>
+    </div>
 <?php
 }
 ?>
