@@ -63,7 +63,6 @@ function calculate_error(theoretical, actual){
     return (Math.abs((actual - theoretical)/theoretical)*100);
 }
 
-
 /**
  * Function for calculating amount of solute to add when creating a single solution from a concentrated stock solution.
  * Formula: M1 * V1 = M2 * V2
@@ -80,12 +79,12 @@ function calculate_error(theoretical, actual){
  * @constructor
  */
 function SingleDilution(target_molarity, target_volume){
-    
+
     var self = {};
 
     /**
      * Calculates molarity required to achieve a target concentration (target molarity) of solute in a total
-     * target volume (target_volume) while diluting a chosen volume (v1).
+     * target volume (target_volume) while diluting a chosen volume in Liters (v1).
      * @param v1 Volume of solute to dilute.
      * @returns {number} Molarity required of solute. (M1)
      */
@@ -97,7 +96,7 @@ function SingleDilution(target_molarity, target_volume){
      * Calculates volume required to achieve a target concentration (target molarity) of solute in a total
      * target volume (target_volume) while diluting a solute with a specific concentration (M1)
      * @param M1 Molarity of solute to dilute.
-     * @returns {number} Volume required of solute. (v1)
+     * @returns {number} Volume required of solute in Liters. (v1)
      */
     self.solute_volume = function calculate_solute_volume(M1){
         return (target_molarity * target_volume)/M1;

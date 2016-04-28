@@ -122,11 +122,27 @@ describe("Utility Functions", function() {
 
         it("Should never return an invalid element.", function(){
 
-            for(var i = 0; i < 100000; i++){
+            for(var i = 0; i < 1; i++){
                 expect(find_element(getRandomElementKey())).toBeDefined();
             }
 
         });
     });
+    describe("Verifying string is number only.", function(){
+
+        it("Should accept simple numbers", function(){
+
+            var regex = /^-?\d+\.?\d*$/g;
+
+            expect(regex.test("5.5")).toEqual(true);
+            expect(regex.test("-5.5")).toEqual(false);
+            expect(regex.test("")).toEqual(false);
+            expect(regex.test("5.5.")).toEqual(false);
+
+
+        });
+    });
+
+
 
 });
