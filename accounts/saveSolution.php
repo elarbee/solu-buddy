@@ -56,26 +56,36 @@ if ($accountStatement) {
         $statement = mysqli_prepare($dbc, "INSERT INTO serial_dilution VALUES (DEFAULT, ?,?,?,?,?,?,?)");
         mysqli_stmt_bind_param($statement, 'issddid', $accountId, $solventId, $soluteId, $solutionMolarity, $dilutionFlaskVolume, $numberFlasks, $volumeTransferred);
     } elseif ($submission_type == 'calibration_internal') {
-        // TODO: The internal calibration needs to be done
-        $unkownName = $_POST['unknown'];
-        $numberOfStandards = $_POST['num_standards'];
-        $volumeStandards = $_POST['volume_standards'];
-    } elseif ($submission_type == 'calibration_external' or $submission_type == 'calibration_addition') {
+        $analyteName = $_POST['analyte_formula'];
+        $analyteMolarity = $_POST['analyte_molarity'];
+        $numStandards = $_POST['num_standards'];
+        $internalFormula = $_POST['internal_formula'];
+        $internalMolarity = $_POST['internal_molarity'];
+        $totalVolumeStandards = $_POST['total_volume_standards'];
+
+        $statement = mysqli_prepare($dbc, "INSERT INTO calibration_internal (Account_ID, Analyte_Identity, Analyte_Molarity, Internal_Standard_Solution_Identity, Internal_Molarity, Number_Standards, Flask_Volumes) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($statement, 'isdsdid', $accountId, $analyteName, $analyteMolarity, $internalFormula, $internalMolarity, $numStandards, $totalVolumeStandards);
+
+    } elseif ($submission_type == 'calibration_external') {
         $solventId = $_POST['solvent_formula'];
         $analyteId = $_POST['analyte_formula'];
         $analyteWeight = $_POST['analyte_molec_weight'];
-        $unkownName = $_POST['unknown'];
+        $analyteMolarity = $_POST['analyte_molarity'];
         $numberOfStandards = $_POST['num_standards'];
         $flaskVolumes = $_POST['total_volume_standards'];
 
-        if ($submission_type == 'calibration_external') {
-            $table_name = 'calibration_external';
-        } else {
-            $table_name = 'calibration_addition';
-        }
+        $statement = mysqli_prepare($dbc, "INSERT INTO calibration_external VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($statement, 'issddid', $accountId, $solventId, $analyteId, $analyteWeight, $analyteMolarity, $numberOfStandards, $flaskVolumes);
+    } elseif($submission_type == 'calibration_addition'){
+        $analyteId = $_POST['analyte_formula'];
+        $analyteMolarity = $_POST['analyte_molarity'];
+        $numberOfStandards = $_POST['num_standards'];
+        $unkownName = $_POST['unknown'];
+        $unknownVolume = $_POST['unknown_volume'];
+        $flaskVolumes = $_POST['total_volume_standards'];
 
-        $statement = mysqli_prepare($dbc, "INSERT INTO " . $table_name . " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($statement, 'issddid', $accountId, $solventId, $analyteId, $analyteWeight, $unkownName, $numberFlasks, $flaskVolumes);
+        $statement = mysqli_prepare($dbc, "INSERT INTO calibration_addition (Account_ID, Analyte_Identity, Analyte_Molarity, Unknown_Name, Unknown_Volume, Number_Standards, Flask_Volumes) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($statement, 'isdsdid', $accountId, $analyteId, $analyteMolarity, $unkownName, $unknownVolume, $numberOfStandards, $flaskVolumes);
     } else {
         echo 'Error saving solution.';
         exit;

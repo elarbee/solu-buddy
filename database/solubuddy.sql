@@ -236,7 +236,7 @@ INSERT INTO `elements` (`Name`, `Symbol`, `Atomic_Mass`) VALUES
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+    MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 
 ALTER TABLE `serial_dilution`
     CHANGE `Solute_Weight` `Solution_Molarity` decimal(10,3);
