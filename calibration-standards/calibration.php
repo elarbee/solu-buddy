@@ -79,24 +79,22 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
             
             <!-- Dilution flasks -->
-            <div id="dilutionFlasksDiv" class="inline-div" hidden>
+            <div id="dilutionFlasksDiv" class="inline-div" >
                 <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
-                <div id="dilutionFlask" class="dilutionFlask inline-div">
+                <div id="dilutionFlask0" class="dilutionFlask inline-div">
                     <div class="flaskImgAndNumberDiv">
-                        <td><input type="text" id="volumeOfAnalyte" placeholder="Enter volume of analyte to add to the solution"></td>
+                        <td><input type="text" id="volumeOfAnalyte" class="flaskInput" placeholder="Enter volume of analyte to add to the solution"></td>
                         <img id="smallBeakerImg" src="../static/images/beaker.png">
                         <p id="flaskNumber">1</p>
                     </div>
 
                     <div class="flaskDescription">
                         <!-- Need to format '1 ' as subscript here-->
-                        <p id="value">1.00 x 10^-1</p>
+                        <p class="flaskCalc"></p>
                     </div>
                 </div>
             </div>
-            
 
-            
             <!-- Buttons -->
             <div id="answerButtonsDiv" class="inline-div">
                 <button id="saveButton">Save Set of Standards</button>
@@ -114,3 +112,4 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 
 </body>
 </html>
+
