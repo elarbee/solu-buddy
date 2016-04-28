@@ -70,7 +70,6 @@ if ($accountStatement) {
         $solventId = $_POST['solvent_formula'];
         $analyteId = $_POST['analyte_formula'];
         $analyteWeight = $_POST['analyte_molec_weight'];
-//        $unkownName = $_POST['unknown'];
         $analyteMolarity = $_POST['analyte_molarity'];
         $numberOfStandards = $_POST['num_standards'];
         $flaskVolumes = $_POST['total_volume_standards'];
