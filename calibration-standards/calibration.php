@@ -109,8 +109,18 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
         </div>
 </div>
-
-
+<script>
+    var submit_button = $('#saveButton');
+    submit_button.on('click', function (event) {
+        $.ajax({
+            url: '/accounts/saveSolution.php',
+            data: $('input, select, textarea', '#solutionForm').serializeArray(),
+            method: 'post'
+        }).then(function(data){
+            submit_button.text(data);
+        });
+    });
+</script>
 </body>
 </html>
 

@@ -101,14 +101,14 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         </tr>
                         </thead>
                         <?php
-                        if($statment = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solution_Total_Volume, Solution_Concentration, Mass_Solute_Add FROM single_solution_solid WHERE Account_ID = ?")){
-                            $statment->bind_param("i", $accountId);
-                            $statment->execute();
-                            $statment->bind_result($id, $solventIdentity, $soluteIdentity, $soluteWeight, $solutionTotalVolume, $solutionConcentration, $massToAdd);
-                            $statment->store_result();
-                            $numRows = $statment->num_rows;
+                        if($statement = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solution_Total_Volume, Solution_Concentration, Mass_Solute_Add FROM single_solution_solid WHERE Account_ID = ?")){
+                            $statement->bind_param("i", $accountId);
+                            $statement->execute();
+                            $statement->bind_result($id, $solventIdentity, $soluteIdentity, $soluteWeight, $solutionTotalVolume, $solutionConcentration, $massToAdd);
+                            $statement->store_result();
+                            $numRows = $statement->num_rows;
                             //Creates a loop to interate through results
-                            while ($statment->fetch()){
+                            while ($statement->fetch()){
                         ?>
                         <tbody>
                         <tr>
@@ -120,7 +120,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $massToAdd ?> g</td>
                             <td><a href="deleteSolution.php?ID=<?= $id ?>&t=single_sol_solid">Delete</a></td>
                         </tr>
-                        <tbody>
+                        </tbody>
                         <?php
                             }
                             if(!$numRows){
@@ -151,14 +151,14 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         </tr>
                         </thead>
                         <?php
-                        if($statment = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solution_Total_Volume, Solution_Concentration, Mass_Solute_Add FROM single_solution_liquid_grav WHERE Account_ID = ?")){
-                            $statment->bind_param("i", $accountId);
-                            $statment->execute();
-                            $statment->bind_result($id, $solventIdentity, $soluteIdentity, $soluteWeight, $solutionTotalVolume, $solutionConcentration, $massToAdd);
-                            $statment->store_result();
-                            $numRows = $statment->num_rows;
+                        if($statement = $dbc->prepare("SELECT ID, Solvent_Identity, Solute_Identity, Solute_Weight, Solution_Total_Volume, Solution_Concentration, Mass_Solute_Add FROM single_solution_liquid_grav WHERE Account_ID = ?")){
+                            $statement->bind_param("i", $accountId);
+                            $statement->execute();
+                            $statement->bind_result($id, $solventIdentity, $soluteIdentity, $soluteWeight, $solutionTotalVolume, $solutionConcentration, $massToAdd);
+                            $statement->store_result();
+                            $numRows = $statement->num_rows;
                             //Creates a loop to interate through results
-                            while ($statment->fetch()){
+                            while ($statement->fetch()){
                         ?>
                         <tbody>
                         <tr>
@@ -170,7 +170,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $massToAdd ?> g</td>
                             <td><a href="deleteSolution.php?ID=<?= $id ?>&t=single_sol_liq_grav">Delete</a></td>
                         </tr>
-                        <tbody>
+                        </tbody>
                         <?php
                             }
                             if(!$numRows){
@@ -222,7 +222,7 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $volumeToAdd ?> mL</td>
                             <td><a href="deleteSolution.php?ID=<?= $id ?>&t=single_sol_liq_vol">Delete</a></td>
                         </tr>
-                        <tbody>
+                        </tbody>
                         <?php
                             }
                             if(!$numRows){
@@ -298,17 +298,17 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <th>Solvent Formula</th>
                             <th>Analyte Formula</th>
                             <th>Analyte Molecular Weight</th>
-                            <th>Unknown Name</th>
+                            <th>Analyte Molarity</th>
                             <th>Number of Standards</th>
                             <th>Flask Volumes</th>
                             <th>DELETE</th>
                         </tr>
                         </thead>
                         <?php
-                        if($statement = $dbc->prepare("SELECT ID, Solvent_Identity, Analyte_Identity, Analyte_Weight, Unknown_Name, Number_Standards, Flask_Volumes FROM calibration_external WHERE Account_ID = ?")){
+                        if($statement = $dbc->prepare("SELECT ID, Solvent_Identity, Analyte_Identity, Analyte_Weight, Number_Standards, Flask_Volumes, Analyte_Molarity FROM calibration_external WHERE Account_ID = ?")){
                             $statement->bind_param("i", $accountId);
                             $statement->execute();
-                            $statement->bind_result($id, $solventIdentity, $analyteIdentity, $analyteWeight, $unknownName, $numStandards, $flaskVolumes);
+                            $statement->bind_result($id, $solventIdentity, $analyteIdentity, $analyteWeight, $numStandards, $flaskVolumes, $analyteMolarity);
                             $statement->store_result();
                             $numRows = $statement->num_rows;
                             //Creates a loop to interate through results
@@ -319,12 +319,12 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                             <td><?= $solventIdentity ?></td>
                             <td><?= $analyteIdentity ?></td>
                             <td><?= $analyteWeight ?> g/mol</td>
-                            <td><?= $unknownName ?></td>
+                            <td><?= $analyteMolarity ?> M</td>
                             <td><?= $numStandards ?></td>
                             <td><?= $flaskVolumes ?> mL</td>
                             <td><a href="deleteSolution.php?ID=<?= $id ?>&t=calibration_ext">Delete</a></td>
                         </tr>
-                        <tbody>
+                        </tbody>
                         <?php
                             }
                             if(!$numRows){
@@ -344,20 +344,21 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                     <table id="calibrationAdditionTable" align="center" class="table table-hover">
                         <thead>
                         <tr>
-                            <th>Solvent Formula</th>
                             <th>Analyte Formula</th>
+                            <th>Analyte Molarity</th>
                             <th>Analyte Molecular Weight</th>
                             <th>Unknown Name</th>
+                            <th>Unknown Volume</th>
                             <th>Number of Standards</th>
                             <th>Flask Volumes</th>
                             <th>DELETE</th>
                         </tr>
                         </thead>
                         <?php
-                        if($statement = $dbc->prepare("SELECT ID, Solvent_Identity, Analyte_Identity, Analyte_Weight, Unknown_Name, Number_Standards, Flask_Volumes FROM calibration_addition WHERE Account_ID = ?")){
+                        if($statement = $dbc->prepare("SELECT ID, Analyte_Identity, Analyte_Molarity, Unknown_Name, Number_Standards, Flask_Volumes, Unknown_Volume FROM calibration_addition WHERE Account_ID = ?")){
                             $statement->bind_param("i", $accountId);
                             $statement->execute();
-                            $statement->bind_result($id, $solventIdentity, $analyteIdentity, $analyteWeight, $unknownName, $numStandards, $flaskVolumes);
+                            $statement->bind_result($id, $analyteIdentity, $analyteMolarity, $unknownName, $numStandards, $flaskVolumes, $unknownVolume);
                             $statement->store_result();
                             $numRows = $statement->num_rows;
                             //Creates a loop to interate through results
@@ -365,15 +366,16 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         ?>
                         <tbody>
                         <tr>
-                            <td><?= $solventIdentity ?></td>
                             <td><?= $analyteIdentity ?></td>
+                            <td><?= $analyteMolarity ?> M</td>
                             <td><?= $analyteWeight ?> g/mol</td>
                             <td><?= $unknownName ?></td>
+                            <td><?= $unknownVolume ?> mL</td>
                             <td><?= $numStandards ?></td>
                             <td><?= $flaskVolumes ?> mL</td>
                             <td><a href="deleteSolution.php?ID=<?= $id ?>&t=calibration_add">Delete</a></td>
                         </tr>
-                        <tbody>
+                        </tbody>
                         <?php
                             }
                             if(!$numRows){
@@ -393,21 +395,20 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                     <table id="calibrationInternalTable" align="center" class="table table-hover">
                         <thead>
                         <tr>
-                            <th>Analyte Solution ID</th>
-                            <th>Analyte Solution Type</th>
-                            <th>Internal Standard Solution ID</th>
-                            <th>Internal Standard Solution Type</th>
-                            <th>Unknown Name</th>
+                            <th>Analyte Name</th>
+                            <th>Analyte Molarity</th>
+                            <th>Internal Standard Solution Name</th>
+                            <th>Internal Standard Solution Molarity</th>
                             <th>Number of Standards</th>
                             <th>Flask Volumes</th>
                             <th>DELETE</th>
                         </tr>
                         </thead>
                         <?php
-                        if($statement = $dbc->prepare("SELECT ID, Internal_Standard_Solution_Identity, Analyte_Identity, Analyte_Weight, Unknown_Name, Number_Standards, Flask_Volumes FROM calibration_internal WHERE Account_ID = ?")){
+                        if($statement = $dbc->prepare("SELECT ID, Analyte_Identity, Analyte_Molarity, Internal_Standard_Solution_Identity, Internal_Molarity, Number_Standards, Flask_Volumes FROM calibration_internal WHERE Account_ID = ?")){
                             $statement->bind_param("i", $accountId);
                             $statement->execute();
-                            $statement->bind_result($id, $internalIdentity, $analyteIdentity, $analyteWeight, $unknownName, $numStandards, $flaskVolumes);
+                            $statement->bind_result($id, $analyteIdentity, $analyteMolarity, $internalIdentity, $internalMolarity, $numStandards, $flaskVolumes);
                             $statement->store_result();
                             $numRows = $statement->num_rows;
                             //Creates a loop to interate through results
@@ -415,15 +416,15 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
                         ?>
                         <tbody>
                         <tr>
-                            <td><?= $internalIdentity ?></td>
                             <td><?= $analyteIdentity ?></td>
-                            <td><?= $analyteWeight ?> g/mol</td>
-                            <td><?= $unknownName ?></td>
+                            <td><?= $analyteMolarity ?> M</td>
+                            <td><?= $internalIdentity ?></td>
+                            <td><?= $internalMolarity ?> M</td>
                             <td><?= $numStandards ?></td>
                             <td><?= $flaskVolumes ?> mL</td>
                             <td><a href="deleteSolution.php?ID=<?= $id ?>&t=calibration_int">Delete</a></td>
                         </tr>
-                        <tbody>
+                        </tbody>
                         <?php
                             }
                             if(!$numRows){

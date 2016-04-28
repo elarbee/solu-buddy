@@ -277,3 +277,9 @@ ALTER TABLE `calibration_addition`
 ALTER TABLE `calibration_addition`
   ADD COLUMN `Unknown_Volume` DECIMAL(10, 3);
 
+ALTER TABLE `calibration_internal`
+  CHANGE `Analyte_Weight` `Internal_Molarity` decimal(10,3);
+
+ALTER TABLE `calibration_addition`
+  MODIFY Unknown_Name varchar(20);
+

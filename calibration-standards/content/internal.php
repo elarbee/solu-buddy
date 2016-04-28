@@ -2,7 +2,7 @@
 <div id="headerDiv">
     <h2>Making Calibration Standards by Internal Standards Method</h2>
 </div>
-<div class="container">
+<div class="container" id="solutionForm">
     <!-- Table used for Internal Standards Method -->
 	<div class="row">
 		<div class="col-md-4 col-sm-12"><p class="regText">Enter an analyte name</p></div>
@@ -23,9 +23,8 @@
 		<div class="col-md-4 col-sm-12"><input id="internal_formula" name="internal_formula" type="text" placeholder="Name of Internal Standard Solution" ></div>
 		<div class="col-md-4 col-sm-12"><input id="internal_molarity" name="internal_molarity" type="text" placeholder="Molarity of Internal Standard" ></div>
 		<div class="col-md-4 col-sm-12"><input id="total_volume_standards" name="total_volume_standards" type="text" placeholder="Volume of Calibration Standard Flasks"></div>
-
 	</div>
-
+	<input type="hidden" name="solution_type" value="calibration_internal">
 	<button id="nextButton" class="nextButton">Next</button>
 
 <div>

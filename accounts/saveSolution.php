@@ -61,10 +61,10 @@ if ($accountStatement) {
         $numStandards = $_POST['num_standards'];
         $internalFormula = $_POST['internal_formula'];
         $internalMolarity = $_POST['internal_molarity'];
-        $totalVolumeStandards = $_POST['internal_volume_standards'];
+        $totalVolumeStandards = $_POST['total_volume_standards'];
 
-        $statement = mysqli_prepare($dbc, "INSERT INTO calibration_internal VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($statement, 'issidd', $accountId, $analyteName, $internalFormula, $numStandards, $totalVolumeStandards, $analyteMolarity);
+        $statement = mysqli_prepare($dbc, "INSERT INTO calibration_internal (Account_ID, Analyte_Identity, Analyte_Molarity, Internal_Standard_Solution_Identity, Internal_Molarity, Number_Standards, Flask_Volumes) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($statement, 'isdsdid', $accountId, $analyteName, $analyteMolarity, $internalFormula, $internalMolarity, $numStandards, $totalVolumeStandards);
 
     } elseif ($submission_type == 'calibration_external') {
         $solventId = $_POST['solvent_formula'];
@@ -84,8 +84,8 @@ if ($accountStatement) {
         $unknownVolume = $_POST['unknown_volume'];
         $flaskVolumes = $_POST['total_volume_standards'];
 
-        $statement = mysqli_prepare($dbc, "INSERT INTO calibration_addition VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($statement, 'issddid', $accountId, $analyteId, $analyteMolarity, $unkownName, $numberOfStandards, $flaskVolumes, $unknownVolume);
+        $statement = mysqli_prepare($dbc, "INSERT INTO calibration_addition (Account_ID, Analyte_Identity, Analyte_Molarity, Unknown_Name, Unknown_Volume, Number_Standards, Flask_Volumes) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($statement, 'isdsdid', $accountId, $analyteId, $analyteMolarity, $unkownName, $unknownVolume, $numberOfStandards, $flaskVolumes);
     } else {
         echo 'Error saving solution.';
         exit;
