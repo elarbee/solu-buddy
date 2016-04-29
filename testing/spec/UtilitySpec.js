@@ -210,14 +210,5 @@ describe("Utility Functions", function() {
 
         });
     });
-
-    describe("Testing random_formula_w_ionic and is_valid_formula", function(){
-
-        it("Let's see what happens", function(){
-            for(var i = 0; i < 50; i++){
-                var formula = random_formula_w_ionic(40, 2, 50);
-                expect(is_valid_formula(formula)).toEqual(true);
-            }
-        });
-    });
+    
 });

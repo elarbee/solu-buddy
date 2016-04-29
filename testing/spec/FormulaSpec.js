@@ -5,6 +5,8 @@ describe('Formula parsing and validation', function() {
         it("Should reject empty formulas", function(){
             expect(is_valid_formula("")).toEqual(false);
         });
+
+
           it('Should be able to validate a simple formula string', function () {
              expect(is_valid_formula('NaCl')).toEqual(true);
              expect(is_valid_formula('HNa')).toEqual(true);
@@ -59,6 +61,13 @@ describe('Formula parsing and validation', function() {
 
         it('Should be able to reject formulas with bad parenthesis', function(){
            expect(is_valid_formula("(Na(Cl)(NaCl)")).toEqual(false);
+        });
+
+        it("It should accept ridiculous ionic formulas.", function(){
+            for(var i = 0; i < 50; i++){
+                var formula = random_formula_w_ionic(40, 2, 50);
+                expect(is_valid_formula(formula)).toEqual(true);
+            }
         });
         
     });
