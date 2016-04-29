@@ -248,6 +248,8 @@ describe('compound creation', function(){
                 '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3'+
                 '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3';
 
+            // expect(is_valid_formula(form1)).toEqual(true);
+            expect(/^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/.test(form1)).toEqual(true);
             var comp = string_to_compound(form1);
             expect(comp.components[0].element.symbol).toEqual('C');
             expect(comp.total_molecular_weight()).toEqual(1019950.8400000001);
