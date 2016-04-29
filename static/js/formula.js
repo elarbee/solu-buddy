@@ -329,17 +329,3 @@ function segments_to_compound_components(segments){
     return components;
 }
 
-/**
- * Will return all text outside of enclosed parenthesis.
- * @param str String to grab text from.
- * @returns {*}
- */
-function remove_parentheses(str){
-    if(/([^[\)]+)(?:$|[\(])/g.test(str)){
-        return /([^[\)]+)(?:$|[\(])/g.exec(str)[0].replace("(", "").replace(")", "");
-    }
-    else{
-        return str;
-    }
-}
-

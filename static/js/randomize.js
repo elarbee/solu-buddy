@@ -128,7 +128,7 @@ function random_ionic_formula(low, high){
 }
 
 /**
- * Creates a random word between the givin min and max length using lower and upper case letters.
+ * Creates a random word between the given min and max length using lower and upper case letters.
  * @param min_length minimum length
  * @param max_length maximum length
  * @returns {string} Word

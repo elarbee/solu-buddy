@@ -226,14 +226,11 @@ describe('Compound Creation Testing', function(){
             var form1 = '(NH4)2SO4';
             var comp1 = string_to_compound(form1);
 
-            expect(remove_parentheses(form1)).toEqual('2SO4');
-
             expect(comp1.components[0].element.symbol).toEqual('S');
             expect(comp1.components[0].quantity).toEqual(1);
 
             expect(comp1.components[1].element.symbol).toEqual('O');
             expect(comp1.components[1].quantity).toEqual(4);
-
 
             expect(comp1.sub_compounds[0].components[0].element.symbol).toEqual('N');
             expect(comp1.sub_compounds[0].components[1].element.symbol).toEqual('H');
@@ -414,19 +411,6 @@ describe('Compound Creation Testing', function(){
             expect(compound.sub_compounds[0].formula).toEqual('13HFe10');
             expect(compound.sub_compounds[1].formula).toEqual('4H2O');
         });
-    });
-
-    describe('remove_parentheses(input) ', function() {
-
-        it('should properly grab all text not inside parenthesis', function(){
-            var test1 = '(H2O)2343(H2O)(NaCl)';
-
-            expect(remove_parentheses(test1)).toEqual('2343');
-
-            var test1 = 'helloworld)';
-            expect(remove_parentheses(test1)).toEqual('helloworld)');
-        });
-
     });
 
     describe('segments_to_compound_components(segments)', function() {
