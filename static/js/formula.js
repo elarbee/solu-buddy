@@ -8,7 +8,11 @@ var match_ionic = /(\(([A-Z][a-z]?\d*)*\)\d*)*/g;
 
 var match_non_ionic = /([A-Z][a-z]?\d*)+/g;
 
-var good_regex = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/;
+/**
+ *  For some reason this regex is GOOD but VERY SLOW
+ * */
+var good_regex = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/g;
+
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
 var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
@@ -181,12 +185,7 @@ function Compound_Component(symbol, qty){
  * */
 function is_valid_formula(str) {
 
-    good_regex.lastIndex = 0;
     var is_valid = good_regex.test(str).valueOf();
-
-    if(!is_valid){
-        return false;
-    }
 
     var formulaString = str;
     var qty = 0;
@@ -253,19 +252,15 @@ function is_valid_formula(str) {
             }
         }
 
+
         console.log("formula: " + str);
         console.log("string length: " + formulaString.length);
         console.log("accepted length: " + accepted_length);
         /**
          *  All elements are legal by now.
          */
-        if(accepted_length == formulaString.length){
-            return true;
-        }else{
-            return false;
-        }
 
-
+        is_valid = (accepted_length == formulaString.length);
 
         // console.log("formula: " + formulaString);
         // console.log("segments: " + segments);
@@ -281,6 +276,10 @@ function is_valid_formula(str) {
         //string, then there is an invalid piece.
         //is_valid = sum_string_lengths(segments) + sum_string_lengths(ionic_segments) == formulaString.length;
     }
+
+    console.log("formula: " + str);
+    console.log("string length: " + formulaString.length);
+    console.log("accepted length: " + accepted_length);
 
     return is_valid.valueOf();
 }
