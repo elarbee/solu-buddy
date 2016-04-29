@@ -66,14 +66,12 @@ describe('Formula parsing and validation', function() {
         it("It should accept ridiculous ionic formulas.", function(){
 
             var tests_to_run = 500;
-            var max_length = 50;
-            var min_length = 2;
-            var chance_for_ionic = 40;
             var total_length = 0;
 
             var start = window.performance.now();
+            
             for(var i = 0; i < tests_to_run; i++){
-                var formula = random_formula_w_ionic(chance_for_ionic, min_length, max_length);
+                var formula = random_formula_w_ionic(40, 2, 50);
                 total_length += formula.length;
                 expect(is_valid_formula(formula)).toEqual(true);
 

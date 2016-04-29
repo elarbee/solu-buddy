@@ -46,7 +46,10 @@ function verify_concentrated(){
     }
     else if($('#knownSelect').val() == 'CONC_VOL'){
         if(verify_volumetric()){
-            if(!valid_number_field("solute_percent_mass") || $("#solute_percent_mass").val() > 100){
+            var solute_percent_mass = $("#solute_percent_mass").val();
+            if(!valid_number_field("solute_percent_mass")
+                || solute_percent_mass > 100){
+                error_message += "Solute mass percent must be above 0 and at most 100.<br>";
                 return false;
             }
         }
@@ -55,7 +58,11 @@ function verify_concentrated(){
         }
         return true;
     }else if($('#knownSelect').val() == 'CONC_GRAV'){
-        if(!valid_number_field("solute_percent_mass") || $("#solute_percent_mass").val() > 100){
+        var solute_percent_mass = $("#solute_percent_mass").val();
+
+        if(!valid_number_field("solute_percent_mass")
+            || solute_percent_mass > 100){
+            error_message += "Solute mass percent must be above 0 and at most 100.<br>";
             return false;
         }
         if(!valid_number_field("massToAdd")){
@@ -72,17 +79,17 @@ function valid_number_field(id){
         var val = $("#"+id+"").val();
 
         if(val == ""){
-            error_message += "Please fill in missing fields.\n";
+            error_message += "Please fill in missing fields. <br>";
             console.log("field: " + id + " value: " + val + " is empty.");
             return false;
         }
         if(!/^-?\d+\.?\d*$/g.test(val)){
-            error_message += "Must enter correct number.\n";
+            error_message += "Must enter correct number.<br>";
             console.log("field: " + id + " value: " + val + " failed regex test.");
             return false;
         }
         if (val <= 0){
-            error_message += "Field cannot be less than or equal to 0.\n";
+            error_message += "Field cannot be less than or equal to 0.<br>";
             console.log("field: " + id + " value: " + val + " less than or equal to 0");
             return false;
         }
@@ -91,7 +98,7 @@ function valid_number_field(id){
 
     }catch (ex){
         console.log("field: " + id + " value: " + val);
-        showAlert(ex.message);
+        console.log(ex.message);
     }
 }
 
