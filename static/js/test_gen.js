@@ -26,10 +26,9 @@ function make_random_entries(){
     var amount = document.getElementById("testing_text_area").value;
 
     var doc = new TestGenerator()
-        .make_solid(amount)
-        // .make_all_solutions(amount)
-        // .make_serdil(amount)
-        // .make_all_calibs(amount)
+        .make_all_solutions(amount)
+        .make_serdil(amount)
+        .make_all_calibs(amount)
         .get_doc();
 
     document.getElementById("testing_text_area").value = doc;
@@ -458,7 +457,10 @@ function TestEntry(){
         entry_count++;
         self.next_button();
 
-        self.component("echo", "", "Test #: " + entry_count + ". Expecting " + (is_correct_entry)? "correct" : "incorrect");
+        var echo_msg = "Test # ".concat(entry_count+"").concat(". Expecting ")
+            .concat((is_correct_entry)? "correct." : "incorrect.");
+
+        self.component("echo", "", echo_msg);
         console.log("Entry: " + entry_count + " correct? " + is_correct_entry);
         if(is_correct_entry){
             self.wait_for_non_alert("myAlert");
