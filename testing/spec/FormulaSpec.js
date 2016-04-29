@@ -2,6 +2,9 @@ describe('Formula parsing and validation', function() {
 
     describe('is_valid_formula(str) function testing', function() {
 
+        it("Should reject empty formulas", function(){
+            expect(is_valid_formula("")).toEqual(false);
+        });
           it('Should be able to validate a simple formula string', function () {
              expect(is_valid_formula('NaCl')).toEqual(true);
              expect(is_valid_formula('HNa')).toEqual(true);
@@ -53,6 +56,10 @@ describe('Formula parsing and validation', function() {
              expect(is_valid_formula('H2o')).toEqual(false);
              expect(is_valid_formula('h2O')).toEqual(false);
           });
+
+        it('Should be able to reject formulas with bad parenthesis', function(){
+           expect(is_valid_formula("(Na(Cl)(NaCl)")).toEqual(false);
+        });
         
     });
 

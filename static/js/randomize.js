@@ -112,12 +112,17 @@ function random_ionic_formula(low, high){
     var length = random_int(low, high);
 
     var formula = "(";
-    formula += random_formula(length, length);
+    for(var i = 0; i < length; i++){
+        formula += getRandomElementKey();
+        if(roll_dice(50, 100)){
+            formula += random_int(2, 100);
+        }
+    }
     formula += ")";
 
     if(roll_dice(20, 100)){
         formula += random_int(2, 999);
-    };
+    }
 
     return formula;
 }

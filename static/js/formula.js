@@ -185,103 +185,32 @@ function Compound_Component(symbol, qty){
  * */
 function is_valid_formula(str) {
 
-    var is_valid = good_regex.test(str).valueOf();
-
-    var formulaString = str;
-    var qty = 0;
-
-
-    /* Gets rid of the leading number for validation*/
-    if(/^\d+/.test(str)){
-        qty = str.match(/^\d+/)[0];
-        /* Place remaining substring into formulaString */
-        formulaString = str.substring(qty.length);
-    }
-
+    
+    var is_valid = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/g.test(str).valueOf();
 
     if(is_valid){
+        var left_parenthesis_count = (str.match(/\(/g) || []).length;
+        var right_parenthesis_count = (str.match(/\)/g) || []).length;
 
-        var parenthesis_count = (formulaString.match(/\(|\)/g) || []).length;
-        var accepted_length = 0;
-        var compounds = [];
-        /**
-         * Has parenthesis.
-         */
-        if(parenthesis_count > 0){
-
-            /**
-             * Uneven number of parenthesis, return false.
-             */
-            if(parenthesis_count % 2 != 0){
-                return false;
-            }
-
-            var temp = string_to_ionic_compounds(formulaString);
-
-            /**
-             * For each ionic compound, break it down and push normal compounds to array.
-             */
-            for(var i = 0; i < temp.length; i++){
-                var pieces = split_sub_compound(temp[i]);
-                //Push normal compound from ionic compounds
-                compounds.push(pieces[1]);
-                //Increment count of compound qty length
-                accepted_length += pieces[3].length;
-                //Increment count of parenthesis
-                accepted_length += 2;
-            }
-
-        }else{
-            //Formula string is plain compound
-            compounds.push(formulaString);
-
+        if(left_parenthesis_count != right_parenthesis_count){
+            return false;
         }
-
-        /**
-         * Make sure elements are legal.
-         */
-        for(var c = 0; c < compounds.length; c++){
-            var segments = string_to_compound_segments(compounds[c]);
-
-            for(var e = 0; e < segments.length; e++){
-
-                if(find_element(segment_to_pieces(segments[1])[1]) == null){
-                    return false;
-                }
-                accepted_length += segments[e].length;
-            }
-        }
-
-
-        console.log("formula: " + str);
-        console.log("string length: " + formulaString.length);
-        console.log("accepted length: " + accepted_length);
-        /**
-         *  All elements are legal by now.
-         */
-
-        is_valid = (accepted_length == formulaString.length);
-
-        // console.log("formula: " + formulaString);
-        // console.log("segments: " + segments);
-        // console.log("ionic segments: " + ionic_segments);
-        // console.log("length of string: " + formulaString.length);
-        // console.log("length of segments: " + sum_string_lengths(segments) + sum_string_lengths(ionic_segments));
-        // console.log("accepted segment length: " + accepted_segments_length);
-        // console.log("accepted length: " + accepted_length);
-
-
-
-        //If the total length of segments obtained from the string are not equal to the original
-        //string, then there is an invalid piece.
-        //is_valid = sum_string_lengths(segments) + sum_string_lengths(ionic_segments) == formulaString.length;
     }
 
-    console.log("formula: " + str);
-    console.log("string length: " + formulaString.length);
-    console.log("accepted length: " + accepted_length);
 
-    return is_valid.valueOf();
+    var elements = str.match(/([A-Z][a-z]?)/g);
+
+    if(elements == null){
+        return false;
+    }
+    for(var e = 0; e < elements.length; e ++){
+        if(find_element(elements[e]) == undefined){
+            console.log(elements[e]);
+            return false;
+        }
+    }
+
+    return is_valid;
 }
 
 
