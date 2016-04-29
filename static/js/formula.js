@@ -9,7 +9,7 @@ var match_ionic = /(\(([A-Z][a-z]?\d*)*\)\d*)*/g;
 var match_non_ionic = /([A-Z][a-z]?\d*)+/g;
 
 var good_regex = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/g;
-
+var best_regex = /^(\d*([A-Z][a-z]?\d*)+|(\(([A-Z][a-z]?\d*)+\)\d*)*)+$/;
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
 var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
@@ -182,17 +182,29 @@ function Compound_Component(symbol, qty){
  * */
 function is_valid_formula(str) {
 
-    
-    var is_valid = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/g.test(str).valueOf();
 
-    if(is_valid){
-        var left_parenthesis_count = (str.match(/\(/g) || []).length;
-        var right_parenthesis_count = (str.match(/\)/g) || []).length;
+    var is_valid = false;
+    if(str != ""){
+        /**
+         *      **NOTE** Though the regex forces matching parenthesis,
+         *      having an odd number of parenthesis or unequal numbers
+         *      of parenthesis tends to slow it down dramatically. This
+         *      alleviates the slow-down by quite a bit.
+         */
+        var l_p_count = (str.match(/\(/g) || []).length;
+        var r_p_count = (str.match(/\)/g) || []).length;
 
-        if(left_parenthesis_count != right_parenthesis_count){
+        if(l_p_count != r_p_count ||
+            (l_p_count + r_p_count) % 2 != 0){
             return false;
         }
+
+        is_valid = /^(\d*([A-Z][a-z]?\d*)+|(\(([A-Z][a-z]?\d*)+\)\d*)*)+$/.test(str).valueOf();
+
     }else{
+        return false;
+    }
+    if(!is_valid){
         return false;
     }
 

@@ -7,7 +7,7 @@ describe('Calculator testing', function(){
 
     describe('Calculating values for a single solution.', function(){
 
-
+        
 
     });
 
