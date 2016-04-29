@@ -180,15 +180,6 @@ describe('Formula parsing and validation', function() {
 
     });
 
-    describe('sum_string_lengths(array) function testing', function() {
-
-        it('should correctly sum the lengths of all strings in an array', function () {
-            expect(sum_string_lengths(['o', 'hi', 'say', 'cano', 'youou'])).toEqual(15);
-            expect(sum_string_lengths([])).toEqual(0);
-        });
-
-    });
-
 });
 
 describe('Compound Creation Testing', function(){
@@ -394,6 +385,7 @@ describe('Compound Creation Testing', function(){
             }
         });
     });
+    
     describe('add_sub_compounds testing', function() {
 
         var compound = string_to_compound('NaCl');
@@ -423,7 +415,6 @@ describe('Compound Creation Testing', function(){
             expect(compound.sub_compounds[1].formula).toEqual('4H2O');
         });
     });
-
 
     describe('remove_parentheses(input) ', function() {
 

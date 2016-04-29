@@ -128,11 +128,8 @@ function string_to_compound(input){
     //Gets segments from the leftover formula.
     var segments = string_to_compound_segments(formula);
 
-    try {
-        var components = segments_to_compound_components(segments);
-    }catch (e){
-        console.log("formula = " + input);
-    }
+    var components = segments_to_compound_components(segments);
+
     var comp = new Compound(components, parseInt(compound_qty), input);
 
     if(sub_compounds != null){
@@ -199,12 +196,10 @@ function is_valid_formula(str) {
         return false;
     }
 
-
     var elements = str.match(/([A-Z][a-z]?)/g);
     
     for(var e = 0; e < elements.length; e ++){
         if(find_element(elements[e]) == undefined){
-            console.log(elements[e]);
             return false;
         }
     }
@@ -264,20 +259,6 @@ function front_number(str){
     }
     return form_qty;
 }
-
-/**
- * Sums the length of all strings in an array
- * @param array Array of strings
- * @returns {number} returns total length of all strings in array.
- */
-function sum_string_lengths(array){
-    var total_length = 0;
-    for(var i = 0; i < array.length; i++){
-        total_length += array[i].length;
-    }
-    return total_length;
-}
-
 
 /**
  * Will break down a string containing ionic compounds into ionic compounds
@@ -349,8 +330,8 @@ function segments_to_compound_components(segments){
 }
 
 /**
- * Will
- * @param str
+ * Will return all text outside of enclosed parenthesis.
+ * @param str String to grab text from.
  * @returns {*}
  */
 function remove_parentheses(str){
