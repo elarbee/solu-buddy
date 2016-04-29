@@ -195,6 +195,8 @@ function is_valid_formula(str) {
         if(left_parenthesis_count != right_parenthesis_count){
             return false;
         }
+    }else{
+        return false;
     }
 
 
