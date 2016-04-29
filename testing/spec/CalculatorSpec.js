@@ -3,4 +3,13 @@
  */
 
 
-//TODO: need to fill this in.
+describe('Calculator testing', function(){
+
+    describe('Calculating values for a single solution.', function(){
+
+
+
+    });
+
+
+});
