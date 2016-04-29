@@ -8,8 +8,8 @@ var match_ionic = /(\(([A-Z][a-z]?\d*)*\)\d*)*/g;
 
 var match_non_ionic = /([A-Z][a-z]?\d*)+/g;
 
-var good_regex = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/g;
 var best_regex = /^(\d*([A-Z][a-z]?\d*)+|(\(([A-Z][a-z]?\d*)+\)\d*)*)+$/;
+
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
 var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
