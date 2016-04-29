@@ -69,6 +69,14 @@ describe('Formula parsing and validation', function() {
                 expect(is_valid_formula(formula)).toEqual(true);
             }
         });
+
+        it('Should reject formulas that look correct but have illegal elements.', function(){
+
+            var test_cases = ['H2Nz', 'Zz100Hj(NaCl)4'];
+            for(var i = 0; i < test_cases; i++){
+                expect(is_valid_formula(test_cases[i])).toEqual(false);
+            }
+        });
         
     });
 
@@ -79,23 +87,30 @@ describe('Formula parsing and validation', function() {
             expect(front_number('NaCl')).toEqual(1);
             expect(front_number('Na200Cl')).toEqual(1);
             expect(front_number('8999Na200Cl')).toEqual(8999);
+
         });
 
         it('should ignore decimals', function () {
             expect(front_number('4.2NaCl')).toEqual(4);
             expect(front_number('.2NaCl')).toEqual(1);
+            expect(front_number('10.5Na200Cl')).toEqual(10);
+        });
+
+        it('Should ignore negative numbers', function(){
+            expect(front_number('-100Na200Cl')).toEqual(1);
+            expect(front_number('-10.5Na200Cl')).toEqual(1);
+
         });
 
     });
 
     describe('string_to_compound_segments(str) function testing', function() {
 
-        it('should break down a s4imple formula into its elements', function () {
+        it('should break down a simple formula into its elements', function () {
 
             var test1 = 'NaCl';
             expect(string_to_compound_segments(test1).length).toEqual(2);
-            expect(string_to_compound_segments(test1)[0]).toEqual('Na');
-            expect(string_to_compound_segments(test1)[1]).toEqual('Cl');
+            expect(string_to_compound_segments(test1)).toEqual(['Na', 'Cl']);
 
         });
 
@@ -103,11 +118,18 @@ describe('Formula parsing and validation', function() {
 
             var test2 = '4H2ONa6Cl';
             expect(string_to_compound_segments(test2).length).toEqual(4);
-            expect(string_to_compound_segments(test2)[0]).toEqual('H2');
-            expect(string_to_compound_segments(test2)[1]).toEqual('O');
-            expect(string_to_compound_segments(test2)[2]).toEqual('Na6');
-            expect(string_to_compound_segments(test2)[3]).toEqual('Cl');
+            expect(string_to_compound_segments(test2)).toEqual(['H2', 'O', 'Na6', 'Cl']);
 
+        });
+
+        it('Should return an empty array on a non-matching string', function () {
+
+            var invalid_strings = ['h', '', 'z', '2', '??', '!!', '()'];
+
+            for(var i = 0; i < invalid_strings.length; i++){
+                expect(string_to_compound_segments(invalid_strings[i]).length).toEqual(0);
+                expect(string_to_compound_segments(invalid_strings[i])).toEqual([]);
+            }
         });
 
     });
@@ -145,6 +167,16 @@ describe('Formula parsing and validation', function() {
 
         });
 
+        it('Should return an empty array if the string is invalid', function(){
+
+            var invalid_strings = ['h', '', 'z', '2', '??', '!!', '()'];
+
+            for(var i = 0; i < invalid_strings.length; i++){
+                expect(segment_to_pieces(invalid_strings[i]).length).toEqual(0);
+                expect(segment_to_pieces(invalid_strings[i])).toEqual([]);
+            }
+        });
+
 
     });
 
@@ -159,7 +191,7 @@ describe('Formula parsing and validation', function() {
 
 });
 
-describe('compound creation', function(){
+describe('Compound Creation Testing', function(){
 
     describe('Compound creation', function () {
 
@@ -264,18 +296,57 @@ describe('compound creation', function(){
                 '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3'+
                 '3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3C3H4OH(COOH)3';
 
-            // expect(is_valid_formula(form1)).toEqual(true);
-            expect(/^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/.test(form1)).toEqual(true);
+            expect(is_valid_formula(form1)).toEqual(true);
             var comp = string_to_compound(form1);
             expect(comp.components[0].element.symbol).toEqual('C');
             expect(comp.total_molecular_weight()).toEqual(1019950.8400000001);
             expect(comp.quantity).toEqual(100);
         });
 
+        it('Should calculate the correct molecular weight for the compound', function(){
+
+            /**
+             * Building the compound
+             */
 
 
-        //TODO: make more tests here. need to test more complex compounds
+            for(var i = 0; i < 100; i++){
 
+                var compound = "";
+                var molecular_weight = 0;
+
+                for(var e = 0; e < 500; e++){
+
+                    var element = find_element(getRandomElementKey());
+                    var qty = random_int(2,500);
+                    var molec_weight = element.atomic_weight * qty;
+
+                    compound += element.symbol;
+                    compound += qty;
+                    molecular_weight += molec_weight;
+                }
+
+                /**
+                 * Testing that straightforward summation on this end will
+                 * correctly equal molecular weight after parsing
+                 */
+                expect(string_to_compound(compound).molecular_weight()).toEqual(molecular_weight);
+                console.log("molec weight compound = " + compound);
+                compound = "";
+                molecular_weight = 0;
+            }
+
+        });
+
+        it('Should be able to reject empty strings or bad compounds by returning a null value.', function(){
+
+            var invalid_formulas = ['naCl', 'Nacl', '', '8', '-5NaCl', '?H2O', 'Hello', '5.5NaCl', '5Na100.2Cl'];
+
+            invalid_formulas.forEach(function(el, i, arr){
+               expect(string_to_compound(el)).toBeNull();
+            });
+
+        });
 
     });
 
@@ -310,6 +381,15 @@ describe('compound creation', function(){
             expect(water_components.length).toEqual(4);
             expect(water_components[1]).toEqual('H2O');
             expect(water_components[3]).toEqual('4');
+        });
+
+        it('Should return an empty array if nothing is matched.', function(){
+            var invalid_strings = ['h', '', 'z', '2', '??', '!!', '()', '(H2O', 'Ha2O', 'NACL$!@$'];
+
+            for(var i = 0; i < invalid_strings.length; i++){
+                expect(string_to_ionic_compounds(invalid_strings[i]).length).toEqual(0);
+                expect(string_to_ionic_compounds(invalid_strings[i])).toEqual([]);
+            }
         });
     });
     describe('add_sub_compounds testing', function() {
@@ -351,7 +431,6 @@ describe('compound creation', function(){
             expect(remove_parentheses(test1)).toEqual('2343');
 
             var test1 = 'helloworld)';
-
             expect(remove_parentheses(test1)).toEqual('helloworld)');
         });
 

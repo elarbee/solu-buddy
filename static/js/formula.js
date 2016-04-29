@@ -115,10 +115,13 @@ function string_to_compound(input){
     var formula = input;
     var sub_compounds;
 
+    if(!is_valid_formula(input)){
+        return null;
+    }
     /**
      * Checks to see if the input string has any parentheses. If it does, it has sub-compounds.
      */
-    if( /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.test(input)){
+    if(/\(|\)/.test(input)){
         sub_compounds = string_to_ionic_compounds(input);
 
         for(var i = 0; i < sub_compounds.length; i++){
@@ -201,10 +204,7 @@ function is_valid_formula(str) {
 
 
     var elements = str.match(/([A-Z][a-z]?)/g);
-
-    if(elements == null){
-        return false;
-    }
+    
     for(var e = 0; e < elements.length; e ++){
         if(find_element(elements[e]) == undefined){
             console.log(elements[e]);
