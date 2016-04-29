@@ -8,7 +8,11 @@ var match_ionic = /(\(([A-Z][a-z]?\d*)*\)\d*)*/g;
 
 var match_non_ionic = /([A-Z][a-z]?\d*)+/g;
 
-var good_regex = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/;
+/**
+ *  For some reason this regex is GOOD but VERY SLOW
+ * */
+var good_regex = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/g;
+
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;
 var split_compound_reg = /[A-Z][a-z]?\d*/g;
 var outside_parentheses_reg = /([^[\)]+)(?:$|[\(])/g;
@@ -181,51 +185,34 @@ function Compound_Component(symbol, qty){
  * */
 function is_valid_formula(str) {
 
-    if(str == ""){
+    
+    var is_valid = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/g.test(str).valueOf();
+
+    if(is_valid){
+        var left_parenthesis_count = (str.match(/\(/g) || []).length;
+        var right_parenthesis_count = (str.match(/\)/g) || []).length;
+
+        if(left_parenthesis_count != right_parenthesis_count){
+            return false;
+        }
+    }else{
         return false;
     }
-    var isValid = /(([A-Z][a-z]?\d*)+(\([A-Z][a-z]?\d*\))*)+/g.test(str).valueOf();
-    var formulaString = str;
-    var qty = 0;
 
-    if(str.indexOf("(") > -1 || str.indexOf(")") > -1){
-        return /(([A-Z][a-z]?\d*)+(\([A-Z][a-z]?\d*\))*)+/g.test(str).valueOf();
+
+    var elements = str.match(/([A-Z][a-z]?)/g);
+
+    if(elements == null){
+        return false;
     }
-
-    /* Gets rid of the leading number for validation*/
-    if(/^\d+/.test(str)){
-        qty = str.match(/^\d+/)[0];
-        formulaString = str.substring(qty.length);
-    }
-
-
-    if(isValid){
-        var segments = string_to_compound_segments(formulaString);
-        var acceptedSegmentLengths = 0;
-        /*
-         Populate components array with components created from the parsed string.
-         */
-        for (var i = 0; i < segments.length; i++) {
-
-            /* Get Element Symbol From Segment*/
-            var segment = segments[i];
-            var pieces = segment_to_pieces(segment);
-            var element = pieces[1]; //get element symbol
-
-            if(find_element(element) == null){
-                return false;
-            }
-
-            //acceptedSegmentLengths += segment.length; //increment length of accepted segments
+    for(var e = 0; e < elements.length; e ++){
+        if(find_element(elements[e]) == undefined){
+            console.log(elements[e]);
+            return false;
         }
-
-
-        //If the total length of segments obtained from the string are not equal to the original
-        //string, then there is an invalid piece.
-        isValid = sum_string_lengths(segments) == formulaString.length;
     }
 
-    return isValid.valueOf();
+    return is_valid;
 }
 
 
@@ -243,7 +230,12 @@ function is_valid_formula(str) {
  *
  */
 function segment_to_pieces(segment){
-    return segment.match(/([A-Z][a-z]?)(\d*)/);
+    var reg = /([A-Z][a-z]?)(\d*)/;
+    if(reg.test(segment)){
+        return segment.match(reg);
+    }else{
+        return [];
+    }
 }
 
 /**
@@ -252,7 +244,12 @@ function segment_to_pieces(segment){
  * @returns {Array|{index: number, input: string}} an array of elements concatenated with their quantities
  */
 function string_to_compound_segments(str){
-    return str.match(/[A-Z][a-z]?\d*/g);
+    var reg = /[A-Z][a-z]?\d*/g;
+    if(reg.test(str)){
+        return str.match(reg);
+    }else{
+        return [];
+    }
 }
 
 
@@ -286,13 +283,21 @@ function sum_string_lengths(array){
 
 
 /**
+ * Will break down a string containing ionic compounds into ionic compounds
+ * with their trailing quantities.
  *
- * @param str
- * @returns {Array|{index: number, input: string}}
+ * Will not accept empty parenthesis or mis-matched parenthesis
+ * @param str Formula with ionic compounds (i.e. '(HFe10)13(H2O)4')
+ * @returns {Array|{index: number, input: string}} Array of compounds
+ *  (i.e. ['(HFe10)13', '(H2O)4'])
  */
 function string_to_ionic_compounds(str){
-    var compounds = str.match(/[(](([A-Z][a-z]?\d*)*)[)](\d*)/g);
-    return compounds;
+    var reg = /\((([A-Z][a-z]?\d*)+)\)(\d*)/g;
+    if(reg.test(str)){
+        return str.match(reg);
+    }else{
+        return [];
+    }
 }
 
 /**
@@ -302,7 +307,7 @@ function string_to_ionic_compounds(str){
  * var water = (H2O)4
  *  var pieces = split_sub_compound(water);
  *
- *          pieces[0] == "(H2O)2";
+ *          pieces[0] == "(H2O)4";
  *          pieces[1] == "H2O";
  *          pieces[3] == "4";
  *
@@ -310,7 +315,7 @@ function string_to_ionic_compounds(str){
  * @returns {Array|{index: number, input: string}} String array of pieces.
  */
 function split_sub_compound(str){
-    var pieces = /[(](([A-Z][a-z]?\d*)*)[)](\d*)/g.exec(str);
+    var pieces = /\((([A-Z][a-z]?\d*)+)\)(\d*)/g.exec(str);
     return pieces;
 }
 
@@ -353,7 +358,7 @@ function segments_to_compound_components(segments){
  */
 function remove_parentheses(str){
     if(/([^[\)]+)(?:$|[\(])/g.test(str)){
-        return /([^[\)]+)(?:$|[\(])/g.exec(str)[0].replace("(", "");
+        return /([^[\)]+)(?:$|[\(])/g.exec(str)[0].replace("(", "").replace(")", "");
     }
     else{
         return str;
