@@ -8,9 +8,6 @@ var match_ionic = /(\(([A-Z][a-z]?\d*)*\)\d*)*/g;
 
 var match_non_ionic = /([A-Z][a-z]?\d*)+/g;
 
-/**
- *  For some reason this regex is GOOD but VERY SLOW
- * */
 var good_regex = /^(\d*\(?[A-Z][a-z]?\d*\)?\d*)+$/g;
 
 var split_segment_reg = /([A-Z][a-z]?)(\d*)/;

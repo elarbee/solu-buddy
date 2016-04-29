@@ -73,7 +73,7 @@ describe('Formula parsing and validation', function() {
         it('Should reject formulas that look correct but have illegal elements.', function(){
 
             var test_cases = ['H2Nz', 'Zz100Hj(NaCl)4'];
-            for(var i = 0; i < test_cases; i++){
+            for(var i = 0; i < test_cases.length; i++){
                 expect(is_valid_formula(test_cases[i])).toEqual(false);
             }
         });
@@ -266,6 +266,8 @@ describe('Compound Creation Testing', function(){
             expect(comp1.components[3].element.symbol).toEqual('H');
             expect(comp1.components[3].quantity).toEqual(1);
 
+
+            expect(comp1.sub_compounds[0].quantity).toEqual(3);
             expect(comp1.sub_compounds[0].components[0].element.symbol).toEqual('C');
             expect(comp1.sub_compounds[0].components[0].quantity).toEqual(1);
             expect(comp1.sub_compounds[0].components[1].element.symbol).toEqual('O');
@@ -275,7 +277,6 @@ describe('Compound Creation Testing', function(){
             expect(comp1.sub_compounds[0].components[3].element.symbol).toEqual('H');
             expect(comp1.sub_compounds[0].components[3].quantity).toEqual(1);
 
-            expect(comp1.sub_compounds[0].quantity).toEqual(3);
             expect(comp1.sub_compounds[0].sub_compounds.length).toEqual(0);
             expect(comp1.sub_compounds.length).toEqual(1);
 
@@ -331,7 +332,8 @@ describe('Compound Creation Testing', function(){
                  * correctly equal molecular weight after parsing
                  */
                 expect(string_to_compound(compound).molecular_weight()).toEqual(molecular_weight);
-                console.log("molec weight compound = " + compound);
+
+                //Reset compound and molecular weight;
                 compound = "";
                 molecular_weight = 0;
             }
