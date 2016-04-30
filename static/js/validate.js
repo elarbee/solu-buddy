@@ -23,6 +23,7 @@ function Validate(value){
     self.valid = ((value != "") && (value != undefined));
     self.val = value;
     self.error = "";
+    self.error += value + "<br>";
 
     if(!self.valid){
         self.error += "Value is empty or undefined.\n";
@@ -31,7 +32,7 @@ function Validate(value){
 
     function check_for_error(msg){
         if(!self.valid){
-            self.error += msg + " Value is " + self.val + "\n";
+            self.error += msg + " Value is " + self.val + "<br>";
         }
     }
     /**
@@ -39,7 +40,7 @@ function Validate(value){
      */
     self.integer = function is_an_integer(){
         self.and(!isNaN(self.val));
-        self.regex_test(/^-?[\d*]+$/);
+        self.regex_test(/^-?[\d+]+$/);
         check_for_error("Failed integer test.");
         return self;
     };
@@ -49,7 +50,7 @@ function Validate(value){
      */
     self.double = function is_a_double(){
         self.and(!isNaN(self.val));
-        self.regex_test(/^-?\d+\.?\d*$/);
+        self.regex_test(/^-?\d*\.?\d+$/);
         check_for_error("Failed double test.");
         return self;
     };
@@ -64,7 +65,7 @@ function Validate(value){
     };
 
     self.not_zero = function not_less_than_or_equal_to_zero(){
-        self.and(self.val > 0);
+        self.and(Number(self.val) > 0);
         check_for_error("Failed not zero test.");
         return self;
     };
@@ -103,7 +104,7 @@ function Validate(value){
     };
 
     self.between_including = function between_and_including(low, high){
-        self.and(self.val >= low).and(self.val <= high);
+        self.and(Number(self.val) >= low).and(Number(self.val) <= high);
         check_for_error("Failed between including test.");
         return self;
     };
@@ -158,7 +159,7 @@ function Field_To_Type(field){
             high : 100,
             invalid_low : 0,
             invalid_high : 101,
-            regex : /^-?\d+\.?\d*$/,
+            regex : /^-?\d*\.?\d+$/,
             invalids : [NaN, undefined, Infinity, '']
         },
 
@@ -184,7 +185,7 @@ function Field_To_Type(field){
             high : 999999,
             invalid_low : 0,
             invalid_high : 1000000,
-            regex : /^-?\d+\.?\d*$/,
+            regex : /^-?\d*\.?\d+$/,
             invalids : [NaN, undefined, Infinity, '']
         },
 
@@ -193,7 +194,7 @@ function Field_To_Type(field){
             high : 999999,
             invalid_low : 0,
             invalid_high : 1000000,
-            regex : /^-?\d+\.?\d*$/,
+            regex : /^-?\d*\.?\d+$/,
             invalids : [NaN, undefined, Infinity, '']
         },
 
@@ -210,6 +211,7 @@ function Field_To_Type(field){
             high : 999999,
             invalid_low : 0,
             invalid_high : 1000000,
+            regex : /^-?\d*\.?\d+$/,
             invalids : [NaN, undefined, Infinity, '']
         },
 
@@ -331,48 +333,44 @@ function ValidatePage(page_name){
 
     var class_verification = {
         'number' : function(fields, val){
-            var validator = new Validate(val)
-                .not_zero()
-                .double()
-                .between_including(limits['number'].low, limits['number'].high);
-            if(validator.not()){
+
+            if(!limits['number'].regex.test(val)){
                 add_message(error_messages['number']);
+            }else{
+                if(val >= limits['number'].low && val <= limits['number'].high){
+                    return true;
+                }else{
+                    return false;
+                }
             }
-            return validator.is();
         },
 
         'compound' : function(fields, val){
             if(is_valid_formula(val)){
-                var validator = new Validate(val.length)
-                    .not_zero()
-                    .between_including(limits['compound'].low, limits['compound'].high)
-                    .and(is_valid_formula(val));
-            }else{
-                return false;
+                if(val.length > 0 && val.length <= limits['compound'].high){
+                    return true;
+                }
             }
-            var valid = validator.is();
-            if(!valid){
-                add_message(error_messages['compound']);
-            }
-            return valid;
+            add_message(error_messages['compound']);
+            return false;
         },
 
         'string' : function(fields, val){
-            var validator = new Validate(val)
-                .no_specials();
-
-            if(validator.is()){
-                validator.and(new Validate(val.length)
-                    .between_including(limits['string'].low, limits['string'].high).is());
+            if(val == undefined){
+                return false;
             }
-            if(validator.not()){
-                add_message(error_messages['string']);
+            if(limits['string'].regex.test(val)){
+                if(val.length > 0 && val.length <= limits['string'].high){
+                    return true;
+                }
             }
-            return validator.is();
+            add_message(error_messages['string']);
+            return false;
         },
 
         'percent' : function(fields, val){
-            var valid = class_verification['number']();
+
+            var valid = class_verification['number'](fields, val);
             if(valid){
                 if(val > 100 || val <= 0) {
                     add_message(error_messages['percent']);
@@ -384,17 +382,14 @@ function ValidatePage(page_name){
 
         'sm_volume' : function(fields, val){
             var lg_vol = Number(fields_to_values[find_tag(fields, 'lrg_volume')]);
-            var validator = new Validate(lg_vol)
-                .double()
-                .not_zero()
-                .between_including(limits['lrg_volume'].low, limits['lrg_volume'].high)
-                .and(!(val >= lg_vol));
 
-            if(validator.not()){
+            var valid = class_verification['number'](fields, val);
+
+            if(valid && lg_vol > val){
+                return true;
+            }else{
                 add_message(error_messages['sm_volume']);
                 return false;
-            }else{
-                return true;
             }
         },
 
@@ -414,35 +409,34 @@ function ValidatePage(page_name){
         },
 
         'mweight' : function(fields, val){
-            var solute_formula = fields_to_values[find_tag(fields, 'compound')];
-            var real_m_weight = string_to_compound(solute_formula).molecular_weight();
-            var error = calculate_error(real_m_weight, val);
-            var validator = new Validate(val)
-                .not_zero()
-                .double()
-                .between_including(limits['mweight'].low, limits['mweight'].high)
-                .and(!isNaN(error))
-                .and(error > accepted_percent_error);
+            var valid = class_verification['number'](fields, val);
 
-            if(validator.not()){
-                add_message(error_messages['mweight'](val, error));
-                return false;
+            if(valid){
+                var solute_formula = fields_to_values[find_tag(fields, 'compound')];
+                var real_m_weight = string_to_compound(solute_formula).molecular_weight();
+                var error = calculate_error(real_m_weight, val);
+
+                if(!isNaN(error) && (error < accepted_percent_error)){
+                    return true;
+                }else{
+                    add_message(error_messages['mweight'](val, error));
+                    return false;
+                }
             }else{
-                return true;
+                return false;
             }
         },
 
         'iterations' : function(fields, val){
-            var validator = new Validate(val)
-                .not_zero()
-                .integer()
-                .between_including(limits['iterations'].low, limits['iterations'].high);
-            if(validator.not()){
-                add_message(error_messages['iterations']);
-                return false;
-            }else{
-                return true;
+            var valid = limits['iterations'].regex.test(val);
+
+            if(valid){
+                if(val >= limits['iterations'].low && val <= limits['iterations'].high){
+                    return true;
+                }
             }
+            add_message(error_messages['iterations']);
+            return valid;
         }
     };
 
@@ -468,21 +462,50 @@ function ValidatePage(page_name){
         var valid = true;
         var fields = Page_To_Inputs(page_name);
 
-        /**
-         * Only difference is how to initiate the field_to_values
-         */
-        fields.forEach(function(el, idx, arr){
-           fields_to_values[el] = $('#'+el+'').val();
+        Page_To_Inputs(page_name).forEach(function(el, i, arr){
+            fields_to_values[el] = $('#'.concat(el)).val();
         });
 
         fields.forEach(function(el, i, arr){
 
+            fields_to_values[el] = $('#'.concat(el)).val();
             var input_classes = Field_To_Type(el);
 
             input_classes.forEach(function(elem, idx, arr2){
-                valid = valid && class_verification[elem](fields, fields_to_values[el]);
+                valid = valid && class_verification[elem](fields, $('#'+el).val());
+                console.log(el);
+                console.log($('#'+el));
+                console.log(fields_to_values);
+                if(isNaN(fields_to_values[el])){
+                                console.log("field: " + el);
+                                console.log("jquery: " + $('#'+el+'').val());
+                                console.log("input class: " + elem);
+                            }
             });
         });
+
+        return valid;
+
+        // for(var e = 0; e < fields.length; e++){
+        //
+        //     var field = fields[e];
+        //     var input_classes = Field_To_Type(fields[e]);
+        //
+        //     for(var k = 0; k < input_classes.length; k++){
+        //
+        //         if(isNaN(fields_to_values[field])){
+        //             console.log("field: " + field);
+        //             console.log("jquery: " + $('#'+fields[i]).val());
+        //             console.log("input class: " + input_classes[k]);
+        //         }
+        //         valid = valid && class_verification[input_classes[k]](fields, fields_to_values[field]);
+        //         // if(!valid){
+        //         //     console.log("field: " + fields[e] + " val: " + fields_to_values[fields[e]]);
+        //         //     console.log(fields);
+        //         //     console.log(fields_to_values);
+        //         // }
+        //     }
+        // }
 
         return valid;
     }
@@ -502,6 +525,10 @@ function ValidatePage(page_name){
             var input_classes = Field_To_Type(el);
 
             input_classes.forEach(function(elem, idx, arr2){
+                var val = fields_to_values[el];
+                if(val == undefined || val == ""){
+                    valid = false;
+                }
                 valid = valid && class_verification[elem](fields, fields_to_values[el]);
             });
         });
