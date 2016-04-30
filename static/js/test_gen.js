@@ -14,8 +14,8 @@ var is_correct_entry = true;
 var random_shitstorm_chance = 5;
 var incorrect_reasons = "";
 var entry_count = 1;
-// var website_addr = 'http://solubuddy.us-west-2.elasticbeanstalk.com/';
-var website_addr = '/';
+var website_addr = 'http://solubuddy.us-west-2.elasticbeanstalk.com/';
+// var website_addr = '/';
 
 
 
@@ -27,9 +27,9 @@ function make_random_entries(){
     var amount = document.getElementById("testing_text_area").value;
 
     var doc = new TestGenerator()
-        .make_all_solutions(amount, false, false)
-        .make_serdil(amount, false)
-        .make_all_calibs(amount, false)
+        .make_all_solutions(amount, true, false)
+        .make_serdil(amount, true)
+        .make_all_calibs(amount, true)
             // .make_cvol(amount)
         .get_doc();
 
@@ -114,7 +114,7 @@ function make_incorrect(val){
 function TestEntry(){
 
     is_correct_entry = true;
-    var incorrectness_chance = 10;
+    var incorrectness_chance = 2;
 
     var type = '';
 

@@ -173,5 +173,8 @@ describe("ValidatePage() Tests", function(){
 
         });
 
+        console.log(string_to_compound("C3H4OH(COOH)").molecular_weight());
     });
+
+
 });

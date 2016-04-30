@@ -63,7 +63,7 @@ function random_formula(low, high){
     var formula = "";
 
     if(roll_dice(50, 100)){
-        formula += random_int(2, 1000);
+        formula += random_int(2, 10);
     }
 
     for(var i = 0; i < length; i++){
@@ -71,7 +71,7 @@ function random_formula(low, high){
         formula += getRandomElementKey();
 
         if(roll_dice(50, 100)){
-            formula += random_int(2, 99);
+            formula += random_int(2, 15);
         }
         i = formula.length;
     }
