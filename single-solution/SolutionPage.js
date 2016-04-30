@@ -19,6 +19,12 @@ function verify_volumetric(){
         return false;
     }
 
+    if(Number($("#solute_volume").val()) > Number($("#total_volume").val())){
+        error_message += "Solute volume cannot be greater than total volume!";
+        showAlert(error_message);
+        return false;
+    }
+
     if(!valid_number_field("density")){
         return false;
     }
@@ -42,11 +48,16 @@ function verify_concentrated(){
         if(!valid_number_field("solute_concentration")){
             return false;
         }
+        if(Number($("#solute_volume").val()) > Number($("#total_volume").val())){
+            error_message += "Solute volume cannot be greater than total volume!";
+            showAlert(error_message);
+            return false;
+        }
         return true;
     }
     else if($('#knownSelect').val() == 'CONC_VOL'){
         if(verify_volumetric()){
-            var solute_percent_mass = $("#solute_percent_mass").val();
+            var solute_percent_mass = Number($("#solute_percent_mass").val());
             if(!valid_number_field("solute_percent_mass")
                 || solute_percent_mass > 100){
                 error_message += "Solute mass percent must be above 0 and at most 100.<br>";
@@ -76,7 +87,7 @@ function verify_concentrated(){
 
 function valid_number_field(id){
     try {
-        var val = $("#"+id+"").val();
+        var val = Number($("#"+id+"").val());
 
         if(val == ""){
             error_message += "Please fill in missing fields. <br>";

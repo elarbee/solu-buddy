@@ -352,7 +352,7 @@ function TestEntry(){
         var volume = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).liquid.volume(density));
         var mweight = chance_for_blank(incorrectness_chance, solute.molecular_weight());
 
-        is_correct_entry = is_correct_entry && (volume > vol);
+        is_correct_entry = is_correct_entry && (volume < vol);
 
         self.single.vol_nav()
             .single.core(vol, soln_conc, solute_formula)
@@ -371,7 +371,7 @@ function TestEntry(){
         var solute_concentration = chance_for_blank(incorrectness_chance, random_double(.01, 20));
         var volume = chance_for_wrong(incorrectness_chance, new SingleDilution(soln_conc, vol/1000).solute_volume(solute_concentration));
 
-        is_correct_entry = is_correct_entry && (volume > vol);
+        is_correct_entry = is_correct_entry && (volume < vol);
 
         self.single.conc_nav()
             .single.core(vol, soln_conc, solute_formula)
@@ -410,7 +410,7 @@ function TestEntry(){
         var density = chance_for_blank(incorrectness_chance, random_double(.001, 20));
         var volume = chance_for_wrong(incorrectness_chance, new SingleDilution(soln_conc, vol/1000).vol_transfer(solute, massp, density));
 
-        is_correct_entry = is_correct_entry && (volume > vol);
+        is_correct_entry = is_correct_entry && (volume < vol);
 
 
         self.single.conc_nav()
@@ -438,6 +438,8 @@ function TestEntry(){
         var solute_chemical =chance_for_blank(incorrectness_chance, random_word(1, 30));
         var num_dilutions = chance_for_blank(incorrectness_chance, random_int(2, 25));
         var vol_transferred = chance_for_blank(incorrectness_chance, random_double(50, flask_size));
+
+        is_correct_entry = is_correct_entry && !(vol_transferred > flask_size);
 
         self.dilution.ser_dil_nav()
             .type("solventChemID", solvent_chemical)
