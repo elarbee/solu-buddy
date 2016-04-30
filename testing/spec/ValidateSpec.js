@@ -119,8 +119,8 @@ describe("ValidatePage() Tests", function(){
                                 random_valid_field_val(fields[k], solute),
                                 invalid_elements[o]
                             );
-                            input_fields[fields[1]] = solute;
                             input_fields[fields[l]] = invalid_elements[o];
+                            input_fields[fields[1]] = solute;
 
                         }
 
@@ -169,7 +169,7 @@ describe("ValidatePage() Tests", function(){
             expect(valid).toEqual(false);
             input_fields = {};
 
-            
+
         });
 
     });

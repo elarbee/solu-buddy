@@ -28,6 +28,7 @@ function Validate(value){
         self.error += "Value is empty or undefined.\n";
     }
 
+
     function check_for_error(msg){
         if(!self.valid){
             self.error += msg + " Value is " + self.val + "\n";
@@ -212,7 +213,7 @@ function Field_To_Type(field){
             invalids : [NaN, undefined, Infinity, '']
         },
 
-        'iteration' : {
+        'iterations' : {
             low : 1,
             high : 25,
             invalid_low : 0,
@@ -307,27 +308,33 @@ function ValidatePage(page_name){
         page_name = $('#knownSelect').val();
     }
 
-    var max_flask_number = limits['iterations'].high;
-
     var fields_to_values = {};
 
     var error_messages = {
         'number' : "Numbers must be beteween ".concat(limits['number'].low+" ").concat("and").concat(" " + limits['number'].high),
-        'compound' : "Solute compounds should be a valid chemical formula.",
-        'string' : "Names should not contain any special characters.",
+        'compound' : "Solute compounds should be a valid chemical formula. Length should be from ".concat(limits['compound'].low+" ")
+            .concat(" to ").concat(limits['compound'].high+" ").concat("characters in length."),
+        'string' : "Names should not contain any special characters and should be between ".concat(limits['string'].low+" ")
+            .concat("and ").concat(limits['string'].high+" characters in length."),
         'percent' : "The mass percent of your solute should be greater than 0% and at most 100%",
-        'sm_volume' : "Volume transferred can not be larger than your containing flask.",
-        'lrg_volume' : "Volume transferred can not be larger than your containing flask.",
+        'sm_volume' : "Volume transferred can not be larger than your containing flask. It should be between "
+            .concat(limits['sm_volume'].low+" and ").concat(limits['sm_volume'].high+"."),
+        'lrg_volume' : "Volume transferred can not be larger than your containing flask.It should be between "
+            .concat(limits['lrg_volume'].low+" and ").concat(limits['lrg_volume'].high+"."),
         'mweight' : function(val, error){
             return "The molecular weight you entered is ".concat(val)
                 .concat(" and incorrect.").concat(" You are off by ").concat(error+".");
             },
-        'iterations' : ("Total number of flasks may not exceed " + max_flask_number)
+        'iterations' : "Total number of flasks may not exceed ".concat(limits['iterations'].high+"").concat(" and must be at least")
+                .concat(limits['iterations'].low+".")
     };
 
     var class_verification = {
         'number' : function(fields, val){
-            var validator = new Validate(val).double().between_including(limits['number'].low, limits['number'].high);
+            var validator = new Validate(val)
+                .not_zero()
+                .double()
+                .between_including(limits['number'].low, limits['number'].high);
             if(validator.not()){
                 add_message(error_messages['number']);
             }
@@ -335,7 +342,15 @@ function ValidatePage(page_name){
         },
 
         'compound' : function(fields, val){
-            var valid = is_valid_formula(val);
+            if(is_valid_formula(val)){
+                var validator = new Validate(val.length)
+                    .not_zero()
+                    .between_including(limits['compound'].low, limits['compound'].high)
+                    .and(is_valid_formula(val));
+            }else{
+                return false;
+            }
+            var valid = validator.is();
             if(!valid){
                 add_message(error_messages['compound']);
             }
@@ -343,8 +358,13 @@ function ValidatePage(page_name){
         },
 
         'string' : function(fields, val){
-            var validator = new Validate(val).no_specials();
+            var validator = new Validate(val)
+                .no_specials();
 
+            if(validator.is()){
+                validator.and(new Validate(val.length)
+                    .between_including(limits['string'].low, limits['string'].high).is());
+            }
             if(validator.not()){
                 add_message(error_messages['string']);
             }
@@ -352,8 +372,7 @@ function ValidatePage(page_name){
         },
 
         'percent' : function(fields, val){
-            var valid = class_verification['number'];
-
+            var valid = class_verification['number']();
             if(valid){
                 if(val > 100 || val <= 0) {
                     add_message(error_messages['percent']);
@@ -365,8 +384,13 @@ function ValidatePage(page_name){
 
         'sm_volume' : function(fields, val){
             var lg_vol = Number(fields_to_values[find_tag(fields, 'lrg_volume')]);
+            var validator = new Validate(lg_vol)
+                .double()
+                .not_zero()
+                .between_including(limits['lrg_volume'].low, limits['lrg_volume'].high)
+                .and(!(val >= lg_vol));
 
-            if(val >= lg_vol){
+            if(validator.not()){
                 add_message(error_messages['sm_volume']);
                 return false;
             }else{
@@ -376,8 +400,12 @@ function ValidatePage(page_name){
 
         'lrg_volume' : function(fields, val){
             var sm_vol = Number(fields_to_values[find_tag(fields, 'sm_volume')]);
-
-            if(sm_vol >= val){
+            var validator = new Validate(sm_vol)
+                .not_zero()
+                .double()
+                .between_including(limits['sm_volume'].low, limits['sm_volume'].high)
+                .and(!(sm_vol >= val));
+            if(validator.not()){
                 add_message(error_messages['lrg_volume']);
                 return false;
             }else{
@@ -389,7 +417,14 @@ function ValidatePage(page_name){
             var solute_formula = fields_to_values[find_tag(fields, 'compound')];
             var real_m_weight = string_to_compound(solute_formula).molecular_weight();
             var error = calculate_error(real_m_weight, val);
-            if(error > accepted_percent_error){
+            var validator = new Validate(val)
+                .not_zero()
+                .double()
+                .between_including(limits['mweight'].low, limits['mweight'].high)
+                .and(!isNaN(error))
+                .and(error > accepted_percent_error);
+
+            if(validator.not()){
                 add_message(error_messages['mweight'](val, error));
                 return false;
             }else{
@@ -398,7 +433,11 @@ function ValidatePage(page_name){
         },
 
         'iterations' : function(fields, val){
-            if(val > max_flask_number){
+            var validator = new Validate(val)
+                .not_zero()
+                .integer()
+                .between_including(limits['iterations'].low, limits['iterations'].high);
+            if(validator.not()){
                 add_message(error_messages['iterations']);
                 return false;
             }else{
