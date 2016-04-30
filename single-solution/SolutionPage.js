@@ -198,20 +198,34 @@ function next_check(page){
     var start = window.performance.now();
     try {
 
-        if(no_empty_fields(page) && check_accuracy()){
-            /* Otherwise, the inputs are assumed to be correct.
-             *   The answer fields will be filled and the answer page and the answer page will be shown. */
-            var time = window.performance.now() - start;
-            console.log("Time to verify input: " + time);
+        var validate = ValidatePage(page);
+
+
+        if(validate.is_valid()){
+
+            console.log("time to verify = " + window.performance.now() - start);
             error_message = "";
             hideAlert();
             fill_fields(page);
+
+        }else{
+            console.log("time to verify = " + window.performance.now() - start);
+            showAlert(validate.error_message);
         }
-        else{
-            var time = window.performance.now() - start;
-            console.log("Time to verify input: " + time);
-            showAlert(error_message);
-        }
+        // if(no_empty_fields(page) && check_accuracy()){
+        //     /* Otherwise, the inputs are assumed to be correct.
+        //      *   The answer fields will be filled and the answer page and the answer page will be shown. */
+        //     var time = window.performance.now() - start;
+        //     console.log("Time to verify input: " + time);
+        //     error_message = "";
+        //     hideAlert();
+        //     fill_fields(page);
+        // }
+        // else{
+        //     var time = window.performance.now() - start;
+        //     console.log("Time to verify input: " + time);
+        //     showAlert(error_message);
+        // }
 
     }catch(ex){
         showAlert(ex.message);
@@ -416,7 +430,7 @@ function check_mass(calculated_mass){
         console.log("calc: " + calculated_mass + " to add " + mass_to_add +
             " err " + percent_error);
 
-        if (percent_error > ACCEPTED_PERCENT_ERROR || percent_error == NaN) {
+        if (percent_error > ACCEPTED_PERCENT_ERROR || isNaN(percent_error)) {
             showAlert("Chosen mass to add is "+mass_to_add+". " +
                 ". Error is: " + precise_round(percent_error, 2) + "%");
             $('#massToAdd').val("");
