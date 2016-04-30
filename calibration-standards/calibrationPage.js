@@ -166,7 +166,9 @@ $(function () {
 
     $("#nextButton").click(function () {
 
-        if (validateInput()) {
+        var validate = ValidatePage(myParam);
+
+        if (validate.is_valid()) {
             //Hide page content
             $("#inputDiv").hide();
             //Show answer div
@@ -231,6 +233,8 @@ $(function () {
                 $($("#dilutionFlasksDiv").children()[0].children[0].children[0]).hide();
                 $($("#dilutionFlasksDiv").children()[0].children[1].children[0]).html('Molarity ' + SingleDilution(1, totalVolume/1000).solute_molarity(unknownVolume));
             }
+        }else{
+            showAlert(validate.error_message);
         }
 
         if (myParam == "EXTERNAL") {

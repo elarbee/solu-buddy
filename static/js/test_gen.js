@@ -30,9 +30,9 @@ function make_random_entries(){
         // .make_solid(amount, false)
     // .make_vol(amount, true)
         // .make_ext(amount, true)
-        .make_all_solutions(amount, false, false)
-        // .make_serdil(amount, false)
-        // .make_all_calibs(amount, false)
+        // .make_all_solutions(amount, false, false)
+        .make_serdil(amount, false)
+        .make_all_calibs(amount, false)
         .get_doc();
 
     document.getElementById("testing_text_area").value = doc;

@@ -114,9 +114,12 @@ $(function() {
 
     //Next Button Click Handler
     $("#nextButton").click(function() {
-        
+
+        var validate = new ValidatePage('SERIAL');
+
+
         //Check for valid input
-        if(validateInput()){
+        if(validate.is_valid()){
             //Hide page content
             $("#inputDiv").hide();
             //Show answer div
@@ -162,6 +165,8 @@ $(function() {
 
             //Remove arrow from last flask
             $("#dilutionFlasksDiv").children().last().find(".blueArrow").remove();
+        }else{
+            showAlert(validate.error_message);
         }
         
 
