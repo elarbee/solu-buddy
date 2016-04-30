@@ -27,10 +27,7 @@ function make_random_entries(){
     var amount = document.getElementById("testing_text_area").value;
 
     var doc = new TestGenerator()
-        // .make_solid(amount, false)
-    // .make_vol(amount, true)
-        // .make_ext(amount, true)
-        // .make_all_solutions(amount, false, false)
+        .make_all_solutions(amount, false, false)
         .make_serdil(amount, false)
         .make_all_calibs(amount, false)
         .get_doc();
@@ -40,7 +37,6 @@ function make_random_entries(){
 
 function random_shitstorm(min_length, max_length){
     is_correct_entry = false;
-    console.log("made incorrect with chance = 0");
     incorrect_reasons += "shitstorm inbound\n";
     var length = random_int(min_length, max_length);
     var shit_storm = "";
@@ -65,7 +61,6 @@ function chance_for_blank(chance, real_val){
         if (roll_dice(chance, 100)) {
             incorrect_reasons += "empty field. Previous = "+real_val+"\n";
             is_correct_entry = false;
-            console.log("made incorrect with chance = 0");
             return "";
         } else {
             is_correct_entry = is_correct_entry && true;
@@ -93,7 +88,6 @@ function chance_for_wrong(chance, real_val){
 
 function make_incorrect(val){
 
-    console.log("made incorrect with chance = 0");
     is_correct_entry = false;
     if(roll_dice(random_shitstorm_chance, 100)){
         return random_shitstorm(0, 100);
@@ -119,7 +113,7 @@ function make_incorrect(val){
 function TestEntry(){
 
     is_correct_entry = true;
-    var incorrectness_chance = 0;
+    var incorrectness_chance = 20;
 
     var type = '';
 
