@@ -44,6 +44,7 @@ html{
     height: 50px;
     text-align: center;
     margin-top: 2em;
+    margin-left: -12px;
 }
 #arrowContainer{
     text-align: center;
