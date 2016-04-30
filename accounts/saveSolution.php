@@ -32,7 +32,7 @@ if ($accountStatement) {
 
         if ($submission_type == 'single_liquid_vol') {
             $soluteDensity = $_POST['density'];
-            $volumeAdd = $_POST['volToAdd'];
+            $volumeAdd = $_POST['solute_volume'];
             $statement = mysqli_prepare($dbc, "INSERT INTO single_solution_liquid_vol VALUES (DEFAULT, ?,?,?,?,?,?,?,?)");
             mysqli_stmt_bind_param($statement, 'issddddd', $accountId, $solventId, $soluteId, $soluteWeight, $soluteDensity, $solutionVol, $solutionConc, $volumeAdd);
         } else {
@@ -75,7 +75,7 @@ if ($accountStatement) {
         $flaskVolumes = $_POST['total_volume_standards'];
 
         $statement = mysqli_prepare($dbc, "INSERT INTO calibration_external VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($statement, 'issddid', $accountId, $solventId, $analyteId, $analyteWeight, $analyteMolarity, $numberOfStandards, $flaskVolumes);
+        mysqli_stmt_bind_param($statement, 'issddid', $accountId, $solventId, $analyteId, $analyteWeight, $numberOfStandards, $flaskVolumes, $analyteMolarity);
     } elseif($submission_type == 'calibration_addition'){
         $analyteId = $_POST['analyte_formula'];
         $analyteMolarity = $_POST['analyte_molarity'];
