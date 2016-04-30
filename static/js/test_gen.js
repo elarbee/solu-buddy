@@ -26,12 +26,9 @@ function make_random_entries(){
     var amount = document.getElementById("testing_text_area").value;
 
     var doc = new TestGenerator()
-    // .make_all_solutions(amount, false)
-    // .make_serdil(amount, false)
-    // .make_all_calibs(amount, false)
+        .make_all_solutions(amount, true, true)
         .make_serdil(amount, true)
         .make_all_calibs(amount, true)
-    // .make_all_saveable_solutions(amount)
         .get_doc();
 
     document.getElementById("testing_text_area").value = doc;
@@ -724,27 +721,18 @@ function TestGenerator(){
 
     };
 
-    self.make_all_solutions = function(qty){
+    self.make_all_solutions = function(qty, save, savable_only){
 
         for(var i = 0; i < qty; i++){
-            self.make_solid(1, false);
-            self.make_grav(1, false);
-            self.make_vol(1, false);
-            self.make_cmol(1, false);
-            self.make_cgrav(1, false);
-            self.make_cvol(1, false);
-        }
+            self.make_solid(1, save);
+            self.make_grav(1, save);
+            self.make_vol(1, save);
 
-        return self;
-    };
-
-    self.make_all_saveable_solutions = function(qty){
-        for(var i = 0; i < qty; i++){
-            self.make_solid(1, true);
-            self.make_grav(1, true);
-            self.make_vol(1, true);
-            self.make_serdil(1, true);
-            self.make_all_calibs(1, true);
+            if(!savable_only){
+                self.make_cmol(1, false);
+                self.make_cgrav(1, false);
+                self.make_cvol(1, false);
+            }
         }
 
         return self;

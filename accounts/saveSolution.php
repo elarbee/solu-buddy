@@ -75,7 +75,7 @@ if ($accountStatement) {
         $flaskVolumes = $_POST['total_volume_standards'];
 
         $statement = mysqli_prepare($dbc, "INSERT INTO calibration_external VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($statement, 'issddid', $accountId, $solventId, $analyteId, $analyteWeight, $analyteMolarity, $numberOfStandards, $flaskVolumes);
+        mysqli_stmt_bind_param($statement, 'issddid', $accountId, $solventId, $analyteId, $analyteWeight, $numberOfStandards, $flaskVolumes, $analyteMolarity);
     } elseif($submission_type == 'calibration_addition'){
         $analyteId = $_POST['analyte_formula'];
         $analyteMolarity = $_POST['analyte_molarity'];
