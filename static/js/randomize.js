@@ -171,7 +171,7 @@ function random_valid_field_val(field, solute){
         },
 
         'compound' : function(){
-            return random_formula(limits['compound'].low, limits['compound'].high/4);
+            return solute;
         },
 
         'sm_volume' : function(){

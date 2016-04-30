@@ -174,5 +174,4 @@ describe("ValidatePage() Tests", function(){
         });
 
     });
-
 });

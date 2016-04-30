@@ -48,7 +48,6 @@ module.exports = function(config) {
         'static/js/calculator.js': ['coverage'],
         'static/js/randomize.js' : ['coverage'],
         'static/js/validate.js' : ['coverage'],
-        'static/js/test_gen.js' : ['coverage'],
         'testing/spec/*.js' : ['coverage']
     },
 

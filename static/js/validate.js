@@ -355,7 +355,7 @@ function ValidatePage(page_name){
         },
 
         'percent' : function(fields, val){
-            var valid = class_verification['number']();
+            var valid = class_verification['number'](fields, val);
             if(valid){
                 if(val > 100 || val <= 0) {
                     add_message(error_messages['percent']);
@@ -477,27 +477,27 @@ function ValidatePage(page_name){
             // fields_to_values[fields[k]+''] = document.getElementById(fields[k]).value;
         }
         console.log(fields_to_values);
-
-        for(var i = 0; i < fields.length; i++){
-            var input_classes = Field_To_Type(fields[i]);
-            console.log(input_classes);
-            for(var c = 0; c < input_classes.length; c++){
-
-                console.log(input_classes[c]);
-                console.log(fields_to_values[fields[i]]);
-                console.log(fields);
-                valid = valid && class_verification[input_classes[c]](fields, fields_to_values[fields[i]]);
-            }
-        }
-
-        // fields.forEach(function(el, i, arr){
         //
-        //     var input_classes = Field_To_Type(i);
+        // for(var i = 0; i < fields.length; i++){
+        //     var input_classes = Field_To_Type(fields[i]);
+        //     console.log(input_classes);
+        //     for(var c = 0; c < input_classes.length; c++){
         //
-        //     input_classes.forEach(function(elem, idx, arr2){
-        //         valid = valid && class_verification[elem](fields, el);
-        //     });
-        // });
+        //         console.log(input_classes[c]);
+        //         console.log(fields_to_values[fields[i]]);
+        //         console.log(fields);
+        //         valid = valid && class_verification[input_classes[c]](fields, fields_to_values[fields[i]]);
+        //     }
+        // }
+
+        fields.forEach(function(el, i,  arr){
+
+            var input_classes = Field_To_Type(el);
+
+            input_classes.forEach(function(elem, idx, arr2){
+                valid = valid && class_verification[elem](fields, fields_to_values[el]);
+            });
+        });
 
         fields_to_values = {};
         return valid;
@@ -518,7 +518,7 @@ function ValidatePage(page_name){
             var input_classes = Field_To_Type(el);
 
             input_classes.forEach(function(elem, idx, arr2){
-                valid = valid && class_verification[elem](Page_To_Inputs(page_name), fields_to_values[el]);
+                valid = valid && class_verification[elem](fields, fields_to_values[el]);
             });
         });
 
