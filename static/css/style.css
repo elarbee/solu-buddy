@@ -13,19 +13,41 @@ body{
 .optionDiv{
     display: table;
     text-align: center;
-    height: 70%;
+    height: 100%;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
-html, body, #choices {
-	height:100%;
-    margin: 0px;
-}
 
 #choices {
     overflow-x: auto;
+    display: flex;
+    flex-wrap: wrap;
 }
+
+@media(min-width: 1250px){
+    #choices {
+        flex-direction: row;
+    }
+    #single, #multiple, #calibration {
+        height: 500px;
+        width: 33.3%;
+    }
+}
+
+@media(max-width: 1250px){
+    #choices {
+        flex-direction: column;
+    }
+    #single, #multiple, #calibration {
+        height: 200px;
+        margin-top: 50px;
+    }
+    #calibration {
+        margin-bottom: 50px;
+    }
+}
+
 
 /* Background Image */
 html{
@@ -36,9 +58,6 @@ html{
   background-size: cover;
 }
 
-#single, #multiple,#calibration{
-    height: 100%;
-}
 #single{
     float:left;
 }
@@ -114,34 +133,4 @@ select:hover{
     padding-left: 25px;
     padding-right: 25px;
     overflow-x: auto;
-}
-
-@media (max-width: 1050px) {
-    #header{
-        text-align:center;
-    }
-    
-    #single, #multiple, #calibration{
-        float:none;
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%;
-        height:40%;
-    }
-
-}
-
-@media (min-width: 1250px){
-    #single, #multiple, #calibration{
-        width: 33.33%;
-    }
-}
-
-@media (min-width: 1050px) and (max-width: 1250px){
-    #single, #multiple, #calibration{
-        width: 40%;
-    }
-    #calibration {
-        float: none;
-    }
 }
