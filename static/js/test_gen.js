@@ -11,7 +11,7 @@
 
 
 var is_correct_entry = true;
-var random_shitstorm_chance = 0;
+var random_shitstorm_chance = 5;
 var incorrect_reasons = "";
 var entry_count = 1;
 // var website_addr = 'http://solubuddy.us-west-2.elasticbeanstalk.com/';
@@ -114,7 +114,7 @@ function make_incorrect(val){
 function TestEntry(){
 
     is_correct_entry = true;
-    var incorrectness_chance = 2;
+    var incorrectness_chance = 10;
 
     var type = '';
 
