@@ -223,6 +223,8 @@ function ValidatePage(page_name){
         page_name = $('#knownSelect').val();
     }
 
+    var max_flask_number = 25;
+
     var fields_to_values = {};
 
     var field_to_type = {
@@ -248,9 +250,9 @@ function ValidatePage(page_name){
         'solute_molec_weight' : ['number', 'mweight'],
         'analyte_molec_weight' : ['number', 'mweight'],
         'density' : ['number'],
-        'numDilutions' : ['number'],
+        'numDilutions' : ['number', 'iterations'],
         'molaritySolution' : ['number'],
-        'num_standards' : ['number']
+        'num_standards' : ['number', 'iterations']
     };
 
     var error_messages = {
@@ -263,7 +265,8 @@ function ValidatePage(page_name){
         'mweight' : function(val, error){
             return "The molecular weight you entered is ".concat(val)
                 .concat(" and incorrect.").concat(" You are off by ").concat(error+".");
-            }
+            },
+        'iterations' : ("Total number of flasks may not exceed " + max_flask_number)
     };
 
     var class_verification = {
@@ -331,7 +334,16 @@ function ValidatePage(page_name){
             var real_m_weight = string_to_compound(solute_formula).molecular_weight();
             var error = calculate_error(real_m_weight, val);
             if(error > accepted_percent_error){
-                add_message(class_verification['mweight'](val, error));
+                add_message(error_messages['mweight'](val, error));
+                return false;
+            }else{
+                return true;
+            }
+        },
+
+        'iterations' : function(fields, val){
+            if(val > max_flask_number){
+                add_message(error_messages['iterations']);
                 return false;
             }else{
                 return true;
