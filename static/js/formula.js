@@ -184,7 +184,7 @@ function is_valid_formula(str) {
 
 
     var is_valid = false;
-    if(str != "" && str != undefined){
+    if(str != ""){
         /**
          *      **NOTE** Though the regex forces matching parenthesis,
          *      having an odd number of parenthesis or unequal numbers

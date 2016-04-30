@@ -1,14 +1,14 @@
 body{
-	background-color: transparent;
+    background-color: transparent;
 }
 
 #landing{
-	position:absolute;
-	top:0px;
-	left:0px;
-	right:0px;
-	bottom:0px;
-	background:lightblue;
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    background:lightblue;
 }
 .optionDiv{
     display: table;
@@ -51,11 +51,11 @@ body{
 
 /* Background Image */
 html{
-  background: url(../images/lab.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url(../images/lab.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #single{
@@ -71,8 +71,8 @@ html{
 
 h2{
     margin-bottom: 0px;
-	font-family:sans-serif;
-	text-align:center;
+    font-family:sans-serif;
+    text-align:center;
 }
 
 /* Initially hide the liquid div.*/
@@ -97,7 +97,7 @@ button{
 }
 
 button:hover{
-   background: RGBa(245,245,245,0.4); 
+    background: RGBa(245,245,245,0.4);
 }
 
 select{
@@ -113,7 +113,7 @@ option{
 }
 
 select:hover{
-   background: RGBa(245,245,245,0.4); 
+    background: RGBa(245,245,245,0.4);
 }
 
 .panel{
@@ -121,15 +121,15 @@ select:hover{
     font-family: sans-serif;
     display: table-cell;
     vertical-align: middle;
-    
+
     background-color:rgba(0,0,0,0.6);
-    
+
     border:1px solid white;
     border-radius: 10px;
-    
+
     margin-top: 10%;
     margin-bottom: 10%;
-    
+
     padding-left: 25px;
     padding-right: 25px;
     overflow-x: auto;
