@@ -71,8 +71,9 @@ function random_formula(low, high){
         formula += getRandomElementKey();
 
         if(roll_dice(50, 100)){
-            formula += random_int(2, 100);
+            formula += random_int(2, 99);
         }
+        i = formula.length;
     }
 
     return formula;
@@ -144,4 +145,101 @@ function random_word(min_length, max_length){
         }
     }
     return word;
+}
+
+function random_choose(val1, val2){
+    if(roll_dice(50, 100)){
+        return val1;
+    }else{
+        return val2;
+    }
+}
+
+function random_valid_field_val(field, solute){
+
+    //Gets last and most specific class per field.
+    var interesting_class = Field_To_Type(field)[Field_To_Type(field).length - 1];
+
+    var random_valid_field_vals = {
+
+        'number' : function(){
+            return random_double(limits['number'].low, limits['number'].high);
+        },
+
+        'string' : function(){
+            return random_word(limits['string'].low, limits['string'].high);
+        },
+
+        'compound' : function(){
+            return solute;
+        },
+
+        'sm_volume' : function(){
+            return random_double(limits['sm_volume'].low, limits['sm_volume'].high);
+        },
+
+        'lrg_volume' : function(){
+            return random_double(limits['lrg_volume'].low, limits['lrg_volume'].high);
+        },
+
+        'percent' : function(){
+            return random_double(limits['percent'].low, limits['percent'].high);
+        },
+
+        'mweight' : function(solute){
+            var compound = string_to_compound(solute);
+            return (compound != null)? compound.molecular_weight() : null;
+        },
+
+        'iterations' : function(){
+            return random_int(limits['iterations'].low, limits['iterations'].high);
+        }
+    };
+
+    return random_valid_field_vals[interesting_class](solute);
+}
+
+function random_invalid_field_val(field, solute){
+
+    //Gets last and most specific class per field.
+    var interesting_class = Field_To_Type(field)[Field_To_Type(field).length - 1];
+
+    var random_valid_field_vals = {
+
+        'number' : function(){
+            return random_double(-1000, 0);
+        },
+
+        'string' : function(){
+            return random_shitstorm(0, 30);
+        },
+
+        'compound' : function(){
+            return random_formula_w_ionic(20, 0, 10);
+        },
+
+        'sm_volume' : function(){
+            return random_double(-999, 555);
+        },
+
+        'lrg_volume' : function(){
+            return random_double(-1000, -2000);
+        },
+
+        'percent' : function(){
+            return random_choose(random_double(-10, 0), random_double(100.01, 110));
+        },
+
+        'mweight' : function(solute){
+            var compound = string_to_compound(solute);
+
+            return (compound != null)? compound.molecular_weight() : null;
+        },
+
+        'iterations' : function(){
+            return random_choose(random_int(-5, 0), random_int(26, 50));
+        }
+    };
+
+    return random_valid_field_vals[interesting_class](solute);
 }
