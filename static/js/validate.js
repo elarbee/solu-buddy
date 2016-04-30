@@ -101,31 +101,9 @@ function Validate(value){
         return self;
     };
 
-    self.less = function less_than_value(value){
-        self.and(self.val < value);
-        check_for_error("Failed less than test.");
-        return self;
-    };
-
     self.between_including = function between_and_including(low, high){
         self.and(self.val >= low).and(self.val <= high);
         check_for_error("Failed between including test.");
-        return self;
-    };
-
-    self.between_not_including = function between_and_not_including(low, high){
-        self.and(self.val > low).and(self.val < high);
-        check_for_error("Failed between not including test.");
-        return self;
-    };
-
-    self.set = function(bool){
-        self.valid = bool;
-        return self;
-    };
-
-    self.equal = function(value){
-        self.and(self.val == value);
         return self;
     };
 
@@ -138,6 +116,38 @@ function Validate(value){
     };
 
     return self;
+}
+
+function Field_To_Type(field){
+    var field_to_type = {
+        'solvent_formula' : ['string'],
+        'unknown' : ['string'],
+        'solventChemID' : ['string'],
+        'soluteChemID' : ['string'],
+        'internal_formula' : ['string'],
+        'solute_formula' : ['compound'],
+        'analyte_formula' : ['compound'],
+        'solution_concentration' : ['number'],
+        'solute_concentration' : ['number'],
+        'analyte_molarity' : ['number'],
+        'internal_molarity' : ['number'],
+        'solute_percent_mass' : ['number', 'percent'],
+        'total_volume' : ['number','lrg_volume'],
+        'flasksVolume' : ['number', 'lrg_volume'],
+        'total_volume_standards' : ['number', 'lrg_volume'],
+        'solute_volume' : ['number', 'sm_volume'],
+        'volumeTransferred' : ['number', 'sm_volume'],
+        'unknown_volume' : ['number', 'sm_volume'],
+        'massToAdd' : ['number'],
+        'solute_molec_weight' : ['number', 'mweight'],
+        'analyte_molec_weight' : ['number', 'mweight'],
+        'density' : ['number'],
+        'numDilutions' : ['number', 'iterations'],
+        'molaritySolution' : ['number'],
+        'num_standards' : ['number', 'iterations']
+    };
+
+    return field_to_type[field];
 }
 
 function Page_To_Inputs(page){
@@ -200,15 +210,15 @@ function Page_To_Inputs(page){
             ,'num_standards'
             ,'total_volume_standards'],
 
-        'INTERNAL' : ['analyte_formula'
-            ,'analyte_molarity'
+        'INTERNAL' : ['analyte_molarity'
+            ,'analyte_formula'
             ,'internal_formula'
             ,'internal_molarity'
             ,'num_standards'
             ,'total_volume_standards'],
 
-        'ADDITION' : ['analyte_formula'
-            ,'analyte_molarity'
+        'ADDITION' : ['analyte_molarity'
+            ,'analyte_formula'
             ,'num_standards'
             ,'unknown'
             ,'unknown_volume'
@@ -226,34 +236,6 @@ function ValidatePage(page_name){
     var max_flask_number = 25;
 
     var fields_to_values = {};
-
-    var field_to_type = {
-        'solvent_formula' : ['string'],
-        'unknown' : ['string'],
-        'solventChemID' : ['string'],
-        'soluteChemID' : ['string'],
-        'internal_formula' : ['string'],
-        'solute_formula' : ['compound'],
-        'analyte_formula' : ['compound'],
-        'solution_concentration' : ['number'],
-        'solute_concentration' : ['number'],
-        'analyte_molarity' : ['number'],
-        'internal_molarity' : ['number'],
-        'solute_percent_mass' : ['number', 'percent'],
-        'total_volume' : ['number','lrg_volume'],
-        'flasksVolume' : ['number', 'lrg_volume'],
-        'total_volume_standards' : ['number', 'lrg_volume'],
-        'solute_volume' : ['number', 'sm_volume'],
-        'volumeTransferred' : ['number', 'sm_volume'],
-        'unknown_volume' : ['number', 'sm_volume'],
-        'massToAdd' : ['number'],
-        'solute_molec_weight' : ['number', 'mweight'],
-        'analyte_molec_weight' : ['number', 'mweight'],
-        'density' : ['number'],
-        'numDilutions' : ['number', 'iterations'],
-        'molaritySolution' : ['number'],
-        'num_standards' : ['number', 'iterations']
-    };
 
     var error_messages = {
         'number' : "Numbers should be in the correct format and greater than 0.",
@@ -353,7 +335,7 @@ function ValidatePage(page_name){
 
     function find_tag(fields, tag_to_match){
         for(var i = 0; i < fields.length; i++){
-            var tags = field_to_type[fields[i]];
+            var tags = Field_To_Type(fields[i]);
             for(var k = 0; k < tags.length; k++){
                 var temp_tag = tags[k];
                 if(temp_tag == tag_to_match){
@@ -382,7 +364,7 @@ function ValidatePage(page_name){
 
         fields.forEach(function(el, i, arr){
 
-            var input_classes = field_to_type[el];
+            var input_classes = Field_To_Type(el);
 
             input_classes.forEach(function(elem, idx, arr2){
                 valid = valid && class_verification[elem](fields, fields_to_values[el]);
@@ -392,7 +374,7 @@ function ValidatePage(page_name){
         return valid;
     }
 
-    function test_page(page_name, fields_to_vals){
+    self.test_page = function(fields_to_vals){
         /**
          * Only difference is how to initiate the field_to_values
          */
@@ -404,15 +386,15 @@ function ValidatePage(page_name){
 
         fields.forEach(function(el, i, arr){
 
-            var input_classes = field_to_type[el];
+            var input_classes = Field_To_Type(el);
 
             input_classes.forEach(function(elem, idx, arr2){
-                valid = valid && class_verification[elem](fields, $('#'+el+'').val());
+                valid = valid && class_verification[elem](fields, fields_to_values[el]);
             });
         });
 
         return valid;
-    }
+    };
 
     self.is_valid = function(){
         return check_page(page_name);
