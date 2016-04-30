@@ -17,6 +17,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <script src="../static/js/utility.js"></script>
     <script src="../static/js/calculator.js"></script>
     <script src="../static/js/solution.js"></script>
+    <script src="../static/js/validate.js"></script>
     <script src="../static/js/solutionObjectBuilder.js"></script>
     
 	<link rel="stylesheet" type="text/css" href="../shared-content/InputStyle.css">
@@ -32,7 +33,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     ?>
     
     <div id="content" class="text-center">
-        <img src="calibration.png" width="550" class="titleImage"><br><br>
+        <img src="calibration.png" width="550"><br><br>
         <div id="inputDiv" class="grey-div">
             <div id="divContainer">
                 <?php // Dynamically load one of three pages based on the value of '$_GET['value ']' //Make sure a value is passed in if(isset($_GET[ "value"])){ //If it 's the external calibrations page.
@@ -79,14 +80,13 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
             
             <!-- Dilution flasks -->
-            <div id="dilutionFlasksDiv" class="inline-div">
+            <div id="dilutionFlasksDiv" class="inline-div" >
                 <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
                 <div id="dilutionFlask0" class="dilutionFlask inline-div">
                     <div class="flaskImgAndNumberDiv">
-                        <td><input type="text" id="volumeOfAnalyte" class="flaskInput" placeholder="Enter vol of analyte to add to solution"></td>
+                        <td><input type="text" id="volumeOfAnalyte" class="flaskInput" placeholder="Enter volume of analyte to add to the solution"></td>
                         <img id="smallBeakerImg" src="../static/images/beaker.png">
                         <p id="flaskNumber">1</p>
-
                     </div>
 
                     <div class="flaskDescription">

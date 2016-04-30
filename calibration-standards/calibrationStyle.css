@@ -7,13 +7,6 @@ html{
   background-size: cover;
 }
 
-.titleImage {
-    max-height: 60%;
-    max-width: 60%;
-    display: block;
-    margin: auto;
-}
-
 /* Answer page style */
 #answerDiv{
     display: none;
@@ -25,29 +18,14 @@ html{
     border-radius: 10px;
     padding: 30px;
 }
-
 .flaskDescription {
     position: relative;
     bottom:-35px;
     margin-top: 0px;
     margin-bottom: 0px;
 }
-#flaskNumber {
-    color:black;
-    margin: -10px;
-}
-#volumeOfAnalyte {
-    background: rgba(42,42,42,0.9);
-    border: 1px solid white;
-    border-radius: 10px;
-    width: 250px;
-    height: 50px;
-    text-align: center;
-    margin-top: 2em;
-}
 #arrowContainer{
     text-align: center;
-    color: white;
 }
 
 #arrowContainer img{
@@ -61,8 +39,7 @@ html{
 .inline-div{
 	position: relative;
     display:inline-block;
-    margin: 20px;
-    color: white;
+    margin: 20px;    
 }
 
 
@@ -78,9 +55,8 @@ html{
 .flaskImgAndNumberDiv p{
     margin-top: 0; 
     position: relative;
-    padding-bottom: 10px;;
+    bottom:2em;
     font-size: 1.5em;
-    color: white;
 }
 
 .blueArrow{
@@ -92,7 +68,6 @@ html{
 .dilutionFlask{
     position: relative;
     width:225px;
-    padding-bottom: 50px;
 }
 #largeBeakerImg{
     width: 180px;
@@ -100,6 +75,4 @@ html{
 
 #smallBeakerImg{
     width: 130px;
-    margin: 10px auto;
-    padding-bottom: 10px;
 }

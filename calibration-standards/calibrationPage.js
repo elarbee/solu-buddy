@@ -22,139 +22,6 @@ $(function () {
 
     });
 
-    function validateInput(){
-
-        var solventFormula = $("#solvent_formula").val();
-        var analyteFormula = $("#analyte_formula").val();
-        var analyteMolWeight = Number($("#analyte_molec_weight").val());
-        var unknown = $("#unknown").val();
-        var numStandards = Number($("#num_standards").val());
-        var totalVolume = Number($("#total_volume_standards").val());
-        var analyteMolarity = Number($("#analyte_molarity").val());
-        var internalMolarity = Number($("#internal_molarity").val());
-        var internalFormula =  $("#internal_formula").val();
-        var unknownVolume = Number($("#unknown_volume").val());
-
-        if(analyteMolarity == "") {
-            showAlert("Please enter analyte molarity!");
-            return false;
-        }
-        if(analyteMolarity <= 0 ) {
-            showAlert("Please enter an analyte molarity greater than 0!");
-            return false;
-        }
-        if(isNaN(analyteMolarity)) {
-            showAlert("Analyte Molarity must be a number!");
-            return false;
-        }
-        //If no analyte entered
-        if (analyteFormula == "") {
-            showAlert("Please enter a name for your analyte!");
-            return false;
-        }
-        // If invalid number standards entered
-        if (numStandards <= 0 || numStandards > 20) {
-            showAlert("Please enter a number of standards less than 20 and greater than 0!");
-            return false;
-        }
-        //If num_standards null
-        if (numStandards == "") {
-            showAlert("Please enter a number of standards!");
-            return false;
-        }
-        if (isNaN(numStandards)) {
-            showAlert("Number of standards must be an integer!");
-            return false;
-        }
-        // If no total flask volume entered
-        if (totalVolume == "") {
-            showAlert("Please enter a flask volume!");
-            return false;
-        }
-        // If total flask volume entered <= 0
-        if (totalVolume <= 0) {
-            showAlert("Please enter a total flask volume greater than 0!");
-            return false;
-        }
-        if (isNaN(totalVolume)) {
-            showAlert("Total volume must be a number");
-            return false;
-        }
-        if(myParam == "EXTERNAL") {
-            //If no solvent entered
-            if (solventFormula == "") {
-                showAlert("Please enter a name for your solvent!");
-                return false;
-            }else if(!/^[a-zA-Z\d*]*$/.test(solventFormula)){
-                showAlert("Solvent formula must contain only letters and numbers.");
-                return false;
-            }
-
-            // If no mol weight entered
-            if (analyteMolWeight == "") {
-                showAlert("Please enter a Molecular Weight for your analyte!");
-                return false;
-            }
-            if (analyteMolWeight <= 0) {
-                showAlert("Please enter a Molecular Weight that is greater than 0!");
-                return false;
-            }
-            if (isNaN(analyteMolWeight)) {
-                showAlert("Analyte Molecular Weight must be a number!");
-                return false;
-            }
-            
-        } else if(myParam == "INTERNAL") {
-
-            if(internalFormula == "") {
-                showAlert("Please enter a name for your internal standard!");
-                return false;
-            }else if(!/^[a-zA-Z\d*]*$/.test(internalFormula)){
-                showAlert("Solvent formula must contain only letters and numbers.");
-                return false;
-            }
-            if(internalMolarity == "") {
-                showAlert("Please enter internal standard molarity!");
-                return false;
-            }
-            if(internalMolarity <= 0 ) {
-                showAlert("Please enter an internal standard molarity greater than 0!");
-                return false;
-            }
-            if(isNaN(internalMolarity)) {
-                showAlert("Internal Standard Molarity must be a number!");
-                return false;
-            }
-        } else if (myParam == "ADDITION") {
-            if(unknown == "") {
-                showAlert("Please enter a name for the unknown!");
-                return false;
-            }else if(!/^[a-zA-Z\d*]*$/.test(unknown)){
-                showAlert("Solvent formula must contain only letters and numbers.");
-                return false;
-            }
-            if(unknownVolume == "") {
-                showAlert("Please enter a volume of the unknown to put in each flask!");
-                return false;
-            }
-            if(unknownVolume <= 0 ) {
-                showAlert("Please enter an unknown volume greater than 0!");
-                return false;
-            }
-            if(isNaN(unknownVolume)) {
-                showAlert("Unknown volume for each flask must be a number!");
-                return false;
-            }
-            if(unknownVolume >= totalVolume) {
-                showAlert("Volume of unknown can't be greater than total volume of flask!");
-                return false;
-            }
-        }
-
-        hideAlert();
-        return true;
-    }
-
     //Hide the alert DIV
     function hideAlert(alertMessage){
         $("#myAlert").css("display","none");
@@ -166,7 +33,9 @@ $(function () {
 
     $("#nextButton").click(function () {
 
-        if (validateInput()) {
+        var validate = ValidatePage(myParam);
+
+        if (validate.is_valid()) {
             //Hide page content
             $("#inputDiv").hide();
             //Show answer div
@@ -231,6 +100,8 @@ $(function () {
                 $($("#dilutionFlasksDiv").children()[0].children[0].children[0]).hide();
                 $($("#dilutionFlasksDiv").children()[0].children[1].children[0]).html('Molarity ' + SingleDilution(1, totalVolume/1000).solute_molarity(unknownVolume));
             }
+        }else{
+            showAlert(validate.error_message);
         }
 
         if (myParam == "EXTERNAL") {
