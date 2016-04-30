@@ -119,10 +119,11 @@ describe("ValidatePage() Tests", function(){
                                 random_valid_field_val(fields[k], solute),
                                 invalid_elements[o]
                             );
-                            input_fields[fields[l]] = invalid_elements[o];
-                            input_fields[fields[1]] = solute;
 
                         }
+                        input_fields[fields[1]] = solute;
+
+                        input_fields[fields[random_int(0, fields.length)]] = invalid_elements[random_int(0, invalid_elements.length)];
 
                         test_count++;
                         var start = window.performance.now();
