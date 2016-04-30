@@ -22,7 +22,7 @@ $table = null;
 if($type == 'single_sol_solid') $table='single_solution_solid';
 elseif ($type == 'single_sol_liq_grav') $table = 'single_solution_liquid_grav';
 elseif ($type == 'single_sol_liq_vol') $table = 'single_solution_liquid_vol';
-elseif ($type == 'serial') $table = 'serial_diluion';
+elseif ($type == 'serial') $table = 'serial_dilution';
 elseif ($type == 'calibration_ext') $table = 'calibration_external';
 elseif ($type == 'calibration_add') $table = 'calibration_addition';
 elseif ($type == 'calibration_int') $table = 'calibration_internal';

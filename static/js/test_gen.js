@@ -10,7 +10,7 @@
 
 
 
-var is_correct_entry;
+var is_correct_entry = true;
 var random_shitstorm_chance = 0;
 var incorrect_reasons = "";
 var entry_count = 1;
@@ -26,9 +26,11 @@ function make_random_entries(){
     var amount = document.getElementById("testing_text_area").value;
 
     var doc = new TestGenerator()
-        .make_all_solutions(amount, true, true)
-        .make_serdil(amount, true)
-        .make_all_calibs(amount, true)
+        .make_vol(amount, true)
+        .make_ext(amount, true)
+        // .make_all_solutions(amount, true, true)
+        // .make_serdil(amount, true)
+        // .make_all_calibs(amount, true)
         .get_doc();
 
     document.getElementById("testing_text_area").value = doc;
@@ -305,7 +307,7 @@ function TestEntry(){
     self.single.make_solid = function(){
         type = 'solid';
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
-        var solute_formula = random_formula_w_ionic(50, 1, 20);
+        var solute_formula = random_formula(1, 20);
         var solute = string_to_compound(solute_formula);
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
         var mass = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).solid());
@@ -322,7 +324,7 @@ function TestEntry(){
     self.single.make_grav = function(){
         type = 'grav';
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
-        var solute_formula = random_formula_w_ionic(50, 1, 20);
+        var solute_formula = random_formula(1, 20);
         var solute = string_to_compound(solute_formula);
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
         var mass = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).solid());
@@ -340,7 +342,7 @@ function TestEntry(){
         type = 'volu';
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
-        var solute_formula = random_formula_w_ionic(50, 1, 20);
+        var solute_formula = random_formula(1, 5); //kept low for higher chance to be correct
         var solute = string_to_compound(solute_formula);
         var density = chance_for_blank(incorrectness_chance,random_double(.001, 20));
         var volume = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).liquid.volume(density));
@@ -360,7 +362,7 @@ function TestEntry(){
     self.single.make_cmol = function(){
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
-        var solute_formula = random_formula_w_ionic(50, 1, 20);
+        var solute_formula = random_formula(1, 20);
         var solute_concentration = chance_for_blank(incorrectness_chance, random_double(.01, 20));
         var volume = chance_for_wrong(incorrectness_chance, new SingleDilution(soln_conc, vol/1000).solute_volume(solute_concentration));
 
@@ -377,7 +379,7 @@ function TestEntry(){
     self.single.make_cgrav = function(){
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
-        var solute_formula = random_formula_w_ionic(50, 1, 20);
+        var solute_formula = random_formula(1, 20);
         var solute = string_to_compound(solute_formula);
         var massp = chance_for_blank(incorrectness_chance, random_double(0.1, 100));
         var mass = chance_for_wrong(incorrectness_chance, new SingleDilution(soln_conc, vol/1000).grav_mass(solute, massp));
@@ -395,7 +397,7 @@ function TestEntry(){
     self.single.make_cvol = function(){
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
-        var solute_formula = random_formula_w_ionic(50, 1, 20);
+        var solute_formula = random_formula(1, 20);
         var solute = string_to_compound(solute_formula);
         var massp = chance_for_blank(incorrectness_chance, random_double(0.1, 100));
         var density = chance_for_blank(incorrectness_chance, random_double(.001, 20));
@@ -461,7 +463,7 @@ function TestEntry(){
 
     self.calibration_standard.make_ext = function(){
         type = 'external';
-        var solute_formula = random_formula_w_ionic(50, 1, 20);
+        var solute_formula = random_formula(1, 20);
         var solute = string_to_compound(solute_formula);
         var analyte_molarity = chance_for_blank(1, random_double(.001,20));
         var num_stand = chance_for_blank(1, random_int(2, 21));
@@ -484,7 +486,7 @@ function TestEntry(){
     };
     self.calibration_standard.make_intrn = function(){
         type = 'internal';
-        var analyte_formula = random_formula_w_ionic(50, 1, 20);
+        var analyte_formula = random_formula(1, 20);
         var analyte_molarity = chance_for_blank(1, random_double(.001,20));
         var internal_molarity = chance_for_blank(1, random_double(.001,20));
         var num_stand = chance_for_blank(1, random_int(2, 21));
@@ -505,7 +507,7 @@ function TestEntry(){
     self.calibration_standard.make_addition = function(){
 
         type = 'addition';
-        var analyte_formula = random_formula_w_ionic(50, 1, 20);
+        var analyte_formula = random_formula(1, 20);
         var analyte_molarity = chance_for_blank(1, random_double(.001,20));
         var unknown_name = chance_for_blank(1, random_word(1,20));
         var num_stand = chance_for_blank(1, random_int(2, 21));
