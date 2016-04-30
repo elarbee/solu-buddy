@@ -11,10 +11,10 @@
 
 
 var is_correct_entry;
-var random_shitstorm_chance = 1;
+var random_shitstorm_chance = 0;
 var incorrect_reasons = "";
-var entry_count = 0;
-
+var entry_count = 1;
+var website_addr = 'http://solubuddy.us-west-2.elasticbeanstalk.com/';
 
 
 
@@ -26,9 +26,12 @@ function make_random_entries(){
     var amount = document.getElementById("testing_text_area").value;
 
     var doc = new TestGenerator()
-        .make_all_solutions(amount)
-        .make_serdil(amount)
-        .make_all_calibs(amount)
+    // .make_all_solutions(amount, false)
+    // .make_serdil(amount, false)
+    // .make_all_calibs(amount, false)
+        .make_serdil(amount, true)
+        .make_all_calibs(amount, true)
+    // .make_all_saveable_solutions(amount)
         .get_doc();
 
     document.getElementById("testing_text_area").value = doc;
@@ -112,8 +115,35 @@ function make_incorrect(val){
 function TestEntry(){
 
     is_correct_entry = true;
-    var incorrectness_chance = 20;
+    var incorrectness_chance = 0;
 
+    var type = '';
+
+    var type_to_save_btn = {
+        'solid' : 'saveSolutionButton',
+        'grav' : 'saveSolutionButton',
+        'volu' : 'saveSolutionButton',
+        'serial' : 'saveButton',
+        'external' : 'saveButton',
+        'internal' : 'saveButton',
+        'addition' : 'saveButton'
+    };
+
+    var saved_soln_table_names = {
+        'solid':'singleSolidSolutionsTable',
+        'grav':'singleLiquidGravSolutionsTable',
+        'volu':'singleLiquidGravSolutionsTable',
+        'serial':'serialSolutionsTable',
+        'external':'calibrationExternalTable',
+        'addition':'calibrationAdditionTable',
+        'internal':'calibrationInternalTable'
+    };
+
+    var saved_soln_nav_id = {
+        'single':'Single Solutions',
+        'serial':'Serial Dilution Solutions',
+        'calib':'Calibration Standards'
+    };
 
     var self = {};
 
@@ -121,6 +151,24 @@ function TestEntry(){
 
     self.next_button = function(){
         self.component("click", "nextButton", "");
+        return self;
+    };
+
+    self.click_link = function(id){
+        self.test_entry +=  "<tr>\n" +
+            "\t<td>click</td>\n" +
+            "\t<td>link="+ id +"</td>\n" +
+            "\t<td></td>\n" +
+            "</tr>\n";
+        return self;
+    };
+
+    self.base_component = function(action, id, val){
+        self.test_entry +=  "<tr>\n" +
+            "\t<td>"+action+"</td>\n" +
+            "\t<td>"+ id +"</td>\n" +
+            "\t<td>"+ val +"</td>\n" +
+            "</tr>\n";
         return self;
     };
 
@@ -135,7 +183,7 @@ function TestEntry(){
     };
 
     self.home_nav = function(){
-        self.open("/");
+        self.open(website_addr);
         return self;
     };
 
@@ -188,6 +236,28 @@ function TestEntry(){
         return self;
     };
 
+
+    self.save = function(){
+        self.click(type_to_save_btn[type], '');
+        return self;
+    };
+
+    /**
+     *
+     * @param soln_class Possible Values: single, serial, calib
+     * @param soln_type Possible values: solid, grav, volu, serial,
+     *          external, addition, internal
+     */
+    self.verify_saved = function(){
+        self.base_component('clickAndWait', 'link=Saved Solutions', '')
+            .component('assertNotVisible', type_to_save_btn[type], '')
+            //simple verify
+            .base_component('assertVisible', 'link=Single Solutions', '');
+        //advanced verify.. need to check if solution is there
+            //.click_link(saved_soln_nav_id[soln_class], saved_soln_table_names[soln_type]);
+            return self;
+    };
+
     /* Variables used by all entries */
     self.single = {};
 
@@ -201,7 +271,6 @@ function TestEntry(){
 
         return self;
     };
-
 
     self.single.core = function(vol, soln_conc, solute_formula){
         var solvent_name = chance_for_blank(incorrectness_chance, random_word(1,30));
@@ -237,8 +306,9 @@ function TestEntry(){
     };
 
     self.single.make_solid = function(){
+        type = 'solid';
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
-        var solute_formula = random_formula(1, 20);
+        var solute_formula = random_formula_w_ionic(50, 1, 20);
         var solute = string_to_compound(solute_formula);
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
         var mass = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).solid());
@@ -253,8 +323,9 @@ function TestEntry(){
     };
 
     self.single.make_grav = function(){
+        type = 'grav';
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
-        var solute_formula = random_formula(incorrectness_chance, 20);
+        var solute_formula = random_formula_w_ionic(50, 1, 20);
         var solute = string_to_compound(solute_formula);
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
         var mass = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).solid());
@@ -269,9 +340,10 @@ function TestEntry(){
     };
 
     self.single.make_vol = function(){
+        type = 'volu';
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
-        var solute_formula = random_formula(incorrectness_chance, 20);
+        var solute_formula = random_formula_w_ionic(50, 1, 20);
         var solute = string_to_compound(solute_formula);
         var density = chance_for_blank(incorrectness_chance,random_double(.001, 20));
         var volume = chance_for_wrong(incorrectness_chance, new SingleSolution(soln_conc, vol/1000, solute.molecular_weight()).liquid.volume(density));
@@ -291,7 +363,7 @@ function TestEntry(){
     self.single.make_cmol = function(){
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
-        var solute_formula = random_formula(incorrectness_chance, 20);
+        var solute_formula = random_formula_w_ionic(50, 1, 20);
         var solute_concentration = chance_for_blank(incorrectness_chance, random_double(.01, 20));
         var volume = chance_for_wrong(incorrectness_chance, new SingleDilution(soln_conc, vol/1000).solute_volume(solute_concentration));
 
@@ -308,7 +380,7 @@ function TestEntry(){
     self.single.make_cgrav = function(){
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
-        var solute_formula = random_formula(incorrectness_chance, 20);
+        var solute_formula = random_formula_w_ionic(50, 1, 20);
         var solute = string_to_compound(solute_formula);
         var massp = chance_for_blank(incorrectness_chance, random_double(0.1, 100));
         var mass = chance_for_wrong(incorrectness_chance, new SingleDilution(soln_conc, vol/1000).grav_mass(solute, massp));
@@ -326,7 +398,7 @@ function TestEntry(){
     self.single.make_cvol = function(){
         var vol = chance_for_blank(incorrectness_chance, random_double(50, 2000));
         var soln_conc = chance_for_blank(incorrectness_chance, random_double(.00001, 20));
-        var solute_formula = random_formula(incorrectness_chance, 20);
+        var solute_formula = random_formula_w_ionic(50, 1, 20);
         var solute = string_to_compound(solute_formula);
         var massp = chance_for_blank(incorrectness_chance, random_double(0.1, 100));
         var density = chance_for_blank(incorrectness_chance, random_double(.001, 20));
@@ -347,12 +419,13 @@ function TestEntry(){
     };
 
     self.dilution.ser_dil_nav = function(){
-        self.home_nav().open("/serial-dilution/serial.php");
+        self.home_nav().open(website_addr + "serial-dilution/serial.php");
         return self;
 
     };
 
     self.dilution.make_serial_dilution = function(){
+        type = 'serial';
         var flask_size = chance_for_blank(incorrectness_chance, random_double(50, 1500));
         var molarity_solutions = chance_for_blank(incorrectness_chance, random_double(.001, 20));
         var solvent_chemical = chance_for_blank(incorrectness_chance, random_word(1, 30));
@@ -390,7 +463,8 @@ function TestEntry(){
     };
 
     self.calibration_standard.make_ext = function(){
-        var solute_formula = random_formula(incorrectness_chance, 20);
+        type = 'external';
+        var solute_formula = random_formula_w_ionic(50, 1, 20);
         var solute = string_to_compound(solute_formula);
         var analyte_molarity = chance_for_blank(1, random_double(.001,20));
         var num_stand = chance_for_blank(1, random_int(2, 21));
@@ -412,7 +486,8 @@ function TestEntry(){
 
     };
     self.calibration_standard.make_intrn = function(){
-        var analyte_formula = random_formula(incorrectness_chance, 20);
+        type = 'internal';
+        var analyte_formula = random_formula_w_ionic(50, 1, 20);
         var analyte_molarity = chance_for_blank(1, random_double(.001,20));
         var internal_molarity = chance_for_blank(1, random_double(.001,20));
         var num_stand = chance_for_blank(1, random_int(2, 21));
@@ -432,7 +507,8 @@ function TestEntry(){
     };
     self.calibration_standard.make_addition = function(){
 
-        var analyte_formula = random_formula(incorrectness_chance, 20);
+        type = 'addition';
+        var analyte_formula = random_formula_w_ionic(50, 1, 20);
         var analyte_molarity = chance_for_blank(1, random_double(.001,20));
         var unknown_name = chance_for_blank(1, random_word(1,20));
         var num_stand = chance_for_blank(1, random_int(2, 21));
@@ -452,26 +528,41 @@ function TestEntry(){
         return self;
 
     };
-    
-    self.end = function(){
-        entry_count++;
+
+    self.check_for_error = function(){
         self.next_button();
 
         var echo_msg = "Test # ".concat(entry_count+"").concat(". Expecting ")
             .concat((is_correct_entry)? "correct." : "incorrect.");
-
         self.component("echo", "", echo_msg);
-        console.log("Entry: " + entry_count + " correct? " + is_correct_entry);
+
         if(is_correct_entry){
             self.wait_for_non_alert("myAlert");
         }else{
             self.component("echo", "", incorrect_reasons);
-            console.log(incorrect_reasons);
             self.wait_for_alert("myAlert");
         }
 
+        return self;
+    };
+    self.end_and_save = function(){
+        self.check_for_error();
 
-        console.log("====================================================\n");
+        entry_count++;
+
+        if(is_correct_entry){
+            self.save().verify_saved();
+        }
+
+        incorrect_reasons = "";
+        return self.test_entry;
+    };
+
+    self.end_no_save = function(){
+        self.check_for_error();
+
+        entry_count++;
+
         incorrect_reasons = "";
         return self.test_entry;
     };
@@ -506,12 +597,7 @@ function TestGenerator(){
         "<table cellpadding=\"1\" cellspacing=\"1\" border=\"1\">" +
         "<thead>" +
         "<tr><td rowspan=\"1\" colspan=\"3\">SerialDilutionTest1</td></tr>" +
-        "</thead>"+
-        "<tr>\n" +
-        "\t<td>open</td>\n" +
-        "\t<td>/</td>\n" +
-        "\t<td></td>\n" +
-        "</tr>\n";
+        "</thead>";
 
     var footer =
         "</tbody></table>"+
@@ -530,128 +616,145 @@ function TestGenerator(){
         return self;
     };
 
-    self.make_solid = function(qty){
+    self.make_solid = function(qty, save){
         for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().single.make_solid().end();
+            var temp = new TestEntry().single.make_solid();
+            if(save){
+                self.doc += temp.end_and_save();
+            }else{
+                self.doc += temp.end_no_save();
+            }        }
+        return self;
+
+    };
+
+    self.make_grav = function(qty, save){
+        for(var i = 0; i < qty; i++){
+            var temp = new TestEntry().single.make_grav();
+            if(save){
+                self.doc += temp.end_and_save();
+            }else{
+                self.doc += temp.end_no_save();
+            }        }
+        return self;
+
+    };
+
+    self.make_vol = function(qty, save){
+        for(var i = 0; i < qty; i++){
+            var temp = new TestEntry().single.make_vol();
+            if(save){
+                self.doc += temp.end_and_save();
+            }else{
+                self.doc += temp.end_no_save();
+            }        }
+        return self;
+
+    };
+
+    self.make_cmol = function(qty, save){
+        for(var i = 0; i < qty; i++){
+            self.doc += new TestEntry().single.make_cmol().end_no_save();
         }
         return self;
 
     };
 
-    self.make_grav = function(qty){
+    self.make_cgrav = function(qty, save){
         for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().single.make_grav().end();
+            self.doc += new TestEntry().single.make_cgrav().end_no_save();
+        }
+        return self;
+
+    };
+    self.make_cvol = function(qty, save){
+        for(var i = 0; i < qty; i++){
+            self.doc += new TestEntry().single.make_cvol().end_no_save();
         }
         return self;
 
     };
 
-    self.make_vol = function(qty){
+    self.make_serdil = function(qty, save){
         for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().single.make_vol().end();
+            var temp = new TestEntry().dilution.make_serial_dilution();
+            if(save){
+                self.doc += temp.end_and_save();
+            }else{
+                self.doc += temp.end_no_save();
+            }        }
+        return self;
+
+    };
+
+    self.make_ext = function(qty, save){
+        for(var i = 0; i < qty; i++){
+            var temp = new TestEntry().calibration_standard.make_ext();
+            if(save){
+                self.doc += temp.end_and_save();
+            }else{
+                self.doc += temp.end_no_save();
+            }        }
+        return self;
+    };
+
+    self.make_intrn = function(qty, save){
+        for(var i = 0; i < qty; i++){
+            var temp = new TestEntry().calibration_standard.make_intrn();
+            if(save){
+                self.doc += temp.end_and_save();
+            }else{
+                self.doc += temp.end_no_save();
+            }
         }
         return self;
 
     };
 
-    self.make_cmol = function(qty){
+    self.make_addition = function(qty, save){
         for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().single.make_cmol().end();
+            var temp = new TestEntry().calibration_standard.make_addition();
+            if(save){
+                self.doc += temp.end_and_save();
+            }else{
+                self.doc += temp.end_no_save();
+            }
         }
         return self;
 
-    };
-
-    self.make_cgrav = function(qty){
-        for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().single.make_cgrav().end();
-        }
-        return self;
-
-    };
-    self.make_cvol = function(qty){
-        for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().single.make_cvol().end();
-        }
-        return self;
-
-    };
-
-    self.make_serdil = function(qty){
-        for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().dilution.make_serial_dilution().end();
-        }
-        return self;
-
-    };
-
-    self.make_ext = function(qty){
-        for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().calibration_standard.make_ext().end();
-        }
-        return self;
-
-
-    };
-
-    self.make_intrn = function(qty){
-        for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().calibration_standard.make_intrn().end();
-        }
-        return self;
-
-    };
-
-    self.make_addition = function(qty){
-        for(var i = 0; i < qty; i++){
-            self.doc += new TestEntry().calibration_standard.make_addition().end();
-        }
-        return self;
-
-    };
-
-    self.save_solution = function(){
-        self.doc += "<tr>\n" +
-            "\t<td>click</td>\n" +
-            "\t<td>id=saveSolutionButton</td>\n" +
-            "\t<td></td>\n" +
-            "</tr>";
-        return self;
     };
 
     self.make_all_solutions = function(qty){
 
         for(var i = 0; i < qty; i++){
-            self.make_solid(1);
-            self.make_grav(1);
-            self.make_vol(1);
-            self.make_cmol(1);
-            self.make_cgrav(1);
-            self.make_cvol(1);
+            self.make_solid(1, false);
+            self.make_grav(1, false);
+            self.make_vol(1, false);
+            self.make_cmol(1, false);
+            self.make_cgrav(1, false);
+            self.make_cvol(1, false);
         }
 
         return self;
     };
 
-    self.save_all_solutions = function(qty){
-
+    self.make_all_saveable_solutions = function(qty){
         for(var i = 0; i < qty; i++){
-            self.make_solid(1).save_solution();
-            self.make_grav(1).save_solution();
-            self.make_vol(1).save_solution();
-            self.make_cmol(1).save_solution();
-            self.make_cgrav(1).save_solution();
-            self.make_cvol(1).save_solution();
+            self.make_solid(1, true);
+            self.make_grav(1, true);
+            self.make_vol(1, true);
+            self.make_serdil(1, true);
+            self.make_all_calibs(1, true);
         }
 
         return self;
     };
 
-    self.make_all_calibs = function(qty){
+    self.make_all_calibs = function(qty, save){
         for(var i = 0; i < qty; i++) {
-            self.make_ext(1);
-            self.make_intrn(1);
-            self.make_addition(1);
+            self.make_ext(1, save);
+            self.make_intrn(1, save);
+            self.make_addition(1, save);
         }
 
         return self;

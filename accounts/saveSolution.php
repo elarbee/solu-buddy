@@ -32,7 +32,7 @@ if ($accountStatement) {
 
         if ($submission_type == 'single_liquid_vol') {
             $soluteDensity = $_POST['density'];
-            $volumeAdd = $_POST['volToAdd'];
+            $volumeAdd = $_POST['solute_volume'];
             $statement = mysqli_prepare($dbc, "INSERT INTO single_solution_liquid_vol VALUES (DEFAULT, ?,?,?,?,?,?,?,?)");
             mysqli_stmt_bind_param($statement, 'issddddd', $accountId, $solventId, $soluteId, $soluteWeight, $soluteDensity, $solutionVol, $solutionConc, $volumeAdd);
         } else {
