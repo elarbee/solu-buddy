@@ -150,6 +150,80 @@ function Field_To_Type(field){
     return field_to_type[field];
 }
 
+    var limits = {
+
+        'percent' : {
+            low : 0.0000001,
+            high : 100,
+            invalid_low : 0,
+            invalid_high : 101,
+            regex : /^-?\d+\.?\d*$/,
+            invalids : [NaN, undefined, Infinity, '']
+        },
+
+        'string' : {
+            low : 1,
+            high : 20,
+            invalid_low : 0,
+            invalid_high : 21,
+            regex : /^[a-zA-Z\d*]+$/,
+            invalids : [undefined, '', '???']
+        },
+
+        'compound' : {
+            low : 1,
+            high : 20,
+            invalid_low : 0,
+            invalid_high : 21,
+            invalids : [undefined, null, '']
+        },
+
+        'sm_volume' : {
+            low : 0.0000001,
+            high : 999999,
+            invalid_low : 0,
+            invalid_high : 1000000,
+            regex : /^-?\d+\.?\d*$/,
+            invalids : [NaN, undefined, Infinity, '']
+        },
+
+        'lrg_volume' : {
+            low : 0.0000001,
+            high : 999999,
+            invalid_low : 0,
+            invalid_high : 1000000,
+            regex : /^-?\d+\.?\d*$/,
+            invalids : [NaN, undefined, Infinity, '']
+        },
+
+        'mweight' : {
+            low : 0.0000001,
+            high : 999999,
+            invalid_low : 0,
+            invalid_high : 1000000,
+            invalids : [NaN, undefined, Infinity, '']
+        },
+
+        'number' : {
+            low : 0.0000001,
+            high : 999999,
+            invalid_low : 0,
+            invalid_high : 1000000,
+            invalids : [NaN, undefined, Infinity, '']
+        },
+
+        'iteration' : {
+            low : 1,
+            high : 25,
+            invalid_low : 0,
+            invalid_high : 26,
+            regex : /^-?[\d*]+$/,
+            invalids : [NaN, undefined, Infinity, '']
+        }
+    };
+
+
+
 function Page_To_Inputs(page){
     var page_to_inputs = {
         'SOLID' : ['solvent_formula'
@@ -233,12 +307,12 @@ function ValidatePage(page_name){
         page_name = $('#knownSelect').val();
     }
 
-    var max_flask_number = 25;
+    var max_flask_number = limits['iterations'].high;
 
     var fields_to_values = {};
 
     var error_messages = {
-        'number' : "Numbers should be in the correct format and greater than 0.",
+        'number' : "Numbers must be beteween ".concat(limits['number'].low+" ").concat("and").concat(" " + limits['number'].high),
         'compound' : "Solute compounds should be a valid chemical formula.",
         'string' : "Names should not contain any special characters.",
         'percent' : "The mass percent of your solute should be greater than 0% and at most 100%",
@@ -253,7 +327,7 @@ function ValidatePage(page_name){
 
     var class_verification = {
         'number' : function(fields, val){
-            var validator = new Validate(val).double().greater(0);
+            var validator = new Validate(val).double().between_including(limits['number'].low, limits['number'].high);
             if(validator.not()){
                 add_message(error_messages['number']);
             }

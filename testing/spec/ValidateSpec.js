@@ -169,6 +169,7 @@ describe("ValidatePage() Tests", function(){
             expect(valid).toEqual(false);
             input_fields = {};
 
+            
         });
 
     });
