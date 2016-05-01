@@ -49,7 +49,7 @@ function Validate(value){
      */
     self.double = function is_a_double(){
         self.and(!isNaN(self.val));
-        self.regex_test(/^-?\d+\.?\d*$/);
+        self.regex_test(/^-?\d*\.?\d+$/);
         check_for_error("Failed double test.");
         return self;
     };
