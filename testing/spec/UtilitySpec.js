@@ -210,5 +210,27 @@ describe("Utility Functions", function() {
 
         });
     });
+
+    describe('Verifying formula generation.', function(){
+
+        it('Should always generate valid formulas', function(){
+            var amount = 5000;
+            for(var i = 0; i < amount; i++){
+                expect(is_valid_formula(random_formula(1, 100))).toBe(true);
+            }
+        });
+
+    });
+    
+    describe('Verifying word generation', function(){
+       
+        it('Should always produce valid words', function(){
+            var amount = 5000;
+            
+            for(var i = 0; i < amount; i++){
+                expect(limits['string'].regex.test(random_word(1,20))).toEqual(true);
+            }
+        });
+    });
     
 });

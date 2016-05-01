@@ -128,23 +128,23 @@ function Field_To_Type(field){
         'internal_formula' : ['string'],
         'solute_formula' : ['compound'],
         'analyte_formula' : ['compound'],
-        'solution_concentration' : ['number'],
-        'solute_concentration' : ['number'],
-        'analyte_molarity' : ['number'],
-        'internal_molarity' : ['number'],
+        'solution_concentration' : ['number', 'molarity'],
+        'solute_concentration' : ['number', 'molarity'],
+        'analyte_molarity' : ['number', 'molarity'],
+        'internal_molarity' : ['number', 'molarity'],
         'solute_percent_mass' : ['number', 'percent'],
         'total_volume' : ['number','lrg_volume'],
         'flasksVolume' : ['number', 'lrg_volume'],
         'total_volume_standards' : ['number', 'lrg_volume'],
-        'solute_volume' : ['number', 'sm_volume'],
+        'solute_volume' : ['number', 'sm_volume', 'liquid_answer'],
         'volumeTransferred' : ['number', 'sm_volume'],
         'unknown_volume' : ['number', 'sm_volume'],
-        'massToAdd' : ['number'],
+        'massToAdd' : ['number', 'mass_answer'],
         'solute_molec_weight' : ['number', 'mweight'],
         'analyte_molec_weight' : ['number', 'mweight'],
         'density' : ['number'],
         'numDilutions' : ['number', 'iterations'],
-        'molaritySolution' : ['number'],
+        'molaritySolution' : ['number', 'molarity'],
         'num_standards' : ['number', 'iterations']
     };
 
@@ -219,6 +219,15 @@ function Field_To_Type(field){
             invalid_low : 0,
             invalid_high : 26,
             regex : /^-?[\d*]+$/,
+            invalids : [NaN, undefined, Infinity, '']
+        },
+
+        'molarity' : {
+            low : .00000001,
+            high : 25,
+            invalid_low : 0,
+            invalid_high : 25.00001,
+            regex : /^-?\d+\.?\d*$/,
             invalids : [NaN, undefined, Infinity, '']
         }
     };
@@ -302,6 +311,19 @@ function Page_To_Inputs(page){
     return page_to_inputs[page];
 }
 
+function find_tag(fields, tag_to_match){
+    for(var i = 0; i < fields.length; i++){
+        var tags = Field_To_Type(fields[i]);
+
+        for(var k = tags.length; k > -1; k--){
+            var temp_tag = tags[k];
+            if(temp_tag == tag_to_match){
+                return fields[i];
+            }
+        }
+    }
+    return null;
+}
 
 function ValidatePage(page_name){
 
@@ -310,8 +332,6 @@ function ValidatePage(page_name){
     }
 
     var fields_to_values = {};
-
-
     var class_verification = {
         'number' : function(fields, val){
             var validator = new Validate(val)
@@ -320,6 +340,17 @@ function ValidatePage(page_name){
                 .between_including(limits['number'].low, limits['number'].high);
             if(validator.not()){
                 add_message(error_messages['number']);
+            }
+            return validator.is();
+        },
+
+        'molarity' : function(fields, val){
+            var validator = new Validate(val)
+                .not_zero()
+                .double()
+                .between_including(limits['molarity'].low, limits['molarity'].high);
+            if(validator.not()){
+                add_message(error_messages['molarity']);
             }
             return validator.is();
         },
@@ -356,7 +387,7 @@ function ValidatePage(page_name){
 
         'percent' : function(fields, val){
             var valid = class_verification['number'](fields, val);
-            if(valid){
+            if(!isNaN(val)){
                 if(val > 100 || val <= 0) {
                     add_message(error_messages['percent']);
                     valid = false;
@@ -444,21 +475,10 @@ function ValidatePage(page_name){
                 .concat(" and incorrect.").concat(" You are off by ").concat(error+".");
             },
         'iterations' : "Total number of flasks may not exceed ".concat(limits['iterations'].high+"").concat(" and must be at least")
-                .concat(limits['iterations'].low+".")
+                .concat(limits['iterations'].low+"."),
+        'molarity' : "Total number of flasks may not exceed ".concat(limits['molarity'].high+"").concat(" and must be at least")
+                .concat(limits['molarity'].low+".")
     };
-
-    function find_tag(fields, tag_to_match){
-        for(var i = 0; i < fields.length; i++){
-            var tags = Field_To_Type(fields[i]);
-            for(var k = 0; k < tags.length; k++){
-                var temp_tag = tags[k];
-                if(temp_tag == tag_to_match){
-                    return fields[i];
-                }
-            }
-        }
-        return null;
-    }
 
     var accepted_percent_error = 2;
 
@@ -477,23 +497,9 @@ function ValidatePage(page_name){
             // fields_to_values[fields[k]+''] = document.getElementById(fields[k]).value;
         }
         console.log(fields_to_values);
-        //
-        // for(var i = 0; i < fields.length; i++){
-        //     var input_classes = Field_To_Type(fields[i]);
-        //     console.log(input_classes);
-        //     for(var c = 0; c < input_classes.length; c++){
-        //
-        //         console.log(input_classes[c]);
-        //         console.log(fields_to_values[fields[i]]);
-        //         console.log(fields);
-        //         valid = valid && class_verification[input_classes[c]](fields, fields_to_values[fields[i]]);
-        //     }
-        // }
 
         fields.forEach(function(el, i,  arr){
-
             var input_classes = Field_To_Type(el);
-
             input_classes.forEach(function(elem, idx, arr2){
                 valid = valid && class_verification[elem](fields, fields_to_values[el]);
             });
@@ -512,15 +518,25 @@ function ValidatePage(page_name){
         var valid = true;
         var fields = Page_To_Inputs(page_name);
 
-
-        fields.forEach(function(el, i, arr){
+        fields.forEach(function(el, i,  arr){
 
             var input_classes = Field_To_Type(el);
 
             input_classes.forEach(function(elem, idx, arr2){
-                valid = valid && class_verification[elem](fields, fields_to_values[el]);
+                // if(elem != 'mass_answer' && elem != 'liquid_answer'){
+                try {
+                    valid = valid && class_verification[elem](fields, fields_to_values[el]);
+                }catch(ex){
+                    console.log(page_name);
+                    console.log(el + ' input class ' + elem);
+                    console.log('val = ' + fields_to_values[el]);
+                    ex.error;
+                }
+                // }
             });
         });
+
+        fields_to_values = {};
 
         return valid;
     };

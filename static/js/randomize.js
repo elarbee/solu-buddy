@@ -63,7 +63,7 @@ function random_formula(low, high){
     var formula = "";
 
     if(roll_dice(50, 100)){
-        formula += random_int(2, 1000);
+        formula += random_int(2, 20);
     }
 
     for(var i = 0; i < length; i++){
@@ -71,7 +71,7 @@ function random_formula(low, high){
         formula += getRandomElementKey();
 
         if(roll_dice(50, 100)){
-            formula += random_int(2, 99);
+            formula += random_int(2, 30);
         }
         i = formula.length;
     }
@@ -199,47 +199,230 @@ function random_valid_field_val(field, solute){
     return random_valid_field_vals[interesting_class](solute);
 }
 
-function random_invalid_field_val(field, solute){
 
-    //Gets last and most specific class per field.
-    var interesting_class = Field_To_Type(field)[Field_To_Type(field).length - 1];
+var make_invalid = {
+    'number' : function(){
+        return random_double(-1000, 0);
+    },
 
-    var random_valid_field_vals = {
+    'string' : function(){
+        return random_shitstorm(0, 30);
+    },
 
-        'number' : function(){
-            return random_double(-1000, 0);
-        },
+    'compound' : function(){
+        return '';
+    },
 
-        'string' : function(){
-            return random_shitstorm(0, 30);
-        },
+    'sm_volume' : function(){
+        return random_double(-999, -.00001);
+    },
 
-        'compound' : function(){
-            return random_formula_w_ionic(20, 0, 10);
-        },
+    'lrg_volume' : function(){
+        return random_double(-1000, -2000);
+    },
 
-        'sm_volume' : function(){
-            return random_double(-999, 555);
-        },
+    'percent' : function(){
+        return random_choose(random_double(-10, 0), random_double(100.01, 110));
+    },
 
-        'lrg_volume' : function(){
-            return random_double(-1000, -2000);
-        },
+    'mweight' : function(){
+        return '';
+    },
 
-        'percent' : function(){
-            return random_choose(random_double(-10, 0), random_double(100.01, 110));
-        },
+    'iterations' : function(){
+        return random_choose(random_int(-5, 0), random_int(26, 50));
+    },
 
-        'mweight' : function(solute){
-            var compound = string_to_compound(solute);
+    'molarity' : function(){
+        return random_choose(random_double(-10, 0), random_double(25.00001, 110));
+    }
+};
 
-            return (compound != null)? compound.molecular_weight() : null;
-        },
+var random_valid_vals = {
 
-        'iterations' : function(){
-            return random_choose(random_int(-5, 0), random_int(26, 50));
+    'number' : function(){
+        return random_double(limits['number'].low, limits['number'].high);
+    },
+
+    'string' : function(){
+        return random_word(limits['string'].low, limits['string'].high);
+    },
+
+    'compound' : function(){
+        return random_formula(limits['compound'].low, limits['compound'].high);
+    },
+
+    'sm_volume' : function(lrg_vol){
+        return random_double(limits['sm_volume'].low, (lrg_vol == 0)? limits['sm_volume'].high : lrg_vol - .00001);
+    },
+
+    'lrg_volume' : function(){
+        return random_double(limits['lrg_volume'].low, limits['lrg_volume'].high);
+    },
+
+    'percent' : function(){
+        return random_double(limits['percent'].low, limits['percent'].high);
+    },
+
+    'mweight' : function(solute){
+        var compound = string_to_compound(solute);
+        return (compound != null)? compound.molecular_weight() : null;
+    },
+
+    'iterations' : function(){
+        return random_int(limits['iterations'].low, limits['iterations'].high);
+    },
+
+    'mass_answer' : function(solute, mol, vol, mpercent){
+        var answ = SingleSolution(mol, vol, string_to_compound(solute).molecular_weight()).solid();
+        if(mpercent > 0){
+            answ *= (mpercent/100);
         }
-    };
+        return answ;
+    },
 
-    return random_valid_field_vals[interesting_class](solute);
+    'liquid_answer' : function(solute, mol, vol, density, mpercent){
+        var answ = new SingleSolution(mol, vol, string_to_compound(solute).molecular_weight()).liquid.volume(density);
+        if(mpercent > 0){
+            answ = new SingleDilution(mol, vol).vol_transfer(string_to_compound(solute), mpercent, density);
+        }
+        return answ;
+    },
+
+    'molarity' : function(){
+        return random_double(limits['molarity'].low, limits['molarity'].high);
+    }
+};
+
+function random_field_vals(fields, guaranteed_invalids){
+
+    var fields_to_vals = {};
+
+    if(contains(find_tag(fields, 'mass_answer'), fields)){
+        var total_vol_field = find_tag(fields, 'lrg_volume');
+        var solute_field = find_tag(fields, 'compound');
+        var mol_field = 'solution_concentration';
+        var solvent_field = 'solvent_formula';
+
+        fields_to_vals[total_vol_field] = random_valid_vals['lrg_volume']();
+        fields_to_vals[solute_field] = random_valid_vals['compound']();
+        fields_to_vals[mol_field] = random_double(.0001, 20);
+        fields_to_vals[solvent_field] = random_valid_vals['string']();
+
+        var massp = 0;
+        //for concentrated stuff
+        var massp_field = find_tag(fields, 'percent');
+        if(contains(massp_field, fields)){
+            fields_to_vals[massp_field] = random_valid_vals['percent']();
+            massp = fields_to_vals[massp_field];
+        }
+
+
+        var mweight_field = find_tag(fields, 'mweight');
+        if(contains(mweight_field, fields)){
+            fields_to_vals[mweight_field] = random_valid_vals['mweight'](fields_to_vals[solute_field]);
+        }
+
+        fields_to_vals[find_tag(fields, 'mass_answer')] =
+            random_valid_vals['mass_answer'](
+                fields_to_vals[solute_field],
+                fields_to_vals[mol_field],
+                fields_to_vals[total_vol_field],
+                massp);
+    }
+
+    else if(contains(find_tag(fields, 'liquid_answer'), fields)){
+
+        var total_vol_field = find_tag(fields, 'lrg_volume');
+        var solute_field = find_tag(fields, 'compound');
+        var mol_field = 'solution_concentration';
+        var solvent_field = 'solvent_formula';
+        var density_field = 'density';
+
+        fields_to_vals[total_vol_field] = random_valid_vals['lrg_volume']();
+        fields_to_vals[solute_field] = random_valid_vals['compound']();
+        fields_to_vals[mol_field] = random_double(.0001, 20);
+        fields_to_vals[solvent_field] = random_valid_vals['string']();
+        fields_to_vals[density_field] = random_double(.5, 20);
+
+        var massp = 0;
+        //for concentrated stuff
+        var massp_field = find_tag(fields, 'percent');
+
+        if(contains(massp_field, fields)){
+            fields_to_vals[massp_field] = random_valid_vals['percent']();
+            massp = fields_to_vals[massp_field];
+        }
+
+        var mweight_field = find_tag(fields, 'mweight');
+        if(contains(mweight_field, fields)){
+            fields_to_vals[mweight_field] = random_valid_vals['mweight'](fields_to_vals[solute_field]);
+        }
+
+        var solute_mol_field = 'solute_concentration';
+
+        if(contains(solute_mol_field, fields)){
+            fields_to_vals[solute_mol_field] = random_double(.00001, 20);
+
+            fields_to_vals[find_tag(fields, 'liquid_answer')] =
+                new SingleDilution(
+                    fields_to_vals[mol_field],
+                    fields_to_vals[total_vol_field],
+                    fields_to_vals[solute_mol_field]
+                );
+        }else {
+
+            fields_to_vals[find_tag(fields, 'liquid_answer')] =
+                random_valid_vals['liquid_answer'](
+                    fields_to_vals[solute_field],
+                    fields_to_vals[mol_field],
+                    fields_to_vals[total_vol_field],
+                    fields_to_vals[density_field],
+                    massp);
+        }
+    }
+
+    else{
+
+        var lrg_vol = find_tag(fields, 'lrg_volume');
+        if(lrg_vol != null){
+            fields_to_vals[lrg_vol] = random_valid_vals['lrg_volume']();
+        }
+        if(find_tag(fields, 'mweight') != null){
+            fields_to_vals[find_tag(fields, 'compound')] = random_valid_vals['compound']();
+            fields_to_vals[find_tag(fields, 'mweight')] = random_valid_vals['mweight'](fields_to_vals[find_tag(fields, 'compound')]);
+        }
+
+        fields.forEach(function(field, i, arr){
+
+            var type = Field_To_Type(field)[Field_To_Type(field).length - 1];
+
+            if(field != lrg_vol && field != find_tag(fields, 'mweight')  && field != find_tag(fields, 'compound')){
+               if(field == find_tag(fields, 'sm_volume')){
+                   fields_to_vals[field] = random_valid_vals['sm_volume'](fields_to_vals[lrg_vol]);
+               }
+               fields_to_vals[field] = random_valid_vals[type]();
+           }
+        });
+    }
+
+    guaranteed_invalids.forEach(function(invalid_type, k, arr){
+
+        fields.forEach(function(f, i, arr2){
+
+            if(contains(invalid_type, Field_To_Type(f))){
+                if(invalid_type == 'mass_answer'
+                    || invalid_type == 'liquid_answer'
+                    || invalid_type == 'mweight'){
+
+                    fields_to_vals[f] *= .9;
+                }
+                fields_to_vals[f] = make_invalid[invalid_type]();
+            }
+
+        });
+
+    });
+
+    return fields_to_vals;
 }

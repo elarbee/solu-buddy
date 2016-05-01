@@ -51,6 +51,16 @@ function find_min(arr){
     }
 }
 
+function contains(a, obj) {
+    var i = obj.length;
+    while (i--) {
+        if (obj[i] === a) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /**
  * Calculates the % error between two numbers.
  *

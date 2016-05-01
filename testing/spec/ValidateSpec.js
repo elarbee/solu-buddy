@@ -4,7 +4,6 @@
 
 describe("Validate", function() {
 
-
     it("Should initiate correctly", function() {
         expect(new Validate("").is()).toEqual(false);
 
@@ -59,10 +58,13 @@ describe("Validate", function() {
         expect(new Validate("5550").between_including(5000, 6000).is()).toEqual(true);
     });
 
-    it("Testing", function(){
-        var int = "5";
-        expect(new Validate(int).integer().between_including(0,10).is()).toEqual(true);
-        console.log(new Validate("dasfdsafaf3").only_letters().error);
+    it("Should validate whether a number is greater than another.", function(){
+        expect(new Validate("oops").greater(5).not()).toBe(true);
+        expect(new Validate(NaN).greater(5).not()).toBe(true);
+        expect(new Validate(Infinity).greater(5).is()).toBe(true);
+        expect(new Validate(10).greater(5).is()).toBe(true);
+        expect(new Validate(-5).greater(5).not()).toBe(true);
+
     });
 
 
@@ -78,6 +80,8 @@ describe("ValidatePage() Tests", function(){
             random_shitstorm(50, 100) //no fields should accept this
             ];
 
+    var all_types = Object.keys(limits);
+
     var page_names = ['SOLID', 'VOLU', 'GRAV',
         'CONC_MOL', 'CONC_GRAV', 'CONC_VOL',
         'SERIAL', 'EXTERNAL', 'INTERNAL', 'ADDITION'];
@@ -85,7 +89,7 @@ describe("ValidatePage() Tests", function(){
     it("It should reject pages with only invalid elements.", function(){
 
         var test_amount = 50;
-
+        var test_count = 0;
         page_names.forEach(function(el, idx, arr){
             for(var i = 0; i < test_amount; i++){
                 var input_fields = Page_To_Inputs(el);
@@ -94,84 +98,112 @@ describe("ValidatePage() Tests", function(){
                    input_vals[field] = invalid_elements[random_int(0, invalid_elements.length)];
                 });
 
-                expect(new ValidatePage(el).test_page(input_fields)).toEqual(false);
+
+                test_count++;
+                var start = window.performance.now();
+                var validate = new ValidatePage(el);
+                var valid = validate.test_page(input_fields);
+                var time = window.performance.now() - start;
+
+                if (valid) {
+                    console.log(test_count + " time taken = " + time);
+                    console.log(p + " expected " + !valid);
+                    console.log(input_fields);
+                    console.log(validate.error_message);
+                }
+
+                expect(valid).toEqual(false);
+
             }
         });
     });
 
-    it("It should reject pages with some valid elements and some invalid.", function(){
 
-        var test_amount = 20;
-        var test_count = 0;
-        for(var t = 0; t < test_amount; t++) {
-            page_names.forEach(function (el, idx, arr) {
-
-                for (var o in invalid_elements) {
-
-                    var fields = Page_To_Inputs(el);
-                    var input_fields = {};
-                    var solute = random_formula_w_ionic(20, 1, 10);
-
-                    for (var l in fields) {
-                        for (var k in fields) {
-
-                            input_fields[fields[k]] = random_choose(
-                                random_valid_field_val(fields[k], solute),
-                                invalid_elements[o]
-                            );
-
-                        }
-                        input_fields[fields[1]] = solute;
-
-                        input_fields[fields[random_int(0, fields.length)]] = invalid_elements[random_int(0, invalid_elements.length)];
-
-                        test_count++;
-                        var start = window.performance.now();
-                        var valid = new ValidatePage(el).test_page(input_fields);
-                        var time = window.performance.now() - start;
-
-                        if (valid) {
-                            console.log(test_count + " time taken = " + time);
-                            console.log(input_fields);
-                        }
-                        expect(valid).toEqual(false);
-                        input_fields = {};
-                    }
-                }
-            });
-        }
-    });
 
     it("It should reject pages with values covering all invalid zones", function(){
 
         var test_amount = 50;
         var test_count = 0;
 
-        page_names.forEach(function(p, i, arr){
+        var types_to_test = random_types();
 
-            var fields = Page_To_Inputs(p);
-            var input_fields = {};
 
-            var solute = random_formula_w_ionic(20, 0, 10);
+        for(var i = 0; i < test_amount; i++){
+            types_to_test = random_types();
+            page_names.forEach(function(p, i, arr){
 
-            fields.forEach(function(f, i2, arr2){
-                input_fields[f] = random_invalid_field_val(f, solute);
+                var fields = Page_To_Inputs(p);
+                var input_fields = random_field_vals(fields, types_to_test);
+
+                test_count++;
+                var start = window.performance.now();
+                var validate = new ValidatePage(p);
+                var valid = validate.test_page(input_fields);
+                var time = window.performance.now() - start;
+
+                if(contains(find_tag(fields, 'mass_answer'), fields) || contains(find_tag(fields, 'liquid_answer'), fields)){
+                    if(input_fields[find_tag(fields, 'mass_answer')] > limits['number'].high
+                        || input_fields[find_tag(fields, 'liquid_answer')] > limits['number'].high){
+                        expect(valid).toEqual(false);
+                    }
+                }else{
+
+                    if ((valid && types_to_test.length > 0)
+                        || !valid && types_to_test.length == 0) {
+                        console.log(test_count + " time taken = " + time);
+                        console.log(p + " expected " + !valid);
+                        console.log(input_fields);
+                        console.log(validate.error_message);
+
+                        console.log("===================================================");
+                        console.log(types_to_test);
+                        console.log("===================================================");
+
+                    }
+
+                    if(types_to_test.length > 0 && !types_to_test.forEach(function(el,i,ar){ return !contains(ar, el)})){
+                        expect(valid).toEqual(false);
+                    }else{
+                        expect(valid).toEqual(true);
+                    }
+                }
             });
+            types_to_test = random_types();
+        }
 
-            test_count++;
-            var start = window.performance.now();
-            var valid = new ValidatePage(p).test_page(input_fields);
-            var time = window.performance.now() - start;
-
-            if (valid) {
-                console.log(test_count + " time taken = " + time);
-                console.log(input_fields);
-            }
-            expect(valid).toEqual(false);
-            input_fields = {};
-
-
-        });
 
     });
+
+    function random_types(){
+        var len = random_int(0, all_types.length);
+        var types_to_test = [];
+        for(var r = 0; r < len; r++){
+            types_to_test.push(all_types[random_int(0, all_types.length)]);
+        }
+        return types_to_test;
+    }
+
+    // describe('Testing random entry generation.', function(){
+    //
+    //     it('Might be working', function(){
+    //         var amount = 5;
+    //
+    //         for(var i = 0; i < amount; i++){
+    //
+    //             page_names.forEach(function(page, i, arr){
+    //
+    //                 var random_answers = random_field_vals(Page_To_Inputs(page), ['percent', 'string']);
+    //                 var fields = Page_To_Inputs(page);
+    //
+    //                 for(var k = 0; k < fields.length; k++){
+    //                     console.log(fields[k] + " = " + random_answers[fields[k]]);
+    //                 }
+    //                 // console.log("random answers "+page+": " + random_answers);
+    //                 //
+    //                 // console.log(random_answers['solvent_formula']);
+    //             });
+    //
+    //         }
+    //     });
+    // });
 });
