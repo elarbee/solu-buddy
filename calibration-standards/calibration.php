@@ -11,6 +11,7 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 <head>
     
     <?php include '../script-includes.html'; ?>
+    <script src="/static/js/validate.js"></script>
     <script src="calibrationPage.js"></script>
     <script src="../static/js/formula.js"></script>
     <script src="../static/js/elements.js"></script>
