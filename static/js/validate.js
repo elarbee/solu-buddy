@@ -331,8 +331,10 @@ function ValidatePage(page_name){
                     .between_including(limits['compound'].low, limits['compound'].high)
                     .and(is_valid_formula(val));
             }else{
+                add_message(error_messages['compound']);
                 return false;
             }
+
             var valid = validator.is();
             if(!valid){
                 add_message(error_messages['compound']);
