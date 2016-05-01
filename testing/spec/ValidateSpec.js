@@ -131,7 +131,7 @@ describe("ValidatePage() Tests", function(){
             page_names.forEach(function(p, i, arr){
 
                 var fields = Page_To_Inputs(p);
-                var input_fields = vals(p, types_to_test);
+                var input_fields = vals(p);
 
                 test_count++;
                 var start = window.performance.now();
@@ -139,7 +139,11 @@ describe("ValidatePage() Tests", function(){
                 var valid = validate.test_page(input_fields);
                 var time = window.performance.now() - start;
 
+                expect(valid).toEqual(true);
+
                 if(contains(find_tag(fields, 'mass_answer'), fields) || contains(find_tag(fields, 'liquid_answer'), fields)){
+
+
                     if(input_fields[find_tag(fields, 'mass_answer')] > limits['number'].high
                         || input_fields[find_tag(fields, 'liquid_answer')] > limits['number'].high){
                         expect(valid).toEqual(false);
@@ -148,7 +152,7 @@ describe("ValidatePage() Tests", function(){
 
                     if ((valid && types_to_test.length > 0)
                         || !valid && types_to_test.length == 0
-                        || (types_to_test.length > 0 && !types_to_test.every(function(el){
+                        || (types_to_test.length > 0 && !types_to_test.some(function(el){
                             return !contains(fields, el)}))) {
                         console.log(test_count + " time taken = " + time);
                         console.log(p + " expected " + !valid);
@@ -161,11 +165,13 @@ describe("ValidatePage() Tests", function(){
 
                     }
 
-                    if(types_to_test.length > 0 && !types_to_test.every(function(el){
-                            return !contains(fields, el)})){
+                    if(types_to_test.length > 0 && types_to_test.some(function(el){
+                            return contains(el, fields)})){
                         expect(valid).toEqual(false);
-                    }else{
-                        expect(valid).toEqual(true);
+                    }else if (!types_to_test.some(function(el){
+                            return contains(el, fields);
+                        })){
+                        //expect(valid).toEqual(true);
                     }
                 }
             });
@@ -176,7 +182,7 @@ describe("ValidatePage() Tests", function(){
     });
 
     function random_types(){
-        var len = random_int(0, all_types.length);
+        var len = random_int(0, 0);
         var types_to_test = [];
         for(var r = 0; r < len; r++){
             types_to_test.push(all_types[random_int(0, all_types.length)]);

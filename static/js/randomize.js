@@ -310,19 +310,20 @@ function vals(page, forced_invalids){
             values['density'] || '');
     });
 
-    forced_invalids.forEach(function(invalid_type){
 
-        fields.forEach(function(f){
-            if(contains(invalid_type, Field_To_Type(f))){
-                if(invalid_type == 'mass_answer'
-                    || invalid_type == 'liquid_answer'
-                    || invalid_type == 'mweight'){
-                    values[f] *= .9;
-                }
-                values[f] = make_invalid[invalid_type]();
-            }
-        });
-    });
+    // forced_invalids.forEach(function(invalid_type){
+    //
+    //     fields.forEach(function(f){
+    //         if(contains(invalid_type, Field_To_Type(f))){
+    //             if(invalid_type == 'mass_answer'
+    //                 || invalid_type == 'liquid_answer'
+    //                 || invalid_type == 'mweight'){
+    //                 values[f] *= .9;
+    //             }
+    //             values[f] = make_invalid[invalid_type]();
+    //         }
+    //     });
+    // });
     return values;
 }
 
