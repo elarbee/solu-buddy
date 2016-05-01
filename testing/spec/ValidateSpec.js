@@ -6,7 +6,6 @@ describe("Validate", function() {
 
     it("Should initiate correctly", function() {
         expect(new Validate("").is()).toEqual(false);
-
     });
 
     it("Should be able to use and(val) correctly", function() {
@@ -127,13 +126,12 @@ describe("ValidatePage() Tests", function(){
 
         var types_to_test = random_types();
 
-
         for(var i = 0; i < test_amount; i++){
             types_to_test = random_types();
             page_names.forEach(function(p, i, arr){
 
                 var fields = Page_To_Inputs(p);
-                var input_fields = random_field_vals(fields, types_to_test);
+                var input_fields = vals(p, types_to_test);
 
                 test_count++;
                 var start = window.performance.now();
@@ -149,7 +147,9 @@ describe("ValidatePage() Tests", function(){
                 }else{
 
                     if ((valid && types_to_test.length > 0)
-                        || !valid && types_to_test.length == 0) {
+                        || !valid && types_to_test.length == 0
+                        || (types_to_test.length > 0 && !types_to_test.every(function(el){
+                            return !contains(fields, el)}))) {
                         console.log(test_count + " time taken = " + time);
                         console.log(p + " expected " + !valid);
                         console.log(input_fields);
@@ -161,7 +161,8 @@ describe("ValidatePage() Tests", function(){
 
                     }
 
-                    if(types_to_test.length > 0 && !types_to_test.forEach(function(el,i,ar){ return !contains(ar, el)})){
+                    if(types_to_test.length > 0 && !types_to_test.every(function(el){
+                            return !contains(fields, el)})){
                         expect(valid).toEqual(false);
                     }else{
                         expect(valid).toEqual(true);

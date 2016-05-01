@@ -155,51 +155,6 @@ function random_choose(val1, val2){
     }
 }
 
-function random_valid_field_val(field, solute){
-
-    //Gets last and most specific class per field.
-    var interesting_class = Field_To_Type(field)[Field_To_Type(field).length - 1];
-
-    var random_valid_field_vals = {
-
-        'number' : function(){
-            return random_double(limits['number'].low, limits['number'].high);
-        },
-
-        'string' : function(){
-            return random_word(limits['string'].low, limits['string'].high);
-        },
-
-        'compound' : function(){
-            return solute;
-        },
-
-        'sm_volume' : function(){
-            return random_double(limits['sm_volume'].low, limits['sm_volume'].high);
-        },
-
-        'lrg_volume' : function(){
-            return random_double(limits['lrg_volume'].low, limits['lrg_volume'].high);
-        },
-
-        'percent' : function(){
-            return random_double(limits['percent'].low, limits['percent'].high);
-        },
-
-        'mweight' : function(solute){
-            var compound = string_to_compound(solute);
-            return (compound != null)? compound.molecular_weight() : null;
-        },
-
-        'iterations' : function(){
-            return random_int(limits['iterations'].low, limits['iterations'].high);
-        }
-    };
-
-    return random_valid_field_vals[interesting_class](solute);
-}
-
-
 var make_invalid = {
     'number' : function(){
         return random_double(-1000, 0);
@@ -235,6 +190,9 @@ var make_invalid = {
 
     'molarity' : function(){
         return random_choose(random_double(-10, 0), random_double(25.00001, 110));
+    },
+    'smolarity' : function(){
+        return random_choose(random_double(-10, 0), random_double(25.00001, 110));
     }
 };
 
@@ -253,7 +211,7 @@ var random_valid_vals = {
     },
 
     'sm_volume' : function(lrg_vol){
-        return random_double(limits['sm_volume'].low, (lrg_vol == 0)? limits['sm_volume'].high : lrg_vol - .00001);
+        return random_double(limits['sm_volume'].low, lrg_vol - .00001 || limits['sm_volume'].high );
     },
 
     'lrg_volume' : function(){
@@ -281,7 +239,7 @@ var random_valid_vals = {
         return answ;
     },
 
-    'liquid_answer' : function(solute, mol, vol, density, mpercent){
+    'liquid_answer' : function(solute, mol, vol, mpercent, density){
         var answ = new SingleSolution(mol, vol, string_to_compound(solute).molecular_weight()).liquid.volume(density);
         if(mpercent > 0){
             answ = new SingleDilution(mol, vol).vol_transfer(string_to_compound(solute), mpercent, density);
@@ -291,8 +249,82 @@ var random_valid_vals = {
 
     'molarity' : function(){
         return random_double(limits['molarity'].low, limits['molarity'].high);
+    },
+
+    'smolarity' : function(){
+        return random_double(limits['molarity'].low, limits['molarity'].high);
     }
 };
+
+function vals(page, forced_invalids){
+    
+    var values = {};
+    var fields = Page_To_Inputs(page);
+    var ordered_fields = [];
+
+    if(fields === undefined){
+        console.log(page);
+    }
+    ordered_fields = ordered_fields.concat(fields.filter(function(el){
+        var types = Field_To_Type(el);
+        return types.indexOf('compound') > -1;
+        }),
+        fields.filter(function(el, i, arr){
+            var types = Field_To_Type(el);
+            return types.indexOf('lrg_volume') > -1;
+        }),
+        fields.filter(function(el, i, arr){
+            var types = Field_To_Type(el);
+            return types.indexOf('mweight') > -1;
+        }),
+        fields.filter(function(el, i, arr){
+            var types = Field_To_Type(el);
+            return types.indexOf('liquid_answer') == -1
+                && types.indexOf('mass_answer') == -1
+                && types.indexOf('lrg_volume') == -1
+                && types.indexOf('mweight') == -1
+                && types.indexOf('compound') == -1;
+        }),
+        fields.filter(function(el, i, arr){
+            var types = Field_To_Type(el);
+            return types.indexOf('liquid_answer') > -1
+                || types.indexOf('mass_answer') > -1;
+        }));
+
+    ordered_fields.forEach(function(field){
+
+        if(field == find_tag(fields, 'liquid_answer')){
+            if(contains(find_tag(fields, 'smolarity'), fields)){
+                values[field] = new SingleDilution(
+                    find_tag(fields, 'molarity'),
+                    find_tag(fields, 'lrg_volume'))
+                    .solute_volume(find_tag(fields, 'smolarity'));
+            }
+        }
+        var type = Field_To_Type(field)[(Field_To_Type(field).length - 1 < 0)? 0 : Field_To_Type(field).length - 1];
+        values[field] = random_valid_vals[type](
+            (Field_To_Type(field) == 'sm_volume') ? values[find_tag(fields, 'lrg_volume')] || '' : random_valid_vals['compound']() ,
+            values[find_tag(fields, 'molarity')] || '',
+            values[find_tag(fields, 'lrg_volume')] || '',
+            values[find_tag(fields, 'percent')] || '',
+            values['density'] || '');
+    });
+
+    forced_invalids.forEach(function(invalid_type){
+
+        fields.forEach(function(f){
+            if(contains(invalid_type, Field_To_Type(f))){
+                if(invalid_type == 'mass_answer'
+                    || invalid_type == 'liquid_answer'
+                    || invalid_type == 'mweight'){
+                    values[f] *= .9;
+                }
+                values[f] = make_invalid[invalid_type]();
+            }
+        });
+    });
+    return values;
+}
 
 function random_field_vals(fields, guaranteed_invalids){
 

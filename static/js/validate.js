@@ -129,8 +129,8 @@ function Field_To_Type(field){
         'solute_formula' : ['compound'],
         'analyte_formula' : ['compound'],
         'solution_concentration' : ['number', 'molarity'],
-        'solute_concentration' : ['number', 'molarity'],
-        'analyte_molarity' : ['number', 'molarity'],
+        'solute_concentration' : ['number', 'smolarity'],
+        'analyte_molarity' : ['number', 'smolarity'],
         'internal_molarity' : ['number', 'molarity'],
         'solute_percent_mass' : ['number', 'percent'],
         'total_volume' : ['number','lrg_volume'],
@@ -223,6 +223,15 @@ function Field_To_Type(field){
         },
 
         'molarity' : {
+            low : .00000001,
+            high : 25,
+            invalid_low : 0,
+            invalid_high : 25.00001,
+            regex : /^-?\d+\.?\d*$/,
+            invalids : [NaN, undefined, Infinity, '']
+        },
+
+        'smolarity' : {
             low : .00000001,
             high : 25,
             invalid_low : 0,
@@ -355,6 +364,17 @@ function ValidatePage(page_name){
             return validator.is();
         },
 
+        'smolarity' : function(fields, val){
+            var validator = new Validate(val)
+                .not_zero()
+                .double()
+                .between_including(limits['molarity'].low, limits['molarity'].high);
+            if(validator.not()){
+                add_message(error_messages['molarity']);
+            }
+            return validator.is();
+        },
+
         'compound' : function(fields, val){
             if(is_valid_formula(val)){
                 var validator = new Validate(val.length)
@@ -401,7 +421,7 @@ function ValidatePage(page_name){
             var validator = new Validate(lg_vol)
                 .double()
                 .not_zero()
-                .between_including(limits['lrg_volume'].low, limits['lrg_volume'].high)
+                .between_including(limits['sm_volume'].low, limits['sm_volume'].high)
                 .and(!(val >= lg_vol));
 
             if(validator.not()){
@@ -477,6 +497,8 @@ function ValidatePage(page_name){
         'iterations' : "Total number of flasks may not exceed ".concat(limits['iterations'].high+"").concat(" and must be at least")
                 .concat(limits['iterations'].low+"."),
         'molarity' : "Total number of flasks may not exceed ".concat(limits['molarity'].high+"").concat(" and must be at least")
+                .concat(limits['molarity'].low+"."),
+        'smolarity' : "Total number of flasks may not exceed ".concat(limits['molarity'].high+"").concat(" and must be at least")
                 .concat(limits['molarity'].low+".")
     };
 
