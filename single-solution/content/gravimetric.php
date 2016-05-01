@@ -69,7 +69,6 @@
 				}
 			?>
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><button type="button" onclick="" class="howButton">How do I calculate this?</button></div>
 		</div>
 	</div>
 	</div>
