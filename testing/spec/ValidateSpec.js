@@ -99,6 +99,14 @@ describe("ValidatePage() Tests", function(){
         });
     });
 
+    it("Should reject specific test cases", function(){
+
+        
+
+
+    });
+
+    
     it("It should reject pages with some valid elements and some invalid.", function(){
 
         var test_amount = 20;
@@ -140,38 +148,5 @@ describe("ValidatePage() Tests", function(){
                 }
             });
         }
-    });
-
-    it("It should reject pages with values covering all invalid zones", function(){
-
-        var test_amount = 50;
-        var test_count = 0;
-
-        page_names.forEach(function(p, i, arr){
-
-            var fields = Page_To_Inputs(p);
-            var input_fields = {};
-
-            var solute = random_formula_w_ionic(20, 0, 10);
-
-            fields.forEach(function(f, i2, arr2){
-                input_fields[f] = random_invalid_field_val(f, solute);
-            });
-
-            test_count++;
-            var start = window.performance.now();
-            var valid = new ValidatePage(p).test_page(input_fields);
-            var time = window.performance.now() - start;
-
-            if (valid) {
-                console.log(test_count + " time taken = " + time);
-                console.log(input_fields);
-            }
-            expect(valid).toEqual(false);
-            input_fields = {};
-
-
-        });
-
     });
 });

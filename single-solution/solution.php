@@ -121,8 +121,11 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <div class="stuffContainer">
         <div class="stepsTexBox" id="steps_div">
         </div>
-        <button id="saveSolutionButton" type="button">Save Solution</button>
-
+        <?php
+            if($_GET['value'] != $GLOBALS['CONCENTRATED']){
+                echo '<button id="saveSolutionButton" type="button">Save Solution</button>';
+            }
+        ?>
         <button type="button" onclick="">Print Solution</button>
 
     </div>
@@ -135,16 +138,21 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     ?>
 </form>
 <script>
-    var submit_button = $('#saveSolutionButton');
-    submit_button.on('click', function (event) {
-        $.ajax({
-            url: '/accounts/saveSolution.php',
-            data: $('input, select, textarea', '#solutionForm').serializeArray(),
-            method: 'post'
-        }).then(function(data){
-            submit_button.text(data);
+
+    if(location.search.split('value=')[1] != 'CONC'){
+
+        var submit_button = $('#saveSolutionButton');
+        submit_button.on('click', function (event) {
+            $.ajax({
+                url: '/accounts/saveSolution.php',
+                data: $('input, select, textarea', '#solutionForm').serializeArray(),
+                method: 'post'
+            }).then(function(data){
+                submit_button.text(data);
+            });
         });
-    });
+    }
+
 </script>
 </body>
 </html>

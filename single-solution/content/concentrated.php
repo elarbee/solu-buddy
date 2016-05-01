@@ -65,12 +65,12 @@
     <div class="inline-div">
         <img src="scale.png" style="width:150px">
         <br>
-        <button type="button" onClick="window.location.href='../'">SoluBuddy Home</button>
+        <button type="button" style="visibility:hidden">SoluBuddy Home</button>
     </div>
 
     <div class="inline-div">
         <img src="solid.png" style="width:150px">
         <br>
-        <button type="button" onclick="">How do I calculate this?</button>
+        <button type="button" onclick="" style="visibility: hidden">How do I calculate this?</button>
     </div>
 </div>
