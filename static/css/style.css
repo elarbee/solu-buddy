@@ -14,7 +14,7 @@ body{
     display: table;
     text-align: center;
     height: 100%;
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -31,7 +31,13 @@ body{
     }
     #single, #multiple, #calibration {
         height: 500px;
-        width: 33.3%;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-bottom: 50px;
+    }
+
+    #calibration {
+        margin-top: 0;
     }
 }
 
@@ -42,6 +48,8 @@ body{
     #single, #multiple, #calibration {
         height: 200px;
         margin-top: 50px;
+        margin-left: 16px;
+        margin-right: 16px;
     }
     #calibration {
         margin-bottom: 50px;
@@ -56,17 +64,6 @@ html{
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
-
-#single{
-    float:left;
-}
-#multiple{
-    display: inline-block;
-}
-
-#calibration{
-    float:right;
 }
 
 h2{
@@ -133,4 +130,5 @@ select:hover{
     padding-left: 25px;
     padding-right: 25px;
     overflow-x: auto;
+    width: 380px;
 }
