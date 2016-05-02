@@ -108,23 +108,20 @@ $(function () {
             $(".flaskInput", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
+                var vNum = Number(v.val());
 
                 if (v.val() == "") {
                     window.alert("Please enter a volume of analyte for the flask!");
                     valid = false;
-                }
-
-                var vNum = Number(v.val());
-
-                if (vNum <= 0) {
+                } else if (vNum <= 0) {
                     window.alert("Please enter a volume of analyte greater than 0");
                     valid = false;
                 }
-                if (vNum >= totalVolume) {
+                else if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of analyte that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                if (isNaN(vNum)) {
+                else if (isNaN(vNum)) {
                     window.alert("Volume of analyte must be a number");
                     valid = false;
                 }
@@ -139,23 +136,21 @@ $(function () {
             $(".flaskInput", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
+                var vNum = Number(v.val());
                 window.v = v;
                 if (v.val() == "") {
                     window.alert("Please enter a volume of analyte for the flask!");
                     valid = false;
                 }
-
-                var vNum = Number(v.val());
-
-                if (vNum <= 0) {
+                else if (vNum <= 0) {
                     window.alert("Please enter a volume of analyte greater than 0");
                     valid = false;
                 }
-                if (vNum >= totalVolume) {
+                else if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of analyte that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                if (isNaN(vNum)) {
+                else if (isNaN(vNum)) {
                     window.alert("Volume of analyte must be a number");
                     valid = false;
                 }
@@ -170,23 +165,21 @@ $(function () {
             $(".flaskInputIS", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
+                var vNum = Number(v.val());
 
                 if (v.val() == "") {
                     window.alert("Please enter a volume of internal standard for the flask!");
                     valid = false;
                 }
-
-                var vNum = Number(v.val());
-
-                if (vNum <= 0) {
+                else if (vNum <= 0) {
                     window.alert("Please enter a volume of internal standard greater than 0");
                     valid = false;
                 }
-                if (vNum >= totalVolume) {
+                else if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of internal standard that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                if (isNaN(vNum)) {
+                else if (isNaN(vNum)) {
                     window.alert("Volume of internal standard must be a number");
                     valid = false;
                 }
