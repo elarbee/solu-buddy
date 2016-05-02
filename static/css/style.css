@@ -23,16 +23,26 @@ body{
     overflow-x: auto;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 @media(min-width: 1250px){
-    #choices {
+    /*#choices {*/
+        /*flex-direction: row;*/
+    /*}*/
+    .row {
         flex-direction: row;
     }
     #single, #multiple, #calibration {
         height: 500px;
         margin-left: 16px;
-        margin-right: 16px;
+        margin-right: 32px;
         margin-bottom: 50px;
     }
 
@@ -42,8 +52,12 @@ body{
 }
 
 @media(max-width: 1250px){
-    #choices {
+    /*#choices {*/
+        /*flex-direction: column;*/
+    /*}*/
+    .row {
         flex-direction: column;
+        width: 100%;
     }
     #single, #multiple, #calibration {
         height: 200px;

@@ -23,7 +23,7 @@ renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings"
     "navField3" => "Chemistry Terms", "navField4" => "Create Solution(s)"] );
 ?>
 	<div id="choices">
-        
+        <div class="row">
         <!-- Option 1 -->
         <!-- Float left -->
 		<div id="single">
@@ -93,6 +93,7 @@ renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings"
                 </div>
             </div>
 		</div>
+        </div>
         
 	</div>
 </body>
