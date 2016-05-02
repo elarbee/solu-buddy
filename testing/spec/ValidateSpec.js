@@ -286,11 +286,7 @@ describe("ValidatePage() Tests", function(){
                         var start = window.performance.now();
                         var valid = new ValidatePage(el).test_page(input_fields);
                         var time = window.performance.now() - start;
-
-                        if (valid) {
-                            console.log(test_count + " time taken = " + time);
-                            console.log(input_fields);
-                        }
+                        
                         expect(valid).toEqual(false);
                         input_fields = {};
                     }

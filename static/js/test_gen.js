@@ -14,8 +14,8 @@ var is_correct_entry = true;
 var random_shitstorm_chance = 5;
 var incorrect_reasons = "";
 var entry_count = 1;
-// var website_addr = 'http://solubuddy.us-west-2.elasticbeanstalk.com/';
-var website_addr = '/';
+var website_addr = 'http://solubuddy.us-west-2.elasticbeanstalk.com/';
+// var website_addr = '/';
 
 
 

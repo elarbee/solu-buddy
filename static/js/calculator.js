@@ -64,8 +64,8 @@ function SingleSolution(concentration, solution_volume, molecular_weight) {
  * var number_of_transfers = solution.number_of_transfers(.0002, 250, 50); // equal to 1
  *
  */
-function SerialDilution(original_concentration){
-	var self = {};
+// function SerialDilution(original_concentration){
+// 	var self = {};
 
 	/**
 	 * Calculate the concentration for the new solution.
@@ -76,9 +76,9 @@ function SerialDilution(original_concentration){
 	 *  available.
 	 * @returns {number} the concentration for the new solution in moles.
 	 */
-	self.concentration = function calculate_new_concentration(volume_transferred, volume_flask, number_of_transfers){
-		return original_concentration * Math.pow((volume_transferred / volume_flask), number_of_transfers);
-	};
+	// self.concentration = function calculate_new_concentration(volume_transferred, volume_flask, number_of_transfers){
+	// 	return original_concentration * Math.pow((volume_transferred / volume_flask), number_of_transfers);
+	// };
 
 	/**
 	 * Calculates the amount of the solution that should be transferred between the beakers at each step in the
@@ -90,9 +90,9 @@ function SerialDilution(original_concentration){
 	 *  available.
 	 * @returns {number} the amount of the solution to transfer.
 	 */
-	self.volume_transfer = function calculate_volume_transfer(new_concentration, volume_flask, number_of_transfers){
-		return Math.pow((new_concentration / original_concentration), 1/number_of_transfers) * volume_flask;
-	};
+	// self.volume_transfer = function calculate_volume_transfer(new_concentration, volume_flask, number_of_transfers){
+	// 	return Math.pow((new_concentration / original_concentration), 1/number_of_transfers) * volume_flask;
+	// };
 
 	/**
 	 * Calculates the number of times a stock solution should be transferred to flasks of the specified size in order to
@@ -103,9 +103,9 @@ function SerialDilution(original_concentration){
 	 * @param volume_transferred - the volume that is to be transferred between the flasks at each step.
 	 * @returns {number} the number of times the solution should be transferred between the flasks.
 	 */
-	self.number_of_transfers = function calculate_number_transfers(new_concentration, volume_flask, volume_transferred){
-		return Math.log((new_concentration / original_concentration)) / Math.log((volume_transferred / volume_flask));
-	};
+	// self.number_of_transfers = function calculate_number_transfers(new_concentration, volume_flask, volume_transferred){
+	// 	return Math.log((new_concentration / original_concentration)) / Math.log((volume_transferred / volume_flask));
+	// };
 
 	/**
 	 * Calculates the volume of the flasks that should be used in the serial dilution process.
@@ -115,9 +115,9 @@ function SerialDilution(original_concentration){
 	 * @param number_of_transfers - the number of transfers that will take place.
 	 * @returns {number} - the volume of the flasks that should be used.
 	 */
-	self.flask_volume = function calculate_flask_volume(new_concentration, volume_transferred, number_of_transfers){
-		return volume_transferred / Math.pow((new_concentration / original_concentration), 1/number_of_transfers);
-	};
-
-	return self;
-}
+	// self.flask_volume = function calculate_flask_volume(new_concentration, volume_transferred, number_of_transfers){
+	// 	return volume_transferred / Math.pow((new_concentration / original_concentration), 1/number_of_transfers);
+	// };
+    //
+	// return self;
+// }
