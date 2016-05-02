@@ -83,8 +83,10 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             <div id="dilutionFlasksDiv" class="inline-div">
                 <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
                 <div id="dilutionFlask0" class="dilutionFlask inline-div">
+                    <p id="is_label" hidden>Enter volume of internal standard to add to solution:</p>
+
                     <div class="flaskImgAndNumberDiv">
-                        <td><input type="text" id="volumeOfAnalyte" class="flaskInput" placeholder="Enter vol of analyte to add to solution"></td>
+                        <td>Enter volume of analyte to add to solution:<input type="text" id="volumeOfAnalyte" class="flaskInput" placeholder="Enter vol of analyte to add to solution"></td>
                         <img id="smallBeakerImg" src="../static/images/beaker.png">
                         <p id="flaskNumber">1</p>
 
