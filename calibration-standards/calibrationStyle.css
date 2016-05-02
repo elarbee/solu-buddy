@@ -28,7 +28,9 @@ html{
 
 .flaskDescription {
     position: relative;
-    bottom: 32px;
+    bottom:-35px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 #flaskNumber {
     color:black;
@@ -71,7 +73,7 @@ html{
 }
 
 .flaskImgAndNumberDiv{
-    height: auto;
+    height: 217px;   
 }
 
 .flaskImgAndNumberDiv p{
@@ -90,7 +92,7 @@ html{
 
 .dilutionFlask{
     position: relative;
-    width:300px;
+    width:225px;
     padding-bottom: 50px;
 }
 #largeBeakerImg{
@@ -101,4 +103,37 @@ html{
     width: 130px;
     margin: 10px auto;
     padding-bottom: 10px;
+}
+
+#saveButton {
+    background: #92d050;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 600;
+    border-radius: 20px;
+    height: 3.7em;
+    width: 18em;
+}
+
+#printButton {
+    background: #92d050;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 600;
+    border-radius: 20px;
+    height: 3.7em;
+    width: 18em;
+}
+
+#answerHomeButton {
+    background: #92d050;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 600;
+    border-radius: 20px;
+    height: 3.7em;
+    width: 18em;
 }

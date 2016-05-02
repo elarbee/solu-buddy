@@ -19,8 +19,8 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     <script src="../static/js/calculator.js"></script>
     <script src="../static/js/solution.js"></script>
     <script src="../static/js/solutionObjectBuilder.js"></script>
-    
-	<link rel="stylesheet" type="text/css" href="../shared-content/InputStyle.css">
+
+    <link rel="stylesheet" type="text/css" href="../shared-content/InputStyle.css">
     <link rel="stylesheet" type="text/css" href="calibrationStyle.css">
 </head>
 

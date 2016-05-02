@@ -72,7 +72,7 @@ $(function () {
                 $("#answerDivHeader").text("Internal Standards Method");
                 $("#analyteSolutionDescription").html('Analyte: ' + analyteFormula);
                 $("#SolutionDescription").text('Internal Standard: ' + internalFormula);
-                $("#dilutionFlask0").prepend($('<input type="text" id="volumeOfIS" class="flaskInputIS" placeholder="Enter volume of internal standard to add to the solution">'));
+                $("#dilutionFlask0").prepend($('<input type="text" id="volumeOfIS" class="flaskInputIS" placeholder="Enter vol of internal standard to add">'));
 
                 //Iterate through number of flasks inputted and add them to the page.
                 for (i = 0; i < numStandards - 1; i++) {
@@ -108,20 +108,23 @@ $(function () {
             $(".flaskInput", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
-                var vNum = Number(v.val());
 
                 if (v.val() == "") {
                     window.alert("Please enter a volume of analyte for the flask!");
                     valid = false;
-                } else if (vNum <= 0) {
+                }
+
+                var vNum = Number(v.val());
+
+                if (vNum <= 0) {
                     window.alert("Please enter a volume of analyte greater than 0");
                     valid = false;
                 }
-                else if (vNum >= totalVolume) {
+                if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of analyte that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                else if (isNaN(vNum)) {
+                if (isNaN(vNum)) {
                     window.alert("Volume of analyte must be a number");
                     valid = false;
                 }
@@ -136,21 +139,23 @@ $(function () {
             $(".flaskInput", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
-                var vNum = Number(v.val());
                 window.v = v;
                 if (v.val() == "") {
                     window.alert("Please enter a volume of analyte for the flask!");
                     valid = false;
                 }
-                else if (vNum <= 0) {
+
+                var vNum = Number(v.val());
+
+                if (vNum <= 0) {
                     window.alert("Please enter a volume of analyte greater than 0");
                     valid = false;
                 }
-                else if (vNum >= totalVolume) {
+                if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of analyte that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                else if (isNaN(vNum)) {
+                if (isNaN(vNum)) {
                     window.alert("Volume of analyte must be a number");
                     valid = false;
                 }
@@ -165,21 +170,23 @@ $(function () {
             $(".flaskInputIS", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
-                var vNum = Number(v.val());
 
                 if (v.val() == "") {
                     window.alert("Please enter a volume of internal standard for the flask!");
                     valid = false;
                 }
-                else if (vNum <= 0) {
+
+                var vNum = Number(v.val());
+
+                if (vNum <= 0) {
                     window.alert("Please enter a volume of internal standard greater than 0");
                     valid = false;
                 }
-                else if (vNum >= totalVolume) {
+                if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of internal standard that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                else if (isNaN(vNum)) {
+                if (isNaN(vNum)) {
                     window.alert("Volume of internal standard must be a number");
                     valid = false;
                 }
