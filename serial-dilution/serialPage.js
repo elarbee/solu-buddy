@@ -34,6 +34,9 @@ $(function() {
 
         //Check for valid input
         if(validate.is_valid()){
+
+            hideAlert();
+            
             //Hide page content
             $("#inputDiv").hide();
             //Show answer div

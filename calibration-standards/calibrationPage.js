@@ -36,6 +36,8 @@ $(function () {
         var validate = ValidatePage(myParam);
 
         if (validate.is_valid()) {
+
+            hideAlert();
             //Hide page content
             $("#inputDiv").hide();
             //Show answer div
