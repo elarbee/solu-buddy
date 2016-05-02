@@ -72,10 +72,13 @@ $(function () {
                 $("#answerDivHeader").text("Internal Standards Method");
                 $("#analyteSolutionDescription").html('Analyte: ' + analyteFormula);
                 $("#SolutionDescription").text('Internal Standard: ' + internalFormula);
-                $("#dilutionFlask0").prepend($('<input type="text" id="volumeOfIS" class="flaskInputIS" placeholder="Enter vol of internal standard to add">'));
+                $(".flaskImgAndNumberDiv").prepend($("<input type='text' id='volumeOfIS' class='flaskInputIS' placeholder='Enter volume of internal standard to add to the solution'>"));
+
 
                 //Iterate through number of flasks inputted and add them to the page.
                 for (i = 0; i < numStandards - 1; i++) {
+                    $("#is_label").show();
+
                     dilutionFlask = $("#dilutionFlask0").clone();
                     //Set flask number
                     dilutionFlask.find("#flaskNumber").text(i + 2);
@@ -98,7 +101,7 @@ $(function () {
 
                 }
                 $($("#dilutionFlasksDiv").children()[0].children[0].children[0]).hide();
-                $($("#dilutionFlasksDiv").children()[0].children[1].children[0]).html('Molarity ' + SingleDilution(1, totalVolume/1000).solute_molarity(unknownVolume));
+                $($("#dilutionFlasksDiv").children()[0].children[1].children[0]).html('Molarity with analyte' + SingleDilution(1, totalVolume/1000).solute_molarity(unknownVolume));
             }
         }else{
             showAlert(validate.error_message);
@@ -108,30 +111,29 @@ $(function () {
             $(".flaskInput", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
+                var vNum = Number(v.val());
 
                 if (v.val() == "") {
                     window.alert("Please enter a volume of analyte for the flask!");
                     valid = false;
                 }
 
-                var vNum = Number(v.val());
-
-                if (vNum <= 0) {
+                else if (vNum <= 0) {
                     window.alert("Please enter a volume of analyte greater than 0");
                     valid = false;
                 }
-                if (vNum >= totalVolume) {
+                else if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of analyte that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                if (isNaN(vNum)) {
+                else if (isNaN(vNum)) {
                     window.alert("Volume of analyte must be a number");
                     valid = false;
                 }
                 if (valid) {
                     var molarity = new SingleDilution(analyteMolarity, (totalVolume / 1000)).solute_molarity(vNum);
                     console.log(molarity);
-                    $($(v).parent().next().children(".flaskCalc")[0]).html('Molarity ' + molarity);
+                    $($(v).parent().next().children(".flaskCalc")[0]).html('Molarity with Analyte: ' + molarity);
                 }
             });
         } else if(myParam == "INTERNAL") {
@@ -139,30 +141,29 @@ $(function () {
             $(".flaskInput", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
-                window.v = v;
+                var vNum = Number(v.val());
+
                 if (v.val() == "") {
                     window.alert("Please enter a volume of analyte for the flask!");
                     valid = false;
                 }
 
-                var vNum = Number(v.val());
-
-                if (vNum <= 0) {
+                else if (vNum <= 0) {
                     window.alert("Please enter a volume of analyte greater than 0");
                     valid = false;
                 }
-                if (vNum >= totalVolume) {
+                else if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of analyte that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                if (isNaN(vNum)) {
+                else if (isNaN(vNum)) {
                     window.alert("Volume of analyte must be a number");
                     valid = false;
                 }
                 if (valid) {
                     var molarity = new SingleDilution(analyteMolarity, (totalVolume / 1000)).solute_molarity(vNum);
 
-                    $($(v).parent().next().children(".flaskCalc")[0]).html('Molarity with Analyte ' + molarity + '\n');
+                    $($(v).parent().next().children(".flaskCalc")[0]).html('Molarity with Analyte: ' + molarity + '\n');
                 }
 
             });
@@ -170,32 +171,29 @@ $(function () {
             $(".flaskInputIS", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
+                var vNum = Number(v.val());
 
                 if (v.val() == "") {
                     window.alert("Please enter a volume of internal standard for the flask!");
                     valid = false;
                 }
 
-                var vNum = Number(v.val());
-
-                if (vNum <= 0) {
+                else if (vNum <= 0) {
                     window.alert("Please enter a volume of internal standard greater than 0");
                     valid = false;
                 }
-                if (vNum >= totalVolume) {
+                else if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of internal standard that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                if (isNaN(vNum)) {
+                else if (isNaN(vNum)) {
                     window.alert("Volume of internal standard must be a number");
                     valid = false;
                 }
                 if (valid) {
-                    var molarity = new SingleDilution(analyteMolarity, (totalVolume / 1000)).solute_molarity(vNum);
+                    var molarity = new SingleDilution(internalMolarity, (totalVolume / 1000)).solute_molarity(vNum);
 
-                    /* TODO print molarity to div
-                        Add
-                     */
+                    $($(v).parent().next().children(".flaskCalcIS")[0]).html('Molarity with Internal Standard: ' + molarity + '\n');
                 }
 
             });
@@ -204,29 +202,28 @@ $(function () {
             $(".flaskInput", "#dilutionFlasksDiv").on('focusout', function () {
                 var valid = true;
                 var v = $(this);
+                var vNum = Number(v.val());
 
                 if (v.val() == "") {
                     window.alert("Please enter a volume of analyte for the flask!");
                     valid = false;
                 }
 
-                var vNum = Number(v.val());
-
-                if (vNum <= 0) {
+                else if (vNum <= 0) {
                     window.alert("Please enter a volume of analyte greater than 0");
                     valid = false;
                 }
-                if (vNum >= totalVolume) {
+               else if (vNum >= totalVolume) {
                     window.alert("Please enter a volume of analyte that is not greater than the total volume of the flask");
                     valid = false;
                 }
-                if (isNaN(vNum)) {
+                else if (isNaN(vNum)) {
                     window.alert("Volume of analyte must be a number");
                     valid = false;
                 }
                 if (valid) {
                     var molarity = new SingleDilution(analyteMolarity, (totalVolume / 1000)).solute_molarity(vNum + unknownVolume);
-                    $($(v).parent().next().children(".flaskCalc")[0]).html('Molarity ' + molarity);
+                    $($(v).parent().next().children(".flaskCalc")[0]).html('Molarity with Analyte: ' + molarity);
                 }
             });
         }
