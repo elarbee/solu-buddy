@@ -215,8 +215,8 @@ function check_vol(calculated_vol){
             showAlert("Chosen volume to add should be less than your final solution volume.");
             return false;
         }else if(percent_error > ACCEPTED_PERCENT_ERROR) {
-            showAlert("Chosen volume to add is "+ solute_vol_added + ". " +
-                ". Error is: " + precise_round(percent_error, 2) + "%");
+            showAlert("Chosen volume to add is "+ solute_vol_added +
+                ". Error is: " + precise_round(percent_error, 2) + "%, you should go ".concat((calculated_vol > solute_vol_added)? "up." : "down."));
             return false;
         } else {
             hideAlert();
@@ -237,8 +237,8 @@ function check_mass(calculated_mass){
             " err " + percent_error);
 
         if (percent_error > ACCEPTED_PERCENT_ERROR || isNaN(percent_error)) {
-            showAlert("Chosen mass to add is "+mass_to_add+". " +
-                ". Error is: " + precise_round(percent_error, 2) + "%");
+            showAlert("Chosen mass to add is "+mass_to_add+
+                ". Error is: " + precise_round(percent_error, 2) + "%, you should go ".concat((calculated_mass > mass_to_add)? "up." : "down."));
             $('#massToAdd').val("");
             return false;
         } else {

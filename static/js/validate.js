@@ -404,7 +404,7 @@ function ValidatePage(page_name){
                 .and(!(error > accepted_percent_error));
 
             if(validator.not()){
-                add_message(error_messages['mweight'](val, error));
+                add_message(error_messages['mweight'](real_m_weight, val, error));
                 return false;
             }else{
                 return true;
@@ -436,9 +436,9 @@ function ValidatePage(page_name){
             .concat(limits['sm_volume'].low+" and ").concat(limits['sm_volume'].high+"."),
         'lrg_volume' : "Volume transferred can not be larger than your containing flask.It should be between "
             .concat(limits['lrg_volume'].low+" and ").concat(limits['lrg_volume'].high+"."),
-        'mweight' : function(val, error){
+        'mweight' : function(actual, val, error){
             return "The molecular weight you entered is ".concat(val)
-                .concat(" and incorrect.").concat(" You are off by ").concat(error+".");
+                .concat(" and incorrect.").concat(" You are off by ").concat(error+". You should go ").concat((actual > val)? "up." : "down.");
             },
         'iterations' : "Total number of flasks may not exceed ".concat(limits['iterations'].high+"").concat(" and must be at least")
                 .concat(limits['iterations'].low+".")
