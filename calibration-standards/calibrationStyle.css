@@ -28,9 +28,7 @@ html{
 
 .flaskDescription {
     position: relative;
-    bottom:-35px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    bottom: 32px;
 }
 
 #flaskNumber {
@@ -74,7 +72,7 @@ html{
 }
 
 .flaskImgAndNumberDiv{
-    height: 217px;   
+    height: auto;
 }
 
 .flaskImgAndNumberDiv p{
@@ -93,7 +91,7 @@ html{
 
 .dilutionFlask{
     position: relative;
-    width:225px;
+    width:300px;
     padding-bottom: 50px;
 }
 #largeBeakerImg{

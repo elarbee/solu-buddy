@@ -66,27 +66,28 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
         </div>
 
 
+
         <!-- Contains the content of the answer page -->
         <div id="answerContent" class="inline-div">
 
-            <div id="stockSolutionDiv" class="inline-div">
-                <p id="analyteSolutionDescription">Analyte</p>
-                <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
-            </div>
+            <div >
+                <div id="stockSolutionDiv" class="inline-div">
+                    <p id="analyteSolutionDescription">Analyte</p>
+                    <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
+                </div>
 
-            <div id="standardSolutionDiv" class="inline-div">
-                <p id="SolutionDescription">Internal Standard</p>
-                <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
+                <div id="standardSolutionDiv" class="inline-div">
+                    <p id="SolutionDescription">Internal Standard</p>
+                    <img id="largeBeakerImg" src="../static/images/beakerSpecial.png">
+                </div>
             </div>
-            
             <!-- Dilution flasks -->
             <div id="dilutionFlasksDiv" class="inline-div">
                 <!-- This div is important. Will be duplicated according to the number of flasks the user specifies. -->
                 <div id="dilutionFlask0" class="dilutionFlask inline-div">
                     <p id="is_label" hidden>Enter volume of internal standard to add to solution:</p>
-
                     <div class="flaskImgAndNumberDiv">
-                        <td>Enter volume of analyte to add to solution:<input type="text" id="volumeOfAnalyte" class="flaskInput" placeholder="Enter vol of analyte to add to solution"></td>
+                        <td><br>Enter volume of analyte to add to solution:<input type="text" id="volumeOfAnalyte" class="flaskInput" placeholder="Enter vol of analyte to add to solution"></td>
                         <img id="smallBeakerImg" src="../static/images/beaker.png">
                         <p id="flaskNumber">1</p>
 
