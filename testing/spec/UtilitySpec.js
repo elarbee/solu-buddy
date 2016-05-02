@@ -210,5 +210,20 @@ describe("Utility Functions", function() {
 
         });
     });
+
+    describe('Testing random formula', function(){
+
+        it('Should never generate invalid formulas.', function(){
+            var test_amount = 50000;
+
+            for(var i = 0; i < test_amount; i++){
+
+                expect(is_valid_formula(random_formula(1, 100))).toEqual(true);
+
+            }
+
+
+        });
+    });
     
 });

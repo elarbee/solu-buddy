@@ -95,13 +95,7 @@ function Validate(value){
         self.valid = (self.valid || bool);
         return self;
     };
-
-    self.greater = function greater_than_value(value){
-        self.and(self.val > value);
-        check_for_error("Failed greater than test.");
-        return self;
-    };
-
+    
     self.between_including = function between_and_including(low, high){
         self.and(self.val >= low).and(self.val <= high);
         check_for_error("Failed between including test.");
@@ -398,6 +392,7 @@ function ValidatePage(page_name){
         },
 
         'mweight' : function(fields, val){
+
             var solute_formula = fields_to_values[find_tag(fields, 'compound')];
             var real_m_weight = string_to_compound(solute_formula).molecular_weight();
             var error = calculate_error(real_m_weight, val);
@@ -467,44 +462,12 @@ function ValidatePage(page_name){
     var self = {};
     self.error_message = "";
 
-    function check_page(page_name){
-        var valid = true;
-        var fields = Page_To_Inputs(page_name);
-
-        /**
-         * Only difference is how to initiate the field_to_values
-         */
-        for(var k = 0; k < fields.length; k++){
-            fields_to_values[fields[k]+''] = $('#'+fields[k]+'').val();
-            // fields_to_values[fields[k]+''] = document.getElementById(fields[k]).value;
-        }
-        console.log(fields_to_values);
-        //
-        // for(var i = 0; i < fields.length; i++){
-        //     var input_classes = Field_To_Type(fields[i]);
-        //     console.log(input_classes);
-        //     for(var c = 0; c < input_classes.length; c++){
-        //
-        //         console.log(input_classes[c]);
-        //         console.log(fields_to_values[fields[i]]);
-        //         console.log(fields);
-        //         valid = valid && class_verification[input_classes[c]](fields, fields_to_values[fields[i]]);
-        //     }
-        // }
-
-        fields.forEach(function(el, i,  arr){
-
-            var input_classes = Field_To_Type(el);
-
-            input_classes.forEach(function(elem, idx, arr2){
-                valid = valid && class_verification[elem](fields, fields_to_values[el]);
-            });
-        });
-
-        fields_to_values = {};
-        return valid;
-    }
-
+    /**
+     * Unit testable page checker.
+     *
+     * @param fields_to_vals
+     * @returns {boolean}
+     */
     self.test_page = function(fields_to_vals){
         /**
          * Only difference is how to initiate the field_to_values
@@ -516,9 +479,7 @@ function ValidatePage(page_name){
 
 
         fields.forEach(function(el, i, arr){
-
             var input_classes = Field_To_Type(el);
-
             input_classes.forEach(function(elem, idx, arr2){
                 valid = valid && class_verification[elem](fields, fields_to_values[el]);
             });
@@ -527,8 +488,22 @@ function ValidatePage(page_name){
         return valid;
     };
 
+    /**
+     * Call this from page handler to automatically populate fields based on page name.
+     * @returns {boolean}
+     */
     self.is_valid = function(){
-        return check_page(page_name);
+        var fields = Page_To_Inputs(page_name);
+        var fields_to_vals = {};
+        /**
+         * Only difference is how to initiate the field_to_values
+         */
+        for(var k = 0; k < fields.length; k++){
+            fields_to_vals[fields[k]+''] = $('#'+fields[k]+'').val();
+        }
+        console.log(fields_to_vals);
+
+        return self.test_page(fields_to_vals);
     };
 
     function add_message(msg){

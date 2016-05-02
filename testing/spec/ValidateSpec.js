@@ -99,14 +99,163 @@ describe("ValidatePage() Tests", function(){
         });
     });
 
-    it("Should reject specific test cases", function(){
+    it("Should reject solutions with incorrectly entered solute mass percents.", function(){
 
-        
+        //testing concentrated gravimetric solution & solute mass percent
+
+        var grav_vals = {
+            'solvent_formula' : 'Water'
+            ,'solute_formula' : 'NaCl'
+            ,'solution_concentration' : '1'
+            ,'total_volume' : '1000'
+            ,'massToAdd' : '29.22'
+            ,'solute_percent_mass' : '101'
+        };
+
+        //Rejects above 100
+        expect(new ValidatePage('CONC_GRAV').test_page(grav_vals)).toEqual(false);
+        //Rejects below 0
+        grav_vals['solute_percent_mass'] = '-.05';
+        expect(new ValidatePage('CONC_GRAV').test_page(grav_vals)).toEqual(false);
+        grav_vals['solute_percent_mass'] = '?';
+        expect(new ValidatePage('CONC_GRAV').test_page(grav_vals)).toEqual(false);
+        grav_vals['solute_percent_mass'] = '';
+        expect(new ValidatePage('CONC_GRAV').test_page(grav_vals)).toEqual(false);
+        //Rejects 0
+        grav_vals['solute_percent_mass'] = '0.0';
+        expect(new ValidatePage('CONC_GRAV').test_page(grav_vals)).toEqual(false);
+        //Accepts correct answer
+        grav_vals['solute_percent_mass'] = '50';
+        expect(new ValidatePage('CONC_GRAV').test_page(grav_vals)).toEqual(true);
+
+        //testing concentrated volumetric solution & solute mass percent
+
+        var vol_vals = {'solvent_formula' : 'Water'
+            ,'solute_formula' : 'NaCl'
+            ,'solution_concentration' : '1'
+            ,'total_volume' : '1000'
+            ,'solute_percent_mass' : '101'
+            ,'solute_volume' : '14.6'
+            ,'density' : '2'};
+        //Rejects above 100
+        expect(new ValidatePage('CONC_VOL').test_page(vol_vals)).toEqual(false);
+        //Rejects below 0
+        vol_vals['solute_percent_mass'] = '-.05';
+        expect(new ValidatePage('CONC_VOL').test_page(vol_vals)).toEqual(false);
+        //Rejects 0
+        vol_vals['solute_percent_mass'] = '0.0';
+        expect(new ValidatePage('CONC_VOL').test_page(vol_vals)).toEqual(false);
+        //Accepts correct answer
+        vol_vals['solute_percent_mass'] = '50';
+        expect(new ValidatePage('CONC_VOL').test_page(vol_vals)).toEqual(true);
+
+    });
+
+    it("Should reject solutions with incorrectly entered molecular weight", function(){
+
+        //single solid
+
+        var solidandgrav = {
+            'solvent_formula' : 'stuff'
+            ,'solute_formula' : 'NaCl'
+            ,'solution_concentration' : '2'
+            ,'total_volume' : '1000'
+            ,'solute_molec_weight' : '58.44'
+            ,'massToAdd' : '116.8'
+        };
+
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(true);
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(true);
+        solidandgrav['solute_molec_weight'] = '30';
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+        solidandgrav['solute_molec_weight'] = '-5';
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        solidandgrav['solute_molec_weight'] = '1000';
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        solidandgrav['solute_molec_weight'] = '?';
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+        solidandgrav['solute_molec_weight'] = '58.44';
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(true);
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(true);
+
+        solidandgrav['total_volume'] = '-4';
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+    });
+
+    it("Should reject solutions with incorrectly entered solution volume.", function(){
+
+        //single solid
+
+        var solidandgrav = {
+            'solvent_formula' : 'stuff'
+            ,'solute_formula' : 'NaCl'
+            ,'solution_concentration' : '2'
+            ,'total_volume' : '1000'
+            ,'solute_molec_weight' : '58.44'
+            ,'massToAdd' : '116.8'
+        };
+
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(true);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(true);
+        solidandgrav['total_volume'] = '-4';
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+        solidandgrav['total_volume'] = '?';
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+        solidandgrav['total_volume'] = '';
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+        solidandgrav['total_volume'] = '0';
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+        solidandgrav['total_volume'] = '1000000';
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(false);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(false);
+        solidandgrav['total_volume'] = '1000';
+        expect(new ValidatePage('GRAV').test_page(solidandgrav)).toEqual(true);
+        expect(new ValidatePage('SOLID').test_page(solidandgrav)).toEqual(true);
+    });
+
+    it("Should reject serial dilution with invalid iteration numbers", function(){
+
+        var serial = {
+            'solventChemID' : 'water'
+            ,'soluteChemID' : 'solute'
+            ,'numDilutions' : '15'
+            ,'molaritySolution' : '.3'
+            ,'flasksVolume' : '1500'
+            ,'volumeTransferred' : '100'
+        };
+
+        expect(new ValidatePage('SERIAL').test_page(serial)).toBe(true);
+
+        serial['numDilutions'] = '-2';
+        expect(new ValidatePage('SERIAL').test_page(serial)).toBe(false);
+
+        serial['numDilutions'] = '0';
+        expect(new ValidatePage('SERIAL').test_page(serial)).toBe(false);
+
+        serial['numDilutions'] = '1.2';
+        expect(new ValidatePage('SERIAL').test_page(serial)).toBe(false);
+
+        serial['numDilutions'] = '?';
+        expect(new ValidatePage('SERIAL').test_page(serial)).toBe(false);
+
+        serial['numDilutions'] = '';
+        expect(new ValidatePage('SERIAL').test_page(serial)).toBe(false);
+
+        serial['numDilutions'] = '26';
+        expect(new ValidatePage('SERIAL').test_page(serial)).toBe(false);
 
 
     });
 
-    
     it("It should reject pages with some valid elements and some invalid.", function(){
 
         var test_amount = 20;
