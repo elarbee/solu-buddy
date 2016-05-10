@@ -129,6 +129,8 @@ if ($username && $canSubmit){
     </div>
 <?php
 }
+
+include('../footer.html');
 ?>
 
 </body>

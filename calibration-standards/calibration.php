@@ -114,6 +114,9 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
             </div>
         </div>
 </div>
+<?php
+    include('../footer.html');
+?>
 <script>
     var submit_button = $('#saveButton');
     submit_button.on('click', function (event) {

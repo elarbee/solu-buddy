@@ -9,13 +9,6 @@ layout of how web pages will be designed-->
         session_start();
     }
     require("modals.php");
-	
-	/* Renders foot of page. */
-	function renderFoot($data = []) 
-    {
-        extract($data); 
-        require("footer.php");
-    }
 
 /* Renders head of page. */
 function renderHead($data = [])

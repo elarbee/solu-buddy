@@ -96,6 +96,9 @@ renderHead( ["title" => "Logged Landing Page", "navField1" => "Account Settings"
         </div>
         
 	</div>
+<?php
+include('footer.html');
+?>
 </body>
 </html>
 

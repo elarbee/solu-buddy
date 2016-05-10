@@ -93,12 +93,9 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
 </div>
     <?php
     //Include the 'Make it Now' modal.
-        include '../shared-content/makeItNowModal.php'; 
-    ?> 
-    
-    <?php
-    //Include the Saved solutions modal.
-        include '../shared-content/savedSolutionsModal.php'; 
+        include '../shared-content/makeItNowModal.php';
+        include '../shared-content/savedSolutionsModal.php';
+        include('../footer.html');
     ?>
 
 <script>

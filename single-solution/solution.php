@@ -137,6 +137,9 @@ renderHead( ['title' => 'Logged Landing Page', 'navField1' => 'Account Settings'
     }
     ?>
 </form>
+<?php
+include('../footer.html');
+?>
 <script>
 
     if(location.search.split('value=')[1] != 'CONC'){

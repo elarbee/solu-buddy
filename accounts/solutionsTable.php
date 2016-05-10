@@ -443,7 +443,9 @@ echo "<CENTER><h1>Solutions Made By $username</h1></CENTER>"
         </div>
     </div>
 </div>
-
+<?php
+include('../footer.html');
+?>
 </body>
 </html>
 
