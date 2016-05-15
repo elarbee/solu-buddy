@@ -25,5 +25,4 @@ function renderHead($data = [])
     }
 }
 
-?>
-
+include_once('analyticstracking.php');
